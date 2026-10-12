@@ -174,9 +174,10 @@ Add rows as needed.
 
 | # | Assumption | Basis | Validation (how, by when) | Owner | Linked risk |
 |---|---|---|---|---|---|
-| A-01 | | | | | |
-| A-02 | | | | | |
-| A-03 | | | | | |
+| A-01 | The consolidated text of Regulation (EU) 2024/1689 (version of 27/07/2026) matches the Official Journal wording for the in-scope provisions: Art. 5, Art. 6, Art. 14, Art. 113 and Annex III point 3. | EUR-Lex publishes the consolidated text as a documentation tool; it states that only the Official Journal versions are authentic. | Compare the in-scope provisions with Regulation (EU) 2024/1689 and the amending Regulation (EU) 2026/1744 in the Official Journal, end of Sprint 1 (28/10/2026). | Data Scientist, infrastructure (Gözde Nur) | R-01 |
+| A-02 | No new amending act changes the in-scope provisions before the end of the project (30/12/2026). | The latest amendment, Regulation (EU) 2026/1744, is already included in the 27/07/2026 consolidated version. | Check EUR-Lex for a newer consolidated version at the start of each sprint. | Data Scientist, infrastructure (Gözde Nur) | R-02 |
+| A-03 | For each of the 20–30 evaluation questions, the expected evidence can be identified at provision level (Article, paragraph or Annex point) without legal expertise. | The 5 representative questions from Sprint 0 were each mapped to specific provisions (e.g. Annex III 3(b), Art. 6(2), Art. 6(3)). | Two team members map every question independently; at least 90% of mappings agree, end of Sprint 1 (28/10/2026). | Data Scientist, infrastructure (Gözde Nur) | R-03 |
+| A-04 | At least 5 technical professionals working on software or AI are available as proxy users for the pilot evaluation (timed search task and survey). | Professional contacts of the team members; no real EduNova developers are available. | Confirm 5 named participants by the end of Sprint 2 (18/11/2026). | Data Scientist, infrastructure (Gözde Nur) | R-04 |
 
 ## 2. Constraints
 
@@ -184,9 +185,15 @@ Group constraints by category. Add rows as needed.
 
 | # | Category | Constraints | Linked activities / risks |
 |---|---|---|---|
-| C-01 | | | |
-| C-02 | | | |
-| C-03 | | | |
+| C-01 | Data | The knowledge base contains one source only: the consolidated text of Regulation (EU) 2024/1689, version of 27/07/2026 (151 pages), from EUR-Lex. | [Major Activities](03-project-canvas_v2/04-major-activities.md) (out of scope: GDPR and other laws); [Risks](03-project-canvas_v2/11-risks.md) R-01, R-02 |
+| C-02 | Data | The system is developed and evaluated on English-language text only, for both questions and the source text. | [Major Activities](03-project-canvas_v2/04-major-activities.md) (out of scope: other languages) |
+| C-03 | Model | The solution is RAG with an open-source, quantized language model (course requirement set by the Project Review Committee). | [Major Activities](03-project-canvas_v2/04-major-activities.md) (in scope: retrieval pipeline and model selection) |
+| C-04 | Model | The system answers questions about provider obligations for education use cases (Annex III point 3: admission, assessment, level placement, exam monitoring) and their boundary cases only. | [Major Activities](03-project-canvas_v2/04-major-activities.md) (out of scope: non-education domains, deployer obligations, GPAI model provider obligations, enforcement and penalties); [Risks](03-project-canvas_v2/11-risks.md) R-05 |
+| C-05 | Infrastructure | Compute is limited to the $100 of Google Cloud credits per project and the team members' own computers; no dedicated GPU is available. | [Facilities & Resources](03-project-canvas_v2/09-facilities-and-resources.md); [Risks](03-project-canvas_v2/11-risks.md) R-06 |
+| C-06 | People / process | Budget: $100 of Google Cloud credits (fixed, per project). | [Project Executive Summary](03-project-canvas_v2/01-project-executive-summary.md) |
+| C-07 | People / process | Four students; no additional recruitment is possible. Duration: 4 sprints, 14/10/2026 – 30/12/2026. | [Release Plan](03-project-canvas_v2/10-release-plan.md) |
+| C-08 | People / process | The system provides information, not legal advice: it gives no compliance decision or high-risk classification. The consolidated text has no legal effect. | [Major Activities](03-project-canvas_v2/04-major-activities.md) (in scope: out-of-scope and legal-decision notices; out of scope: legal advice and compliance decisions); Jira KAN-2 |
+| C-09 | People / process | EUR-Lex content is reused with source acknowledgement, as required by Commission Decision 2011/833/EU. | [Major Activities](03-project-canvas_v2/04-major-activities.md) (in scope: source and version shown with every answer) |
 
 ## Example (illustrative only)
 
