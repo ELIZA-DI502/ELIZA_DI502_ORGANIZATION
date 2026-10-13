@@ -22,6 +22,7 @@ import os
 import re
 import sys
 import time
+from types import SimpleNamespace
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable, Optional
@@ -49,6 +50,8 @@ MARKER_RE = re.compile(
 )
 LIST_RE = re.compile(r"^\s*(?:[-*+]|\d+[.)])\s+(.*)$")
 STORY_FORMAT_RE = re.compile(r"\bas an?\b.+\bi want\b.+\bso that\b", re.I | re.S)
+OTHER_TASKS_TITLES = ("other tasks", "epic tasks", "tasks")
+ITEM_COLUMNS = {"task", "sub task", "subtask", "owner", "assignee", "points", "estimate", "jira", "sprint"}
 ESTIMATE_RE = re.compile(r"^\d+(\.\d+)?[wdhm](\s+\d+(\.\d+)?[wdhm])*$")
 
 
@@ -140,6 +143,7 @@ class Item:
     key: Optional[str]
     line: int
     jira_col: Optional[int]
+    sprint: str = ""
 
 
 @dataclass
@@ -158,6 +162,7 @@ class Story:
     both_breakdowns: bool = False
     items: list[Item] = field(default_factory=list)
     has_section: bool = False
+    sprint: str = ""
 
 
 @dataclass
@@ -171,10 +176,12 @@ class Epic:
     designer: str = ""
     developers: str = ""
     release: str = ""
+    owner_handle: str = ""
     key: Optional[str] = None
     key_line: Optional[int] = None
     key_col: int = 1
     stories: list[Story] = field(default_factory=list)
+    tasks: list[Item] = field(default_factory=list)  # epic-level tasks ("## Other tasks")
     problems: list[tuple[str, int, str]] = field(default_factory=list)  # (level, line, msg)
     dirty: bool = False
 
@@ -227,7 +234,11 @@ def parse_epic(path: Path, rel: str) -> Epic:
     req_i = next((i for i, lvl, t in headings if lvl == 2 and norm(t) == "requirements"), None)
 
     # --- header table (first table before ## Requirements) ---
+    used_tables: set[int] = set()
+    used_markers: set[int] = set()
     ht = first_table(clean, 0, req_i if req_i is not None else len(clean))
+    if ht:
+        used_tables.add(ht.header_line)
     if not ht:
         ep.err(1, "Missing the epic table (| Epic | ... |) at the top of the file.")
     else:
@@ -263,6 +274,7 @@ def parse_epic(path: Path, rel: str) -> Epic:
     if not rt:
         ep.err(req_i + 1, "The Requirements section has no table.")
         return ep
+    used_tables.add(rt.header_line)
     c_id = rt.col("#", "id")
     c_title = rt.col("user story title", "title")
     c_desc = rt.col("user story description", "description")
@@ -270,6 +282,7 @@ def parse_epic(path: Path, rel: str) -> Epic:
     c_pts = rt.col("points", "story points")
     c_notes = rt.col("notes")
     c_jira = rt.col("jira")
+    c_sprint = rt.col("sprint", "target sprint")
     for name, c in (("#", c_id), ("User story title", c_title), ("User story description", c_desc), ("Jira", c_jira)):
         if c is None:
             ep.err(rt.header_line + 1, f"The Requirements table needs a '{name}' column.")
@@ -296,6 +309,7 @@ def parse_epic(path: Path, rel: str) -> Epic:
             key=key_in(cell(cells, c_jira)),
             line=line,
             jira_col=c_jira,
+            sprint=plain(cell(cells, c_sprint)),
         )
         seen[sid] = st
         ep.stories.append(st)
@@ -319,6 +333,7 @@ def parse_epic(path: Path, rel: str) -> Epic:
             l = clean[i]
             mm = MARKER_RE.match(l)
             if mm:
+                used_markers.add(i)
                 word = mm.group(1).lower().replace("-", "")
                 mode = "ac" if word.startswith("acceptance") else ("subtasks" if word == "subtasks" else "tasks")
                 if mode in ("subtasks", "tasks"):
@@ -326,7 +341,10 @@ def parse_epic(path: Path, rel: str) -> Epic:
                         st.both_breakdowns = True
                     st.breakdown = mode
                     t = first_table(clean, i + 1, end)
+                    if not t:
+                        ep.err(i + 1, f"{st.sid}: '{l.strip()}' has no table under it.")
                     if t:
+                        used_tables.add(t.header_line)
                         parse_items(ep, st, t, mode)
                         i = t.rows[-1][0] + 1 if t.rows else t.header_line + 2
                         mode = None
@@ -340,6 +358,43 @@ def parse_epic(path: Path, rel: str) -> Epic:
                 elif l.strip() and st.ac and l.startswith((" ", "\t")):
                     st.ac[-1] += " " + l.strip()
             i += 1
+
+    # --- epic-level tasks: "## Other tasks" ---
+    other = [i for i, lvl, t in headings if lvl == 2 and norm(t) in OTHER_TASKS_TITLES]
+    for n, start in enumerate(other):
+        end = next((i for i, lvl, _ in headings if i > start and lvl <= 2), len(clean))
+        if n > 0:
+            ep.err(start + 1, "Only one '## Other tasks' section per epic file.")
+            continue
+        t = first_table(clean, start + 1, end)
+        if not t:
+            ep.err(start + 1, "'## Other tasks' has no table under it.")
+            continue
+        used_tables.add(t.header_line)
+        holder = SimpleNamespace(sid="Other tasks", items=ep.tasks)
+        if t.col("estimate", "original estimate") is not None and t.col("points", "story points") is None:
+            ep.err(t.header_line + 1, "Other tasks are Tasks, not sub-tasks: use a Points column instead of Estimate.")
+        parse_items(ep, holder, t, "tasks")
+
+    # --- nothing may be silently ignored ---
+    for i, l in enumerate(clean):
+        if MARKER_RE.match(l) and i not in used_markers:
+            ep.err(i + 1, f"'{l.strip()}' is outside a story section, so the sync ignores it. "
+                          f"Move it under a '## S<n> · title' heading, or put epic-level tasks under '## Other tasks'.")
+    i = 0
+    while i < len(clean):
+        t = table_at(clean, i)
+        if not t:
+            i += 1
+            continue
+        if t.header_line not in used_tables:
+            cols = {norm(h) for h in t.header}
+            if cols & ITEM_COLUMNS:
+                ep.err(i + 1, "This table is not read by the sync, so its rows would never reach Jira. "
+                              "Tasks go under '**Tasks**' in a story section or under '## Other tasks'.")
+            else:
+                ep.warn(i + 1, "This table is not read by the sync (fine if it is only for reading).")
+        i = (t.rows[-1][0] if t.rows else t.header_line + 1) + 1
     return ep
 
 
@@ -349,6 +404,7 @@ def parse_items(ep: Epic, st: Story, t: Table, mode: str):
     c_est = t.col("estimate", "original estimate")
     c_pts = t.col("points", "story points")
     c_jira = t.col("jira")
+    c_sprint = t.col("sprint", "target sprint")
     if c_title is None:
         ep.err(t.header_line + 1, f"{st.sid}: the table needs a '{'Sub-task' if mode == 'subtasks' else 'Task'}' column.")
         return
@@ -367,8 +423,11 @@ def parse_items(ep: Epic, st: Story, t: Table, mode: str):
                 key=key_in(cell(cells, c_jira)),
                 line=line,
                 jira_col=c_jira,
+                sprint=plain(cell(cells, c_sprint)) if mode == "tasks" else "",
             )
         )
+        if mode == "subtasks" and plain(cell(cells, c_sprint)):
+            ep.err(line + 1, f"{st.sid}: sub-tasks always follow their story's sprint. Remove the Sprint value or use a Tasks table.")
         if mode == "subtasks" and c_pts is not None and plain(cell(cells, c_pts)):
             ep.err(line + 1, f"{st.sid}: sub-tasks don't carry points. Put the points on the story or use a Tasks table.")
 
@@ -390,8 +449,39 @@ def validate(ep: Epic, cfg: dict, team: dict):
             keys[k] = line
 
     check_key(ep.key, ep.key_line or 0)
-    if not ep.stories and not ep.errors:
+    owner = plain(ep.owner)
+    if owner:
+        handles = re.findall(r"@([\w.-]+)", owner)
+        if len(handles) > 1 or re.search(r"[,;&]", owner):
+            ep.err(1, "Document Owner: name one person; Jira has a single assignee.")
+        elif not handles:
+            ep.warn(1, f"Document Owner '{owner}' is not a GitHub handle (@name); the epic stays unassigned in Jira.")
+        elif handles[0] not in team:
+            ep.err(1, f"Document Owner @{handles[0]} is not in .jira/team.yml.")
+        else:
+            ep.owner_handle = handles[0]
+    def check_items(sid, items):
+        for it in items:
+            IL = it.line + 1
+            check_key(it.key, it.line)
+            if not it.title:
+                ep.err(IL, f"{sid}: a {it.kind} row has no title.")
+            if it.owner:
+                if re.search(r"[,;&]|\s", it.owner):
+                    ep.err(IL, f"{sid}: '{it.title}' can have only one owner.")
+                elif it.owner not in team:
+                    ep.err(IL, f"{sid}: owner @{it.owner} is not in .jira/team.yml.")
+            if it.kind == "subtask" and it.estimate and not ESTIMATE_RE.match(it.estimate):
+                ep.err(IL, f"{sid}: estimate '{it.estimate}' should look like 4h, 1d or 1d 4h.")
+            if it.kind == "task":
+                if it.points is None:
+                    ep.warn(IL, f"{sid}: task '{it.title}' has no points yet.")
+                elif it.points == "invalid" or it.points not in scale:
+                    ep.err(IL, f"{sid}: points '{it.points}' on '{it.title}' are not on the scale {sorted(scale)}.")
+
+    if not ep.stories and not ep.tasks and not ep.errors:
         ep.warn(1, "No stories yet.")
+    check_items("Other tasks", ep.tasks)
     for st in ep.stories:
         L = st.line + 1
         check_key(st.key, st.line)
@@ -419,23 +509,7 @@ def validate(ep: Epic, cfg: dict, team: dict):
                 ep.err(L, f"{st.sid}: this story uses Tasks, so the tasks carry the points. Leave the story's Points cell empty.")
         elif st.points is None:
             ep.warn(L, f"{st.sid}: no story points yet.")
-        for it in st.items:
-            IL = it.line + 1
-            check_key(it.key, it.line)
-            if not it.title:
-                ep.err(IL, f"{st.sid}: a {it.kind} row has no title.")
-            if it.owner:
-                if re.search(r"[,;&]|\s", it.owner):
-                    ep.err(IL, f"{st.sid}: '{it.title}' can have only one owner.")
-                elif it.owner not in team:
-                    ep.err(IL, f"{st.sid}: owner @{it.owner} is not in .jira/team.yml.")
-            if it.kind == "subtask" and it.estimate and not ESTIMATE_RE.match(it.estimate):
-                ep.err(IL, f"{st.sid}: estimate '{it.estimate}' should look like 4h, 1d or 1d 4h.")
-            if it.kind == "task":
-                if it.points is None:
-                    ep.warn(IL, f"{st.sid}: task '{it.title}' has no points yet.")
-                elif it.points == "invalid" or it.points not in scale:
-                    ep.err(IL, f"{st.sid}: points '{it.points}' on '{it.title}' are not on the scale {sorted(scale)}.")
+        check_items(st.sid, st.items)
 
 
 # --------------------------------------------------------------------------
@@ -452,23 +526,43 @@ def problems_md(epics: list[Epic]) -> str:
     return "\n".join(out)
 
 
+def target_sprint(ep: Epic, st: Optional[Story], it: Optional[Item] = None) -> str:
+    """Sprint an issue is placed in when it is created: row value, then story, then epic Release Target."""
+    if it is not None and it.sprint:
+        return it.sprint
+    return (st.sprint if st else "") or ep.release
+
+
 def plan_md(epics: list[Epic]) -> str:
     out = []
     act = lambda k: f"sync {k}" if k else "create"
+
+    def spr(key, target):
+        if key:
+            return "(managed in Jira)"
+        return target or "backlog"
+
     for ep in epics:
         if ep.errors:
             continue
-        out.append(f"\n**{ep.rel}**: epic *{ep.name}* ({act(ep.key)})\n")
-        out.append("| Item | Type | Points / estimate | Owner | Action |")
-        out.append("|---|---|---|---|---|")
+        owner = f", owner @{ep.owner_handle}" if ep.owner_handle else ""
+        out.append(f"\n**{ep.rel}**: epic *{ep.name}* ({act(ep.key)}{owner})\n")
+        out.append("| Item | Type | Points / estimate | Owner | Sprint | Action |")
+        out.append("|---|---|---|---|---|---|")
         for st in ep.stories:
             model = {"subtasks": "story + sub-tasks", "tasks": "story + tasks"}.get(st.breakdown, "story")
-            out.append(f"| {st.sid} {st.title} | {model} | {st.points if st.points is not None else '—'} | | {act(st.key)} |")
+            pts = st.points if st.points is not None else "—"
+            out.append(f"| {st.sid} {st.title} | {model} | {pts} | | {spr(st.key, target_sprint(ep, st))} | {act(st.key)} |")
             for it in st.items:
                 size = (it.estimate or "—") if it.kind == "subtask" else (it.points if it.points is not None else "—")
                 typ = "sub-task" if it.kind == "subtask" else f"task, blocks {st.sid}"
                 own = f"@{it.owner}" if it.owner else ""
-                out.append(f"| ↳ {it.title} | {typ} | {size} | {own} | {act(it.key)} |")
+                sp = "with its story" if it.kind == "subtask" else spr(it.key, target_sprint(ep, st, it))
+                out.append(f"| ↳ {it.title} | {typ} | {size} | {own} | {sp} | {act(it.key)} |")
+        for it in ep.tasks:
+            pts = it.points if it.points is not None else "—"
+            own = f"@{it.owner}" if it.owner else ""
+            out.append(f"| {it.title} | task (epic level) | {pts} | {own} | {spr(it.key, target_sprint(ep, None, it))} | {act(it.key)} |")
     return "\n".join(out)
 
 
@@ -654,10 +748,88 @@ def adf(*blocks) -> dict:
 
 
 # --------------------------------------------------------------------------
+# Board and sprints
+# --------------------------------------------------------------------------
+
+
+class Sprints:
+    """Finds the team's Scrum board and matches sprint names like 'Sprint 3' or 'DI Sprint 3'."""
+
+    def __init__(self, jira: Jira, project: str, cfg: dict):
+        self.jira, self.project, self.cfg = jira, project, cfg
+        self.board: Optional[dict] = None
+        self.sprints: Optional[list[dict]] = None
+        self.error = ""
+        self.note = ""
+
+    def _all(self, path: str, params: dict) -> list[dict]:
+        out, start = [], 0
+        while True:
+            d = self.jira.get(path, params={**params, "startAt": start, "maxResults": 50})
+            vals = d.get("values", [])
+            out += vals
+            start += len(vals)
+            if d.get("isLast", True) or not vals:
+                return out
+
+    def load(self):
+        if self.sprints is not None:
+            return
+        self.sprints = []
+        try:
+            bid = str(self.cfg.get("board_id") or "auto")
+            if bid.lower() == "auto":
+                boards = self._all("/rest/agile/1.0/board", {"projectKeyOrId": self.project})
+                scrum = [b for b in boards if b.get("type") == "scrum"]
+                if not scrum:
+                    self.error = f"no Scrum board found for project {self.project} (set board_id in .jira/config.yml)"
+                    return
+                self.board = scrum[0]
+                if len(scrum) > 1:
+                    names = ", ".join(f"{b['name']} (id {b['id']})" for b in scrum)
+                    self.note = f"Several Scrum boards found ({names}); using the first. Set board_id in .jira/config.yml to choose."
+            else:
+                self.board = self.jira.get(f"/rest/agile/1.0/board/{bid}")
+            self.sprints = self._all(f"/rest/agile/1.0/board/{self.board['id']}/sprint", {"state": "active,future,closed"})
+        except JiraError as e:
+            self.error = f"could not read the board's sprints ({e})"
+
+    def resolve(self, target: str) -> tuple[Optional[dict], str]:
+        """Return (open sprint, '') or (None, reason)."""
+        self.load()
+        if self.error:
+            return None, self.error
+        t = target.strip()
+        hits = [sp for sp in self.sprints if sp["name"].strip().lower() == t.lower()]
+        if not hits:
+            rest = re.sub(rf"^{re.escape(self.project)}\s+", "", t, flags=re.I)
+            m = re.search(r"\d+", rest)
+            if m:
+                n = int(m.group(0))
+                pat = re.compile(rf"^(?:{re.escape(self.project)}\s+)?sprint\s*0*{n}$", re.I)
+                hits = [sp for sp in self.sprints if pat.match(sp["name"].strip())]
+        board = self.board["name"] if self.board else "the board"
+        if not hits:
+            return None, f"no sprint matching '{t}' on {board} (looked for '{t}', 'Sprint N' and '{self.project} Sprint N')"
+        open_ = [sp for sp in hits if sp.get("state") in ("active", "future")]
+        if not open_:
+            return None, f"sprint '{hits[0]['name']}' is already closed"
+        return open_[0], ""
+
+
+# --------------------------------------------------------------------------
 # Sync
 # --------------------------------------------------------------------------
 
 PROP = "md-sync"
+
+
+class DeletedInJira(Exception):
+    def __init__(self, key: str):
+        super().__init__(
+            f"{key} no longer exists in Jira (deleted, or moved to another project). "
+            f"Delete its row and section from the markdown, or empty its Jira cell to create it again."
+        )
 
 
 class Syncer:
@@ -667,6 +839,9 @@ class Syncer:
         self.failures = 0
         self.users: dict[str, Optional[str]] = {}
         self.warned: set[str] = set()
+        self.props: dict[str, dict] = {}
+        self.deleted: list[str] = []
+        self.sprints = Sprints(jira, meta.project, cfg)
         self.ac = meta.ac_field()
         server = os.environ.get("GITHUB_SERVER_URL", "https://github.com")
         repo = os.environ.get("GITHUB_REPOSITORY")
@@ -716,7 +891,7 @@ class Syncer:
             self.warn_once(f"'{label}' is not available on {kind} issues in Jira; skipped. Run the doctor command for details.")
 
     def upsert(self, ep: Epic, kind: str, label: str, key: Optional[str], fields: dict,
-               writeback: Callable[[str], None], on_update_drop: tuple = ()) -> str:
+               writeback: Callable[[str], None], on_update_drop: tuple = ()) -> tuple[str, bool]:
         labels = self.labels(ep)
         digest = hashlib.sha256(json.dumps([fields, labels], sort_keys=True).encode()).hexdigest()
         if key is None:
@@ -727,18 +902,23 @@ class Syncer:
             key = res["key"]
             writeback(key)
             ep.save()  # save right away so a later failure can't cause duplicates
-            self.set_prop(key, digest, ep.rel)
+            self.set_prop(key, hash=digest, source=ep.rel)
             self.note(ep, label, "created", key)
-            return key
-        old = self.get_prop(key)
+            return key, True
+        old = self.get_prop(key).get("hash")
         if old == digest and not self.force:
             self.note(ep, label, "unchanged", key)
-            return key
+            return key, False
         upd = {k: v for k, v in fields.items() if k not in ("project", "issuetype") + on_update_drop}
-        self.jira.put(f"/rest/api/3/issue/{key}", json={"fields": upd, "update": {"labels": [{"add": l} for l in labels]}})
-        self.set_prop(key, digest, ep.rel)
+        try:
+            self.jira.put(f"/rest/api/3/issue/{key}", json={"fields": upd, "update": {"labels": [{"add": l} for l in labels]}})
+        except JiraError as e:
+            if e.status == 404:
+                raise DeletedInJira(key) from e
+            raise
+        self.set_prop(key, hash=digest, source=ep.rel)
         self.note(ep, label, "updated", key)
-        return key
+        return key, False
 
     def check_required(self, kind: str, fields: dict):
         missing = []
@@ -751,16 +931,44 @@ class Syncer:
         if missing:
             raise RuntimeError(f"Jira requires fields this sync doesn't fill on {kind} issues: {', '.join(missing)}")
 
-    def get_prop(self, key):
-        try:
-            return (self.jira.get(f"/rest/api/3/issue/{key}/properties/{PROP}") or {}).get("value", {}).get("hash")
-        except JiraError as e:
-            if e.status == 404:
-                return None
-            raise
+    def get_prop(self, key) -> dict:
+        if key not in self.props:
+            try:
+                self.props[key] = (self.jira.get(f"/rest/api/3/issue/{key}/properties/{PROP}") or {}).get("value") or {}
+            except JiraError as e:
+                if e.status != 404:
+                    raise
+                self.props[key] = {}
+        return self.props[key]
 
-    def set_prop(self, key, digest, rel):
-        self.jira.put(f"/rest/api/3/issue/{key}/properties/{PROP}", json={"hash": digest, "source": rel})
+    def set_prop(self, key, **values):
+        value = {**self.props.get(key, {}), **values}
+        self.jira.put(f"/rest/api/3/issue/{key}/properties/{PROP}", json=value)
+        self.props[key] = value
+
+    # -- sprints --
+    def place(self, ep: Epic, label: str, key: str, target: str, created: bool):
+        """Put a new issue into its target sprint once. After that, Jira owns the sprint."""
+        if not target:
+            return
+        if not created:
+            placed = self.get_prop(key).get("placed")
+            if placed is not False:  # already placed, or created before sprint support: leave it to Jira
+                return
+            fl = self.jira.get(f"/rest/agile/1.0/issue/{key}", params={"fields": "sprint,closedSprints"}).get("fields", {})
+            if fl.get("sprint") or fl.get("closedSprints"):  # someone planned it in Jira meanwhile
+                self.set_prop(key, placed=True)
+                return
+        sprint, why = self.sprints.resolve(target)
+        if not sprint:
+            self.set_prop(key, placed=False)  # try again on a later sync
+            self.warn_once(f"Sprint '{target}': {why}. Issues targeting it stay in the backlog; "
+                           f"a later sync places them once the sprint exists, unless someone plans them in Jira first.")
+            self.note(ep, label, "backlog", f"{key}: sprint '{target}' not found")
+            return
+        self.jira.post(f"/rest/agile/1.0/sprint/{sprint['id']}/issue", json={"issues": [key]})
+        self.set_prop(key, placed=True)
+        self.note(ep, label, "placed", f"{key} → {sprint['name']}")
 
     def base(self, kind: str, summary: str) -> dict:
         t = self.meta.types[kind]
@@ -806,22 +1014,36 @@ class Syncer:
         fields = self.base("epic", ep.name)
         people = [f"{k}: {v}" for k, v in (("Document owner", ep.owner), ("Designer", ep.designer), ("Developers", ep.developers)) if v]
         fields["description"] = adf(para(ep.summary), para(" · ".join(people)), self.footer(ep))
+        label = f"Epic: {ep.name}"
         try:
-            ep.key = self.upsert(ep, "epic", f"Epic: {ep.name}", ep.key, fields,
-                                 lambda k: ep.set_cell(ep.key_line, ep.key_col, self.cell(k)))
+            if ep.owner_handle:
+                acc = self.account(ep.owner_handle)
+                if acc:
+                    self.put_field(fields, "epic", "assignee", {"accountId": acc}, "Assignee")
+            ep.key, _ = self.upsert(ep, "epic", label, ep.key, fields,
+                                    lambda k: ep.set_cell(ep.key_line, ep.key_col, self.cell(k)))
         except Exception as e:
-            self.fail(ep, f"Epic: {ep.name}", e)
+            self.fail(ep, label, e)
             return
         for st in ep.stories:
             self.sync_story(ep, st)
+        for it in ep.tasks:
+            try:
+                self.sync_epic_task(ep, it)
+            except Exception as e:
+                self.fail(ep, f"Other task: {it.title}", e)
 
     def cell(self, key):
         return f"[{key}]({self.jira.base}/browse/{key})"
 
     def fail(self, ep, label, e):
         self.failures += 1
-        self.note(ep, label, "FAILED", str(e))
-        print(f"::error file={ep.rel}::{label}: {e}")
+        if isinstance(e, DeletedInJira):
+            self.deleted.append(f"`{ep.rel}` {label.strip()}: {e}")
+            self.note(ep, label, "DELETED IN JIRA", str(e))
+        else:
+            self.note(ep, label, "FAILED", str(e))
+        print(f"::error file={ep.rel}::{label.strip()}: {e}")
 
     def sync_story(self, ep: Epic, st: Story):
         label = f"{st.sid} {st.title}"
@@ -845,11 +1067,16 @@ class Syncer:
         elif st.points is not None:
             self.warn_once("No story points field found on Story issues; points skipped. Run the doctor command.")
         try:
-            st.key = self.upsert(ep, "story", label, st.key, f,
-                                 lambda k: ep.set_cell(st.line, st.jira_col, self.cell(k)))
+            st.key, created = self.upsert(ep, "story", label, st.key, f,
+                                          lambda k: ep.set_cell(st.line, st.jira_col, self.cell(k)))
         except Exception as e:
             self.fail(ep, label, e)
             return
+        try:
+            # Before sub-tasks are created, so they land in the same sprint as their story.
+            self.place(ep, label, st.key, target_sprint(ep, st), created)
+        except Exception as e:
+            self.fail(ep, f"{label} (sprint)", e)
         for it in st.items:
             try:
                 self.sync_item(ep, st, it)
@@ -883,30 +1110,77 @@ class Syncer:
             if acc:
                 self.put_field(f, kind, "assignee", {"accountId": acc}, "Assignee")
         drop = ("parent",) if kind == "subtask" else ()
-        it.key = self.upsert(ep, kind, f"  {it.title}", it.key, f,
-                             lambda k: ep.set_cell(it.line, it.jira_col, self.cell(k)), on_update_drop=drop)
+        it.key, created = self.upsert(ep, kind, f"  {it.title}", it.key, f,
+                                      lambda k: ep.set_cell(it.line, it.jira_col, self.cell(k)), on_update_drop=drop)
         if kind == "task":
             self.ensure_link(it.key, st.key)
+            self.place(ep, f"  {it.title}", it.key, target_sprint(ep, st, it), created)
 
-    def orphans(self, epics: list[Epic]) -> list[str]:
-        known = set()
-        for ep in epics:
-            known.add(ep.key)
-            for st in ep.stories:
-                known.add(st.key)
-                known.update(it.key for it in st.items)
-        jql = f'project = "{self.meta.project}" AND labels = "{self.cfg["labels"][0]}" ORDER BY key'
+    def sync_epic_task(self, ep: Epic, it: Item):
+        label = f"Other task: {it.title}"
+        f = self.base("task", it.title)
+        f["parent"] = {"key": ep.key}
+        pf = self.meta.points_field("task")
+        if pf:
+            f[pf] = it.points
+        elif it.points is not None:
+            self.warn_once("No story points field on Task issues; task points skipped. Ask a Jira admin to add it, or run the doctor command.")
+        f["description"] = adf(para(f"Epic-level task in {ep.name}."), self.footer(ep))
+        if it.owner:
+            acc = self.account(it.owner)
+            if acc:
+                self.put_field(f, "task", "assignee", {"accountId": acc}, "Assignee")
+        it.key, created = self.upsert(ep, "task", label, it.key, f,
+                                      lambda k: ep.set_cell(it.line, it.jira_col, self.cell(k)))
+        self.place(ep, label, it.key, target_sprint(ep, None, it), created)
+
+    def search(self, jql: str) -> list[dict]:
         found, token = [], None
         while True:
-            params = {"jql": jql, "fields": "summary", "maxResults": 100}
+            params = {"jql": jql, "fields": "summary,issuetype,labels,parent", "maxResults": 100}
             if token:
                 params["nextPageToken"] = token
             d = self.jira.get("/rest/api/3/search/jql", params=params)
-            found += [(i["key"], i["fields"].get("summary", "")) for i in d.get("issues", [])]
+            found += d.get("issues", [])
             token = d.get("nextPageToken")
             if not token or d.get("isLast", True):
-                break
-        return [f"{k} {s}" for k, s in found if k not in known]
+                return found
+
+    def reconcile(self, epics: list[Epic]) -> tuple[list[str], list[str]]:
+        """Return (synced issues no longer in the markdown, issues created in Jira under a synced epic)."""
+        known = set()
+        for ep in epics:
+            known.add(ep.key)
+            known.update(it.key for it in ep.tasks)
+            for st in ep.stories:
+                known.add(st.key)
+                known.update(it.key for it in st.items)
+        tag = self.cfg["labels"][0]
+
+        def line(i):
+            f = i["fields"]
+            typ = (f.get("issuetype") or {}).get("name", "")
+            parent = (f.get("parent") or {}).get("key")
+            return f"{i['key']} ({typ}{', under ' + parent if parent else ''}): {f.get('summary', '')}"
+
+        removed = [line(i) for i in self.search(f'project = "{self.meta.project}" AND labels = "{tag}" ORDER BY key')
+                   if i["key"] not in known]
+        jira_only = []
+        epic_keys = [ep.key for ep in epics if ep.key]
+        for n in range(0, len(epic_keys), 40):
+            chunk = ", ".join(epic_keys[n:n + 40])
+            for i in self.search(f"parent in ({chunk}) ORDER BY key"):
+                if i["key"] not in known and tag not in (i["fields"].get("labels") or []):
+                    jira_only.append(line(i))
+        epic_type = (self.meta.types.get("epic") or {}).get("name", "Epic")
+        try:
+            loose = self.search(f'project = "{self.meta.project}" AND parent is EMPTY AND issuetype != "{epic_type}" '
+                                f'AND statusCategory != Done ORDER BY key')
+            jira_only += [line(i) + " (no epic)" for i in loose
+                          if i["key"] not in known and tag not in (i["fields"].get("labels") or [])]
+        except JiraError as e:
+            self.warn_once(f"Could not list issues without an epic: {e}")
+        return removed, jira_only
 
 
 # --------------------------------------------------------------------------
@@ -927,6 +1201,7 @@ def load(root: Path):
         "link_type": "Blocks",
         "labels": ["md-sync"],
         "release_target_label_prefix": "target-",
+        "board_id": "auto",
     }
     for k, v in defaults.items():
         cfg.setdefault(k, v)
@@ -979,13 +1254,20 @@ def cmd_sync(root, report, force):
         ep.save()
     lines = ["## Jira sync", "", "| File | Item | Result | Key / detail |", "|---|---|---|---|"]
     lines += [f"| {f} | {i.strip()} | {a} | {d} |" for f, i, a, d in sy.log]
+    if sy.deleted:
+        lines += ["", "**❌ Deleted in Jira but still in the markdown**", ""] + [f"- {d}" for d in sy.deleted]
     try:
-        orphans = sy.orphans(epics)
-        if orphans:
+        removed, jira_only = sy.reconcile(epics)
+        if removed:
             lines += ["", "**In Jira but no longer in the markdown** (not deleted; close or delete them in Jira if intended):", ""]
-            lines += [f"- {o}" for o in orphans]
+            lines += [f"- {o}" for o in removed]
+        if jira_only:
+            lines += ["", "**Created in Jira, not in the markdown** (fine for bugs and chores; stories belong in the markdown):", ""]
+            lines += [f"- {o}" for o in jira_only]
     except Exception as e:
-        lines += ["", f"⚠️ Could not check for removed items: {e}"]
+        lines += ["", f"⚠️ Could not compare Jira with the markdown: {e}"]
+    if sy.sprints.note:
+        sy.warn_once(sy.sprints.note)
     if sy.warned:
         lines += ["", "**Warnings**", ""] + [f"- {w}" for w in sorted(sy.warned)]
     write_report(report, "\n".join(lines))
@@ -1019,7 +1301,7 @@ def cmd_doctor(root, report):
     need = {
         "Description": ("description", ["epic", "story", "task", "subtask"]),
         "Priority": ("priority", ["story"]),
-        "Assignee": ("assignee", ["task", "subtask"]),
+        "Assignee": ("assignee", ["epic", "task", "subtask"]),
         "Labels": ("labels", ["epic", "story", "task", "subtask"]),
         "Parent": ("parent", ["story", "task", "subtask"]),
         "Time tracking": ("timetracking", ["subtask"]),
@@ -1064,6 +1346,23 @@ def cmd_doctor(root, report):
     if ac and str(ac).lower() != "none":
         out.append(f"✅ Acceptance criteria field **{ac}** found" if meta.ac_field()
                    else f"❌ Acceptance criteria field **{ac}** not on Story issues")
+    sp = Sprints(jira, meta.project, cfg)
+    sp.load()
+    out += ["", "**Board and sprints**", ""]
+    if sp.error:
+        out.append(f"⚠️ Sprint placement is off: {sp.error}. New issues go to the backlog.")
+    else:
+        open_ = [s["name"] + (" (active)" if s.get("state") == "active" else "") for s in sp.sprints if s.get("state") in ("active", "future")]
+        out.append(f"✅ Board **{sp.board['name']}** (id {sp.board['id']}). Open sprints: {', '.join(open_) or 'none'}")
+        if sp.note:
+            out.append(f"⚠️ {sp.note}")
+        targets = {target_sprint(ep, st, it) for ep in epics for st in ep.stories for it in [None] + st.items
+                   if it is None or it.kind == "task"}
+        targets |= {target_sprint(ep, None, it) for ep in epics for it in ep.tasks}
+        targets = sorted(targets - {""})
+        for t in targets:
+            hit, why = sp.resolve(t)
+            out.append(f"- ✅ '{t}' → {hit['name']}" if hit else f"- ⚠️ '{t}': {why}")
     out += ["", "**Team members** (.jira/team.yml)", ""]
     sy = Syncer(jira, meta, cfg, team)
     for h in team:

@@ -7,11 +7,19 @@ HOW TO USE THIS TEMPLATE
 - Leave every "Jira" cell empty. After your pull request is merged, the sync creates
   the issues and writes their keys into those cells. Do not edit or delete the keys.
 - Owners are GitHub handles listed in .jira/team.yml. One owner per row.
+  The Document Owner becomes the epic's assignee in Jira.
 - Pick ONE breakdown per story:
     "Sub-tasks" table -> Model A: the story carries the points; sub-tasks carry hours.
     "Tasks" table     -> Model B: the tasks carry the points; leave the story's Points cell empty.
   A story can also have no breakdown yet (Model A without sub-tasks).
-- Status and sprint are managed in Jira, not here.
+- Work that belongs to the epic but not to any story (setup, data pipelines, infrastructure)
+  goes in the "Other tasks" table at the end. Delete that section if you don't need it.
+- Every table and every "Tasks" / "Sub-tasks" / "Acceptance criteria" heading must sit in
+  a story section or under "Other tasks". The pull request check flags anything the sync would skip.
+- Sprint: a new story or task goes into the sprint in its Sprint cell, or, if that is empty,
+  into the epic's Release Target. Write "Sprint 3" or "DI Sprint 3". Sub-tasks follow their story.
+  This happens only when the issue is created. After that, plan sprints in Jira.
+- Status is managed in Jira, not here.
 - The example rows below show both models. Replace them with your own.
 -->
 
@@ -20,18 +28,18 @@ HOW TO USE THIS TEMPLATE
 | Summary | Users ask questions about uploaded reports and get cited answers. |
 | Document Owner | @volga |
 | Designer | @volga |
-| Developers | @volga |
+| Developers | @volga, @volga |
 | Release Target (Sprint) | Sprint 3 |
-| Jira | [DI-1](https://volga-sezen.atlassian.net/browse/DI-1) |
+| Jira | |
 
 ## Requirements
 
 For more info you can visit: https://www.atlassian.com/agile/product-management/requirements.
 
-| # | User story title | User story description | Priority | Points | Notes | Jira |
-|---|---|---|---|---|---|---|
-| S1 | Upload a report and ask questions | As an AI user, I want to upload a report and ask questions about it, so that I can find key figures quickly. | High | 5 | | [DI-2](https://volga-sezen.atlassian.net/browse/DI-2) |
-| S2 | Fine-tune the answer model | As an AI developer, I want a fine-tuned answer model, so that answers follow the source documents more closely. | Medium | | Takes more than one sprint, so it uses Tasks | [DI-5](https://volga-sezen.atlassian.net/browse/DI-5) |
+| # | User story title | User story description | Priority | Points | Sprint | Notes | Jira |
+|---|---|---|---|---|---|---|---|
+| S1 | Upload a report and ask questions | As an AI user, I want to upload a report and ask questions about it, so that I can find key figures quickly. | High | 5 | | | |
+| S2 | Fine-tune the answer model | As an AI developer, I want a fine-tuned answer model, so that answers follow the source documents more closely. | Medium | | | Takes more than one sprint, so it uses Tasks | |
 
 ## S1 · Upload a report and ask questions
 
@@ -44,8 +52,8 @@ For more info you can visit: https://www.atlassian.com/agile/product-management/
 
 | Sub-task | Owner | Estimate | Jira |
 |---|---|---|---|
-| Build upload widget | @volga | 4h | [DI-3](https://volga-sezen.atlassian.net/browse/DI-3) |
-| Parse PDF into chunks | @volga | 6h | [DI-4](https://volga-sezen.atlassian.net/browse/DI-4) |
+| Build upload widget | @volga | 4h | |
+| Parse PDF into chunks | @volga | 6h | |
 
 ## S2 · Fine-tune the answer model
 
@@ -55,7 +63,13 @@ For more info you can visit: https://www.atlassian.com/agile/product-management/
 
 **Tasks**
 
-| Task | Owner | Points | Jira |
-|---|---|---|---|
-| Prepare the training set | @volga | 3 | [DI-6](https://volga-sezen.atlassian.net/browse/DI-6) |
-| Train and evaluate the adapter | @volga | 5 | [DI-7](https://volga-sezen.atlassian.net/browse/DI-7) |
+| Task | Owner | Points | Sprint | Jira |
+|---|---|---|---|---|
+| Prepare the training set | @volga | 3 | Sprint 3 | |
+| Train and evaluate the adapter | @volga | 5 | Sprint 4 | |
+
+## Other tasks
+
+| Task | Owner | Points | Sprint | Jira |
+|---|---|---|---|---|
+| Set up the evaluation pipeline in CI | @volga | 2 | | |

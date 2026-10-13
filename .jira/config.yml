@@ -38,3 +38,8 @@ labels: [md-sync]
 
 # "Release Target (Sprint)" becomes a label with this prefix, e.g. target-sprint-3.
 release_target_label_prefix: "target-"
+
+# Scrum board whose sprints new issues are placed in. "auto" uses the project's
+# Scrum board; if the project has several, put the board id here (it is the number
+# in the board's URL, e.g. .../boards/12 -> 12).
+board_id: auto
