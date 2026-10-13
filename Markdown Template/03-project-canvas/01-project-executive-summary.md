@@ -80,7 +80,7 @@ Ask these three questions of every row:
 2. **What do they gain, in one sentence?** If you cannot say it, they may not be a key stakeholder (rule 2).
 3. **Does anyone else want the opposite?** If yes, write the conflict below the table (rule 7).
 
-Each right-hand entry fixes only the named defect. 
+Each right-hand entry fixes only the named defect.
 
 | Not this                                                                                                                                                     | This                                                                                                                                                                                               |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -262,6 +262,8 @@ Each right-hand entry fixes only the named defect, so it may still need other fi
 | 1 | Technical teams at EdTech providers, e.g. EduNova developers (representative provider) | AI user                                 | Use                               | Ask which AI Act provisions apply to the education product they are building                         | Find the rules that apply to their product, what they require and from when, in one place and with the source      |
 | 2 | Legal and compliance team of the EdTech provider, e.g. EduNova legal team              | AI customer                             | Use                               | Adopts the assistant for the company's technical teams and receives their questions in legal reviews | Developers come to legal reviews already knowing the relevant articles, so reviews start from the right provisions |
 | 3 | EUR-Lex (Publications Office of the European Union)                                    | Data provider                           | Make                              | Publishes the official consolidated text of Regulation (EU) 2024/1689                                | The official, current law text reaches users with its source and version date                                      |
+| 4 | European Commission AI Office and national market surveillance authorities             | Regulators / policy makers              | Impact                            | Enforce Regulation (EU) 2024/1689 and supervise high-risk AI systems in education                    | Providers come to them better informed about their obligations, so fewer products reach the market non-compliant   |
+| 5 | Students and teachers who use the EdTech provider's AI-based products                  | Community                               | Impact                            | Are assessed, placed or monitored by the education products these teams build                        | Education products are built by companies that know their obligations under the Act                                |
 
 Conflicts between stakeholders (if any):
 
