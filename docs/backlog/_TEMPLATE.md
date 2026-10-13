@@ -44,8 +44,8 @@ For more info you can visit: https://www.atlassian.com/agile/product-management/
 
 | Sub-task | Owner | Estimate | Jira |
 |---|---|---|---|
-| | | | |
-| | | | |
+| Build upload widget | @volga | 4h | |
+| Parse PDF into chunks | @volga | 6h | |
 
 ## S2 · Fine-tune the answer model
 
