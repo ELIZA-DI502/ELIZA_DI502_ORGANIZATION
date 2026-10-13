@@ -158,3 +158,153 @@ The project, names, numbers and dates are invented. They match the examples in [
 [3] International Organization for Standardization & International Electrotechnical Commission. (2024). *Information technology — Artificial intelligence — Guidance for AI applications* (ISO/IEC 5339:2024, 1st ed.). Prepared by ISO/IEC JTC 1/SC 42, Artificial intelligence. Edition used: British Standards Institution. (2024). *BS ISO/IEC 5339:2024* (published 31 January 2024). BSI Standards Limited. ISBN 978 0 539 15221 0.
 
 [4] International Organization for Standardization & International Electrotechnical Commission. (2023). *Information technology — Artificial intelligence — AI system life cycle processes* (ISO/IEC 5338:2023, 1st ed.). Prepared by ISO/IEC JTC 1/SC 42, Artificial intelligence. Edition used: British Standards Institution. (2024). *BS ISO/IEC 5338:2023* (published 29 February 2024). BSI Standards Limited. ISBN 978 0 539 15220 3.
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+# Deliverables
+
+ELIZA is a RAG-based information assistant that helps provider-side technical teams building AI systems for education find and understand the EU AI Act provisions relevant to their use case. This page lists what we hand over, how each item is checked, and who accepts it.
+
+The product is delivered in three versions (alpha, beta, release candidate), and the charter and the Q&A dataset are versioned. Sprint dates follow the [Release Plan](10-release-plan.md): Sprint 1 14/10–28/10/2026, Sprint 2 04/11–18/11/2026, Sprint 3 25/11–09/12/2026, Sprint 4 16/12–30/12/2026. Each due date is the last day of the sprint that holds the matching milestone in [Milestones](02-milestones.md). Thresholds come from the objectives in the [Project Executive Summary](01-project-executive-summary.md) (O1 Faster, O2 Grounded, O3 Clear, O4 Safe).
+
+## Overview
+
+| # | Deliverable | Kind | Sprint | Due Date |
+|---|---|---|---|---|
+| D1 | Project Charter v1 | Project management | 1 | 28/10/2026 |
+| D2 | Q&A Generation-Dataset v1 | Solution | 1 | 28/10/2026 |
+| D3 | Source Inventory and Manifest v1 | Solution | 1 | 28/10/2026 |
+| D4 | System Design v1 | Solution | 1 | 28/10/2026 |
+| D5 | Preprocessing Report v1 | Solution | 2 | 18/11/2026 |
+| D6 | ELIZA Alpha Release | Solution | 2 | 18/11/2026 |
+| D7 | Project Charter v2 | Project management | 2 | 18/11/2026 |
+| D8 | Q&A Generation-Dataset v2 | Solution | 3 | 09/12/2026 |
+| D9 | ELIZA Beta Release | Solution | 3 | 09/12/2026 |
+| D10 | Project Charter v3 | Project management | 3 | 09/12/2026 |
+| D11 | Pilot Evaluation Report | Project management | 4 | 30/12/2026 |
+| D12 | ELIZA Release Candidate and Final Evaluation | Solution | 4 | 30/12/2026 |
+| D13 | Project Charter v4 | Project management | 4 | 30/12/2026 |
+| D14 | Final Report and Lessons Learned | Project management | 4 | 30/12/2026 |
+
+No model training or fine-tuning is planned, so a team-authored model card is not currently a deliverable. The embedding model and the LLM are used as-is and documented in the AI SBOM (`ai-bom.yaml`, delivered with D6 and updated in D12) with their versions, licences and links to their source model cards. The legal source corpus and its processing will be documented through the source manifest (D3) and preprocessing report (D5).
+
+## Sprint 1 · Discovery
+
+| Project Deliverable #: | D1: Project Charter v1 |
+|---|---|
+| Description: | First version of the Project Canvas pages in `Markdown Template/`: Executive Summary, Scope, Milestones, Assumptions & Constraints, Deliverables, Project Organization, Major Activities, Dependencies, Facilities and Resources, Release Plan and Risks. |
+| Acceptance Criteria: | 1. All eleven pages are filled and every page passes its own "Checklist before submitting" (yes/no per item). 2. Every objective has at least one numeric success criterion; O1 Faster is stated relative to manual search of the official text and names D11 as the deliverable that holds its result. 3. Every milestone in [Milestones](02-milestones.md) has at least one associated deliverable on this page under the same number and name. 4. Scrum roles, including the Product Owner for Sprint 1, are named in [Project Organization](08-project-organization.md). 5. No page is longer than two printed pages. |
+| Due Date: | 28/10/2026 |
+| Stakeholders: | Project Review Committee (course instructor and teaching assistant); project team |
+| Approving Stakeholder(s): | Product Owner |
+
+| Project Deliverable #: | D2: Q&A Generation-Dataset v1 |
+|---|---|
+| Description: | `docs/eval/eval-set-v1.csv`: realistic questions a technical team building an education AI system would ask. Columns: question, question type, Annex III 3 use case, gold answer (the expected answer or its key conditions), gold source (Article/Annex and paragraph or point), expected behaviour (answer / abstain / refuse / redirect), origin (team-written, taken or adapted from related work), split (dev / test). Used to select the provisions in the knowledge base (D3) and to evaluate every release. |
+| Acceptance Criteria: | 1. The dataset contains 20–30 questions. 2. Each of the four Annex III point 3 use cases, (a) admission, (b) learning-outcome assessment, (c) level placement, (d) exam monitoring, has at least 3 questions. 3. Each question type has at least 2 questions: direct lookup, condition/exception, multi-provision (needs two or more provisions), follow-up, boundary case (e.g. Article 5(1)(f), Article 50(1)), out-of-scope. 4. At least 5 questions are inappropriate or adversarial inputs (e.g. circumvention, concealment, prompt injection, personal data). 5. Every in-scope question has a gold answer and at least one gold source; every other question has an expected behaviour. 6. Every question records its origin; if an LLM helped write questions, the model and prompt are recorded. 7. Every question is checked by a team member other than its author; 0 questions remain flagged as unresolved. 8. At least one third of the questions are marked `test` and are not used while tuning prompts, retrieval or rules. 9. 0 questions contain personal data. |
+| Due Date: | 28/10/2026 |
+| Stakeholders: | Project team (AI developer role); Project Review Committee |
+| Approving Stakeholder(s): | Product Owner |
+
+| Project Deliverable #: | D3: Source Inventory and Manifest v1 |
+|---|---|
+| Description: | `data/manifest.csv` and the list of provisions in the knowledge base. Primary source: consolidated text of Regulation (EU) 2024/1689 on EUR-Lex (CELEX 02024R1689-20260727). For each document: source URL, CELEX number, version date, reuse basis, file hash. The provision list maps each provision to the D2 questions that need it. |
+| Acceptance Criteria: | 1. Every document has all five manifest fields filled (URL, CELEX, version date, reuse basis, SHA-256 hash). 2. The reuse basis cites Commission Decision 2011/833/EU and notes that only the Official Journal text is legally binding. 3. 100% of gold sources in D2 appear in the provision list. 4. Every provision in the list is needed by at least one D2 question, or has a one-line reason for inclusion. 5. The list marks each provision as core, boundary or if-time, as in the Scope page. 6. The hash in the manifest matches the stored file (yes/no). |
+| Due Date: | 28/10/2026 |
+| Stakeholders: | Project team; Project Review Committee |
+| Approving Stakeholder(s): | Product Owner |
+
+| Project Deliverable #: | D4: System Design v1 |
+|---|---|
+| Description: | `docs/design.md` with the first architecture diagram, plus the ADRs and spike notes behind it (`docs/adr/`, `docs/spikes/`). |
+| Acceptance Criteria: | 1. `design.md` is at most one page and contains the architecture diagram. 2. The diagram shows every component: ingestion, chunking, embedding, vector store, retriever, LLM, input and output checks, user interface. 3. Each component names its chosen technology, or is marked "open" and links to a spike note. 4. Every technology marked as chosen has an ADR; every open choice links to a spike note. 5. The chosen LLM is open-source, and the planned cloud cost fits the 100 USD budget (yes/no). 6. Spike notes exist for at least source parsing/chunking and running an open-source quantized LLM within the course resources. |
+| Due Date: | 28/10/2026 |
+| Stakeholders: | Project team (AI developer role); Project Review Committee |
+| Approving Stakeholder(s): | Product Owner |
+
+## Sprint 2 · Alpha
+
+| Project Deliverable #: | D5: Preprocessing Report v1 |
+|---|---|
+| Description: | `docs/eval/preprocessing.md`: how the regulation text is turned into chunks (parsing, chunking by Article/paragraph, metadata), with counts. |
+| Acceptance Criteria: | 1. 100% of provisions in the D3 list are present in the index. 2. 0 chunks lack a structural identifier: Article or Annex number, plus paragraph or point where the text has one. 3. Every chunk carries the version date of the source. 4. The source file hash matches D3 (yes/no). 5. Chunking parameters are in `config/rag.yaml`, not in the report text. |
+| Due Date: | 18/11/2026 |
+| Stakeholders: | Project team; Project Review Committee |
+| Approving Stakeholder(s): | Product Owner |
+
+| Project Deliverable #: | D6: ELIZA Alpha Release |
+|---|---|
+| Description: | First working version (core MVP): free-text question box, retrieval over the selected provisions, plain-language answer with Article/Annex citations and version date, citation-ID check, no-verdict rules, simple web interface with a permanent "not legal advice" notice. Delivered with the first AI SBOM (`ai-bom.yaml`) and a first experiment comparing answers without and with retrieval. |
+| Acceptance Criteria: | 1. A team member who did not build it can install and run it from `README.md` (yes/no). 2. The system produces a response without runtime errors for 100% of D2 dev questions, including refusals and out-of-scope responses where required. 3. Every substantive answer based on the indexed legal corpus shows relevant Article/Annex citations and the source-version date; refusals and out-of-scope responses are not required to cite legal provisions. 4. 100% of citations match the IDs of the retrieved chunks. 5. Recall@5 and the no-RAG vs RAG comparison on the `dev` split are logged in Weights & Biases and summarised in `docs/eval/results.md`. 6. The notice is visible on every screen (yes/no). 7. At least one end-to-end example is shown for each of the four Annex III point 3 use cases. 8. Known failures on the `dev` split are listed in `docs/eval/results.md`. 9. `ai-bom.yaml` lists every model (exact version, licence, link to its source model card), the corpus version from `data/manifest.csv`, every prompt template and the `config/rag.yaml` version; `requirements.txt` has 0 unpinned packages. |
+| Due Date: | 18/11/2026 |
+| Stakeholders: | AI customer: provider-side technical teams building education AI systems; AI users: their developers and ML engineers, represented by our proxy users; project team |
+| Approving Stakeholder(s): | Product Owner |
+
+| Project Deliverable #: | D7: Project Charter v2 |
+|---|---|
+| Description: | Project Canvas updated after the Sprint 1 review and the first alpha results. |
+| Acceptance Criteria: | 1. A response table lists every Sprint 1 review comment as accepted (with the change) or not accepted (with a reason). 2. The final provision list from D3 is reflected in the Scope page. 3. The O2 and O4 thresholds are confirmed or revised using the alpha results on the `dev` split; any change is recorded with its reason. 4. Risks lists at least one entry for each problem met in Sprint 2. 5. Each changed page states what is new compared with v1. |
+| Due Date: | 18/11/2026 |
+| Stakeholders: | Project Review Committee; project team |
+| Approving Stakeholder(s): | Product Owner |
+
+## Sprint 3 · Beta
+
+| Project Deliverable #: | D8: Q&A Generation-Dataset v2 |
+|---|---|
+| Description: | `docs/eval/eval-set-v2.csv`: D2 extended with questions from proxy users and from errors found in the alpha. |
+| Acceptance Criteria: | 1. At least 40 questions in total, including at least 5 new questions derived from alpha evaluation findings and/or feedback from proxy technical users. 2. The four education use cases and required question categories remain represented. 3. Every retained in-scope question has a gold answer and gold source, and every other question has an expected behaviour. 4. Held-out `test` questions remain unchanged; if a correction is necessary, the affected item is identified and excluded from claims of untouched held-out evaluation. 5. The `dev`/`test` split remains identifiable. 6. A change log lists every added, edited or excluded question and why. |
+| Due Date: | 09/12/2026 |
+| Stakeholders: | Project team (AI developer role); Project Review Committee |
+| Approving Stakeholder(s): | Product Owner |
+
+| Project Deliverable #: | D9: ELIZA Beta Release |
+|---|---|
+| Description: | Alpha with a stabilized core MVP and feasible MVP-completing features (example question cards, optional use-case selection, structured answers, expandable source text, in-session follow-up questions and additional checks). Implemented and deferred features are documented; the beta is made available to pilot users. |
+| Acceptance Criteria: | 1. All pilot users (5–8) can open the assistant and receive an answer. 2. On the D8 `dev` split, the share of in-scope questions citing the correct Article/Annex meets the O2 Grounded threshold in the Executive Summary (proposed: at least 80%). 3. The share of out-of-scope, insufficient-evidence and adversarial `dev` questions with the expected behaviour meets the O4 Safe threshold in the Executive Summary (proposed: 100%). 4. 0 answers on the `dev` split contain a compliance verdict (e.g. "your system is compliant"). 5. Core MVP features remain functional; each MVP-completing feature is marked implemented or deferred, with a reason for deferral and Product Owner agreement. 6. The D11 pilot tasks and survey questions are ready in the repository (yes/no). |
+| Due Date: | 09/12/2026 |
+| Stakeholders: | AI customer: provider-side technical teams building education AI systems; AI users: pilot proxy users |
+| Approving Stakeholder(s): | Product Owner |
+
+| Project Deliverable #: | D10: Project Charter v3 |
+|---|---|
+| Description: | Project Canvas updated with the beta results and the plan for the release candidate and the pilot. |
+| Acceptance Criteria: | 1. Each changed page states what is new compared with v2. 2. The Release Plan marks every feature as delivered, planned for Sprint 4 or dropped. 3. Every responsible-use risk found in beta testing has a mitigation or is recorded as an accepted limitation. 4. The D11 pilot protocol is linked: task sets, number of users, order of conditions, survey questions. |
+| Due Date: | 09/12/2026 |
+| Stakeholders: | Project Review Committee; project team |
+| Approving Stakeholder(s): | Product Owner |
+
+## Sprint 4 · Release candidate
+
+| Project Deliverable #: | D11: Pilot Evaluation Report |
+|---|---|
+| Description: | `docs/eval/pilot.md`: timed tasks in which the same pilot users find provisions both by searching the official text manually and with ELIZA, plus a short survey. Holds the results of O1 Faster and O3 Clear. |
+| Acceptance Criteria: | 1. At least 5 pilot users (technical professionals acting as EdTech developers) take part. 2. Each user does at least 4 timed tasks from the `dev` split: half on EUR-Lex only, half with ELIZA; the two task sets are swapped between users. 3. The report gives the median time and the share of tasks with the correct provision found for each condition, and states whether the O1 target is met. 4. The survey reports the share of users rating answers at least 4 out of 5 for understandability, and states whether the O3 threshold is met. 5. Raw results are stored without participant names (P1, P2, …). |
+| Due Date: | 30/12/2026 |
+| Stakeholders: | AI customer and AI users (pilot users); Project Review Committee; project team |
+| Approving Stakeholder(s): | Product Owner; Project Review Committee |
+
+| Project Deliverable #: | D12: ELIZA Release Candidate and Final Evaluation |
+|---|---|
+| Description: | Final version of the assistant with the fixes from the pilot, an updated `ai-bom.yaml`, and the final results on the held-out `test` split in `docs/eval/results.md`. |
+| Acceptance Criteria: | 1. On the held-out `test` split, the share of in-scope questions citing the correct Article/Annex meets the O2 Grounded threshold as confirmed in D7. 2. The share of out-of-scope, insufficient-evidence and adversarial `test` questions with the expected behaviour meets the O4 Safe threshold as confirmed in D7. 3. 0 answers contain a compliance verdict. 4. Every reported number links to its Weights & Biases run. 5. `ai-bom.yaml` matches the release commit (yes/no). 6. The demo runs end to end from `README.md` on the course cloud account (yes/no). 7. Known limitations of the release are listed in `README.md`. |
+| Due Date: | 30/12/2026 |
+| Stakeholders: | AI customer: provider-side technical teams building education AI systems; AI users: their developers and ML engineers; Project Review Committee |
+| Approving Stakeholder(s): | Product Owner; Project Review Committee |
+
+| Project Deliverable #: | D13: Project Charter v4 |
+|---|---|
+| Description: | Final version of the Project Canvas, matching what was actually delivered. |
+| Acceptance Criteria: | 1. Each changed page states what is new compared with v3. 2. The completion status of all planned deliverables is documented, with links to available artifacts and explanations for partially completed or undelivered items. 3. Every objective (O1–O4) is marked met or not met, with a link to D11 or D12. 4. The Scope page lists the features in the release candidate and every planned feature left out. |
+| Due Date: | 30/12/2026 |
+| Stakeholders: | Project Review Committee; project team |
+| Approving Stakeholder(s): | Product Owner |
+
+| Project Deliverable #: | D14: Final Report and Lessons Learned |
+|---|---|
+| Description: | Short final report on the architecture, the experiments and the results, plus a lessons learned register built from the four sprint reports (`docs/sprints/sprint-N.md`). |
+| Acceptance Criteria: | 1. The report names the final corpus version, retrieval method, embedding model and LLM, matching `ai-bom.yaml`. 2. Results for O1–O4 are taken from D11 and D12, with links. 3. The register has at least one entry per sprint, each with what happened and what we would change. 4. At most two pages, with links to the detailed results. |
+| Due Date: | 30/12/2026 |
+| Stakeholders: | Project Review Committee; project team |
+| Approving Stakeholder(s): | Project Review Committee |
+
