@@ -267,6 +267,12 @@ Each right-hand entry fixes only the named defect, so it may still need other fi
 
 Conflicts between stakeholders (if any):
 
+| Developers (AI user) want                       | Legal team (AI customer) wants                   | How the project resolves it                                                                                     |
+| ----------------------------------------------- | ------------------------------------------------ | --------------------------------------------------------------------------------------------------------------- |
+| A yes-or-no answer: "Is our product high-risk?" | No legal decisions made by a chatbot             | The assistant shows the relevant articles and conditions but never gives a classification or compliance verdict |
+| A short answer                                  | All conditions and exceptions, e.g. Article 6(3) | A one- or two-sentence summary first, then the conditions and exceptions                                        |
+| Plain language                                  | The official wording of the law                  | A plain-language explanation together with the exact Article/Annex reference in the official text               |
+
 ### 2. Project Vision
 
 > One or two sentences.
