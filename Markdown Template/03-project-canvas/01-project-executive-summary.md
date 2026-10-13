@@ -275,7 +275,8 @@ Conflicts between stakeholders (if any):
 
 ### 2. Project Vision
 
-> One or two sentences.
+Teams building AI systems for education can find which EU AI Act rules apply to their system, what those rules require and from when, in one place and always with the official source. Legal reviews then start from the right provisions instead of from a 151-page regulation.
+
 
 ### 2. Objectives
 
