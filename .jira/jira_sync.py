@@ -163,6 +163,7 @@ class Story:
     items: list[Item] = field(default_factory=list)
     has_section: bool = False
     sprint: str = ""
+    owner: str = ""
 
 
 @dataclass
@@ -283,6 +284,7 @@ def parse_epic(path: Path, rel: str) -> Epic:
     c_notes = rt.col("notes")
     c_jira = rt.col("jira")
     c_sprint = rt.col("sprint", "target sprint")
+    c_owner = rt.col("owner", "assignee")
     for name, c in (("#", c_id), ("User story title", c_title), ("User story description", c_desc), ("Jira", c_jira)):
         if c is None:
             ep.err(rt.header_line + 1, f"The Requirements table needs a '{name}' column.")
@@ -310,6 +312,7 @@ def parse_epic(path: Path, rel: str) -> Epic:
             line=line,
             jira_col=c_jira,
             sprint=plain(cell(cells, c_sprint)),
+            owner=plain(cell(cells, c_owner)).lstrip("@"),
         )
         seen[sid] = st
         ep.stories.append(st)
@@ -491,6 +494,11 @@ def validate(ep: Epic, cfg: dict, team: dict):
             ep.err(L, f"{st.sid}: description is empty.")
         elif not STORY_FORMAT_RE.search(st.description):
             ep.warn(L, f"{st.sid}: description doesn't follow 'As a <role>, I want <goal>, so that <benefit>'.")
+        if st.owner:
+            if re.search(r"[,;&]|\s", st.owner):
+                ep.err(L, f"{st.sid}: a story can have only one owner.")
+            elif st.owner not in team:
+                ep.err(L, f"{st.sid}: owner @{st.owner} is not in .jira/team.yml.")
         if st.priority and st.priority.lower() not in prios:
             ep.err(L, f"{st.sid}: priority '{st.priority}' is not one of {', '.join(cfg['priorities'])}.")
         elif st.priority:
@@ -552,7 +560,8 @@ def plan_md(epics: list[Epic]) -> str:
         for st in ep.stories:
             model = {"subtasks": "story + sub-tasks", "tasks": "story + tasks"}.get(st.breakdown, "story")
             pts = st.points if st.points is not None else "—"
-            out.append(f"| {st.sid} {st.title} | {model} | {pts} | | {spr(st.key, target_sprint(ep, st))} | {act(st.key)} |")
+            sown = f"@{st.owner}" if st.owner else ""
+            out.append(f"| {st.sid} {st.title} | {model} | {pts} | {sown} | {spr(st.key, target_sprint(ep, st))} | {act(st.key)} |")
             for it in st.items:
                 size = (it.estimate or "—") if it.kind == "subtask" else (it.points if it.points is not None else "—")
                 typ = "sub-task" if it.kind == "subtask" else f"task, blocks {st.sid}"
@@ -776,23 +785,40 @@ class Sprints:
         if self.sprints is not None:
             return
         self.sprints = []
+        bid = str(self.cfg.get("board_id") or "auto")
         try:
-            bid = str(self.cfg.get("board_id") or "auto")
             if bid.lower() == "auto":
                 boards = self._all("/rest/agile/1.0/board", {"projectKeyOrId": self.project})
-                scrum = [b for b in boards if b.get("type") == "scrum"]
-                if not scrum:
-                    self.error = f"no Scrum board found for project {self.project} (set board_id in .jira/config.yml)"
-                    return
-                self.board = scrum[0]
-                if len(scrum) > 1:
-                    names = ", ".join(f"{b['name']} (id {b['id']})" for b in scrum)
-                    self.note = f"Several Scrum boards found ({names}); using the first. Set board_id in .jira/config.yml to choose."
             else:
-                self.board = self.jira.get(f"/rest/agile/1.0/board/{bid}")
-            self.sprints = self._all(f"/rest/agile/1.0/board/{self.board['id']}/sprint", {"state": "active,future,closed"})
+                boards = [self.jira.get(f"/rest/agile/1.0/board/{bid}")]
         except JiraError as e:
-            self.error = f"could not read the board's sprints ({e})"
+            self.error = f"could not read the project's boards ({e})"
+            return
+        if not boards:
+            self.error = (f"no board found for project {self.project}; the token owner may not have access to it "
+                          f"(or set board_id in .jira/config.yml)")
+            return
+        # Company-managed Scrum boards report type "scrum"; team-managed boards report "simple".
+        order = {"scrum": 0, "simple": 1}
+        candidates = sorted(boards, key=lambda b: order.get(b.get("type"), 2))
+        tried = []
+        for b in candidates:
+            try:
+                self.sprints = self._all(f"/rest/agile/1.0/board/{b['id']}/sprint", {"state": "active,future,closed"})
+                self.board = b
+                break
+            except JiraError as e:
+                reason = "sprints are turned off" if e.status == 400 else f"HTTP {e.status}"
+                tried.append(f"{b.get('name')} (id {b.get('id')}, {b.get('type')}: {reason})")
+        if not self.board:
+            self.sprints = []
+            self.error = ("no board with sprints found. Boards checked: " + "; ".join(tried) +
+                          ". Turn on sprints for the board in Jira, or set board_id in .jira/config.yml")
+            return
+        usable = [b for b in candidates if b.get("type") in order]
+        if bid.lower() == "auto" and len(usable) > 1:
+            names = ", ".join(f"{b['name']} (id {b['id']})" for b in usable)
+            self.note = f"Several boards found ({names}); using {self.board['name']}. Set board_id in .jira/config.yml to choose."
 
     def resolve(self, target: str) -> tuple[Optional[dict], str]:
         """Return (open sprint, '') or (None, reason)."""
@@ -1061,6 +1087,10 @@ class Syncer:
             f[fid] = adf(bullets(st.ac)) if rich else "\n".join(f"- {a}" for a in st.ac)
         if st.priority:
             self.put_field(f, "story", "priority", {"name": st.priority}, "Priority")
+        if st.owner:
+            acc = self.account(st.owner)
+            if acc:
+                self.put_field(f, "story", "assignee", {"accountId": acc}, "Assignee")
         pf = self.meta.points_field("story")
         if pf:
             f[pf] = st.points  # None clears it (Model B or not estimated)
@@ -1301,7 +1331,7 @@ def cmd_doctor(root, report):
     need = {
         "Description": ("description", ["epic", "story", "task", "subtask"]),
         "Priority": ("priority", ["story"]),
-        "Assignee": ("assignee", ["epic", "task", "subtask"]),
+        "Assignee": ("assignee", ["epic", "story", "task", "subtask"]),
         "Labels": ("labels", ["epic", "story", "task", "subtask"]),
         "Parent": ("parent", ["story", "task", "subtask"]),
         "Time tracking": ("timetracking", ["subtask"]),
@@ -1353,7 +1383,8 @@ def cmd_doctor(root, report):
         out.append(f"⚠️ Sprint placement is off: {sp.error}. New issues go to the backlog.")
     else:
         open_ = [s["name"] + (" (active)" if s.get("state") == "active" else "") for s in sp.sprints if s.get("state") in ("active", "future")]
-        out.append(f"✅ Board **{sp.board['name']}** (id {sp.board['id']}). Open sprints: {', '.join(open_) or 'none'}")
+        kind = {"scrum": "company-managed Scrum", "simple": "team-managed"}.get(sp.board.get("type"), sp.board.get("type"))
+        out.append(f"✅ Board **{sp.board['name']}** (id {sp.board['id']}, {kind}). Open sprints: {', '.join(open_) or 'none'}")
         if sp.note:
             out.append(f"⚠️ {sp.note}")
         targets = {target_sprint(ep, st, it) for ep in epics for st in ep.stories for it in [None] + st.items

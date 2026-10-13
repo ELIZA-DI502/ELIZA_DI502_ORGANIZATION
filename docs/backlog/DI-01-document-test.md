@@ -30,16 +30,16 @@ HOW TO USE THIS TEMPLATE
 | Designer | @volga |
 | Developers | @volga, @volga |
 | Release Target (Sprint) | Sprint 3 |
-| Jira | [DI-8](https://volga-sezen.atlassian.net/browse/DI-8) |
+| Jira | |
 
 ## Requirements
 
 For more info you can visit: https://www.atlassian.com/agile/product-management/requirements.
 
-| # | User story title | User story description | Priority | Points | Sprint | Notes | Jira |
+| # | User story title | User story description | Priority | Points | Owner | Sprint | Notes | Jira |
 |---|---|---|---|---|---|---|---|
-| S1 | Upload a report and ask questions | As an AI user, I want to upload a report and ask questions about it, so that I can find key figures quickly. | High | 5 | | | [DI-9](https://volga-sezen.atlassian.net/browse/DI-9) |
-| S2 | Fine-tune the answer model | As an AI developer, I want a fine-tuned answer model, so that answers follow the source documents more closely. | Medium | | | Takes more than one sprint, so it uses Tasks | [DI-12](https://volga-sezen.atlassian.net/browse/DI-12) |
+| S1 | Upload a report and ask questions | As an AI user, I want to upload a report and ask questions about it, so that I can find key figures quickly. | High | 5 | @volga | | | |
+| S2 | Fine-tune the answer model | As an AI developer, I want a fine-tuned answer model, so that answers follow the source documents more closely. | Medium | | @volga | | Takes more than one sprint, so it uses Tasks | |
 
 ## S1 · Upload a report and ask questions
 
@@ -52,8 +52,8 @@ For more info you can visit: https://www.atlassian.com/agile/product-management/
 
 | Sub-task | Owner | Estimate | Jira |
 |---|---|---|---|
-| Build upload widget | @volga | 4h | [DI-10](https://volga-sezen.atlassian.net/browse/DI-10) |
-| Parse PDF into chunks | @volga | 6h | [DI-11](https://volga-sezen.atlassian.net/browse/DI-11) |
+| Build upload widget | @volga | 4h | |
+| Parse PDF into chunks | @volga | 6h | |
 
 ## S2 · Fine-tune the answer model
 
@@ -65,11 +65,11 @@ For more info you can visit: https://www.atlassian.com/agile/product-management/
 
 | Task | Owner | Points | Sprint | Jira |
 |---|---|---|---|---|
-| Prepare the training set | @volga | 3 | Sprint 3 | [DI-13](https://volga-sezen.atlassian.net/browse/DI-13) |
-| Train and evaluate the adapter | @volga | 5 | Sprint 4 | [DI-14](https://volga-sezen.atlassian.net/browse/DI-14) |
+| Prepare the training set | @volga | 3 | Sprint 3 | |
+| Train and evaluate the adapter | @volga | 5 | Sprint 4 | |
 
 ## Other tasks
 
 | Task | Owner | Points | Sprint | Jira |
 |---|---|---|---|---|
-| Set up the evaluation pipeline in CI | @volga | 2 | | [DI-15](https://volga-sezen.atlassian.net/browse/DI-15) |
+| Set up the evaluation pipeline in CI | @volga | 2 | | |
