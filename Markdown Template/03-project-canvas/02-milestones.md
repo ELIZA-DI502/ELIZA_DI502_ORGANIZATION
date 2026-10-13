@@ -85,9 +85,13 @@ Add rows as needed.
 
 | # | Project Milestone | Description | Expected Date | Associated Deliverable |
 |---|---|---|---|---|
-| 1 |   |   |   |   |
-| 2 |   |   |   |   |
-| 3 |   |   |   |   |
+| M1 |Project scope approved   | Education focused use cases, target users, project boundaries and interface are agreed  |  14.10.2026 |  Project Charter |
+| M2 |  Education focused base ready | Relevant education related section of the document are identified and prepared for retrieval  | 21.10.2026  |   |
+| M3 | Baseline RAG answers and evaluation question set   | Baseline RAG pipeline answers predefined evaluation questions and it responses with citation  | 28.10.2026  | Baseline RAG Evaluation Report  |
+| M3 | Checkpoint review and approvement  |  Team reviews prototype major quality and decide the system for development | 11.11.2026  |  Prototype |
+| M4 |  Pilot Evaluation |  Pilot evaluation is completed and answer relevance, correctness and handling out of scope questions are assessed | 02.12.2026 | Pilot Evaluation Report  |
+| M5 | Final Demo accepted and project results reviewed  | Final demonstration is completed the project and results are reviewed, final system is presented to the course stakeholders  | 16.12.2026  | Final Report and Final Prototype   |
+
 
 ## Example
 
