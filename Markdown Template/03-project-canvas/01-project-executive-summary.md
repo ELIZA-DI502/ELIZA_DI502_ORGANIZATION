@@ -15,16 +15,16 @@ Numbers in examples are illustrative only. Outside sources are cited by number, 
 
 ## How to fill in each part
 
-| Part | What it means | When it applies | Question it answers |
-|---|---|---|---|
-| **Background** | The reason the project exists: a business problem, an opportunity or a legal requirement | Always; it opens the page | Why is this project needed? |
-| **Budget, duration and timeline** | The fixed budget, the length of the project and its start and end dates | Always | How much, how long, and from when to when? |
-| **Stakeholders** | The key stakeholders who will benefit from the project results, each labelled with its role (see possible roles from ISO 5339) | Always | Who gains from the result, and in which role? |
-| **Project vision** | The future state the project creates for its end-users, in one or two sentences; see 2.1 | Once per charter; revise it with the charter | What will be different for end-users when the project is done? |
-| **Objectives** | The project's business objectives: an overhead view of what the project aims for, written by the SMART method | Every row of the objectives table | What outcome do we commit to, for whom, by when? |
-| **Success criteria** | Concrete, measurable criteria that confirm whether an objective has been met, written in plain language | Every objective, without exception | How will we know the objective is met, and who decides? |
-| **Business outcomes** | Results expected at the end of the project | Every objective; expected at the end of the project | What measurable change do the stakeholders get? |
-| **Scope definition** | A high-level description of the features and functions of the product, service or result | Written once here. This page is the project proposal, and later scope must not grow beyond it | What will the product do for its users? |
+| Part                                    | What it means                                                                                                                  | When it applies                                                                               | Question it answers                                            |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| **Background**                    | The reason the project exists: a business problem, an opportunity or a legal requirement                                       | Always; it opens the page                                                                     | Why is this project needed?                                    |
+| **Budget, duration and timeline** | The fixed budget, the length of the project and its start and end dates                                                        | Always                                                                                        | How much, how long, and from when to when?                     |
+| **Stakeholders**                  | The key stakeholders who will benefit from the project results, each labelled with its role (see possible roles from ISO 5339) | Always                                                                                        | Who gains from the result, and in which role?                  |
+| **Project vision**                | The future state the project creates for its end-users, in one or two sentences; see 2.1                                       | Once per charter; revise it with the charter                                                  | What will be different for end-users when the project is done? |
+| **Objectives**                    | The project's business objectives: an overhead view of what the project aims for, written by the SMART method                  | Every row of the objectives table                                                             | What outcome do we commit to, for whom, by when?               |
+| **Success criteria**              | Concrete, measurable criteria that confirm whether an objective has been met, written in plain language                        | Every objective, without exception                                                            | How will we know the objective is met, and who decides?        |
+| **Business outcomes**             | Results expected at the end of the project                                                                                     | Every objective; expected at the end of the project                                           | What measurable change do the stakeholders get?                |
+| **Scope definition**              | A high-level description of the features and functions of the product, service or result                                       | Written once here. This page is the project proposal, and later scope must not grow beyond it | What will the product do for its users?                        |
 
 ## Background, budget, duration and timeline
 
@@ -43,22 +43,22 @@ ISO/IEC 5339 defines two groups of stakeholders. It also sorts them into "make",
 
 **AI stakeholders**
 
-| Role | Perspective | Who it is (paraphrased) |
-|---|---|---|
-| **AI producer** | Make | Designs, develops, tests and deploys products or services that use AI systems. Involved in all stages, from inception to retirement. |
-| **AI developer** | Make | Builds the AI product or service for the AI producer: model and system design, implementation, verification and validation. Can be an employee, contractor or partner. |
-| **Data provider** | Make | Collects and/or prepares the data for the AI model. |
-| **AI application provider** | Shares part of the make perspective | Provides the AI system's capabilities as a product or service to internal or external customers. Mainly involved at deployment. |
-| **AI partner** | (not assigned to a perspective) | Provides services to the AI producer and AI application provider within a business relationship. |
-| **AI customer** | Use | Uses the AI product or service directly, or provides it to AI users. Has a business relationship with the AI application provider. |
-| **AI user** | Use | Uses the AI product or service. Needs no business relationship, so a user need not be a customer. |
+| Role                              | Perspective                         | Who it is (paraphrased)                                                                                                                                                |
+| --------------------------------- | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **AI producer**             | Make                                | Designs, develops, tests and deploys products or services that use AI systems. Involved in all stages, from inception to retirement.                                   |
+| **AI developer**            | Make                                | Builds the AI product or service for the AI producer: model and system design, implementation, verification and validation. Can be an employee, contractor or partner. |
+| **Data provider**           | Make                                | Collects and/or prepares the data for the AI model.                                                                                                                    |
+| **AI application provider** | Shares part of the make perspective | Provides the AI system's capabilities as a product or service to internal or external customers. Mainly involved at deployment.                                        |
+| **AI partner**              | (not assigned to a perspective)     | Provides services to the AI producer and AI application provider within a business relationship.                                                                       |
+| **AI customer**             | Use                                 | Uses the AI product or service directly, or provides it to AI users. Has a business relationship with the AI application provider.                                     |
+| **AI user**                 | Use                                 | Uses the AI product or service. Needs no business relationship, so a user need not be a customer.                                                                      |
 
 **Other stakeholders**
 
-| Role | Perspective | Who it is (paraphrased) |
-|---|---|---|
-| **Community** | Impact | People affected by the application beyond its customers and users, such as consumers, families or neighbours. |
-| **Regulators / policy makers** | Impact | Regulators have authority over AI use where the application is deployed. Policy makers set the legal requirements for that use. |
+| Role                                 | Perspective | Who it is (paraphrased)                                                                                                         |
+| ------------------------------------ | ----------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| **Community**                  | Impact      | People affected by the application beyond its customers and users, such as consumers, families or neighbours.                   |
+| **Regulators / policy makers** | Impact      | Regulators have authority over AI use where the application is deployed. Policy makers set the legal requirements for that use. |
 
 Your own team usually holds the make roles. Describe team roles on the Project Organization page, not here.
 
@@ -81,10 +81,11 @@ Ask these three questions of every row:
 3. **Does anyone else want the opposite?** If yes, write the conflict below the table (rule 7).
 
 Each right-hand entry fixes only the named defect. 
-| Not this | This |
-|---|---|
-| "Company / application provider: the company that buys the assistant and analyses usage trends." **Defect:** two 5339 roles merged in one row (rule 4). | Row 1: "City waste department, **AI customer**: buys the assistant for its residents." Row 2: "City IT unit, **AI application provider**: runs the assistant and reviews usage trends." |
-| "Students: secondary end-user target audience; gain a learning tool." **Defect:** informal group name with no 5339 role (rule 1). | "Students, **AI user**: secondary end-user target audience; gain a learning tool." |
+
+| Not this                                                                                                                                                     | This                                                                                                                                                                                               |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| "Company / application provider: the company that buys the assistant and analyses usage trends."**Defect:** two 5339 roles merged in one row (rule 4). | Row 1: "City waste department,**AI customer**: buys the assistant for its residents." Row 2: "City IT unit, **AI application provider**: runs the assistant and reviews usage trends." |
+| "Students: secondary end-user target audience; gain a learning tool."**Defect:** informal group name with no 5339 role (rule 1).                       | "Students,**AI user**: secondary end-user target audience; gain a learning tool."                                                                                                            |
 
 ## 2. Project Vision and Objectives
 
@@ -97,6 +98,7 @@ Keep in mind that objectives defined here should be an overhead view. Each objec
 The vision states, in one or two sentences, the future state the project creates for its end-users. The project uses RAG as its basic solution; this is a constraint set by the Project Review Committee, so the vision does not need to argue for it or mention it.
 
 **Questions to ask before you write**
+
 - Which problem should be solved?
 - Which value or advantage will be created?
 - Who is impacted by the project result?
@@ -104,36 +106,36 @@ The vision states, in one or two sentences, the future state the project creates
 
 **Elements of a vision statement**
 
-| # | Element | What to write |
-|---|---|---|
-| 1 | Problem or opportunity | The need that triggered the project [1]. |
-| 2 | Who benefits, named specifically | The end-users from section 1, named as specific groups. |
-| 3 | The change for them, not the artefact | The future state end-users experience, not the system you build. |
-| 4 | No implementation detail | No model names, techniques or tools. |
-| 5 | No metrics or thresholds | Measurable targets go in the success criteria (2.3). |
-| 6 | Short and plain | One or two sentences that a stakeholder can repeat. |
-| 7 | Traceable to the objectives | Each objective reads as a step toward the vision. The vision makes no claim the objectives cannot support. |
+| # | Element                               | What to write                                                                                              |
+| - | ------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| 1 | Problem or opportunity                | The need that triggered the project [1].                                                                   |
+| 2 | Who benefits, named specifically      | The end-users from section 1, named as specific groups.                                                    |
+| 3 | The change for them, not the artefact | The future state end-users experience, not the system you build.                                           |
+| 4 | No implementation detail              | No model names, techniques or tools.                                                                       |
+| 5 | No metrics or thresholds              | Measurable targets go in the success criteria (2.3).                                                       |
+| 6 | Short and plain                       | One or two sentences that a stakeholder can repeat.                                                        |
+| 7 | Traceable to the objectives           | Each objective reads as a step toward the vision. The vision makes no claim the objectives cannot support. |
 
 Check also whether AI-specific risks could block the vision: privacy limits on reusing personal data, data accessibility or data quality [1]. If one could, record it on the Risks page.
 
 Do not confuse the vision with the strategic objective. The vision describes the future for end-users, with no numbers or dates. The strategic objective is row 1 of the objectives table: the broadest objective, written by SMART, with a date and measurable success criteria. Write both.
 
-| Not this | This |
-|---|---|
-| "Provide an assistant that lets users explore and compare topics; the information will be data-driven, grounded and accurate." **Defect:** describes the artefact, not the change for end-users (element 3). | "Users settle a question about [topic] in one place, without searching several sites; the information will be data-driven, grounded and accurate." |
-| "By combining retrieval-augmented generation with fine-tuned domain language models, the assistant will bridge real-time events and formal records." **Defect:** implementation detail (element 4). | "The assistant will bridge real-time events and formal records." |
+| Not this                                                                                                                                                                                                          | This                                                                                                                                               |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| "Provide an assistant that lets users explore and compare topics; the information will be data-driven, grounded and accurate."**Defect:** describes the artefact, not the change for end-users (element 3). | "Users settle a question about [topic] in one place, without searching several sites; the information will be data-driven, grounded and accurate." |
+| "By combining retrieval-augmented generation with fine-tuned domain language models, the assistant will bridge real-time events and formal records."**Defect:** implementation detail (element 4).          | "The assistant will bridge real-time events and formal records."                                                                                   |
 
 ### 2.2 Objectives
 
 The objectives on this page are business objectives. Write each one by the SMART method: Specific, Measurable, Achievable, Realistic and Time-bound. An objective that fails any one of the five tests is not yet SMART [3].
 
-| Letter | Meaning | Test |
-|---|---|---|
-| **S**pecific | Says who, what, where, when and why, so that a second reader knows what success looks like [3] | Give it to a classmate. If they must ask what counts as success, it is not specific [3] |
-| **M**easurable | Has a quantitative or verifiable indicator. An experience becomes measurable through a proxy such as a rating or survey score [3] | Can you name the number or check that decides it? |
-| **A**chievable | Within reach of your team's resources, skills and constraints. Achievable does not mean easy [3] | What must you do, get or change to make it possible? [3] |
-| **R**ealistic | The target does not overclaim; "100% correct answers on all questions" is unrealistic | Would a reviewer believe this target for your domain and time frame? |
-| **T**ime-bound | Has a deadline, or milestones at set intervals [3] | Is there a date or sprint? |
+| Letter               | Meaning                                                                                                                           | Test                                                                                    |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| **S**pecific   | Says who, what, where, when and why, so that a second reader knows what success looks like [3]                                    | Give it to a classmate. If they must ask what counts as success, it is not specific [3] |
+| **M**easurable | Has a quantitative or verifiable indicator. An experience becomes measurable through a proxy such as a rating or survey score [3] | Can you name the number or check that decides it?                                       |
+| **A**chievable | Within reach of your team's resources, skills and constraints. Achievable does not mean easy [3]                                  | What must you do, get or change to make it possible? [3]                                |
+| **R**ealistic  | The target does not overclaim; "100% correct answers on all questions" is unrealistic                                             | Would a reviewer believe this target for your domain and time frame?                    |
+| **T**ime-bound | Has a deadline, or milestones at set intervals [3]                                                                                | Is there a date or sprint?                                                              |
 
 **Strategic objective and Phase-1 objective.** Row 1 is a broad, outcome-focused strategic objective. A narrower MVP objective follows as the Phase-1 objective. Both have measurable success criteria. A broad objective can stay ambitious while its success criteria stay precise [3].
 
@@ -180,16 +182,16 @@ Ask these five questions of every row:
 4. **Who accepts it, and by which method?**
 5. **Where does it appear in Milestones and Deliverables?**
 
-| Not this | This |
-|---|---|
-| Business outcome: "Building an assistant that answers users' questions using RAG." **Defect:** activity, not outcome (2.4 rule 5). | Business outcome: "Residents answer their own collection questions instead of calling the helpline." |
-| Objective: "The system will provide scalability under limited academic resources." **Defect:** serves the developers, not end-users (2.2 rule 5). | Objective: "Residents can still use the assistant on collection-day mornings, when demand peaks." |
-| Objective: "Provide an intuitive, responsive and trustworthy entry point for residents." **Defect:** adjectives instead of numbers (2.2 rule 6). | Objective: "Provide an entry point where residents get an answer within 3 seconds and rate it helpful in at least 80% of cases." |
-| Success criterion: "Qualitative feedback collected from at least 2 stakeholder groups." **Defect:** an action, not a measurable result (2.3 rule 1). | Success criterion: "At least 70% of pilot residents rate the answers as clear in the feedback survey." |
-| Success criterion: "At least 70% accuracy." **Defect:** no date and no measurement method (2.3 rules 2–3). | Success criterion: "By the end of Sprint 4, at least 70% accuracy, judged by the department's reviewer on a fixed set of 100 test questions." |
-| Success criterion: "Faithfulness ≥ 0.75, relevance ≥ 0.80, grounding ≥ 0.80." **Defect:** convoluted metric names (2.3 rule 4). | Success criterion: "At least 75% of answers are supported by the sources they cite." |
-| Business outcome: "Residents receive accurate, timely information from several sources without switching platforms." **Defect:** not measurable (2.4 rule 2). | Business outcome: "Residents use one source instead of three; average lookup time falls from about 5 minutes (default state, measured in Sprint 1) to under 1 minute." |
-| Objective: "Deploy MVP and conduct demo." Business outcome: "Academic validation and project approval." **Defect:** a milestone, and an approval instead of an outcome (2.2 rule 9; 2.4 rule 4). | Objective: "By [date], validate problem–solution fit with an MVP assistant that delivers sourced, accurate answers and measurable time savings for [target users]". |
+| Not this                                                                                                                                                                                              | This                                                                                                                                                                   |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Business outcome: "Building an assistant that answers users' questions using RAG."**Defect:** activity, not outcome (2.4 rule 5).                                                               | Business outcome: "Residents answer their own collection questions instead of calling the helpline."                                                                   |
+| Objective: "The system will provide scalability under limited academic resources."**Defect:** serves the developers, not end-users (2.2 rule 5).                                                | Objective: "Residents can still use the assistant on collection-day mornings, when demand peaks."                                                                      |
+| Objective: "Provide an intuitive, responsive and trustworthy entry point for residents."**Defect:** adjectives instead of numbers (2.2 rule 6).                                                 | Objective: "Provide an entry point where residents get an answer within 3 seconds and rate it helpful in at least 80% of cases."                                       |
+| Success criterion: "Qualitative feedback collected from at least 2 stakeholder groups."**Defect:** an action, not a measurable result (2.3 rule 1).                                             | Success criterion: "At least 70% of pilot residents rate the answers as clear in the feedback survey."                                                                 |
+| Success criterion: "At least 70% accuracy."**Defect:** no date and no measurement method (2.3 rules 2–3).                                                                                      | Success criterion: "By the end of Sprint 4, at least 70% accuracy, judged by the department's reviewer on a fixed set of 100 test questions."                          |
+| Success criterion: "Faithfulness ≥ 0.75, relevance ≥ 0.80, grounding ≥ 0.80."**Defect:** convoluted metric names (2.3 rule 4).                                                               | Success criterion: "At least 75% of answers are supported by the sources they cite."                                                                                   |
+| Business outcome: "Residents receive accurate, timely information from several sources without switching platforms."**Defect:** not measurable (2.4 rule 2).                                    | Business outcome: "Residents use one source instead of three; average lookup time falls from about 5 minutes (default state, measured in Sprint 1) to under 1 minute." |
+| Objective: "Deploy MVP and conduct demo." Business outcome: "Academic validation and project approval."**Defect:** a milestone, and an approval instead of an outcome (2.2 rule 9; 2.4 rule 4). | Objective: "By [date], validate problem–solution fit with an MVP assistant that delivers sourced, accurate answers and measurable time savings for [target users]".   |
 
 ### If you are stuck
 
@@ -221,27 +223,27 @@ Project scope sets the boundaries of a project: what is included and what is exc
 
 Each right-hand entry fixes only the named defect, so it may still need other fixes.
 
-| Not this | This |
-|---|---|
-| "The retriever uses vector similarity search to match queries to the most relevant text segments." **Defect:** implementation detail (rule 3). | "Residents ask a question in their own words and get the matching rule from the official collection guide." |
-| "A simple, easy-to-use interface that gives responses in real time." **Defect:** unmeasured adjectives (rule 4). | "An interface where residents type a question and see the answer within 3 seconds." |
+| Not this                                                                                                                                            | This                                                                                                        |
+| --------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| "The retriever uses vector similarity search to match queries to the most relevant text segments."**Defect:** implementation detail (rule 3). | "Residents ask a question in their own words and get the matching rule from the official collection guide." |
+| "A simple, easy-to-use interface that gives responses in real time."**Defect:** unmeasured adjectives (rule 4).                               | "An interface where residents type a question and see the answer within 3 seconds."                         |
 
 ## What does not belong in this section
 
-| Item | Where it belongs |
-|---|---|
-| Sprint-by-sprint start and end dates | Release Plan |
-| Cost items and source of funding | Cost & Funding |
-| Milestones, such as "deploy MVP and conduct demo" | Milestones |
-| Deliverables and their approving stakeholders | Deliverables |
-| RAG as the solution approach | Assumptions & Constraints, as a constraint set by the Project Review Committee |
-| Other constraint-like statements: no PII, licensing, English only, input boundaries | Assumptions & Constraints |
-| Activities, and features you will not deliver | Major Activities, marked In Scope or Out of Scope |
-| Team members' roles and responsibilities | Project Organization |
-| The risk that an objective is not met | Risks |
-| Model names, architecture, retrieval design | System Architecture Diagram |
-| Specific metrics behind each success criterion, such as Recall@k or RAG-triad scores | Experiment cards and model card |
-| Product backlog | Not on this page |
+| Item                                                                                 | Where it belongs                                                               |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| Sprint-by-sprint start and end dates                                                 | Release Plan                                                                   |
+| Cost items and source of funding                                                     | Cost & Funding                                                                 |
+| Milestones, such as "deploy MVP and conduct demo"                                    | Milestones                                                                     |
+| Deliverables and their approving stakeholders                                        | Deliverables                                                                   |
+| RAG as the solution approach                                                         | Assumptions & Constraints, as a constraint set by the Project Review Committee |
+| Other constraint-like statements: no PII, licensing, English only, input boundaries  | Assumptions & Constraints                                                      |
+| Activities, and features you will not deliver                                        | Major Activities, marked In Scope or Out of Scope                              |
+| Team members' roles and responsibilities                                             | Project Organization                                                           |
+| The risk that an objective is not met                                                | Risks                                                                          |
+| Model names, architecture, retrieval design                                          | System Architecture Diagram                                                    |
+| Specific metrics behind each success criterion, such as Recall@k or RAG-triad scores | Experiment cards and model card                                                |
+| Product backlog                                                                      | Not on this page                                                               |
 
 ## Fill-in tables
 
@@ -255,11 +257,11 @@ Each right-hand entry fixes only the named defect, so it may still need other fi
 
 ### 1. Stakeholders
 
-| # | Stakeholder | Role (see possible roles from ISO 5339) | Perspective (make / use / impact) | Relationship to project | Benefit from project |
-|---|---|---|---|---|---|
-| 1 |   |   |   |   |   |
-| 2 |   |   |   |   |   |
-| 3 |   |   |   |   |   |
+| # | Stakeholder                                                                            | Role (see possible roles from ISO 5339) | Perspective (make / use / impact) | Relationship to project                                                                              | Benefit from project                                                                                               |
+| - | -------------------------------------------------------------------------------------- | --------------------------------------- | --------------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| 1 | Technical teams at EdTech providers, e.g. EduNova developers (representative provider) | AI user                                 | Use                               | Ask which AI Act provisions apply to the education product they are building                         | Find the rules that apply to their product, what they require and from when, in one place and with the source      |
+| 2 | Legal and compliance team of the EdTech provider, e.g. EduNova legal team              | AI customer                             | Use                               | Adopts the assistant for the company's technical teams and receives their questions in legal reviews | Developers come to legal reviews already knowing the relevant articles, so reviews start from the right provisions |
+| 3 | EUR-Lex (Publications Office of the European Union)                                    | Data provider                           | Make                              | Publishes the official consolidated text of Regulation (EU) 2024/1689                                | The official, current law text reaches users with its source and version date                                      |
 
 Conflicts between stakeholders (if any):
 
@@ -271,19 +273,19 @@ Conflicts between stakeholders (if any):
 
 In each Success Criteria cell, write for every criterion: the plain-language target with where the level comes from, the measurement method, the acceptance owner, the date or sprint, and the specific metric(s) it maps to.
 
-| # | Objectives | Success Criteria | Business Outcomes |
-|---|---|---|---|
-| 1 (strategic) |   |   |   |
-| 2 (Phase-1 MVP) |   |   |   |
-| 3 |   |   |   |
+| #               | Objectives | Success Criteria | Business Outcomes |
+| --------------- | ---------- | ---------------- | ----------------- |
+| 1 (strategic)   |            |                  |                   |
+| 2 (Phase-1 MVP) |            |                  |                   |
+| 3               |            |                  |                   |
 
 ### 3.1. Scope Definition
 
 > High-level description of the product.
 
 | # | Feature | What the user can do with it | Objective(s) it serves |
-|---|---|---|---|
-| 1 |   |   |   |
+| - | ------- | ---------------------------- | ---------------------- |
+| 1 |         |                              |                        |
 
 ## Example (illustrative only)
 
@@ -295,13 +297,13 @@ Every name, number, date and target below is invented. None is a real project fa
 
 **1. Stakeholders**
 
-| # | Stakeholder | Role (ISO 5339) | Perspective | Relationship to project | Benefit from project |
-|---|---|---|---|---|---|
-| 1 | City residents | AI user | Use | Ask questions about sorting and collection days | Correct answers in one place |
-| 2 | City waste department | AI customer | Use | Commissions the assistant for residents | Fewer repeated helpline calls |
-| 3 | City IT unit | AI application provider | Make (shared) | Runs the assistant after deployment | Sees which questions residents ask most |
-| 4 | Collection contractor | Data provider | Make | Supplies the collection schedules | Fewer missed-collection complaints |
-| 5 | Neighbours of missed bins | Community | Impact | Affected when bins are left out | Cleaner streets |
+| # | Stakeholder               | Role (ISO 5339)         | Perspective   | Relationship to project                         | Benefit from project                    |
+| - | ------------------------- | ----------------------- | ------------- | ----------------------------------------------- | --------------------------------------- |
+| 1 | City residents            | AI user                 | Use           | Ask questions about sorting and collection days | Correct answers in one place            |
+| 2 | City waste department     | AI customer             | Use           | Commissions the assistant for residents         | Fewer repeated helpline calls           |
+| 3 | City IT unit              | AI application provider | Make (shared) | Runs the assistant after deployment             | Sees which questions residents ask most |
+| 4 | Collection contractor     | Data provider           | Make          | Supplies the collection schedules               | Fewer missed-collection complaints      |
+| 5 | Neighbours of missed bins | Community               | Impact        | Affected when bins are left out                 | Cleaner streets                         |
 
 Conflicts: the department wants fewer helpline calls, but residents without internet access still need the helpline. The helpline stays. Replacing it will fall out of scope. (see Out of Scope under Major Activities).
 
@@ -309,49 +311,55 @@ Conflicts: the department wants fewer helpline calls, but residents without inte
 
 **Objectives**
 
-| # | Objectives | Success Criteria | Business Outcomes |
-|---|---|---|---|
-| 1 (strategic) | By the end of Sprint 4, reduce the time residents need to answer a waste-collection question, compared with the current website and helpline. | Median time to answer a test question falls from 5 minutes (default state, measured on the current website in Sprint 1) to under 1 minute. Method: timed usability test with 10 residents. Owner: Product Owner. End of Sprint 4. Maps to: task completion time in the usability test, supported by end-to-end response time and answer correctness. | During the pilot, residents in the test group make 20% fewer helpline calls about collection days than before the pilot. |
-| 2 (Phase-1 MVP) | By the end of Sprint 3, validate that an MVP assistant gives correct, source-backed answers to common collection questions for residents. | At least 80% of answers judged correct on a fixed set of 100 test questions; at least 90% of answers link to the official source page (levels set from the team's own research). Method: review by the department. Owner: department reviewer. End of Sprint 3. Maps to: answer correctness, retrieval quality and citation metrics in the experiment cards. | Residents need no second source for 9 of 10 questions, measured in the pilot survey. |
-| 3 | By the end of Sprint 4, residents in the pilot prefer the assistant to the current website for collection questions. | At least 70% of 20 pilot residents say they would use it again. Method: post-test survey. Owner: Product Owner. End of Sprint 4. Maps to: survey score. | At least half of pilot residents report using the assistant as their first source for collection questions in the follow-up survey. |
-| 4 | By the end of Sprint 4, residents are not misled when they ask questions the assistant cannot answer. | The assistant declines and points to the helpline in at least 95% of 30 out-of-domain test questions. Method: scripted test set reviewed by the department. Owner: department reviewer. End of Sprint 4. Maps to: refusal rate on out-of-domain questions. | No pilot resident reports wrong advice. |
+| #               | Objectives                                                                                                                                    | Success Criteria                                                                                                                                                                                                                                                                                                                                             | Business Outcomes                                                                                                                   |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------- |
+| 1 (strategic)   | By the end of Sprint 4, reduce the time residents need to answer a waste-collection question, compared with the current website and helpline. | Median time to answer a test question falls from 5 minutes (default state, measured on the current website in Sprint 1) to under 1 minute. Method: timed usability test with 10 residents. Owner: Product Owner. End of Sprint 4. Maps to: task completion time in the usability test, supported by end-to-end response time and answer correctness.         | During the pilot, residents in the test group make 20% fewer helpline calls about collection days than before the pilot.            |
+| 2 (Phase-1 MVP) | By the end of Sprint 3, validate that an MVP assistant gives correct, source-backed answers to common collection questions for residents.     | At least 80% of answers judged correct on a fixed set of 100 test questions; at least 90% of answers link to the official source page (levels set from the team's own research). Method: review by the department. Owner: department reviewer. End of Sprint 3. Maps to: answer correctness, retrieval quality and citation metrics in the experiment cards. | Residents need no second source for 9 of 10 questions, measured in the pilot survey.                                                |
+| 3               | By the end of Sprint 4, residents in the pilot prefer the assistant to the current website for collection questions.                          | At least 70% of 20 pilot residents say they would use it again. Method: post-test survey. Owner: Product Owner. End of Sprint 4. Maps to: survey score.                                                                                                                                                                                                      | At least half of pilot residents report using the assistant as their first source for collection questions in the follow-up survey. |
+| 4               | By the end of Sprint 4, residents are not misled when they ask questions the assistant cannot answer.                                         | The assistant declines and points to the helpline in at least 95% of 30 out-of-domain test questions. Method: scripted test set reviewed by the department. Owner: department reviewer. End of Sprint 4. Maps to: refusal rate on out-of-domain questions.                                                                                                   | No pilot resident reports wrong advice.                                                                                             |
 
 Objectives 1–4 cover performance, quality, adoption/UX and safety in turn.
 
 **3.1. Scope Definition.** A question-answering assistant for the city's waste-collection rules, used by residents through a web page.
 
-| # | Feature | What the user can do with it | Objective(s) it serves |
-|---|---|---|---|
-| 1 | Plain-language questions | Ask about sorting or collection in their own words and get an answer | 1, 2 |
-| 2 | Source link | Open the official page each answer comes from | 2 |
-| 3 | Collection day by street | Enter a street name and see the next collection day | 1 |
-| 4 | Out-of-domain handling | Get a pointer to the helpline when the assistant cannot answer | 4 |
+| # | Feature                  | What the user can do with it                                         | Objective(s) it serves |
+| - | ------------------------ | -------------------------------------------------------------------- | ---------------------- |
+| 1 | Plain-language questions | Ask about sorting or collection in their own words and get an answer | 1, 2                   |
+| 2 | Source link              | Open the official page each answer comes from                        | 2                      |
+| 3 | Collection day by street | Enter a street name and see the next collection day                  | 1                      |
+| 4 | Out-of-domain handling   | Get a pointer to the helpline when the assistant cannot answer       | 4                      |
 
 ## Checklist before submitting
 
 **Whole page**
+
 - [ ] The background gives the reason for the project, the budget ($100 of Google Cloud credits), the number of sprints, and the start and end dates
 - [ ] Nowhere on the page names a model, tool or technique, or uses an unmeasured adjective
 
 **Stakeholders**
+
 - [ ] Each row has one ISO 5339 role and says what the stakeholder gains (or its interest, for impact roles)
 - [ ] At least one row is an AI user, and any conflict between stakeholders is written down
 
 **Vision**
+
 - [ ] One or two sentences describe the change for end-users, with no metrics
 
 **Objectives**
+
 - [ ] Row 1 is the strategic objective, and row 2 is the Phase-1 MVP objective
 - [ ] Each objective passes all five SMART tests, is an outcome for end-users, and is not a milestone or a constraint
 - [ ] Each objective is a step toward the vision and has a matching milestone and deliverable
 - [ ] Together, the objectives cover quality, performance/cost, adoption/UX and safety/compliance
 
 **Success criteria and business outcomes**
+
 - [ ] Each success criterion is a measurable result in plain language, with a date or sprint, a method, an owner, the metric it maps to, and where its target level comes from
 - [ ] Each improvement claim compares against the default state
 - [ ] Each business outcome is a measurable change for users or stakeholders, not an approval or an activity
 
 **Scope**
+
 - [ ] Each feature says what the user can do and which objective it serves
 
 ## References
