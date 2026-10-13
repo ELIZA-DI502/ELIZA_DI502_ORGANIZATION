@@ -251,7 +251,7 @@ Each right-hand entry fixes only the named defect, so it may still need other fi
 
 The EU AI Act (Regulation (EU) 2024/1689) applies to every provider that places an AI system on the EU market, and it lists education as a potentially high-risk area: systems used for admission, assessment, level placement and exam monitoring carry provider obligations (Annex III, point 3). Technical teams building these products have to work out which provisions apply to their use case, but today they either read a 151-page, frequently amended legal text themselves or wait for a legal review. This project gives them a faster way to find the relevant provisions, understand them in plain language and check them against the current official text before the legal review starts.
 
-**Budget:** $100 of Google Cloud credits (fixed, per project).
+**Budget:** $100 of Google Cloud credits.
 **Duration:** 4 sprints.
 **Timeline:** 14/10/2026 to 30/12/2026.
 
