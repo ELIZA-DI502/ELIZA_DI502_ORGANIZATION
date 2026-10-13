@@ -22,7 +22,7 @@ HOW TO USE THIS TEMPLATE
 | Designer | @volga |
 | Developers | @volga |
 | Release Target (Sprint) | Sprint 3 |
-| Jira | |
+| Jira | [DI-1](https://volga-sezen.atlassian.net/browse/DI-1) |
 
 ## Requirements
 
@@ -30,8 +30,8 @@ For more info you can visit: https://www.atlassian.com/agile/product-management/
 
 | # | User story title | User story description | Priority | Points | Notes | Jira |
 |---|---|---|---|---|---|---|
-| S1 | Upload a report and ask questions | As an AI user, I want to upload a report and ask questions about it, so that I can find key figures quickly. | High | 5 | | |
-| S2 | Fine-tune the answer model | As an AI developer, I want a fine-tuned answer model, so that answers follow the source documents more closely. | Medium | | Takes more than one sprint, so it uses Tasks | |
+| S1 | Upload a report and ask questions | As an AI user, I want to upload a report and ask questions about it, so that I can find key figures quickly. | High | 5 | | [DI-2](https://volga-sezen.atlassian.net/browse/DI-2) |
+| S2 | Fine-tune the answer model | As an AI developer, I want a fine-tuned answer model, so that answers follow the source documents more closely. | Medium | | Takes more than one sprint, so it uses Tasks | [DI-5](https://volga-sezen.atlassian.net/browse/DI-5) |
 
 ## S1 · Upload a report and ask questions
 
@@ -44,8 +44,8 @@ For more info you can visit: https://www.atlassian.com/agile/product-management/
 
 | Sub-task | Owner | Estimate | Jira |
 |---|---|---|---|
-| Build upload widget | @volga | 4h | |
-| Parse PDF into chunks | @volga | 6h | |
+| Build upload widget | @volga | 4h | [DI-3](https://volga-sezen.atlassian.net/browse/DI-3) |
+| Parse PDF into chunks | @volga | 6h | [DI-4](https://volga-sezen.atlassian.net/browse/DI-4) |
 
 ## S2 · Fine-tune the answer model
 
@@ -57,5 +57,5 @@ For more info you can visit: https://www.atlassian.com/agile/product-management/
 
 | Task | Owner | Points | Jira |
 |---|---|---|---|
-| Prepare the training set | @volga | 3 | |
-| Train and evaluate the adapter | @volga | 5 | |
+| Prepare the training set | @volga | 3 | [DI-6](https://volga-sezen.atlassian.net/browse/DI-6) |
+| Train and evaluate the adapter | @volga | 5 | [DI-7](https://volga-sezen.atlassian.net/browse/DI-7) |
