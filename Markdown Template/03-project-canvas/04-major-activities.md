@@ -52,7 +52,7 @@ The uncertain part becomes a risk in [Risks](03-project-canvas_v2/11-risks.md), 
 
 ## Knock-on effect on user stories
 
-Once a constraint is in the charter, a user story that contradicts it is an inconsistency between documents. The review error types call this an External Inconsistency. For example, "As a returning analyst, I want to see my previous questions" contradicts a no-PII rule. Either drop such a story, or rewrite it so the history lives only in the session and is not stored.
+Once a constraint is in the charter, a user story that contradicts it is an external inconsistency between documents. For example, "As a returning analyst, I want to see my previous questions" contradicts a no-PII rule. Either drop such a story, or rewrite it so the history lives only in the session and is not stored.
 
 ## Rules
 

@@ -1,0 +1,7 @@
+# Maps the GitHub handles used in the Owner columns to Jira users.
+# Value: the email the person uses to log in to Jira, or their Jira account id.
+# Every owner in docs/backlog must appear here, without the "@".
+
+volga: volga.sezen@metu.edu.tr
+student-b: student.b@example.edu
+student-c: student.c@example.edu
