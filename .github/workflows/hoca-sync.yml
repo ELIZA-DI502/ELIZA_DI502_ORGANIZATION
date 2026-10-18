@@ -5,6 +5,9 @@ on:
     - cron: "0 * * * *"   # every hour
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 concurrency:
   group: hoca-sync
   cancel-in-progress: false
@@ -17,7 +20,9 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
-          token: ${{ secrets.SYNC_TOKEN }}
+          # SYNC_TOKEN (a personal access token with the "workflow" scope) is needed when
+          # the course repo changes files under .github/workflows; otherwise the built-in token is enough.
+          token: ${{ secrets.SYNC_TOKEN || github.token }}
 
       - name: Merge hoca/main into main
         run: |
