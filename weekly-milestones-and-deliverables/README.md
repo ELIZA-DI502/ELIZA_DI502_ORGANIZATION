@@ -82,16 +82,28 @@ If you are not familiar with Git and GitHub, such as using issues, pull requests
 
 ### Week 4 — 21/10 · Middle of Sprint 1 (Early end of Sprint 1)
 
-- [ ] [Project Canvas](Markdown Template/README.md): Major Activities, Dependencies, Facilities and Resources, Release Plan, Risks
+- [ ] [Project Canvas](Markdown Template/README.md): Major Activities, Dependencies, Facilities and Resources, Release Plan, Risks, as well as the cover page (README.md)
 - [ ] Updated user stories in Jira
+- [ ] Initial system architecture diagram and design document (v1)
 - [ ] Learning spike notes in `docs/spikes/`
+- [ ] [Sprint 1 Retrospective](Markdown Template/04-sprint-1/02-sprint-1-retrospective.md): for teams who will finish this sprint early.
 
-**Your tasks** (Checklist not yet completed)
+**Your tasks**
 
 - [ ] Iterate on user stories based on feedback from Week 3.
-- [ ] Design initial versions of your system architecture diagram and design document (i.e. which technologies will be chosen and how they will connect)
+- [ ] Assign stories/tasks within the scope of sprint 1 to relevant team members.
+- [ ] If you haven't done so, invite the reviewer accounts shown [here](README.md/#adding-reviewer-accounts) to your Confluence and Jira pages.
+- [ ] For teams who won't present next week, export your jira tasks as markdown files using the updated [Jira sync guide](docs/JIRA_SYNC_SETUP.md), and upload the requested documents in ODTUClass as Sprint 1 Deliverables.
 
+**Presentation (10 minutes):** Each team presents their project charter, updated user stories, architecture design diagram and document, and relevant spikes that lead to those design choices. For teams who will finish the sprint, a look at their sprint retrospectives as well.
 
 ### Week 5 — 21/10 · End of Sprint 1
 
-TBD
+**Your tasks**
+
+- [ ] Finalize your project charter, user epics and their story requirements.
+- [ ] Iterate on the first version of your system architecture diagram and design document.
+- [ ] Hold a sprint retrospective meeting and fill in the provided table/example [template](Markdown Template/04-sprint-1/02-sprint-1-retrospective.md).
+- [ ] Decide on the sprint 2 definition of ready and done checklists.
+
+TBA
