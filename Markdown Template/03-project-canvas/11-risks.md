@@ -196,15 +196,15 @@ Probability is residual (after mitigation). Sprint dates: Sprint 1 14/10–28/10
 
 ## Checklist before submitting
 
-- [ ] At least 5 risks
-- [ ] At least one risk from each of the five layers (data / model / infrastructure / integration / people-process)
-- [ ] Every risk is written as an event, with when and where
-- [ ] Every assumption in [Assumptions & Constraints](03-project-canvas_v2/03-assumptions-and-constraints.md) has a risk here, and the IDs match both ways
+- [x] At least 5 risks
+- [x] At least one risk from each of the five layers (data / model / infrastructure / integration / people-process)
+- [x] Every risk is written as an event, with when and where
+- [x] Every assumption in [Assumptions & Constraints](03-project-canvas_v2/03-assumptions-and-constraints.md) has a risk here, and the IDs match both ways
 - [ ] Every risk that comes from a constraint names the in-scope activity in [Major Activities](03-project-canvas_v2/04-major-activities.md) that mitigates it
-- [ ] Probability values are residual (after mitigation), and each has a basis
-- [ ] Risks that threaten an acceptance criterion or success criterion have an impact of at least 4
-- [ ] Every risk scoring 10 or more has a mitigation, a numeric trigger with a date or sprint, a contingency plan and a named owner
+- [x] Probability values are residual (after mitigation), and each has a basis
+- [x] Risks that threaten an acceptance criterion or success criterion have an impact of at least 4
+- [x] Every risk scoring 10 or more has a mitigation, a numeric trigger with a date or sprint, a contingency plan and a named owner
 - [ ] Every owner is a named person listed in [Project Organization](03-project-canvas_v2/08-project-organization.md)
-- [ ] No contingency plan repeats work already planned under [Major Activities](03-project-canvas_v2/04-major-activities.md)
-- [ ] Scores are spread out (not all low, not all high)
-- [ ] Risk timings fall inside the project's sprint timeline
+- [x] No contingency plan repeats work already planned under [Major Activities](03-project-canvas_v2/04-major-activities.md)
+- [x] Scores are spread out (not all low, not all high)
+- [x] Risk timings fall inside the project's sprint timeline
