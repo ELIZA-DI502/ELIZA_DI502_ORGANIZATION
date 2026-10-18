@@ -64,7 +64,7 @@ If you are not familiar with Git and GitHub, such as using issues, pull requests
 
 **Deliverables**
 
-- [ ] [Project Canvas](Markdown Template/README.md) : Scope, Milestones, Assumptions & Constraints, Deliverables and Project Organization
+- [ ] [Project Canvas](Markdown%20Template/README.md) : Scope, Milestones, Assumptions & Constraints, Deliverables and Project Organization
 - [ ] User stories in Jira (you may plan them in Miro first, but this is optional)
 - [ ] Learning spike notes in `docs/spikes/`
 
@@ -82,11 +82,11 @@ If you are not familiar with Git and GitHub, such as using issues, pull requests
 
 ### Week 4 — 21/10 · Middle of Sprint 1 (Early end of Sprint 1)
 
-- [ ] [Project Canvas](Markdown Template/README.md): Major Activities, Dependencies, Facilities and Resources, Release Plan, Risks, as well as the cover page (README.md)
+- [ ] [Project Canvas](Markdown%20Template/README.md): Major Activities, Dependencies, Facilities and Resources, Release Plan, Risks, as well as the cover page (README.md)
 - [ ] Updated user stories in Jira
 - [ ] Initial system architecture diagram and design document (v1)
 - [ ] Learning spike notes in `docs/spikes/`
-- [ ] [Sprint 1 Retrospective](Markdown Template/04-sprint-1/02-sprint-1-retrospective.md): for teams who will finish this sprint early.
+- [ ] [Sprint 1 Retrospective](Markdown%20Template/04-sprint-1/02-sprint-1-retrospective.md): for teams who will finish this sprint early.
 
 **Your tasks**
 
@@ -103,7 +103,7 @@ If you are not familiar with Git and GitHub, such as using issues, pull requests
 
 - [ ] Finalize your project charter, user epics and their story requirements.
 - [ ] Iterate on the first version of your system architecture diagram and design document.
-- [ ] Hold a sprint retrospective meeting and fill in the provided table/example [template](Markdown Template/04-sprint-1/02-sprint-1-retrospective.md).
+- [ ] Hold a sprint retrospective meeting and fill in the provided table/example [template](Markdown%20Template/04-sprint-1/02-sprint-1-retrospective.md).
 - [ ] Decide on the sprint 2 definition of ready and done checklists.
 
 TBA
