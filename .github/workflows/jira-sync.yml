@@ -2,7 +2,9 @@ name: Jira sync
 
 # Pull request -> check the epic files and comment the plan (nothing is sent to Jira).
 # Push to main -> create/update Jira issues and commit the issue keys back.
-# Manual run   -> "doctor" checks the Jira setup; "sync" re-runs the sync.
+# Manual run   -> "doctor" checks the Jira setup; "sync" re-runs the sync;
+#                 "import" writes Jira issues that no markdown file has yet into
+#                 docs/backlog and opens a pull request with them.
 
 on:
   pull_request:
@@ -21,7 +23,7 @@ on:
       command:
         description: "What to run"
         type: choice
-        options: [doctor, sync]
+        options: [doctor, sync, import]
         default: doctor
 
 env:
@@ -114,3 +116,49 @@ jobs:
           JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
         run: python .jira/jira_sync.py doctor
+
+  import:
+    if: github.event_name == 'workflow_dispatch' && inputs.command == 'import'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    concurrency:
+      group: jira-sync
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r .jira/requirements.txt
+      - name: Import from Jira
+        env:
+          JIRA_EMAIL: ${{ secrets.JIRA_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+        run: python .jira/jira_sync.py import --report import-report.md
+      - name: Open a pull request with the imported issues
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BRANCH: jira-import/${{ github.run_id }}
+        run: |
+          if [ -z "$(git status --porcelain docs/backlog)" ]; then
+            echo "Nothing new to import."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$BRANCH"
+          git add docs/backlog
+          git commit -m "Import Jira issues into the backlog"
+          git push origin "$BRANCH"
+          {
+            cat import-report.md
+            echo
+            echo "_The pull request check doesn't start automatically for pull requests opened by this workflow. It runs as soon as anyone pushes a commit to this branch; the check above was run during the import._"
+          } > pr-body.md
+          if ! gh pr create --base main --head "$BRANCH" --title "Import Jira issues into the backlog" --body-file pr-body.md; then
+            echo "::warning::The branch $BRANCH was pushed, but the pull request could not be opened automatically. Open it by hand from the branch, or turn on 'Allow GitHub Actions to create and approve pull requests' in Settings > Actions > General."
+          fi
