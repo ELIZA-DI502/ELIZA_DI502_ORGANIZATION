@@ -86,7 +86,7 @@ Add rows as needed.
 | # | Project Milestone | Description | Expected Date | Associated Deliverable |
 |---|---|---|---|---|
 | M1 |Project scope approved   | Education focused use cases, target users, project boundaries and interface are agreed  |  14.10.2026 |  Project Charter |
-| M2 |  Education focused base ready | Relevant education related section of the document are identified and prepared for retrieval  | 21.10.2026  |   |
+| M2 |  Education focused base ready | Relevant education related section of the document are identified and prepared for retrieval  | 28.10.2026  |  Prepared Source Document Set |
 | M3 | Regulatory reference and compliance guide | Relevant in scope answer design with regulatory references (linked with KAN2) | 28.10.2026 | First Prototype |
 | M4 | Baseline RAG answers and evaluation question set   | Baseline RAG pipeline answers predefined evaluation questions and it responses with citation  | 28.10.2026  | Baseline RAG Evaluation Report  |
 | M5 | Regulatory deadline identification | No fixed date. references specific date considering the product that is asked for (linked with KAN3) | 06.11.2026 | Improved Prototype |
