@@ -82,7 +82,15 @@ Why the dates matter: dependencies cause wait times. A Critical Date gives you a
 
 | # | Dependency Description | Critical Date | Contact |
 |---|---|---|---|
-| 1 | | | |
+| 1 | Preparation of the education-focused source document set cannot be completed until the in-scope regulatory provisions have been identified and checked against the authoritative EUR-Lex text. | 21.10.2026| |
+| 2 | The baseline RAG pipeline and retrieval evaluation cannot be completed until the source documents have been chunked, the vector index has been built, and the evaluation questions have verified expected provision-level references. | 28.10.2026| |
+| 3 | The first prototype's regulatory reference guide cannot be completed until the RAG pipeline can retrieve relevant regulatory passages and generate answers with supporting citations. | 4.11.2026 | |
+| 4 | Regulatory deadline identification cannot be completed until the relevant regulatory provisions, applicable dates, and supporting references are available for the education-focused use cases. | 11.11.2026 | |
+| 5 | The prototype checkpoint review cannot take place until the first prototype, improved prototype, and initial quality evaluation results are available for review. | 11.11.2026 | |
+| 6 | End-to-end safety validation cannot be completed until the chatbot is integrated with the RAG pipeline and out-of-scope handling, no-verdict, and citation checks are implemented. |18.11.2026 | |
+| 7 | The pilot evaluation cannot start until the integrated prototype, evaluation question set, and confirmed pilot participants are ready. |02.12.2026 | |
+| 8 |The final demonstration cannot proceed until pilot evaluation results have been reviewed, required prototype corrections have been completed, and the final report and prototype are ready. |09.12.2026 | |
+
 
 ## Example (illustrative only)
 
