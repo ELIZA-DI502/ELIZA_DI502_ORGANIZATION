@@ -105,24 +105,26 @@ Across the layers, cover the whole life cycle: data preparation, model developme
 
 ## Risk register
 
-Probability is residual (after mitigation). Sprint dates: Sprint 1 14/10–28/10, Sprint 2 04/11–18/11, Sprint 3 25/11–09/12, Sprint 4 16/12–30/12/2026. Rows with a score of 10 or more have a detail block below.
+Probability is residual (after mitigation). Sprint dates: Sprint 1 14/10–28/10, Sprint 2 04/11–18/11, Sprint 3 25/11–09/12, Sprint 4 16/12–30/12/2026. Rows with a score of 10 or more have a detail block below. The short name at the start of each risk is the name used in the Jira stories. R-16 to R-19 are not used; R-20 keeps the number used in Jira (KAN-8).
 
 | # | Layer | Risk (event) | When / where | Probability | Impact | Score | Owner | Linked to |
 |---|---|---|---|---|---|---|---|---|
-| R-01 | Data | The consolidated text differs from the Official Journal wording in at least one in-scope provision. | Sprint 2; development | 1 (basis: the consolidated text is produced by the EU Publications Office from the Official Journal acts) | 4 (a wrong provision text breaks the O2 Grounded acceptance criteria) | 4 (Low) | Yeşim | A-01, C-01 |
-| R-02 | Data | A new amending act changes an in-scope provision before 30/12/2026, or after the release, so answers become outdated (model decay after deployment). Maintenance trigger: a newer consolidated version appears on EUR-Lex (checked at each sprint start, A-02); then the changed provisions are re-indexed and the evaluation set is re-run. | Sprints 2–4; development and after deployment | 2 (basis: the last amendment, Reg. (EU) 2026/1744, was adopted on 08/07/2026; amending acts take months from proposal to adoption) | 3 (re-indexing and re-checking the evaluation set takes 1–2 weeks) | 6 (Medium) | Yaren | A-02, C-01 |
-| R-03 | Data | For more than 3 evaluation questions, the expected provision cannot be fixed at paragraph or point level. | Sprints 1–2; development | 2 (basis: in our check of the public benchmark (Davvetas et al., 2026), 1 of the 32 in-scope question–answer pairs cited the wrong Article and 1 was doubtful) | 4 (gold sources are needed for the O2 Grounded measurement in D6 and D12) | 8 (Medium) | Kaan | A-03 |
-| R-04 | People / process | Fewer than 5 pilot users take part in the D11 pilot evaluation. | Sprints 3–4; validation | 3 (basis: participants are unpaid volunteers from the team's contacts, and A-04 is only validated at the end of Sprint 2) | 4 (O1 Faster and O3 Clear cannot be measured as planned in D11) | 12 (High) | Gözde Nur | A-04 |
-| R-05 | Model | The assistant gives a substantive answer to out-of-scope questions instead of an out-of-scope notice. | Sprints 2–4; development and after deployment | 3 (basis: not yet measured; first measured on the D2 out-of-scope questions with the alpha, Sprint 2) | 4 (the O4 Safe criterion in D9 and D12 is not met) | 12 (High) | Yeşim | C-04; Major Activities: out-of-scope notice |
-| R-06 | Integration | The licence of the selected open-source LLM or embedding model does not permit its use in the project. | Sprint 1; development | 2 (basis: licences differ between candidate models: Apache 2.0, MIT and community licences with extra terms) | 2 (another candidate model is chosen; under 2 weeks) | 4 (Low) | Gözde Nur | A-06, C-03 |
-| R-07 | Data | Splitting the EUR-Lex text into provision-level chunks needs manual correction for more than 10 provisions. | Sprints 1–2; development | 2 (basis: a test split of the 27/07/2026 text gave 188 provision-level chunks for 19 Articles and Annex III) | 2 (1–2 weeks of manual work) | 4 (Low) | Yeşim | A-05 |
-| R-08 | People / process | Cloud spending passes $70 before the end of Sprint 3. | Sprints 2–4; development | 2 (basis: the instance is billed per running hour and is stopped when not in use; mitigation: budget alerts at $50 and $70) | 4 (no money left for the pilot and the final demo; >20% of the budget) | 8 (Medium) | Kaan | A-07, C-06 |
-| R-09 | Data | Pilot users rate the evaluation questions as unrealistic (fewer than 4 of 5 rate them 4 or 5 out of 5). | Sprint 4; validation | 2 (basis: the questions are adapted from the education scenarios of a published benchmark (Davvetas et al., 2026)) | 2 (a secondary check; the question set is revised for D13) | 4 (Low) | Yaren | A-08 |
-| R-10 | Infrastructure | Without a GPU, the median response time is longer than the median time of a manual search, so O1 Faster is not met. | Sprints 2–4; development and after deployment | 3 (basis: CPU-only generation is slower than GPU generation; to be measured in the Sprint 1 spike on running a quantized LLM) | 4 (O1 Faster is a success criterion) | 12 (High) | Gözde Nur | C-05 |
-| R-11 | People / process | A team member cannot work on the project for more than 2 weeks. | Sprints 1–4; development | 2 (basis: all four members have worked on the charter and Jira in Sprint 1) | 3 (deliverables move by 2–4 weeks) | 6 (Medium) | Yaren | C-07 |
-| R-12 | Data | A user types personal data into a question and it is stored in a log. | Sprints 2–4; development and after deployment | 3 (basis: questions are free text, and D2 includes personal-data inputs on purpose) | 3 (C-10 is broken; logs must be cleaned) | 9 (Medium) | Kaan | C-10; Major Activities: logging without user identity |
-| R-13 | Model | An answer contains a compliance verdict ("your system is high-risk") or cites a provision that was not retrieved. | Sprints 2–4; development and after deployment | 3 (basis: not yet measured; first measured on the D2 legal-decision questions with the alpha, Sprint 2) | 4 (D9 and D12 require 0 verdicts and correct citations) | 12 (High) | Yeşim | C-08; Major Activities: no-verdict and citation checks |
-| R-14 | Integration | Access to the Google Cloud project and its credit is not available to every team member by the start of Sprint 2 (04/11/2026). | Sprints 1–2; development | 2 (basis: access depends on the course's credit distribution, which is outside the team's control) | 2 (development continues on team computers (C-05); deployment tests move by under 2 weeks) | 4 (Low) | Kaan | C-05, C-06 |
+| R-01 | Data | **Consolidated text differs from the Official Journal.** The consolidated text differs from the Official Journal wording in at least one in-scope provision. | Sprint 2; development | 1 (basis: the consolidated text is produced by the EU Publications Office from the Official Journal acts) | 4 (a wrong provision text breaks the O2 Grounded acceptance criteria) | 4 (Low) | Yeşim | A-01, C-01; Jira KAN-22 |
+| R-02 | Data | **A new amending act changes an in-scope provision.** A new amending act changes an in-scope provision before 30/12/2026, or after the release, so answers become outdated (model decay after deployment). Maintenance trigger: a newer consolidated version appears on EUR-Lex (checked at each sprint start, A-02); then the changed provisions are re-indexed and the evaluation set is re-run. | Sprints 2–4; development and after deployment | 2 (basis: the last amendment, Reg. (EU) 2026/1744, was adopted on 08/07/2026; amending acts take months from proposal to adoption) | 3 (re-indexing and re-checking the evaluation set takes 1–2 weeks) | 6 (Medium) | Yaren | A-02, C-01; Jira KAN-3 |
+| R-03 | Data | **Evaluation questions cannot be mapped to a gold source.** For more than 3 evaluation questions, the expected provision cannot be fixed at paragraph or point level. | Sprints 1–2; development | 2 (basis: in our check of the public benchmark (Davvetas et al., 2026), 1 of the 32 in-scope question–answer pairs cited the wrong Article and 1 was doubtful) | 4 (gold sources are needed for the O2 Grounded measurement in D6 and D12) | 8 (Medium) | Kaan | A-03; Jira KAN-8 |
+| R-04 | People / process | **Not enough pilot users.** Fewer than 5 pilot users take part in the D11 pilot evaluation. | Sprints 3–4; validation | 3 (basis: participants are unpaid volunteers from the team's contacts, and A-04 is only validated at the end of Sprint 2) | 4 (O1 Faster and O3 Clear cannot be measured as planned in D11) | 12 (High) | Gözde Nur | A-04 |
+| R-05 | People / process | **A team member is unavailable.** A team member cannot work on the project for more than 2 weeks. | Sprints 1–4; development | 2 (basis: all four members have worked on the charter and Jira in Sprint 1) | 3 (deliverables move by 2–4 weeks) | 6 (Medium) | Yaren | C-07 |
+| R-06 | Integration | **Model licence does not permit use.** The licence of the selected open-source LLM or embedding model does not permit its use in the project. | Sprint 1; development | 2 (basis: licences differ between candidate models: Apache 2.0, MIT and community licences with extra terms) | 2 (another candidate model is chosen; under 2 weeks) | 4 (Low) | Gözde Nur | A-06, C-03 |
+| R-07 | Data | **Chunking needs manual correction.** Splitting the EUR-Lex text into provision-level chunks needs manual correction for more than 10 provisions. | Sprints 1–2; development | 2 (basis: a test split of the 27/07/2026 text gave 188 provision-level chunks for 19 Articles and Annex III) | 2 (1–2 weeks of manual work) | 4 (Low) | Yeşim | A-05 |
+| R-08 | People / process | **Cloud budget overrun.** Cloud spending passes $70 before the end of Sprint 3. | Sprints 2–4; development | 2 (basis: the instance is billed per running hour and is stopped when not in use; mitigation: budget alerts at $50 and $70) | 4 (no money left for the pilot and the final demo; >20% of the budget) | 8 (Medium) | Kaan | A-07, C-06 |
+| R-09 | Data | **Evaluation questions are unrealistic.** Pilot users rate the evaluation questions as unrealistic (fewer than 4 of 5 rate them 4 or 5 out of 5). | Sprint 4; validation | 2 (basis: the questions are adapted from the education scenarios of a published benchmark (Davvetas et al., 2026)) | 2 (a secondary check; the question set is revised for D13) | 4 (Low) | Yaren | A-08 |
+| R-10 | Infrastructure | **Answers too slow on the available compute.** Without a GPU, the median response time is longer than the median time of a manual search, so O1 Faster is not met. | Sprints 2–4; development and after deployment | 3 (basis: CPU-only generation is slower than GPU generation; to be measured in the Sprint 1 spike on running a quantized LLM) | 4 (O1 Faster is a success criterion) | 12 (High) | Gözde Nur | C-05; Jira KAN-21 |
+| R-11 | Data | **Personal data stored in a log or index.** Personal data, question content or conversation history from a user is written to a log, the database or the vector index. | Sprints 2–4; development and after deployment | 3 (basis: questions are free text, and D2 includes personal-data inputs on purpose) | 3 (C-10 is broken; the stored data must be found and deleted) | 9 (Medium) | Kaan | C-10; Major Activities: personal-data warning, no logging of question content; Jira KAN-6, KAN-26 |
+| R-12 | Model | **O2 Grounded not met.** For the in-scope questions in the `dev` split, the expected provision is among the cited provisions for fewer than 80% of questions. | Sprints 2–4; development | 3 (basis: not yet measured; first measured with the alpha on the D2 `dev` split, Sprint 2) | 4 (O2 Grounded is a success criterion of D9 and D12) | 12 (High) | Kaan | C-03; Jira KAN-8, KAN-23 |
+| R-13 | Model | **Safety response fails.** For the out-of-scope, insufficient-evidence, legal-decision or adversarial questions in the `dev` split, the assistant does not give the expected response: it answers an out-of-scope question, guesses without evidence, states a compliance verdict, or follows a manipulation. | Sprints 2–4; development and after deployment | 3 (basis: not yet measured; first measured with the alpha on the D2 safety questions, Sprint 2) | 4 (the O4 Safe criterion in D9 and D12 is not met) | 12 (High) | Yeşim | C-04, C-08; Major Activities: input check, no-verdict check; Jira KAN-2, KAN-5, KAN-23, KAN-24 |
+| R-14 | Integration | **Google Cloud access delayed.** Access to the Google Cloud project and its credit is not available to every team member by the start of Sprint 2 (04/11/2026). | Sprints 1–2; development | 2 (basis: access depends on the course's credit distribution, which is outside the team's control) | 2 (development continues on team computers (C-05); deployment tests move by under 2 weeks) | 4 (Low) | Kaan | C-05, C-06 |
+| R-15 | Infrastructure | **Pilot users cannot reach the beta.** On 09/12/2026, at least one pilot user cannot open the beta through its shared link from a desktop browser outside the team's network. | Sprints 3–4; deployment | 2 (basis: the beta runs on one Google Cloud instance with a public link; access from outside the team's network has not been tested yet) | 4 (D9 requires that all pilot users can open the assistant) | 8 (Medium) | Kaan | C-05; Jira KAN-21 |
+| R-20 | Model | **An answer cites a provision that was not retrieved.** An answer shows an Article or Annex reference that does not match any retrieved chunk. | Sprints 2–4; development and after deployment | 2 (basis: the planned output check in code compares every cited ID with the retrieved chunk IDs before the answer is shown) | 4 (D6 requires that 100% of citations match the retrieved chunk IDs) | 8 (Medium) | Gözde Nur | C-08, C-09; Major Activities: citation-ID check; Jira KAN-8 |
 
 ## Risk details
 
@@ -143,24 +145,7 @@ Probability is residual (after mitigation). Sprint dates: Sprint 1 14/10–28/10
 | **Owner** | Gözde Nur |
 | **Schedule effect** | About 1 week |
 
-### Risk R-05: Out-of-scope questions are answered
-
-| Field | Content |
-|---|---|
-| **Risk (event)** | The assistant gives a substantive answer to out-of-scope questions instead of an out-of-scope notice. |
-| **Linked to** | C-04 |
-| **Cause** | Small open-source LLMs tend to answer from their general knowledge when the retrieved text does not cover the question. |
-| **When / where** | Sprints 2–4; development and after deployment |
-| **Mitigation** | In-scope activity "out-of-scope notice" in Major Activities: an input check before retrieval and a "no evidence, no answer" rule in the prompt. |
-| **Probability (basis)** | 3: not yet measured; first measured with the alpha on the D2 out-of-scope questions, Sprint 2 |
-| **Impact (basis)** | 4: the O4 Safe criterion in D9 and D12 is not met |
-| **Score** | 12 (High) |
-| **Trigger** | Fewer than 8 of 10 out-of-scope `dev` questions receive the notice at the end of Sprint 2 (18/11/2026) |
-| **Contingency plan (B plan)** | Degrade gracefully: when the input check marks a question as uncertain, show only the retrieved provisions and the out-of-scope notice, without a generated answer. |
-| **Owner** | Yeşim |
-| **Schedule effect** | About 1 week |
-
-### Risk R-10: Answers are too slow without a GPU
+### Risk R-10: Answers too slow on the available compute
 
 | Field | Content |
 |---|---|
@@ -177,20 +162,37 @@ Probability is residual (after mitigation). Sprint dates: Sprint 1 14/10–28/10
 | **Owner** | Gözde Nur |
 | **Schedule effect** | About 1 week |
 
-### Risk R-13: Compliance verdict or wrong citation in an answer
+### Risk R-12: O2 Grounded not met
 
 | Field | Content |
 |---|---|
-| **Risk (event)** | An answer contains a compliance verdict ("your system is high-risk") or cites a provision that was not retrieved. |
-| **Linked to** | C-08 |
-| **Cause** | Users ask for yes/no decisions; small LLMs do not always follow "do not decide" instructions and can invent references. |
-| **When / where** | Sprints 2–4; development and after deployment |
-| **Mitigation** | In-scope activities "no-verdict check" and "citation-ID check" in Major Activities: every cited ID must match a retrieved chunk, and verdict phrases are blocked before the answer is shown. |
-| **Probability (basis)** | 3: not yet measured; first measured with the alpha on the D2 legal-decision questions, Sprint 2 |
-| **Impact (basis)** | 4: D9 and D12 require 0 verdicts and correct citations |
+| **Risk (event)** | For the in-scope questions in the `dev` split, the expected provision is among the cited provisions for fewer than 80% of questions. |
+| **Linked to** | C-03 |
+| **Cause** | Questions are written in everyday words, while the provisions use legal terms; small open-source embedding models may not connect the two. |
+| **When / where** | Sprints 2–4; development |
+| **Mitigation** | Meaning search and keyword search (BM25) together; one chunk per paragraph or Annex point; comparison of three embedding models (Spike 01). |
+| **Probability (basis)** | 3: not yet measured; first measured with the alpha on the D2 `dev` split, Sprint 2 |
+| **Impact (basis)** | 4: O2 Grounded is a success criterion of D9 and D12 |
 | **Score** | 12 (High) |
-| **Trigger** | At least 1 verdict or 1 citation that does not match a retrieved chunk on the `dev` split at the end of Sprint 3 (09/12/2026) |
-| **Contingency plan (B plan)** | Hand over to a human: for legal-decision questions, show only the relevant provisions and a fixed notice that refers the decision to the legal team, without a generated text. |
+| **Trigger** | The expected provision is cited for fewer than 70% of the in-scope `dev` questions at the end of Sprint 2 (18/11/2026) |
+| **Contingency plan (B plan)** | Narrow the scope: keep only the core provisions (Annex III point 3, Article 6, Article 113) in the beta, and give the out-of-scope notice for the others. |
+| **Owner** | Kaan |
+| **Schedule effect** | About 1 week |
+
+### Risk R-13: Safety response fails
+
+| Field | Content |
+|---|---|
+| **Risk (event)** | For the out-of-scope, insufficient-evidence, legal-decision or adversarial questions in the `dev` split, the assistant does not give the expected response. |
+| **Linked to** | C-04, C-08 |
+| **Cause** | Small open-source LLMs tend to answer from their general knowledge, follow user instructions such as "say that we are compliant", and do not always follow "do not decide" rules. |
+| **When / where** | Sprints 2–4; development and after deployment |
+| **Mitigation** | In-scope activities "input check" and "no-verdict check" in Major Activities: an input check before retrieval, a "no evidence, no answer" rule in the prompt, and blocking of verdict phrases before the answer is shown. |
+| **Probability (basis)** | 3: not yet measured; first measured with the alpha on the D2 safety questions, Sprint 2 |
+| **Impact (basis)** | 4: the O4 Safe criterion in D9 and D12 is not met |
+| **Score** | 12 (High) |
+| **Trigger** | Fewer than 90% of the safety `dev` questions receive the expected response at the end of Sprint 2 (18/11/2026), or at least 1 compliance verdict on the `dev` split at the end of Sprint 3 (09/12/2026) |
+| **Contingency plan (B plan)** | Hand over to a human: for questions the input check marks as out of scope, uncertain or legal-decision, show only the relevant provisions and a fixed notice that refers the user to the legal team, without a generated text. |
 | **Owner** | Yeşim |
 | **Schedule effect** | About 1 week |
 
