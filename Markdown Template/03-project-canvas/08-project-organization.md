@@ -1,3 +1,4 @@
+
 # Project Organization
 
 This page shows who does what in the team, and how the team relates to the people who govern, review and influence the project. Team members hold the template's project roles, with the two Scrum roles, Product Owner and Scrum Master, as defined in the Scrum Guide [1]. Stakeholders outside the team can be named with the stakeholder roles of ISO/IEC 5339 [3].
@@ -25,10 +26,11 @@ In Scrum, the Scrum Team is one Scrum Master, one Product Owner and Developers, 
 flowchart TB
     PRC["Project Review Committee<br/>Tuğba Taşkaya Temizel (instructor)<br/>Volga Sezen (teaching assistant)"]
     PEER["Peer review groups<br/>(Sprints 2, 3 and 4)"]
-    subgraph TEAM["ELIZA Scrum Team (no hierarchy inside)"]
-        PO["Product Owner<br/>Yeşim"]
-        SM["Scrum Master<br/>Yaren"]
-        DS["Development Team Members (Data Scientists)<br/>Kaan · Gözde Nur<br/>(Yeşim and Yaren also do data work)"]
+    subgraph TEAM["ELIZA Scrum Team (no hierarchy inside and changing in every sprint)"]
+        PO["Product Owner<br/>Yeşim "]
+        SM["Scrum Master<br/> Yaren · Yeşim · Kaan · Gözde Nur "]
+        DS["Development Team Members (Data Scientists)<br/>Kaan · Gözde Nur "]
+        DS["Development Team Members (Data Analyst)<br/> Yaren "]
     end
     CUST["AI customer<br/>course instructors and peer groups,<br/>academic proxies for an EdTech provider's legal team"]
     USERS["AI users<br/>pilot proxy users<br/>(technical professionals)"]
