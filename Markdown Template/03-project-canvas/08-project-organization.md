@@ -29,8 +29,7 @@ flowchart TB
     subgraph TEAM["ELIZA Scrum Team (no hierarchy inside and changing in every sprint)"]
         PO["Product Owner<br/>Yeşim "]
         SM["Scrum Master<br/> Yaren · Yeşim · Kaan · Gözde Nur "]
-        DS["Development Team Members (Data Scientists)<br/>Kaan · Gözde Nur "]
-        DS["Development Team Members (Data Analyst)<br/> Yaren "]
+        DS["Development Team Members (Data Scientists)<br/>Kaan · Gözde Nur <br/> (Data Analyst)<br/> Yaren · Yeşim "]
     end
     CUST["AI customer<br/>course instructors and peer groups,<br/>academic proxies for an EdTech provider's legal team"]
     USERS["AI users<br/>pilot proxy users<br/>(technical professionals)"]
