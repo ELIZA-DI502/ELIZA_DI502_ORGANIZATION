@@ -19,6 +19,38 @@ Governance in DI 502:
 
 In Scrum, the Scrum Team is one Scrum Master, one Product Owner and Developers, with no sub-teams or hierarchies inside it [1]. Draw the chart that way: the team as one box, with the Project Review Committee, the peer groups and the outside stakeholders around it. Show every member, including those in non-technical roles.
 
+**ELIZA team chart.** The Scrum Team is one box with no sub-teams or hierarchy inside it: Yeşim is the Product Owner, Yaren is the Scrum Master, and Kaan and Gözde Nur are Development Team Members (Developers in Scrum terms, template role Data Scientist). Yeşim and Yaren also do named data work next to their Scrum roles, as the Scrum Guide allows. Every member owns at least one assumption in [Assumptions & Constraints](03-assumptions-and-constraints.md).
+
+```mermaid
+flowchart TB
+    PRC["Project Review Committee<br/>Tuğba Taşkaya Temizel (instructor)<br/>Volga Sezen (teaching assistant)"]
+    PEER["Peer review groups<br/>(Sprints 2, 3 and 4)"]
+    subgraph TEAM["ELIZA Scrum Team (no hierarchy inside)"]
+        PO["Product Owner<br/>Yeşim"]
+        SM["Scrum Master<br/>Yaren"]
+        DS["Development Team Members (Data Scientists)<br/>Kaan · Gözde Nur<br/>(Yeşim and Yaren also do data work)"]
+    end
+    CUST["AI customer<br/>course instructors and peer groups,<br/>academic proxies for an EdTech provider's legal team"]
+    USERS["AI users<br/>pilot proxy users<br/>(technical professionals)"]
+    DATA["Data provider<br/>EUR-Lex, Publications Office of the EU"]
+    PART["AI partner<br/>Google Cloud (project credit)"]
+    PRC -- "reviews charter versions and sprint deliverables" --> TEAM
+    PEER -- "review documents, fill in the Review page" --> TEAM
+    CUST -- "feedback on the alpha, beta and release candidate" --> TEAM
+    TEAM -- "pilot tasks and survey" --> USERS
+    DATA -- "consolidated text of Regulation (EU) 2024/1689" --> TEAM
+    PART -- "hosting for the deployed assistant" --> TEAM
+```
+
+Team chart (as a list):
+
+- Project Review Committee: Tuğba Taşkaya Temizel (course instructor) and Volga Sezen (teaching assistant). Peer review groups at Sprints 2, 3 and 4.
+- ELIZA Scrum Team (Yeşim, Yaren, Kaan, Gözde Nur), no hierarchy inside:
+  - Product Owner: Yeşim.
+  - Scrum Master: Yaren.
+  - Development Team Members (template role Data Scientist): Kaan, Gözde Nur; Yeşim and Yaren also do named data work.
+- Outside: AI customer (course instructors and peer groups); AI users (pilot proxy users); data provider (EUR-Lex); AI partner (Google Cloud).
+
 ## 2. Roles and Responsibilities
 
 Define the roles and responsibilities of each team member, and of any stakeholders and working groups that have a significant influence on the project.
@@ -114,16 +146,16 @@ The left column shows weak entries, each tagged with the rule it breaks.
 
 | Project Role | Responsibilities | Assigned to |
 |---|---|---|
-| Product Owner | | |
-| Scrum Master | | |
-| Business Analyst | | |
-| Group Manager | | |
-| Team Lead | | |
-| Project Lead | | |
-| Data Scientist | | |
-| Project Review Committee | | Course instructors |
-| AI customer | | Course instructors and peer groups |
-| *(outside stakeholders, one row each)* | | |
+| Product Owner | Set the product goal from the [Project Executive Summary](01-project-executive-summary.md) and keep it visible; write and order the user stories in the Jira backlog (project KAN); accept or reject each increment against its acceptance criteria; sign off the deliverables marked "Product Owner" in [Deliverables](05-deliverables.md); coordinate the resolution and logging of disagreements between the two evaluation reviewers using the evaluation rubric (O2); own the O1 and O3 success criteria; agree on any feature deferral (D9) and on any change of the designated source version (A-02); bring the target levels to the Project Review Committee (A-06). | Yeşim |
+| Scrum Master | Run sprint planning, the daily check-ins, sprint reviews and retrospectives; keep the Jira board and the impediment list up to date; check that stories meet INVEST before sprint planning; keep the working conventions (Jira key in every branch, commit and pull request; Definition of Done); write the sprint report after each sprint (`docs/sprints/sprint-N.md`, input to D14); check team availability at each sprint start (A-09). | Yaren |
+| Data Scientist | **Yeşim**: source corpus and preprocessing: source manifest and provision list (D3), parsing and chunking by Article/paragraph (D5), check of the consolidated text against the Official Journal (A-01, A-05). **Yaren**: evaluation pipeline: scripts that score O2 and O4 on the `dev` and `test` splits, Weights & Biases runs and `docs/eval/results.md`, AI SBOM (`ai-bom.yaml`), realism rating of the questions (A-08). **Kaan**: retrieval and answer generation: embedding, vector store, retriever, the open-source quantized LLM and its prompt templates, their spike notes and ADRs (D4), cloud-cost tracking for model hosting (A-07), model licence check (A-10), licence check and adaptation of the published benchmark questions (A-11), gold-source mapping of the evaluation questions (A-03). **Gözde Nur**: user interface, deployment and safety checks: web page and its deployment on Google Cloud, beta features (guided start, check the source, follow-up questions), rule-based safety checks before and after the model call (input check, decision-phrase and verdict check, personal-data reminder, C-10), pilot protocol and pilot users (D11, A-04). **All four**: write and cross-check evaluation questions, including questions taken or adapted from published work (D2, D8), write a learning spike note (D4), plan the sprint, and test each increment against the Definition of Done. | Kaan, Gözde Nur (Development Team Members); Yeşim and Yaren for the named data work next to their Scrum roles |
+| Project Review Committee | Review each charter version and the sprint deliverables; set the course constraints (RAG solution, open-source quantized model, $100 Google Cloud credit); give feedback on the O2 and O4 target levels (A-06); co-approve D11, D12 and approve D14. | Tuğba Taşkaya Temizel (course instructor), Volga Sezen (teaching assistant) |
+| AI customer | Try the alpha, beta and release candidate at the sprint reviews and the final demonstration and give feedback that the Product Owner turns into backlog items ([Milestones](02-milestones.md) M4, M7, M10), acting as academic proxies for the legal and compliance team of an EdTech provider (scenario in the [Project Executive Summary](01-project-executive-summary.md)); peer groups review the team's documents after Sprints 2, 3 and 4 and fill in the Review page. Contact: Yeşim. | Course instructors and peer groups |
+| AI user | Do the timed search tasks and answer the survey in the pilot (16/12–23/12/2026, D11); rate the realism of a sample of evaluation questions (A-08). Contact: Gözde Nur. | At least 5 pilot proxy users: technical professionals working on software or AI (named participants anonymised as P1, P2, …) |
+| Data provider | Publishes the consolidated text of Regulation (EU) 2024/1689 (CELEX 02024R1689-20260727) that the assistant uses; its reuse terms (Commission Decision 2011/833/EU) apply (C-09). Contact: Yeşim. | EUR-Lex, Publications Office of the European Union |
+| AI partner | Provides the hosting for the deployed assistant under the $100 project credit (C-05, C-06). Contact: Kaan (model-hosting cost and cloud budget); Gözde Nur (application deployment). | Google Cloud |
+
+Business Analyst, Group Manager, Team Lead and Project Lead rows are removed: nobody in the team holds these roles; in a team of four, their work is covered by the Product Owner, the Scrum Master and the named areas in the Data Scientist row.
 
 ## Example (illustrative only)
 
@@ -157,19 +189,19 @@ Group Manager and Project Lead are deleted: in a team of four, their work is alr
 
 ## Checklist before submitting
 
-- [ ] Every team member's role comes from the template's list, spelled as there (rule 1)
-- [ ] There is a Product Owner, a Scrum Master and at least one Data Scientist (rule 2)
-- [ ] The Product Owner and the Scrum Master are one person each (rule 3)
-- [ ] Every team member appears at least once (rule 4)
-- [ ] Every Responsibilities cell is specific to this project (rule 5)
-- [ ] No responsibility appears in two rows (rule 6)
-- [ ] Lead and manager rows name an area, not authority over others (rule 7)
-- [ ] Every shared role lists each person by name (rule 8)
-- [ ] The Project Review Committee is the course instructors (rule 9)
-- [ ] The AI customer row names the course instructors and peer groups (rule 10)
-- [ ] Outside stakeholders use ISO/IEC 5339 role names where one fits, each with a team contact (rule 11)
-- [ ] The team chart shows the relation to governance (rule 12)
-- [ ] Every owner, approver and contact on [Milestones](03-project-canvas_v2/02-milestones.md), [Dependencies](03-project-canvas_v2/06-dependencies.md) and [Risks](03-project-canvas_v2/11-risks.md) appears here (rule 13)
+- [x] Every team member's role comes from the template's list, spelled as there (rule 1)
+- [x] There is a Product Owner, a Scrum Master and at least one Data Scientist (rule 2)
+- [x] The Product Owner and the Scrum Master are one person each (rule 3)
+- [x] Every team member appears at least once (rule 4)
+- [x] Every Responsibilities cell is specific to this project (rule 5)
+- [x] No responsibility appears in two rows (rule 6)
+- [x] Lead and manager rows name an area, not authority over others (rule 7)
+- [x] Every shared role lists each person by name (rule 8)
+- [x] The Project Review Committee is the course instructors (rule 9)
+- [x] The AI customer row names the course instructors and peer groups (rule 10)
+- [x] Outside stakeholders use ISO/IEC 5339 role names where one fits, each with a team contact (rule 11)
+- [x] The team chart shows the relation to governance (rule 12)
+- [x] Every owner, approver and contact on [Milestones](03-project-canvas_v2/02-milestones.md), [Dependencies](03-project-canvas_v2/06-dependencies.md) and [Risks](03-project-canvas_v2/11-risks.md) appears here (rule 13)
 
 ---
 

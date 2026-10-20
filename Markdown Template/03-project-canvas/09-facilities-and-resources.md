@@ -83,9 +83,24 @@ One row each for:
 
 ## Resources
 
+Categories: **Compute & hosting** rows 1–3 and 13; **APIs & third-party services** rows 4–5 (no hosted LLM or embedding API is used, so no rate limits apply; the EUR-Lex text is downloaded once, not queried through an API); **Software & licenses** rows 4–6 and 9–12; **Data access** rows 7–8; **Physical/logistical needs**: not needed (row 14).
+
 | # | Resource | Description | Responsible Person/Team | Status |
 |---|---|---|---|---|
-| 1 | | | | |
+| 1 | Team members' own computers (4, CPU only; RAM and CPU of each are recorded in the Sprint 1 spike notes by 28/10/2026) | Development compute: running the pipeline, the Sprint 1 spikes (source parsing, quantized LLM) and the D6 alpha. On-premise, member-owned. No dedicated GPU (C-05). | Each member for their own computer; Kaan measures the LLM answer time on them in the model selection spike (R-10) | In use since the start of Sprint 1 (14/10/2026) |
+| 2 | Google Colab, free tier | Optional notebook runtime for spikes that do not fit on a team computer. Cloud service (Google). Free-tier session and GPU limits are not guaranteed, so no deliverable depends on it; not used for deployment. | The member who runs the spike | Optional; not used yet (checked on 20/10/2026) |
+| 3 | Google Cloud project with the course credit; CPU instance (type chosen in D4 System Design v1) | Trial deployment, experiments that need more memory than a team computer, and hosting of the beta and the release candidate (row 13). Cloud service. Limited to the $100 credit (C-05, C-06); planned use at most $70 (A-07); billing alerts at $25, $50 and $70; the instance is stopped when not in use (R-07). Project and billing alerts set up by 18/11/2026 ([Dependencies](06-dependencies.md) row 8). | Kaan | Credit not yet confirmed as received (checked on 20/10/2026) |
+| 4 | Open-source quantized LLM, 4-bit, run locally (candidates: Qwen3-4B, Phi-3.5-mini-instruct, Llama-3.2-3B-Instruct; serving tool, e.g. Ollama, chosen in D4) | Answer generation. Runs locally: team computers in development, the Google Cloud instance in deployment. No hosted API, so no rate limit; the limits are CPU speed and memory (R-10). Downloaded from Hugging Face; its licence must permit academic use and publication of answers (A-10, R-19). Listed with version and licence in `ai-bom.yaml`. | Kaan | Under evaluation in the Sprint 1 model selection spike; choice due with D4 (28/10/2026) |
+| 5 | Open-source embedding model (candidates: bge-small-en-v1.5, e5-small-v2, all-MiniLM-L6-v2) | Embeds the provision chunks and the questions. Runs locally in the same environments as row 4. No rate limit. Downloaded from Hugging Face; licence as in A-10 (R-19). Listed in `ai-bom.yaml`. | Kaan | Choice due with D4 (28/10/2026) |
+| 6 | Vector store and keyword index (candidates: Chroma or FAISS for vectors, BM25 for keywords) | Index of the provision-level chunks (the number of chunks is estimated in the Sprint 1 parsing spike and reported in D5). Runs on the same machine as the application, with no separate hosting service (confirmed in D4). | Kaan | Open; chosen in D4 (28/10/2026) |
+| 7 | Source corpus: consolidated text of Regulation (EU) 2024/1689, version 27/07/2026 (CELEX 02024R1689-20260727), from EUR-Lex | Downloaded once as HTML and stored in the team repository (`data/`), with `data/manifest.csv` (D3). Public legal text with no personal data, so no special environment is needed. Reused with source acknowledgement (C-09). Access: all team members through the repository. | Yeşim (A-01, A-05) | Stored file and manifest due with D3 (28/10/2026) ([Dependencies](06-dependencies.md) row 3; R-18) |
+| 8 | Evaluation set and pilot results | `docs/eval/eval-set-v1.csv` (D2), later `eval-set-v2.csv` (D8), and the pilot results (D11), stored in the team repository. Access: team members. Questions taken or adapted from published work keep their source and attribution (A-11). Pilot participants are not identified in the files (P1, P2, …). Questions typed into the deployed assistant are not stored (C-10, R-11); the evaluation questions contain no personal data. | Yaren (evaluation set and results); Gözde Nur (pilot results, A-04) | Evaluation set due with D2 (28/10/2026); pilot in Sprint 4 (16/12–23/12/2026) |
+| 9 | GitHub organisation ELIZA-DI502, repository ELIZA_DI502_ORGANIZATION | Code, charter pages and pull requests. Course template updates are merged in by the `hoca-sync` workflow. Access: the four members and the course reviewers. | Gözde Nur (configured the sync workflow) | In use since 12/10/2026; `hoca-sync` added on 14/10/2026 |
+| 10 | Jira project KAN (yarengursoy.atlassian.net), Jira–GitHub sync workflow | Backlog, sprints and story tracking; issues linked to GitHub through Jira keys. The course requires two reviewer accounts on Jira and Confluence: the general reviewer (Reviewer 1) and the team's reviewer (Reviewer 3). | Yaren | In use since 13/10/2026. Reviewer 3 access confirmed; Reviewer 1 invitation pending as of 20/10/2026: Yaren sends the invitations for Jira and Confluence and verifies access before the Sprint 1 review (28/10/2026) |
+| 11 | Confluence space "Eliza / DI502" (yarengursoy.atlassian.net) and Confluence sync workflow | Course documentation space; pages synced from the repository on every push to `main`. | Yaren (space); Gözde Nur (sync workflow) | Space created on 04/10/2026; synced from the repository since 18/10/2026 |
+| 12 | Experiment tracker (Weights & Biases, free tier, as required by the course) | Cloud-based experiment tracking for the Sprint 2–4 evaluation runs (D6 criterion 5, D9, D12). The free tier is planned; account access, the applicable usage limits and the project visibility settings are checked before the first experiment. No user questions or conversation content are logged (C-10). | Yaren | Planned as of 20/10/2026; account access and free-tier limits to be verified before the first D6 experiment (by 18/11/2026) |
+| 13 | Deployment environment: web application on the Google Cloud CPU instance (row 3); interface technology chosen in D4 | Hosts the trial deployment, the beta (D9) and the release candidate for the pilot users through a shared link, reachable from outside the team's network (KAN-21, R-15). No user accounts; no personal data, question content or conversation history is stored, and the session context is discarded when the session ends (C-10, R-11). The D6 alpha runs from `README.md` on a team computer. | Gözde Nur | Planned: alpha by 18/11/2026 (local), trial deployment by 27/11/2026, beta by 09/12/2026 (cloud) |
+| 14 | Physical or logistical resources | Not needed: the team works on its own computers and meets online. | Yaren (Scrum Master) | Not needed, confirmed on 20/10/2026 |
 
 ## Example (illustrative only)
 
@@ -103,16 +118,16 @@ Scenario: a legal research assistant. Names, limits and dates are illustrative.
 
 ## Checklist before submitting
 
-- [ ] Every category is covered or marked as not needed (rule 1)
-- [ ] Every row names a Responsible Person/Team (rule 2)
-- [ ] Every API or third-party service row states its usage or rate limits (rule 3)
+- [x] Every category is covered or marked as not needed (rule 1)
+- [x] Every row names a Responsible Person/Team (rule 2)
+- [x] Every API or third-party service row states its usage or rate limits (rule 3)
 - [ ] Every compute row says what hardware is used and where it runs (rule 4)
-- [ ] The deployment environment has its own row (rule 5)
-- [ ] Every data-access row names storage, permissions and any sensitive-data needs (rule 6)
-- [ ] Every row has a dated Status (rule 7)
-- [ ] Every fixed limit also appears as a constraint in [Assumptions & Constraints](03-project-canvas_v2/03-assumptions-and-constraints.md) (rule 8)
-- [ ] Every resource that could fail has a risk in [Risks](03-project-canvas_v2/11-risks.md) (rule 9)
-- [ ] Every wait on an outside party is a row in [Dependencies](03-project-canvas_v2/06-dependencies.md) (rule 10)
+- [x] The deployment environment has its own row (rule 5)
+- [x] Every data-access row names storage, permissions and any sensitive-data needs (rule 6)
+- [x] Every row has a dated Status (rule 7)
+- [x] Every fixed limit also appears as a constraint in [Assumptions & Constraints](03-project-canvas_v2/03-assumptions-and-constraints.md) (rule 8)
+- [x] Every resource that could fail has a risk in [Risks](03-project-canvas_v2/11-risks.md) (rule 9)
+- [x] Every wait on an outside party is a row in [Dependencies](03-project-canvas_v2/06-dependencies.md) (rule 10)
 
 ---
 

@@ -80,17 +80,26 @@ Why the dates matter: dependencies cause wait times. A Critical Date gives you a
 
 ## Dependencies
 
+Each row reads: B cannot start until A has happened; A is checked by the Critical Date, which is no later than the planned start of B; if there is a problem with A, the named Contact is reached. Rows are in date order. Dates follow the sprint calendar in the [Release Plan](10-release-plan.md); milestones (M) and deliverables (D) refer to [Milestones](02-milestones.md) and [Deliverables](05-deliverables.md); risks that link back to a row are in [Risks](11-risks.md).
+
 | # | Dependency Description | Critical Date | Contact |
 |---|---|---|---|
-| 1 | Preparation of the education-focused source document set cannot be completed until the in-scope regulatory provisions have been identified and checked against the authoritative EUR-Lex text. | 21.10.2026| |
-| 2 | The baseline RAG pipeline and retrieval evaluation cannot be completed until the source documents have been chunked, the vector index has been built, and the evaluation questions have verified expected provision-level references. | 28.10.2026| |
-| 3 | The first prototype's regulatory reference guide cannot be completed until the RAG pipeline can retrieve relevant regulatory passages and generate answers with supporting citations. | 4.11.2026 | |
-| 4 | Regulatory deadline identification cannot be completed until the relevant regulatory provisions, applicable dates, and supporting references are available for the education-focused use cases. | 11.11.2026 | |
-| 5 | The prototype checkpoint review cannot take place until the first prototype, improved prototype, and initial quality evaluation results are available for review. | 11.11.2026 | |
-| 6 | End-to-end safety validation cannot be completed until the chatbot is integrated with the RAG pipeline and out-of-scope handling, no-verdict, and citation checks are implemented. |18.11.2026 | |
-| 7 | The pilot evaluation cannot start until the integrated prototype, evaluation question set, and confirmed pilot participants are ready. |02.12.2026 | |
-| 8 |The final demonstration cannot proceed until pilot evaluation results have been reviewed, required prototype corrections have been completed, and the final report and prototype are ready. |09.12.2026 | |
-
+| 1 | Adapting questions from the AI Act Evaluation Benchmark (Davvetas et al., 2026) into D2 cannot start until the benchmark's licence has been re-checked and the scenarios to adapt have been selected (supplier: the benchmark authors' public repository; A-11). Risk: R-21. | 23/10/2026 | Kaan (Development Team Member) |
+| 2 | The final mapping between the D2 evaluation questions and the D3 provision list cannot be completed until the D2 questions have provision-level gold sources checked against the official text (A-03). Drafting the D2 questions and preparing the D3 source inventory can proceed in parallel. Risk: R-03. | 24/10/2026 | Kaan (Development Team Member) |
+| 3 | Finalising the source manifest (D3) with a verified file hash, and starting source parsing and chunking (D5), cannot proceed until the consolidated text of Regulation (EU) 2024/1689 (CELEX 02024R1689-20260727) has been downloaded from EUR-Lex (data provider: Publications Office of the European Union) and stored in the repository with its SHA-256 hash. Risk: R-18. | 28/10/2026 | Yeşim (Product Owner) |
+| 4 | The chunking design in D5 cannot be fixed until the source parsing spike shows whether the EUR-Lex HTML marks Articles, paragraphs and Annex points separately (A-05). Risk: R-05. | 28/10/2026 | Yeşim (Product Owner) |
+| 5 | Sprint 2 development cannot begin until the Sprint 1 review and the M3 checkpoint have confirmed that the project is ready to proceed. Separately, incorporating the Project Review Committee's feedback into Project Charter v2 (D7), including feedback on the O2 and O4 target levels, depends on that feedback being received and recorded (A-06). Supplier: Project Review Committee. Risk: R-06. | 02/11/2026 | Yeşim (Product Owner) |
+| 6 | The retrieval pipeline and answer generation (Sprint 2) cannot start until the model selection spike has chosen an open-source quantized LLM and an embedding model, downloaded from Hugging Face, whose licences permit the project's use (ADRs in D4, A-10) and the technologies are confirmed at M3. Risks: R-19, R-10. | 02/11/2026 | Kaan (Development Team Member) |
+| 7 | The alpha evaluation on the D2 `dev` split (Recall@5 and the comparison with and without retrieval, D6 criterion 5) cannot start until the index covers every provision in the D3 list (D5) and the retrieval and answer-generation pipeline is integrated into a runnable alpha build (D6); the D2 `dev` questions are available from Sprint 1. | 13/11/2026 | Kaan (Development Team Member) |
+| 8 | The trial cloud deployment cannot start until a Google Cloud project with billing alerts at $25, $50 and $70 is set up under the course's $100 credit (AI partner: Google Cloud; C-06). Risk: R-07. | 18/11/2026 | Kaan (Development Team Member) |
+| 9 | Finalising the pilot session schedule (D11) cannot be completed until at least 5 named technical proxy participants have confirmed their availability and pilot dates (A-04). Preparing the pilot tasks and the survey can proceed before the participants are confirmed. Risk: R-04. | 18/11/2026 | Gözde Nur (Development Team Member) |
+| 10 | Work on the beta features in Sprint 3 cannot start until the Product Owner's go/no-go decision on the alpha results (M6). | 20/11/2026 | Yeşim (Product Owner) |
+| 11 | The beta deployment for the pilot (D9) cannot start until the trial cloud deployment has passed a smoke test from outside the team's network ([Major Activities](04-major-activities.md) row 28). Risk: R-15. | 27/11/2026 | Gözde Nur (Development Team Member) |
+| 12 | Scoring the beta on the D8 `dev` split (D9 criteria 2–3) cannot start until the D8 `dev` questions are frozen. Risk: R-16. | 04/12/2026 | Yaren (Scrum Master) |
+| 13 | The pilot (D11) cannot start until the beta is deployed and reachable by the pilot participants and the pilot tasks and survey questions are in the repository (D9 criteria 1 and 6). Risk: R-15. | 09/12/2026 | Gözde Nur (Development Team Member) |
+| 14 | The pilot and the release-candidate work cannot start until the Product Owner's go/no-go decision on the beta results and the pilot protocol (M8). | 11/12/2026 | Yeşim (Product Owner) |
+| 15 | Finalising the pilot-based fixes for the release candidate (D12) and completing the pilot analysis (D11) cannot proceed until the pilot has ended and its problem log and participant results are complete. Preparatory release-candidate work and the evaluation set-up can proceed earlier. Risk: R-17. | 23/12/2026 | Gözde Nur (Development Team Member) |
+| 16 | The final evaluation of the release candidate on the held-out `test` split (D12) cannot start until the D8 `test` questions and their gold sources are final (frozen on 09/12/2026 and never used for prompt, retrieval or rule tuning) and the release-candidate build with the pilot fixes is ready for evaluation. Risk: R-22. | 23/12/2026 | Yaren (Scrum Master) |
 
 ## Example (illustrative only)
 
@@ -107,13 +116,13 @@ Row 2 has a matching risk in [Risks](03-project-canvas_v2/11-risks.md): "The dat
 
 ## Checklist before submitting
 
-- [ ] Every row names both A and B (rule 1)
-- [ ] Every row has a Critical Date (rule 2)
-- [ ] No Critical Date is later than the planned start of B (rule 3)
-- [ ] Every row has one named Contact (rule 4)
-- [ ] No row is a bare task (rule 5)
-- [ ] Every row for an outside supplier names the supplier (rule 6)
-- [ ] Every dependency that might fail has a risk in [Risks](03-project-canvas_v2/11-risks.md) that links back to it (rule 7)
+- [x] Every row names both A and B (rule 1)
+- [x] Every row has a Critical Date (rule 2)
+- [x] No Critical Date is later than the planned start of B (rule 3)
+- [x] Every row has one named Contact (rule 4)
+- [x] No row is a bare task (rule 5)
+- [x] Every row for an outside supplier names the supplier (rule 6)
+- [x] Every dependency that might fail has a risk in [Risks](03-project-canvas_v2/11-risks.md) that links back to it (rule 7)
 
 ---
 

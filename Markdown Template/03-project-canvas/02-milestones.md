@@ -83,17 +83,20 @@ Ask these three questions of every milestone.
 
 Add rows as needed.
 
+Expected dates follow the sprint calendar in the [Release Plan](10-release-plan.md): Sprint 1 14/10–28/10, Sprint 2 04/11–18/11, Sprint 3 25/11–09/12, Sprint 4 16/12–30/12/2026. Checkpoints fall in the gaps between sprints. Deliverable numbers and names match [Deliverables](05-deliverables.md).
+
 | # | Project Milestone | Description | Expected Date | Associated Deliverable |
 |---|---|---|---|---|
-| M1 |Project scope approved   | Education focused use cases, target users, project boundaries and interface are agreed  |  14.10.2026 |  Project Charter |
-| M2 |  Education focused base ready | Relevant education related section of the document are identified and prepared for retrieval  | 28.10.2026  |  Prepared Source Document Set |
-| M3 | Regulatory reference and compliance guide | Relevant in scope answer design with regulatory references (linked with KAN2) | 28.10.2026 | First Prototype |
-| M4 | Baseline RAG answers and evaluation question set   | Baseline RAG pipeline answers predefined evaluation questions and it responses with citation  | 28.10.2026  | Baseline RAG Evaluation Report  |
-| M5 | Regulatory deadline identification | No fixed date. references specific date considering the product that is asked for (linked with KAN3) | 06.11.2026 | Improved Prototype |
-| M6 | Checkpoint review and approvement  |  Team reviews prototype major quality and decide the system for development | 11.11.2026  |  Prototype |
-| M7 |  Pilot Evaluation |  Pilot evaluation is completed and answer relevance, correctness and handling out of scope questions are assessed | 02.12.2026 | Pilot Evaluation Report  |
-| M8 | Final Demo accepted and project results reviewed  | Final demonstration is completed the project and results are reviewed, final system is presented to the course stakeholders  | 16.12.2026  | Final Report and Final Prototype   |
-
+| M1 | Charter v1 approved | The Product Owner signs off the first version of the Project Canvas; all first-version cells are complete and every objective has a numeric success criterion | 28/10/2026 | D1 Project Charter v1 |
+| M2 | Evaluation set, sources and first design ready | 20–30 evaluation questions have expected provisions and expected behaviour, with at least one third held out for testing; the in-scope provision list and the source manifest are recorded; the first architecture diagram exists with its spike notes | 28/10/2026 | D2 Q&A Generation-Dataset v1; D3 Source Inventory and Manifest v1; D4 System Design v1 |
+| M3 | Checkpoint: Sprint 1 reviewed, development starts | The team and the Product Owner review the Sprint 1 results and confirm the technologies for the alpha | 02/11/2026 | D1 Project Charter v1; D4 System Design v1 (both due 28/10/2026) |
+| M4 | Alpha runs end to end on the full development question set | The alpha processes the full development question set end to end without runtime errors: every question gets a response (a cited answer with the version date or a boundary notice); answers that are wrong or incomplete are listed as known failures; the results and the comparison with and without retrieval are logged (no accuracy level at this stage; O2 is measured in the beta) | 18/11/2026 | D5 Preprocessing Report v1; D6 Alpha Release |
+| M5 | Charter v2 approved | Every Sprint 1 review comment is addressed, or explicitly not taken up with a reason; the O1 and O3 target levels are reviewed once and any change is recorded; the Project Review Committee's feedback on the O2 and O4 levels is recorded | 18/11/2026 | D7 Project Charter v2 |
+| M6 | Checkpoint: go/no-go for the beta | The Product Owner reviews the alpha results on the development questions and decides whether the project proceeds with the planned beta features, recording any justified deferral | 20/11/2026 | D6 Alpha Release; D7 Project Charter v2 (both due 18/11/2026) |
+| M7 | Beta ready for pilot use; O2 and O4 development-set results available | The beta is deployed and accessible to the pilot participants; O2 and O4 are evaluated on the development questions and the results are recorded; final confirmation on the held-out test questions follows in Sprint 4 (M10) | 09/12/2026 | D8 Q&A Generation-Dataset v2; D9 Beta Release; D10 Project Charter v3 |
+| M8 | Checkpoint: go/no-go for the pilot and the release candidate | The Product Owner reviews the beta results and the pilot protocol (tasks, users, survey) and decides to start the pilot | 11/12/2026 | D9 Beta Release; D10 Project Charter v3 (both due 09/12/2026) |
+| M9 | Pilot measured: O1 and O3 results available | The timed search task and the survey are complete; the results are compared with manual search by the same users | 30/12/2026 | D11 Pilot Evaluation Report |
+| M10 | Release candidate approved; final results submitted | The release candidate is demonstrated and approved by the Product Owner; O2 and O4 are measured on the held-out test questions; the final charter and report are submitted to the Project Review Committee | 30/12/2026 | D12 Release Candidate and Final Evaluation; D13 Project Charter v4; D14 Final Report and Lessons Learned |
 
 ## Example
 
@@ -110,15 +113,15 @@ The project, names, dates and deliverable numbers below are invented. They match
 
 ## Checklist before submitting
 
-- [ ] Every milestone is an event or state, not an artifact or task (Rule 1)
-- [ ] Every milestone has at least one associated deliverable (Rule 2)
-- [ ] Every associated deliverable exists in [Deliverables](03-project-canvas_v2/05-deliverables.md) under the same number and name (Rule 3)
-- [ ] Every associated deliverable is due in the milestone's sprint and not after its Expected Date (Rule 4)
-- [ ] Every Expected Date is a calendar date between 07/10/2026 and 30/12/2026 (Rule 5)
-- [ ] Every checkpoint falls between two sprints (Rule 6)
-- [ ] Every target in [Project Executive Summary](03-project-canvas_v2/01-project-executive-summary.md) that is measured later has a matching milestone and deliverable (Rule 7)
-- [ ] Evaluation does not appear only once, at the end of the project (Rule 8)
-- [ ] The table is complete in the first version of the canvas (red cell)
+- [x] Every milestone is an event or state, not an artifact or task (Rule 1)
+- [x] Every milestone has at least one associated deliverable (Rule 2)
+- [x] Every associated deliverable exists in [Deliverables](03-project-canvas_v2/05-deliverables.md) under the same number and name (Rule 3)
+- [x] Every associated deliverable is due in the milestone's sprint and not after its Expected Date (Rule 4)
+- [x] Every Expected Date is a calendar date between 07/10/2026 and 30/12/2026 (Rule 5)
+- [x] Every checkpoint falls between two sprints (Rule 6)
+- [x] Every target in [Project Executive Summary](03-project-canvas_v2/01-project-executive-summary.md) that is measured later has a matching milestone and deliverable (Rule 7)
+- [x] Evaluation does not appear only once, at the end of the project (Rule 8)
+- [x] The table is complete in the first version of the canvas (red cell)
 
 ## References
 
