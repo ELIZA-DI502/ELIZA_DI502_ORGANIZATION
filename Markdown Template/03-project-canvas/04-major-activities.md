@@ -73,12 +73,65 @@ Once a constraint is in the charter, a user story that contradicts it is an exte
 
 ## Activities
  
+The activities below expand the Scope Definition in the [Project Executive Summary](01-project-executive-summary.md) and are grouped by ISO/IEC 5338 life cycle stage. Rows created by a constraint name its ID from [Assumptions & Constraints](03-assumptions-and-constraints.md); rows that mitigate a risk name its ID from [Risks](11-risks.md); deliverable numbers refer to [Deliverables](05-deliverables.md). The Jira column gives the epic that holds the Sprint 1 tasks (D1 KAN-27, D2 KAN-28, D3 KAN-29, D4 KAN-30) or the user stories that deliver the activity; Sprint 2–4 tasks are added to the stories at sprint planning.
+
 | # | Stage | Activity | Description | Status | Jira Task |
 |---|---|---|---|---|---|
-| 1 | Inception | Define chatbot purpose, users, and success criteria | Completed as part of project chartering. (See Project Executive Summary above) | In Scope | |
-| 2 | Inception | Market/competitive analysis of existing chatbot products | Not needed for an academic proof-of-concept | Out of Scope | |
-| 3 | | | | | |
- 
+| 1 | Inception | Define the problem, users, objectives and success criteria | Completed in the Project Charter (Executive Summary, D1): technical teams at EdTech providers as AI users, objectives O1–O4 with success criteria. | In Scope | KAN-27 |
+| 2 | Inception | Market or competitive analysis of existing legal-information tools | Not needed for an academic proof of concept; the comparison that matters is manual search of the official text, which O1 measures in the pilot. | Out of Scope | |
+| 3 | Inception | Build the evaluation question set and rubric | Q&A Generation-Dataset v1 with 20–30 questions over the four Annex III point 3 use cases, safety questions, at least 5 questions taken or adapted from published work on the EU AI Act (A-11), `dev`/`test` split, cross-check by a second member, and the evaluation rubric (D2). Basis of A-03; mitigation for R-03 and R-21. | In Scope | KAN-28 |
+| 4 | Inception | Select the in-scope provisions and record the source manifest | Because of C-01 and C-09. Provision list (core, supporting, boundary, if-time) mapped to the D2 questions; manifest with URL, CELEX, version date, reuse basis under Commission Decision 2011/833/EU and file hash (D3). By 18/11/2026: the in-scope provisions affected by amendments are identified from the consolidation markers and the listed amending acts, and these together with Annex III point 3, Article 6 and Article 113 are compared word for word with the relevant Official Journal texts; the identifiers and completeness of the remaining in-scope provisions are checked against the original Official Journal text; discrepancies are recorded. Validates A-01; mitigation for R-01 and R-18. | In Scope | KAN-29 |
+| 5 | Design and development | Architecture design and decision records | System Architecture Design Document v1 in the course template, with the first architecture diagram showing every component, ADRs for chosen technologies, spike notes for open choices, and one learning spike note per team member (D4). | In Scope | KAN-30 |
+| 6 | Design and development | Model selection spike | Because of C-03, C-05 and C-07. Short feasibility check, not a benchmark: run at least two open-source quantized models on CPU only (Colab CPU runtime or a short-lived Google Cloud instance of the planned type) on a few sample questions and record the answer time, and read each candidate's licence; throw-away notebook, no production code, no retrieval integration; result in a spike note and an ADR (D4). Validates A-10; mitigation for R-10, R-14 and R-19. | In Scope | KAN-30 |
+| 7 | Design and development | Source parsing spike | Because of C-07. Check that the EUR-Lex HTML marks Articles, paragraphs and Annex points so that they can be extracted with their identifiers; spike note, no production code (D4). Validates A-05; mitigation for R-05 and R-14. | In Scope | KAN-30 |
+| 8 | Design and development | Parse and chunk the regulation text | Because of C-01. Extract the in-scope provisions from the stored source file, one chunk per Article paragraph or Annex point, each with its identifier and the version date; report the share of chunks corrected by hand (D5). | In Scope | — |
+| 9 | Design and development | Retrieval pipeline | Because of C-03. Embedding, vector store and retriever over the chunks of row 8; chunking and retrieval parameters in `config/rag.yaml` (D6). Mitigation for R-12. | In Scope | KAN-8 |
+| 10 | Design and development | Answer generation with citations and version date | Because of C-03, C-08 and C-09. Open-source quantized model used as-is with fixed prompt templates; plain-language answer based only on retrieved provisions; Article/Annex reference and source version date shown with every answer; citation-ID check against the retrieved chunks; note that only the Official Journal text is authentic (D6). Mitigation for R-20. | In Scope | KAN-4, KAN-3, KAN-19 |
+| 11 | Design and development | Out-of-scope and legal-decision notices | Because of C-04 and C-08. Notices for out-of-scope questions, missing evidence and requests for a legal decision; refusal of evasion, concealment and prohibited-practice requests with a one-sentence reason (Feature 4, D6). Mitigation for R-13. | In Scope | KAN-2, KAN-5, KAN-23, KAN-24 |
+| 12 | Design and development | Input and output safety checks | Because of C-08 and C-10. Rule-based checks before the model call (prompt-injection and evasion patterns) and after it (decision phrases and compliance verdicts), with a fixed system prompt (D6, D9). Mitigation for R-13. | In Scope | KAN-24 |
+| 13 | Design and development | Personal-data reminder and input check | Because of C-10. A reminder on the page not to enter personal data, and a limited rule-based input check for common patterns such as e-mail addresses and phone numbers; this is not comprehensive personal-data detection. Independently of that check, application, error and cloud logs are configured not to record user questions or conversation content, and no conversation is stored after the session ends; these controls are the actual privacy safeguard. They are verified by sending a marked test question to the deployed beta, searching the logs for it and checking that no conversation remains after the session ends (D9 criterion 8). Mitigation for R-11. | In Scope | KAN-26 |
+| 14 | Design and development | One-page web interface | Because of C-08. Question box, answer view with citations and a permanent "not legal advice" notice (Features 1–3, D6). | In Scope | KAN-21, KAN-25 |
+| 15 | Design and development | Beta features | Guided start (example questions, optional use-case selection), check the source (wording of each cited provision under the answer), follow-up questions within one session; because of C-04 and C-10, session context is discarded when the session ends (Features 5–7, D9). | In Scope | KAN-6, KAN-20, KAN-22 |
+| 16 | Design and development | AI SBOM and pinned dependencies | `ai-bom.yaml` with every model version, licence (A-10) and source model card, corpus version, prompt templates and `config/rag.yaml` version; `requirements.txt` fully pinned (D6, updated in D12). | In Scope | — |
+| 17 | Design and development | Model training or fine-tuning | Because of C-03 and C-05: models are used as-is; no GPU is available and no team-written model card is needed. | Out of Scope | |
+| 18 | Design and development | Knowledge outside the designated source | Because of C-01: GDPR, national law, other EU acts and Commission guidelines are not added to the knowledge base (single source). | Out of Scope | |
+| 19 | Design and development | Answers in Turkish or other languages | Because of C-02: questions and the source text are English only. | Out of Scope | |
+| 20 | Design and development | Topics outside the education use cases | Because of C-04: non-education domains, deployer obligations, GPAI model provider obligations, enforcement and penalties receive an out-of-scope notice (row 11) and are not answered. | Out of Scope | |
+| 21 | Design and development | User accounts, authentication, personal profiles and saved conversation history | Because of C-04 and C-10: these would require storing personal data and history across sessions. | Out of Scope | |
+| 22 | Design and development | Legal advice, compliance decisions and implementation guidance | Because of C-08: the assistant identifies and explains provisions only; it gives no high-risk classification, compliance verdict or guidance on how to implement the requirements. | Out of Scope | |
+| 23 | Verification and validation | Evaluation runs on the `dev` split | Alpha: Recall@5 and the comparison without and with retrieval required by D6 criterion 5 (an analysis result, not a pass level). Beta: O2 (a)–(d) and O4 per safety category, reported against the target levels as required by D9 criteria 2–4 (O4 also as correct responses / questions evaluated). Logged in Weights & Biases and `docs/eval/results.md`. The release candidate is scored on the `test` split instead (row 27). Mitigation for R-12 and R-13. | In Scope | — |
+| 24 | Verification and validation | Answer review by two reviewers | Two team members review every in-scope answer against the rubric for O2 (b); disagreements are resolved against the rubric, then by a third member, and logged (D9, D12). | In Scope | — |
+| 25 | Verification and validation | Extend the question set and rate its realism | Q&A Generation-Dataset v2: at least 40 questions, including new questions from proxy users and alpha errors, and at least 16 safety questions. The held-out `test` split is preserved: the original `test` questions stay unchanged, and new `test` questions are fixed by 09/12/2026 and never used for prompt, retrieval or rule tuning. The `dev` split is frozen on 04/12/2026 so that the beta can be scored on it by 09/12/2026 (internal date, [Release Plan](10-release-plan.md)). At least 5 proxy users rate 10 questions for realism (D8). Validates A-08; mitigation for R-08 and R-16. | In Scope | — |
+| 26 | Verification and validation | Pilot: timed search task and survey | At least 5 proxy users (named by 18/11/2026) do timed tasks manually and with the assistant, with tasks balanced across the four use cases over all participants and with task sets and method order counterbalanced, then a short survey; results without names (D11). Validates A-04; mitigation for R-04. | In Scope | — |
+| 27 | Verification and validation | Final evaluation on the held-out test split | O2 (a)–(d) and O4 per category on the `test` split of the release candidate, with links to the Weights & Biases runs (D12). | In Scope | — |
+| 28 | Deployment | Trial cloud deployment | Because of C-05 and C-06. The alpha (D6) runs locally from `README.md`; a cloud deployment is not one of its acceptance criteria. In Sprint 2, if time allows, or at the latest by 27/11/2026 (start of Sprint 3), a short trial deployment on a Google Cloud instance of the planned type with a smoke test from outside the team's network, so that problems surface before the beta deployment (row 29); the answer time on this instance type is measured here (R-10). Mitigation for R-15 and R-10. | In Scope | — |
+| 29 | Deployment | Deploy the beta for the pilot | Because of C-05 and C-06. Beta on Google Cloud, reachable by the pilot participants by 09/12/2026; the instance runs only in test, beta and pilot windows (D9). | In Scope | — |
+| 30 | Operation and monitoring | Run the beta in the pilot and log problems | Keep the beta available and unchanged 16/12–23/12/2026 so that all pilot users evaluate the same version; log problems as they occur, without user questions (C-10); fix them in the release candidate: errors only, no new features (D12). Mitigation for R-17. | In Scope | — |
+| 31 | Operation and monitoring | Cloud cost tracking | Because of C-06. Billing alerts at $25, $50 and $70; billing check at the end of Sprints 2 and 3. Validates A-07; mitigation for R-07. | In Scope | — |
+| 32 | Continuous validation | Check for a newer consolidated version | At the start of each sprint from Sprint 2, check EUR-Lex for an amendment to the in-scope provisions; a change of the designated version needs Product Owner approval and an ADR. Validates A-02; mitigation for R-02. | In Scope | — |
+| 33 | Continuous validation | Monitoring and retraining after 30/12/2026 | The project ends on 30/12/2026 and no model is trained; the maintenance trigger (a new consolidated version) is documented in R-02 for anyone who continues the work. | Out of Scope | |
+| 34 | Re-evaluation | Charter updates | Project Charter v2, v3 and v4: answers to review comments, O1/O3 target review, Committee feedback on O2/O4, feature status and objective results (D7, D10, D13). | In Scope | — |
+| 35 | Re-evaluation | Final report and lessons learned | Final report and lessons learned register built from the sprint reports (D14). | In Scope | — |
+| 36 | Retirement | Release the cloud resources | Because of C-06. After the final demonstration and once the course's submission requirements are met, stop the Google Cloud resources that are no longer needed so that no further credit is used; the code, configuration and anonymised evaluation results stay in the project repository. | In Scope | — |
+| 37 | All stages | Scrum events and sprint reports | Sprint planning, daily check-ins, reviews and retrospectives; Jira board and impediment list; sprint report after each sprint (`docs/sprints/sprint-N.md`). | In Scope | KAN-44 |
+| 38 | All stages | Risk and assumption tracking | Review the risk register and the assumption checks at each sprint start; update triggers and owners in [Risks](11-risks.md). | In Scope | KAN-14 |
+| 39 | All stages | Production code in Sprint 1 | Because of C-07: Sprint 1 produces documents, the question set, the source manifest and spike notes only (rows 3–7). | Out of Scope | |
+
+### Constraint coverage
+
+| Constraint | In Scope rows | Out of Scope rows |
+|---|---|---|
+| C-01 Single source | 4, 8 | 18 |
+| C-02 English only | — (no work created) | 19 |
+| C-03 RAG with open-source quantized model | 6, 9, 10 | 17 |
+| C-04 Education use cases; follow-ups within one session | 11, 15 | 20, 21 |
+| C-05 No GPU; paid cloud use within the course credit | 6, 28, 29 | 17 |
+| C-06 $100 budget | 28, 29, 31, 36 | — |
+| C-07 Team, duration, no production code in Sprint 1 | 6, 7 | 39 |
+| C-08 Information, not legal advice | 10, 11, 12, 14 | 22 |
+| C-09 Reuse with source acknowledgement | 4, 10 | — |
+| C-10 No personal data persisted | 12, 13, 15, 30 | 21 |
+
 ## Example (illustrative only)
  
 An excerpt from a longer table for a legal research assistant (a RAG chatbot over legal documents). It shows the rows created by constraints C-03 and C-04 in the example on `03-assumptions-and-constraints.md`.
@@ -92,10 +145,10 @@ An excerpt from a longer table for a legal research assistant (a RAG chatbot ove
 
 ## Checklist before submitting
 
-- [ ] Every activity has one ISO/IEC 5338 life cycle stage, or All stages (rule 1)
-- [ ] Every activity is marked In Scope or Out of Scope (rule 2)
-- [ ] Every Out of Scope row says why (rule 3)
-- [ ] Every work-creating constraint in [Assumptions & Constraints](03-project-canvas_v2/03-assumptions-and-constraints.md) has an In Scope row, and every feature-removing constraint has an Out of Scope row (rule 4)
-- [ ] Rows created by a constraint name its ID (rule 5)
-- [ ] User authentication and PII storage are listed as Out of Scope if you do not plan them (rule 6)
-- [ ] No activity goes beyond the first proposal's scope (rule 7)
+- [x] Every activity has one ISO/IEC 5338 life cycle stage, or All stages (rule 1)
+- [x] Every activity is marked In Scope or Out of Scope (rule 2)
+- [x] Every Out of Scope row says why (rule 3)
+- [x] Every work-creating constraint in [Assumptions & Constraints](03-project-canvas_v2/03-assumptions-and-constraints.md) has an In Scope row, and every feature-removing constraint has an Out of Scope row (rule 4)
+- [x] Rows created by a constraint name its ID (rule 5)
+- [x] User authentication and PII storage are listed as Out of Scope if you do not plan them (rule 6)
+- [x] No activity goes beyond the first proposal's scope (rule 7)

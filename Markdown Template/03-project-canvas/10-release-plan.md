@@ -89,12 +89,44 @@ Each corrected entry fixes only the named defect. All examples are illustrative.
 
 ## Release table
 
+The product is released in three stages after a pre-alpha design sprint: Alpha 0.1 (Sprint 2), Beta 0.5 (Sprint 3) and Release candidate 1.0 (Sprint 4, after the pilot with Beta 0.5). Deliverable numbers and names match [Deliverables](05-deliverables.md); checkpoints are recorded in [Milestones](02-milestones.md). Feature numbers refer to the Scope Definition in the [Project Executive Summary](01-project-executive-summary.md).
+
 | # | Release | Sprint | Start Date | End Date | Key Deliverable(s) |
 |---|---|---|---|---|---|
-| 1 |   | Sprint 1 | 14/10/2026 | 28/10/2026 |   |
-| 2 |   | Sprint 2 | 04/11/2026 | 18/11/2026 |   |
-| 3 |   | Sprint 3 | 25/11/2026 | 09/12/2026 |   |
-| 4 |   | Sprint 4 | 16/12/2026 | 30/12/2026 |   |
+| 1 | Pre-alpha | Sprint 1 | 14/10/2026 | 28/10/2026 | D1 Project Charter v1; D2 Q&A Generation-Dataset v1; D3 Source Inventory and Manifest v1; D4 System Design v1 |
+| 2 | Alpha 0.1 | Sprint 2 | 04/11/2026 | 18/11/2026 | D5 Preprocessing Report v1; D6 Alpha Release; D7 Project Charter v2 |
+| 3 | Beta 0.5 | Sprint 3 | 25/11/2026 | 09/12/2026 | D8 Q&A Generation-Dataset v2; D9 Beta Release; D10 Project Charter v3 |
+| 4 | Release candidate 1.0 (following the Beta 0.5 pilot) | Sprint 4 | 16/12/2026 | 30/12/2026 | D11 Pilot Evaluation Report; D12 Release Candidate and Final Evaluation; D13 Project Charter v4; D14 Final Report and Lessons Learned |
+
+Beta 0.5 is built in Sprint 3 and kept unchanged during the Sprint 4 pilot (16/12–23/12, D11), so that all participants evaluate the same version. Problems found during the pilot are recorded as they occur and fixed in the release candidate, which is built from the beta. The held-out `test` split is not used to guide fixes. The release candidate adds no new features.
+
+### What each release contains and who receives it
+
+| Release | Content | Received by |
+|---|---|---|
+| Pre-alpha | No production code (C-07): evaluation questions (including questions taken or adapted from published work), rubric, source manifest, provision list, System Architecture Design Document v1 with its diagram, ADRs, technical spike notes and one learning spike note per member | Development team; Project Review Committee (charter and design review) |
+| Alpha 0.1 | Core MVP, features 1–4: ask in their own words, find the relevant provisions with version date, plain-language answer, boundary notices; one-page web interface with a "not legal advice" notice | Development team (testing on the `dev` split); AI customer (course instructors and peer groups) at the Sprint 2 review |
+| Beta 0.5 | Alpha fixes plus features 5–7: guided start, check the source, follow-up questions in the same session; rule-based input and decision-phrase checks; deployed on Google Cloud with logs that do not record user questions (C-10). A beta feature that cannot be completed is deferred with a reason and the Product Owner's agreement (D9 criterion 5) | AI users: at least 5 technical proxy users representing EdTech developers and ML engineers (technical professionals working on software or AI, named in A-04); AI customer: course instructors and peer groups, acting as academic proxies for the legal and compliance team of an EdTech provider |
+| Release candidate 1.0 | Beta 0.5 with the fixes from the pilot; no new features | AI customer (course instructors and peer groups) at the final demonstration; Project Review Committee |
+
+### Gaps between sprints
+
+| Gap | Dates | Checkpoint in [Milestones](02-milestones.md) |
+|---|---|---|
+| Sprint 1 → Sprint 2 | 29/10/2026 – 03/11/2026 | M3 Checkpoint: Sprint 1 reviewed, development starts (02/11/2026) |
+| Sprint 2 → Sprint 3 | 19/11/2026 – 24/11/2026 | M6 Checkpoint: go/no-go for the beta (20/11/2026) |
+| Sprint 3 → Sprint 4 | 10/12/2026 – 15/12/2026 | M8 Checkpoint: go/no-go for the pilot and the release candidate (11/12/2026) |
+
+### Fixed dates inside the sprints
+
+| Date | What is fixed | Why |
+|---|---|---|
+| 28/10/2026 | `test` split of D2 frozen | Held-out questions are not used while tuning (D2 criterion 8) |
+| 18/11/2026 | 5 named pilot participants and their dates confirmed | Assumption A-04 |
+| 27/11/2026 (at the latest) | Trial cloud deployment with a smoke test from outside the team's network done | Access and answer-time problems surface before the beta deployment ([Major Activities](04-major-activities.md) row 28; R-10, R-15) |
+| 04/12/2026 | D8 `dev` questions frozen | Leaves 5 days to score the beta on the D8 `dev` split before 09/12 (D9) |
+| 09/12/2026 | New D8 `test` questions frozen | D8 criterion 4 |
+| 16/12 – 23/12/2026 | Pilot with Beta 0.5 | Leaves one week to fix the release candidate and finish D11–D14 before 30/12 |
 
 ## Example (illustrative only)
 
@@ -109,14 +141,14 @@ The project and deliverable numbers are invented. They match the examples in [Mi
 
 ## Checklist before submitting
 
-- [ ] All four sprints appear (Rule 1)
-- [ ] All start and end dates match the sprint calendar (Rule 2)
-- [ ] Every row names a release stage (Rule 3)
-- [ ] Every Key Deliverable exists in [Deliverables](03-project-canvas_v2/05-deliverables.md) under the same number and name (Rule 4)
-- [ ] Every Key Deliverable is due within its sprint's dates (Rule 5)
-- [ ] No release merges separate deliverables under a new name (Rule 6)
-- [ ] There is more than one release across the sprints (Rule 7)
-- [ ] Every beta names its customers or testers, and they match those in [Deliverables](03-project-canvas_v2/05-deliverables.md) (Rule 8)
+- [x] All four sprints appear (Rule 1)
+- [x] All start and end dates match the sprint calendar (Rule 2)
+- [x] Every row names a release stage (Rule 3)
+- [x] Every Key Deliverable exists in [Deliverables](03-project-canvas_v2/05-deliverables.md) under the same number and name (Rule 4)
+- [x] Every Key Deliverable is due within its sprint's dates (Rule 5)
+- [x] No release merges separate deliverables under a new name (Rule 6)
+- [x] There is more than one release across the sprints (Rule 7)
+- [x] Every beta names its customers or testers, and they match those in [Deliverables](03-project-canvas_v2/05-deliverables.md) (Rule 8)
 
 ## References
 
