@@ -109,7 +109,7 @@ Add rows as needed. Rows with a score of 10 or more also need a detail block (ne
 
 This page lists only uncertain events that the team cannot fully control. Design questions, such as how to split the text, which model to use or how fast it runs, are not listed here. They are answered in the spikes and recorded in the System Architecture Design Document (D4).
 
-R-01 to R-09 and R-14 are the other side of the assumptions in [Assumptions & Constraints](03-assumptions-and-constraints.md). R-10 to R-13 come from constraints and from how users and the course may behave.
+R-01 to R-09, R-14 and R-15 are the other side of the assumptions in [Assumptions & Constraints](03-assumptions-and-constraints.md). R-10 to R-13 come from constraints and from how users and the course may behave.
 
 | # | Layer | Risk (event) | When / where | Probability | Impact | Score | Owner | Linked to |
 |---|---|---|---|---|---|---|---|---|
@@ -127,8 +127,9 @@ R-01 to R-09 and R-14 are the other side of the assumptions in [Assumptions & Co
 | R-12 | People / process | **Answers are used as legal advice.** A pilot user says they would make a legal decision based only on the assistant's answer. | Sprint 4 and after deployment; validation | 2: every answer states that it is information, not legal advice | 4: the O4 goal is not met | 8 (Medium) | Yeşim (Product Owner) | C-08; [Major Activities](04-major-activities.md) rows 11, 14 |
 | R-13 | People / process | **Scope grows.** New features are added during a sprint, so planned work for the alpha or beta is not finished. | Sprints 2–3; development | 2: the release plan fixes features 1–4 for the alpha and 5–7 for the beta; changes need Product Owner approval | 3: the release moves by 1–2 weeks and some features are dropped | 6 (Medium) | Yeşim (Product Owner) | [Release Plan](10-release-plan.md); [Major Activities](04-major-activities.md) row 37 |
 | R-14 | Data | **The benchmark does not cover education.** The AI Act Evaluation Benchmark has fewer than 5 scenarios that fit the four Annex III point 3 use cases, so D2 cannot take 5 questions from published work. | Sprint 1; development | 1: a first check on 19/10/2026 found 32 question–answer pairs on the in-scope articles | 4: D2 criterion 13 requires at least 5 questions from published work | 4 (Low) | Kaan (Development Team Member) | A-11; [Dependencies](06-dependencies.md) row 1 |
+| R-15 | People / process | **Pilot users do not match the target users.** Fewer than 3 of the pilot users have worked on an AI or education software product, so the pilot results do not represent the target users. | Sprints 2–4; validation | 2: the contacts work in software and AI, but few of them work on education products | 3: O1 and O3 are measured, but on users outside the target group | 6 (Medium) | Gözde Nur (Development Team Member) | A-08; [Dependencies](06-dependencies.md) row 9 |
 
-Spread: 2 High (R-04, R-06), 9 Medium, 3 Low.
+Spread: 2 High (R-04, R-06), 10 Medium, 3 Low.
 
 **After deployment.** The assistant uses one version of the law (27/07/2026), so its answers no longer match the law in force when an in-scope article changes (R-02). This is concept drift: the question stays the same, but the correct answer changes. EUR-Lex is checked for a new version at the start of each sprint. If an in-scope article has changed, the new text is loaded, recorded in the manifest and tested again.
 
@@ -374,6 +375,23 @@ Copy this block for each risk.
 | **Trigger** | Fewer than 5 scenarios that fit an education use case on 23/10/2026 |
 | **Contingency plan (B plan)** | The missing questions are taken from other published work on the EU AI Act. If fewer than 5 are found in total by 28/10/2026, the number reached is reported in D2 and criterion 13 is renegotiated in Charter v2 (D7). |
 | **Owner** | Kaan (Development Team Member) |
+| **Schedule effect** | Under 1 week |
+
+### Risk R-15: Pilot users do not match the target users
+
+| Field | Content |
+|---|---|
+| **Risk (event)** | Fewer than 3 of the pilot users have worked on an AI or education software product, so the pilot results do not represent the target users. |
+| **Linked to** | A-08; [Dependencies](06-dependencies.md) row 9 |
+| **Cause** | Pilot users are volunteers from the team's contacts; the team cannot choose who agrees to take part. |
+| **When / where** | Sprints 2–4; validation |
+| **Mitigation** | Each candidate is asked about their work background when invited; candidates who work on AI or education products are invited first ([Major Activities](04-major-activities.md) row 26). |
+| **Probability (basis)** | 2: the contacts work in software and AI, but few of them work on education products |
+| **Impact (basis)** | 3: O1 and O3 are measured, but on users outside the target group |
+| **Score** | 6 (Medium) |
+| **Trigger** | Fewer than 3 matching users among the confirmed participants on 18/11/2026 |
+| **Contingency plan (B plan)** | METU graduate students working on AI in education are invited. The pilot results are reported separately for users with and without this background in D11. |
+| **Owner** | Gözde Nur (Development Team Member; pilot) |
 | **Schedule effect** | Under 1 week |
 ### Example (illustrative only)
 
