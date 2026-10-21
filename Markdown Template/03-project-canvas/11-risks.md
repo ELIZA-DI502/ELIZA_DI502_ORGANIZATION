@@ -126,10 +126,10 @@ R-01 to R-09, R-14 and R-15 are the other side of the assumptions in [Assumption
 | R-11 | People / process | **Low understandability ratings.** Fewer than 70% of pilot users rate the answers 4 or 5 out of 5 for understandability. | Sprint 4; validation | 2: answers are written for readers without legal training, but no user has rated them yet | 4: O3 is a success criterion | 8 (Medium) | Gözde Nur (Development Team Member) | O3 in the [Project Executive Summary](01-project-executive-summary.md); [Major Activities](04-major-activities.md) row 26 |
 | R-12 | People / process | **Answers are used as legal advice.** A pilot user says they would make a legal decision based only on the assistant's answer. | Sprint 4 and after deployment; validation | 2: every answer states that it is information, not legal advice | 4: the O4 goal is not met | 8 (Medium) | Yeşim (Product Owner) | C-08; [Major Activities](04-major-activities.md) rows 11, 14 |
 | R-13 | People / process | **Scope grows.** New features are added during a sprint, so planned work for the alpha or beta is not finished. | Sprints 2–3; development | 2: the release plan fixes features 1–4 for the alpha and 5–7 for the beta; changes need Product Owner approval | 3: the release moves by 1–2 weeks and some features are dropped | 6 (Medium) | Yeşim (Product Owner) | [Release Plan](10-release-plan.md); [Major Activities](04-major-activities.md) row 37 |
-| R-14 | Data | **The benchmark does not cover education.** The AI Act Evaluation Benchmark has fewer than 5 scenarios that fit the four Annex III point 3 use cases, so D2 cannot take 5 questions from published work. | Sprint 1; development | 1: a first check on 19/10/2026 found 32 question–answer pairs on the in-scope articles | 4: D2 criterion 13 requires at least 5 questions from published work | 4 (Low) | Kaan (Development Team Member) | A-11; [Dependencies](06-dependencies.md) row 1 |
+| R-14 | Data | **Benchmark answers follow an older text.** More than 3 benchmark questions used in D2 have answers that do not match the 27/07/2026 text, because the benchmark was published (March 2026) before the latest amendment. | Sprint 1 (D2) and Sprint 3 (D8); development | 3: the benchmark predates Regulation (EU) 2026/1744; the first check (19/10/2026) found 1 of 32 answers citing the wrong Article and 1 doubtful | 2: the affected questions are corrected against the official text or replaced; under 2 weeks | 6 (Medium) | Kaan (Development Team Member) | A-11; [Dependencies](06-dependencies.md) row 1 |
 | R-15 | People / process | **Pilot users do not match the target users.** Fewer than 3 of the pilot users have worked on an AI or education software product, so the pilot results do not represent the target users. | Sprints 2–4; validation | 2: the contacts work in software and AI, but few of them work on education products | 3: O1 and O3 are measured, but on users outside the target group | 6 (Medium) | Gözde Nur (Development Team Member) | A-08; [Dependencies](06-dependencies.md) row 9 |
 
-Spread: 2 High (R-04, R-06), 10 Medium, 3 Low.
+Spread: 2 High (R-04, R-06), 11 Medium, 2 Low.
 
 **After deployment.** The assistant uses one version of the law (27/07/2026), so its answers no longer match the law in force when an in-scope article changes (R-02). This is concept drift: the question stays the same, but the correct answer changes. EUR-Lex is checked for a new version at the start of each sprint. If an in-scope article has changed, the new text is loaded, recorded in the manifest and tested again.
 
@@ -360,20 +360,20 @@ Copy this block for each risk.
 | **Owner** | Yeşim (Product Owner) |
 | **Schedule effect** | Under 1 week |
 
-### Risk R-14: The benchmark does not cover education
+### Risk R-14: Benchmark answers follow an older text
 
 | Field | Content |
 |---|---|
-| **Risk (event)** | The AI Act Evaluation Benchmark has fewer than 5 scenarios that fit the four Annex III point 3 use cases, so D2 cannot take 5 questions from published work. |
+| **Risk (event)** | More than 3 benchmark questions used in D2 have answers that do not match the 27/07/2026 text, because the benchmark was published (March 2026) before the latest amendment. |
 | **Linked to** | A-11; [Dependencies](06-dependencies.md) row 1 |
-| **Cause** | The benchmark was written for the whole AI Act, not for education. |
-| **When / where** | Sprint 1; development |
-| **Mitigation** | The scenarios are sorted by use case when the licence is re-checked, by 23/10/2026 ([Dependencies](06-dependencies.md) row 1). |
-| **Probability (basis)** | 1: a first check on 19/10/2026 found 32 question–answer pairs on the in-scope articles |
-| **Impact (basis)** | 4: D2 criterion 13 requires at least 5 questions from published work |
-| **Score** | 4 (Low) |
-| **Trigger** | Fewer than 5 scenarios that fit an education use case on 23/10/2026 |
-| **Contingency plan (B plan)** | The missing questions are taken from other published work on the EU AI Act. If fewer than 5 are found in total by 28/10/2026, the number reached is reported in D2 and criterion 13 is renegotiated in Charter v2 (D7). |
+| **Cause** | The benchmark authors wrote the answers from the text in force in March 2026; Regulation (EU) 2026/1744 changed the regulation in July 2026. |
+| **When / where** | Sprint 1 (D2) and Sprint 3 (D8); development |
+| **Mitigation** | Every benchmark question taken into D2 is checked against the 27/07/2026 text by a second team member ([Major Activities](04-major-activities.md) row 3). |
+| **Probability (basis)** | 3: the benchmark predates Regulation (EU) 2026/1744; the first check (19/10/2026) found 1 of 32 answers citing the wrong Article and 1 doubtful |
+| **Impact (basis)** | 2: the affected questions are corrected against the official text or replaced; under 2 weeks |
+| **Score** | 6 (Medium) |
+| **Trigger** | More than 3 mismatches when the D2 questions are checked against the official text on 28/10/2026 |
+| **Contingency plan (B plan)** | Narrow the scope: mismatched benchmark questions are replaced with questions from other published work on the EU AI Act, and the number replaced is reported in D2. |
 | **Owner** | Kaan (Development Team Member) |
 | **Schedule effect** | Under 1 week |
 
