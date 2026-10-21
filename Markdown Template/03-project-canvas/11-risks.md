@@ -109,7 +109,7 @@ Add rows as needed. Rows with a score of 10 or more also need a detail block (ne
 
 This page lists only uncertain events that the team cannot fully control. Design questions, such as how to split the text, which model to use or how fast it runs, are not listed here. They are answered in the spikes and recorded in the System Architecture Design Document (D4).
 
-R-01 to R-09, R-14 and R-15 are the other side of the assumptions in [Assumptions & Constraints](03-assumptions-and-constraints.md). R-10 to R-13 come from constraints and from how users and the course may behave.
+R-01 to R-09, R-14 and R-15 are the other side of the assumptions in [Assumptions & Constraints](03-assumptions-and-constraints.md). R-10 to R-13 and R-16 come from constraints, resources and from how users and the course may behave.
 
 | # | Layer | Risk (event) | When / where | Probability | Impact | Score | Owner | Linked to |
 |---|---|---|---|---|---|---|---|---|
@@ -120,7 +120,7 @@ R-01 to R-09, R-14 and R-15 are the other side of the assumptions in [Assumption
 | R-05 | People / process | **Targets change after review.** The Project Review Committee asks for different targets or a different scope at a sprint review. | Sprints 1–2; planning | 2: the targets have not been reviewed yet | 3: questions, tests and charter pages need 2–4 weeks of changes | 6 (Medium) | Yeşim (Product Owner) | A-06; [Dependencies](06-dependencies.md) row 5 |
 | R-06 | Infrastructure | **Cloud budget runs out.** Google Cloud spending reaches $70 before 09/12/2026, so the $100 credit would run out before 30/12/2026. | Sprints 2–4; development and after deployment | 2: billing alerts are set, and the server is off when not in use | 5: the credit is fixed; if it runs out, the assistant stops before the pilot | 10 (High) | Kaan (Development Team Member) | A-07; C-06; [Dependencies](06-dependencies.md) row 8 |
 | R-07 | People / process | **A team member leaves.** A team member leaves the course or cannot work for 2 weeks or more. | Sprints 1–4; development | 2: all four members are enrolled and active | 3: deliverables move by 2–4 weeks | 6 (Medium) | Yaren (Scrum Master) | A-09; C-07 |
-| R-08 | Model | **The model changes.** The selected model is updated, removed or relicensed on Hugging Face or Ollama during the project, so answers change between evaluation runs or the model may no longer be used. | Sprints 2–4; development | 2: model files on these sites are updated by their authors without notice; the version used is recorded in each evaluation run | 3: evaluation runs must be repeated; 1–2 weeks | 6 (Medium) | Kaan (Development Team Member) | A-10; C-03; [Dependencies](06-dependencies.md) row 6 |
+| R-08 | Model | **The model changes.** The selected language model, embedding model or search library is updated, removed or relicensed by its authors during the project, so answers change between evaluation runs or the model may no longer be used. | Sprints 2–4; development | 2: model files on these sites are updated by their authors without notice; the version used is recorded in each evaluation run | 3: evaluation runs must be repeated; 1–2 weeks | 6 (Medium) | Kaan (Development Team Member) | A-10; C-03; [Dependencies](06-dependencies.md) row 6; [Facilities & Resources](09-facilities-and-resources.md) rows 4–6 |
 | R-09 | Integration | **The EUR-Lex source changes.** The EUR-Lex URL of the consolidated text changes or goes offline, or its HTML format changes, so the source link in the answers breaks or a new download cannot be split into articles. | Sprints 2–4; development and after deployment | 2: EUR-Lex keeps one URL for each CELEX number; the source file is also stored in the repository | 2: the link in the answers must be replaced; under 2 weeks | 4 (Low) | Yeşim (Product Owner) | A-05; C-09; [Dependencies](06-dependencies.md) rows 3, 4 |
 | R-10 | People / process | **Work falls behind.** A sprint ends with planned work not done, so the next release starts at least 1 week late. | Sprints 1–4; development | 3: four part-time students; every sprint has a fixed end date | 2: a delay of 1 week in each sprint adds up to 4 weeks | 6 (Medium) | Yaren (Scrum Master) | C-07; [Release Plan](10-release-plan.md); [Dependencies](06-dependencies.md) rows 7, 10–16 |
 | R-11 | People / process | **Low understandability ratings.** Fewer than 70% of pilot users rate the answers 4 or 5 out of 5 for understandability. | Sprint 4; validation | 2: answers are written for readers without legal training, but no user has rated them yet | 4: O3 is a success criterion | 8 (Medium) | Gözde Nur (Development Team Member) | O3 in the [Project Executive Summary](01-project-executive-summary.md); [Major Activities](04-major-activities.md) row 26 |
@@ -128,8 +128,9 @@ R-01 to R-09, R-14 and R-15 are the other side of the assumptions in [Assumption
 | R-13 | People / process | **Scope grows.** New features are added during a sprint, so planned work for the alpha or beta is not finished. | Sprints 2–3; development | 2: the release plan fixes features 1–4 for the alpha and 5–7 for the beta; changes need Product Owner approval | 3: the release moves by 1–2 weeks and some features are dropped | 6 (Medium) | Yeşim (Product Owner) | [Release Plan](10-release-plan.md); [Major Activities](04-major-activities.md) row 37 |
 | R-14 | Data | **Benchmark answers follow an older text.** More than 3 benchmark questions used in D2 have answers that do not match the 27/07/2026 text, because the benchmark was published (March 2026) before the latest amendment. | Sprint 1 (D2) and Sprint 3 (D8); development | 3: the benchmark predates Regulation (EU) 2026/1744; the first check (19/10/2026) found 1 of 32 answers citing the wrong Article and 1 doubtful | 2: the affected questions are corrected against the official text or replaced; under 2 weeks | 6 (Medium) | Kaan (Development Team Member) | A-11; [Dependencies](06-dependencies.md) row 1 |
 | R-15 | People / process | **Pilot users do not match the target users.** Fewer than 3 of the pilot users have worked on an AI or education software product, so the pilot results do not represent the target users. | Sprints 2–4; validation | 2: the contacts work in software and AI, but few of them work on education products | 3: O1 and O3 are measured, but on users outside the target group | 6 (Medium) | Gözde Nur (Development Team Member) | A-08; [Dependencies](06-dependencies.md) row 9 |
+| R-16 | Infrastructure | **A work tool stops working.** A team computer or a free online service the team uses (Colab, the GitHub–Confluence and Jira sync, W&B) stops working for 1 week or more. | Sprints 1–4; development | 2: the Confluence sync already stopped once in Sprint 1; Colab states that its free resources are not guaranteed | 2: work moves to another tool; under 2 weeks | 4 (Low) | Yaren (Scrum Master) | [Facilities & Resources](09-facilities-and-resources.md) rows 1, 2, 9–12 |
 
-Spread: 2 High (R-04, R-06), 11 Medium, 2 Low.
+Spread: 2 High (R-04, R-06), 11 Medium, 3 Low.
 
 **After deployment.** The assistant uses one version of the law (27/07/2026), so its answers no longer match the law in force when an in-scope article changes (R-02). This is concept drift: the question stays the same, but the correct answer changes. EUR-Lex is checked for a new version at the start of each sprint. If an in-scope article has changed, the new text is loaded, recorded in the manifest and tested again.
 
@@ -262,8 +263,8 @@ Copy this block for each risk.
 
 | Field | Content |
 |---|---|
-| **Risk (event)** | The selected model is updated, removed or relicensed on Hugging Face or Ollama during the project, so answers change between evaluation runs or the model may no longer be used. |
-| **Linked to** | A-10; C-03; [Dependencies](06-dependencies.md) row 6 |
+| **Risk (event)** | The selected language model, embedding model or search library is updated, removed or relicensed by its authors during the project, so answers change between evaluation runs or the model may no longer be used. |
+| **Linked to** | A-10; C-03; [Dependencies](06-dependencies.md) row 6; [Facilities & Resources](09-facilities-and-resources.md) rows 4–6 |
 | **Cause** | Model authors publish new versions under the same name, and download tags can point to the newest version. |
 | **When / where** | Sprints 2–4; development |
 | **Mitigation** | The model file is downloaded once and stored with its version and hash ([Major Activities](04-major-activities.md) row 16); the version is recorded in every evaluation run. |
@@ -392,6 +393,23 @@ Copy this block for each risk.
 | **Trigger** | Fewer than 3 matching users among the confirmed participants on 18/11/2026 |
 | **Contingency plan (B plan)** | METU graduate students working on AI in education are invited. The pilot results are reported separately for users with and without this background in D11. |
 | **Owner** | Gözde Nur (Development Team Member; pilot) |
+| **Schedule effect** | Under 1 week |
+
+### Risk R-16: A work tool stops working
+
+| Field | Content |
+|---|---|
+| **Risk (event)** | A team computer or a free online service the team uses (Colab, the GitHub–Confluence and Jira sync, W&B) stops working for 1 week or more. |
+| **Linked to** | [Facilities & Resources](09-facilities-and-resources.md) rows 1, 2, 9–12 |
+| **Cause** | Free services can change their limits without notice, and access tokens expire. |
+| **When / where** | Sprints 1–4; development |
+| **Mitigation** | Each tool is checked at the start of every sprint; access tokens are renewed before they expire ([Major Activities](04-major-activities.md) row 37). |
+| **Probability (basis)** | 2: the Confluence sync already stopped once in Sprint 1; Colab states that its free resources are not guaranteed |
+| **Impact (basis)** | 2: work moves to another tool; under 2 weeks |
+| **Score** | 4 (Low) |
+| **Trigger** | A tool has not worked for 1 week |
+| **Contingency plan (B plan)** | Work continues on another tool: a team laptop instead of Colab, links to the GitHub pages instead of Confluence, and a CSV log instead of W&B. Reviewers are told where to find the current pages. |
+| **Owner** | Yaren (Scrum Master) |
 | **Schedule effect** | Under 1 week |
 ### Example (illustrative only)
 
