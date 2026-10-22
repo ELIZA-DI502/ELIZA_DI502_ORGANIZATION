@@ -287,7 +287,7 @@ Copy this block for each risk.
 | **Impact (basis)** | 4: the O4 goal is not met |
 | **Score** | 8 (Medium) |
 | **Trigger** | At least 1 pilot user says in the survey (by 23/12/2026) that they would decide only from the answer |
-| **Contingency plan (B plan)** | Hand over to a human: for legal-decision questions, the assistant shows only the article text and a notice to contact the company's legal team. The result is reported in D11. |
+| **Contingency plan (B plan)** | Renegotiate the target: the case is discussed with the participant in a short follow-up, the O4 business outcome is reported as not met in D11, and the Product Owner informs the Project Review Committee and records the change in the final charter. |
 | **Owner** | Yeşim (Product Owner) |
 | **Schedule effect** | Under 1 week |
 
@@ -316,7 +316,7 @@ Copy this block for each risk.
 | **Linked to** | C-06; [Dependencies](06-dependencies.md) row 8 |
 | **Cause** | The course provides the credit; when it reaches the team is decided outside the team. |
 | **When / where** | Sprint 2; deployment |
-| **Mitigation** | The team asks the course staff for the credit by the start of Sprint 2 (04/11/2026). |
+| **Mitigation** | The team asks the course staff for the credit by the start of Sprint 2 (04/11/2026), before the trial cloud deployment ([Major Activities](04-major-activities.md) row 28). |
 | **Probability (basis)** | 2: the credit is given through the course, and its date is set outside the team |
 | **Impact (basis)** | 2: the beta and the pilot run from a team laptop instead; 2–4 weeks of extra work |
 | **Score** | 4 (Low) |
