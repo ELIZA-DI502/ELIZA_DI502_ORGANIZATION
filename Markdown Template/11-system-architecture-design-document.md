@@ -84,9 +84,23 @@ flowchart LR
 
 <!-- Sources, cleaning, labelling, splits, storage, and how data reaches the model. ISO/IEC 5338: 6.4.8 AI data engineering process. -->
 
-### Model
+### RAG pipeline
 
-<!-- How the model is selected, trained, tuned or prompted. ISO/IEC 5338: 6.4.9 Implementation process. -->
+<!--
+ISO/IEC 5338: 6.4.9 Implementation process.
+List each stage of the pipeline and the parameters it uses. config/rag.yaml holds the values; this table explains them and links the decision behind each one.
+Models used as-is go in the AI SBOM. Write a model card (12-model-cards/, following Mitchell et al.) only if you train or fine-tune a model, and link it here.
+-->
+
+**Configuration:** `config/rag.yaml` at commit `<hash>` (yyyy-mm-dd)
+
+| Stage | Parameter | Value | Decision |
+|---|---|---|---|
+| Chunking | Chunk size, overlap |  | D? |
+| Embedding | Model and version |  | D? |
+| Vector store | Index type, distance metric |  | D? |
+| Retrieval | Top-k, hybrid search, reranker |  | D? |
+| Generation | LLM and version, temperature, prompt template |  | D? |
 
 ### Evaluation
 
@@ -111,7 +125,7 @@ This section is the project's technical decision log. (ISO/IEC 5338: 6.3.3 Decis
 One record per technology choice and per major design choice [2].
 Also record later AI decisions here, such as retraining or resetting the model, or changing what it is specified to do.
 Decisions that change the charter (scope, deliverables, milestones) go into a new charter version instead.
-For a model choice, keep per-model details (version, used or rejected and why) in the AI-BOM and link its row here.
+For a model choice, keep per-model details (version, used or rejected and why) in the AI-SBOM and link its row here.
 List the simplest option you considered too, such as the baseline or "do nothing" [1].
 If an experiment settled the choice, link its experiment card and AI SBOM row.
 Do not rewrite a past decision. Mark it superseded and add a new record [2].
@@ -158,6 +172,7 @@ Copy the block below for each decision.
 - [ ] Every technology in Components has a decision in section 6.
 - [ ] Every relevant spike has a decision in section 6, or a note in Open design areas saying why not.
 - [ ] The diagram version matches the latest change log entry.
+- [ ] The configuration commit in section 5 is the one used for the latest results in `docs/eval/results.md`.
 
 ## References
 
@@ -165,4 +180,4 @@ Copy the block below for each decision.
 
 [2] GitLab Inc. "Architecture Design Workflow." The GitLab Handbook. https://handbook.gitlab.com/handbook/engineering/architecture/workflow/
 
-Diagram tools: [Miro, software architecture diagrams](https://miro.com/diagramming/software-architecture-diagram/) · [Mermaid, flowchart syntax](https://mermaid.js.org/syntax/flowchart.html)
+Diagram tools: [Miro, software architecture diagrams](https://miro.com/diagramming/software-architecture-diagram/) · [Mermaid, flowchart syntax](https://mermaid.js.org/syntax/flowchart.html) · [Mermeid Live Editor (Open Source)](https://mermaid-editor-live.vercel.app/)
