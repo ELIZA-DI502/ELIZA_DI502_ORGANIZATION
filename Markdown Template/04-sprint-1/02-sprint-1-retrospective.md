@@ -26,8 +26,8 @@ We also looked at Sprint 1 with the Hot Air Balloon retrospective on our [Miro b
 |---|---|---|---|
 | M1: Charter v1 approved | One owner per page | Too few pilot users (R-03) | IDs did not match across pages and Jira |
 | M2: Evaluation set, sources and first design | Clear constraints for Sprint 1 | Cloud budget or credit not ready (R-05, R-10) | Pages rewritten after feedback |
-| Sprint 2: first working alpha | Fast response to feedback | The law or its official reading changes (R-02) | Many changes the night before the presentation |
-| Presentation on 21/10 was ready on time | Working GitHub–Confluence and Jira sync | Work falls behind in Sprint 2 (R-08) | Unanswered questions in the group chat |
+| Presentation on 21/10 was ready on time | Fast response to feedback | The law or its official reading changes (R-02) | Many changes the night before the presentation |
+| | Working GitHub–Confluence and Jira sync | Work falls behind in Sprint 2 (R-08) | |
 
 ## Commitments check
 
