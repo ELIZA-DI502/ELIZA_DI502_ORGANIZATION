@@ -7,6 +7,27 @@ This page lists what your team delivers in each sprint. It replaces the weekly t
 - **Informal presentations** are perfectly fine. You can render your own markdown files as pdf presentations, or go over relevant pages.
 - **Every week**, show your team's current burndown chart in class.
 
+## Contents
+
+- [Calendar](#calendar)
+- [Every sprint (Sprints 2, 3 and 4)](#every-sprint-sprints-2-3-and-4)
+  - [In the first week](#in-the-first-week)
+  - [Deliverables](#deliverables)
+    - [For sprints 3 and 4](#for-sprints-3-and-4)
+  - [How the review works](#how-the-review-works)
+- [Sprint 1 · Discovery](#sprint-1--discovery)
+- [Sprint 2 · Baseline](#sprint-2--baseline)
+  - [Deliverables, in addition to every sprint's](#deliverables-in-addition-to-every-sprints)
+- [Sprint 3 · Pipeline](#sprint-3--pipeline)
+  - [Deliverables, in addition to every sprint's](#deliverables-in-addition-to-every-sprints-1)
+- [Sprint 4 · Product](#sprint-4--product)
+  - [Deliverables, in addition to every sprint's](#deliverables-in-addition-to-every-sprints-2)
+- [Reference](#reference)
+  - [Working principles](#working-principles)
+  - [Code and Git](#code-and-git)
+  - [Repository structure](#repository-structure)
+- [Appendix: lessons from last year's reviews](#appendix-lessons-from-last-years-reviews)
+
 ## Calendar
 
 All classes are on Wednesdays.
