@@ -18,7 +18,7 @@ The table below is very basic, but feel free to follow a template from Miro. For
 
 ## Hot Air Balloon Retrospective
 
-We also looked at Sprint 1 with the Hot Air Balloon retrospective on our [Miro board](https://miro.com/app/board/uXjVEWMJhwo=/): sunny skies are the positive things ahead, hot air is what pushes us along, storm clouds are the problems coming up, and sandbags are what slows us down.
+We also looked at Sprint 1 with the Hot Air Balloon retrospective on our [Miro board](https://miro.com/app/board/uXjVEWMJhwo=/?share_link_id=854607532110): sunny skies are the positive things ahead, hot air is what pushes us along, storm clouds are the problems coming up, and sandbags are what slows us down.
 
 ![Sprint 1 Hot Air Balloon Retrospective](hot-air-balloon-retro-sprint-1.png)
 
