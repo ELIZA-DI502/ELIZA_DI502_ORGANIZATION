@@ -16,16 +16,18 @@ The table below is very basic, but feel free to follow a template from Miro. For
 | The GitHub–Confluence and Jira sync works. | The sync stopped once because of missing secrets. | Check the sync and the course template updates at the start of every sprint. | Kaan, Gözde Nur |
 | The presentation for 21/10 was ready on time. | Many pages changed the night before the presentation, and not everyone saw the changes. | Freeze the pages 2 days before a review; announce changes that affect other pages in the group. | Everyone |
 
-## Sailboat Retrospective
+## Hot Air Balloon Retrospective
 
-We also looked at Sprint 1 with the [Sailboat Retrospective](https://miro.com/templates/sailboat-retro/) from Miro: the island is the sprint goal, the wind is what helped us, the anchors are what slowed us down, and the rocks are the risks ahead.
+We also looked at Sprint 1 with the Hot Air Balloon retrospective on our [Miro board](https://miro.com/app/board/uXjVEWMJhwo=/): sunny skies are the positive things ahead, hot air is what pushes us along, storm clouds are the problems coming up, and sandbags are what slows us down.
 
-| 🏝️ Island (goal) | 💨 Wind (what helped) | ⚓ Anchors (what slowed us) | 🪨 Rocks (risks ahead) |
+![Sprint 1 Hot Air Balloon Retrospective](hot-air-balloon-retro-sprint-1.png)
+
+| ☀️ Sunny Skies (positive things ahead) | 🔥 Hot Air (what pushes us along) | ⛈️ Storm Clouds (problems coming up) | 🎒 Sandbags (what slows us down) |
 |---|---|---|---|
-| Charter v1 approved (M1) | Each page had one owner | IDs did not match across pages and Jira | Too few pilot users (R-03) |
-| Evaluation set, sources and first design ready (M2) | Clear constraints for Sprint 1 | Pages were rewritten after feedback | Cloud budget or credit not ready in time (R-05, R-10) |
-| | Fast response to feedback | Many changes the night before the presentation | The law or its official reading changes (R-02) |
-| | Working GitHub–Confluence and Jira sync | Some questions stayed unanswered in the group chat | Work falls behind in Sprint 2 (R-08) |
+| M1: Charter v1 approved | One owner per page | Too few pilot users (R-03) | IDs did not match across pages and Jira |
+| M2: Evaluation set, sources and first design | Clear constraints for Sprint 1 | Cloud budget or credit not ready (R-05, R-10) | Pages rewritten after feedback |
+| Sprint 2: first working alpha | Fast response to feedback | The law or its official reading changes (R-02) | Many changes the night before the presentation |
+| Presentation on 21/10 was ready on time | Working GitHub–Confluence and Jira sync | Work falls behind in Sprint 2 (R-08) | Unanswered questions in the group chat |
 
 ## Commitments check
 
