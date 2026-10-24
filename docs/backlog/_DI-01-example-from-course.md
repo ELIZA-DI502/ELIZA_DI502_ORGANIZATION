@@ -37,7 +37,7 @@ HOW TO USE THIS TEMPLATE
 For more info you can visit: https://www.atlassian.com/agile/product-management/requirements.
 
 | # | User story title | User story description | Priority | Points | Owner | Sprint | Notes | Jira |
-|---|---|---|---|---|---|---|---|
+|---|---|---|---|---|---|---|---|---|
 | S1 | Upload a report and ask questions | As an AI user, I want to upload a report and ask questions about it, so that I can find key figures quickly. | High | 5 | @volga | | | [DI-17](https://volga-sezen.atlassian.net/browse/DI-17) |
 | S2 | Fine-tune the answer model | As an AI developer, I want a fine-tuned answer model, so that answers follow the source documents more closely. | Medium | | @volga | | Takes more than one sprint, so it uses Tasks | [DI-20](https://volga-sezen.atlassian.net/browse/DI-20) |
 

@@ -8,6 +8,6 @@ Specify what purpose each dataset will satisfy, who accessed this dataset, and w
 
 Finally mention the associated experiment and the result, whether the dataset passed quality checks, or performed well in conjunction with existing models.
 
-| Dataset Name | Purpose | Accesser | Date of Access | Experiment and Results |
-|---|---|---|---|---|
-| mm-IMDb Dataset: Multimodal Film Analysis \| Innovatiana | Serve as the main database for our movie recommender | Volga | Oct. 6 |   |
+| Dataset Name | Purpose | Accesser | Date of Access | License | Experiment and Results |
+|---|---|---|---|---|---|
+| mm-IMDb Dataset: Multimodal Film Analysis \| Innovatiana | Serve as the main database for our movie recommender | Volga | Oct. 6 | MIT License  |   |
