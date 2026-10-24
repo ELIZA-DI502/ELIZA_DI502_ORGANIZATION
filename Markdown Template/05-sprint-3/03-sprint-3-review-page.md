@@ -1,12 +1,12 @@
-# Sprint 2 Review Page
+# Sprint 3 Review Page
 
-This page is reserved for when Sprint 2 is finished. A group will be assigned to review your documents and fill in this form.
+This page is reserved for when Sprint 3 is finished. A group will be assigned to review your documents and fill in this form.
 
 Please put your feedback and review document here.
 
 Thank you for your feedback in advance.
 
-## Sprint 2 Review
+## Sprint 3 Review
 
 | **REVIEW DOCUMENT** |  |  |  |
 |---|---|---|---|
@@ -25,7 +25,7 @@ Thank you for your feedback in advance.
 | Error Type Number | Error Type Definition | Number of Errors Found |
 |---|---|---|
 | 1 | Spelling (grammar, punctuation, etc) |   |
-| 2 | Inconsistency with the guidelines (Scrum, TDSP, templates) |   |
+| 2 | Inconsistency with the guidelines (Scrum, ISO standards, templates) |   |
 | 3 | Uncertain |   |
 | 4 | Incorrect |   |
 | 5 | Inapplicable |   |
