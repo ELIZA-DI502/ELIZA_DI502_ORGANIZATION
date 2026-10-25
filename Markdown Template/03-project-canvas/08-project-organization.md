@@ -29,7 +29,7 @@ flowchart TB
     subgraph TEAM["ELIZA Scrum Team (no hierarchy inside and changing in every sprint)"]
         PO["Product Owner<br/>Yeşim "]
         SM["Scrum Master<br/> Yaren · Yeşim · Kaan · Gözde Nur "]
-        DS["Development Team Members (Data Scientists)<br/>Kaan · Gözde Nur <br/> (Data Analyst)<br/> Yaren · Yeşim "]
+        DS["Development Team Members (Data Scientists)<br/>Kaan · Gözde Nur <br/> (Business Analyst)<br/> Yaren "]
     end
     CUST["AI customer<br/>course instructors and peer groups,<br/>academic proxies for an EdTech provider's legal team"]
     USERS["AI users<br/>pilot proxy users<br/>(technical professionals)"]
@@ -48,7 +48,8 @@ Team chart (as a list):
 - Project Review Committee: Tuğba Taşkaya Temizel (course instructor) and Volga Sezen (teaching assistant). Peer review groups at Sprints 2, 3 and 4.
 - ELIZA Scrum Team (Yeşim, Yaren, Kaan, Gözde Nur), no hierarchy inside:
   - Product Owner: Yeşim.
-  - Scrum Master: Yaren.
+  - Scrum Master: Yaren · Yeşim · Kaan · Gözde Nur.
+  - Business Analyst: Yaren.
   - Development Team Members (template role Data Scientist): Kaan, Gözde Nur; Yeşim and Yaren also do named data work.
 - Outside: AI customer (course instructors and peer groups); AI users (pilot proxy users); data provider (EUR-Lex); AI partner (Google Cloud).
 
