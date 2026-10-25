@@ -35,7 +35,7 @@ Link to the charter instead of restating it.
 
 The design serves the four objectives and their success criteria in the [Project Executive Summary](03-project-canvas/01-project-executive-summary.md):
 
-- O1 Search time: answers are produced on a CPU without waiting for a hosted API; the answer time is the main design risk (R-16).
+- O1 Search time: answers are produced on a CPU without waiting for a hosted API; the answer time is the main design risk (R-16). **Answer-time limit:** the median answer time on the `val` questions on the pilot computer is at most 60 s (O1, A-07, R-16). Measured on one team computer: 15 s for Llama-3.1-8B, about 38 s in the worst case ([model selection spike](../docs/spikes/model-selection-spike.md), section 6).
 - O2 Evidence: the LLM answers only from the retrieved provisions, and the output check removes citations that are not among them.
 - O3 Understanding: the prompt asks for a short plain-language summary first, and the interface shows the text of every cited provision.
 - O4 Safety: the input check returns a notice for out-of-scope, legal-decision and personal-data questions, and the output check blocks verdict wording (C-08).
@@ -72,7 +72,7 @@ flowchart LR
     user(["<b>AI user</b><br/>desktop browser"])
     eval["<b>Evaluation</b><br/>Python + W&B"]
 
-    subgraph gcp["<b>GOOGLE CLOUD CPU INSTANCE · DOCKER COMPOSE</b>"]
+    subgraph gcp["<b>TEAM COMPUTER (CPU ONLY) · DOCKER COMPOSE</b>"]
         subgraph web["<b>web container</b>"]
             ui["<b>User interface</b><br/>React + Vite"]
             backend["<b>Web backend</b><br/>Node.js + Express"]
@@ -254,7 +254,7 @@ O1 (search time) and O3 (understanding) are measured with pilot users in Sprint 
 
 | From                   | To                     | What passes                                                                                                    | Format or protocol                                         |
 | ---------------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| AI user                | User interface         | Question; the answer with the text of each cited provision and the not-legal-advice notice                     | HTTPS, desktop browser                                     |
+| AI user                | User interface         | Question; the answer with the text of each cited provision and the not-legal-advice notice                     | HTTP on localhost, desktop browser                         |
 | User interface         | Web backend            | Question; answer, citations and notice                                                                         | POST /api/ask, JSON; session cookie                        |
 | Web backend            | Database               | Session id; read and write the question-answer pairs of the current session, delete them when the session ends | SQL over the internal Docker network (PostgreSQL protocol) |
 | Web backend            | Input check            | Question and history; a notice instead of an answer (out_of_scope, verdict_request, personal_data)             | POST /answer on the internal Docker network, JSON          |
@@ -278,12 +278,12 @@ O1 (search time) and O3 (understanding) are measured with pilot users in Sprint 
 | Stage                                                         | Where it runs                                                                                       | How users reach it                                                                                             |
 | ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
 | Development and alpha (deliverable D6)                        | Team members' own computers, docker compose up (C-05)                                               | localhost:3000 on the same computer                                                                            |
-| Beta (deliverable D9) and release candidate (deliverable D12) | One Google Cloud CPU instance paid from the $100 credit, stopped when not in use (C-05, C-06, A-07) | Shared link from a desktop browser outside the team's network (KAN-21); the HTTPS setup is an open design area |
+| Beta (deliverable D9) and release candidate (deliverable D11) | One team computer, docker compose up from README.md; the pilot and the final demo are held in person on it (C-05, A-07) | localhost:3000 on that computer; no shared link or hosted server |
 
 - Containers: web (React build served by Node.js + Express), db (PostgreSQL), rag (FastAPI) and ollama. Only web publishes a port; db, rag and ollama are reachable only on the internal Docker network.
 - Data on the host: data/vector-store/ (bind mount into rag), data/postgres/ (bind mount into db) and the downloaded model files (Docker volume for ollama). data/postgres/ holds only the conversations of active sessions.
-- Preparation step: python rag/ingest.py is run once on the instance before the first start.
-- Machine size: open; set by the answer-time measurement of Llama-3.1-8B on the deployment CPU in Sprint 2 (D9, R-16).
+- Preparation step: python rag/ingest.py is run once on the computer before the first start.
+- Pilot computer: the team computer used for the pilot and the final demo; the answer time of Llama-3.1-8B is measured at the baseline (18/11/2026) and on this computer by 09/12/2026 and compared with the answer-time limit in section 2 (D9, A-07, R-16). The $100 Google Cloud credit (C-06) is kept as a reserve: it is used only if the limit is still not met after reducing top-k or the answer length (A-07) and switching to the fallback model (R-16).
 
 ## 6. Decisions
 
@@ -389,19 +389,19 @@ Copy the block below for each decision.
 
 **Status:** proposed
 
-### D6: Deployment: Docker Compose on one Google Cloud CPU instance
+### D6: Deployment: Docker Compose on one team computer
 
-**Context:** C-05 places the beta and the release candidate on a Google Cloud CPU instance paid from the $100 credit (C-06); KAN-21 requires access from outside the team's network.
+**Context:** C-05 runs the system, including the pilot and the final demo, locally from README.md on a team computer. The pilot is held in person, so no access from outside the team's network is needed.
 
-**Options considered:** Team computer + tunnel; Google Cloud CPU instance with Docker Compose.
+**Options considered:** Team computer with Docker Compose; Google Cloud CPU instance with Docker Compose, paid from the $100 credit (C-06).
 
-**Decision:** Development on the team's computers; beta and release candidate on one Google Cloud CPU instance with the four containers (web, db, rag, ollama), stopped when not in use.
+**Decision:** Development, beta and release candidate on the team's computers with the four containers (web, db, rag, ollama); the pilot and the final demo run on one team computer.
 
-**Why:** Follows C-05 and meets KAN-21.
+**Why:** Follows C-05; no paid instance and no shared link are needed (A-07).
 
-**Consequences:** The machine size and the HTTPS setup are still open.
+**Consequences:** The pilot computer is set up from README.md and its answer time is measured by 09/12/2026 (Major Activities row 29). If the answer-time limit is still not met after the steps in A-07 and R-16, the reserve Google Cloud credit is used for a CPU instance during the pilot sessions and the final demo only (C-06, R-16).
 
-**Evidence:** C-05, C-06, A-07, KAN-21
+**Evidence:** C-05, C-06, A-07, R-16
 
 **Owner and date:** Architecture part, 2026-10-20
 
@@ -549,8 +549,7 @@ Web and deployment part:
 
 - **Session parameters:** when a session ends (inactivity timeout), how many question-answer pairs are sent with each question, cookie settings and rate limits (Sprint 2).
 - **API contract:** final fields of `POST /answer`, agreed between the web and RAG sides.
-- **HTTPS on the instance:** how the shared link is served over HTTPS (KAN-21, Sprint 3).
-- **Machine size:** RAM and CPU of the Google Cloud instance, set together with the answer-time measurement of Llama-3.1-8B (D9, R-16).
+- **Pilot computer:** which team computer is used for the pilot and the final demo, chosen together with the answer-time measurement of Llama-3.1-8B (D9, A-07, R-16).
 
 ## 8. Change log
 
