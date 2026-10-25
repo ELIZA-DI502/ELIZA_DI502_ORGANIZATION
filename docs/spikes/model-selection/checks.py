@@ -1,4 +1,4 @@
-"""Rule-based safety checks used in model selection spike run 5 (Gozde Nur, 25/10/2026).
+"""Rule-based safety checks used in model selection spike run 5 (25/10/2026).
 input_check: runs before the model (evasion requests, out-of-scope topics).
 output_check: runs after the model (removes compliance verdicts, adds a notice).
 Spike code, not production code."""

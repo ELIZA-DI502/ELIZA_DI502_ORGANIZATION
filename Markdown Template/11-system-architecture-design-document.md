@@ -10,7 +10,7 @@ How to use this template
 
 | Team | Sprint | Status | Last updated | Updated by | 
 |---|---|---|---|---|
-| ELIZA | 1 | proposed | 2026-10-25 | Gözde Nur Özdemir (NLP part) |
+| ELIZA | 1 | proposed | 2026-10-25 | NLP part |
 
 <!--
 Status [2]:
@@ -139,7 +139,7 @@ Models used as-is go in the AI SBOM. Write a model card (12-model-cards/, follow
 | Embedding | Model and version | `BAAI/bge-base-en-v1.5` (768 dimensions), via `sentence-transformers` | D10 |
 | Vector store | Index type, distance metric | Chroma, saved on disk; cosine distance | D11 |
 | Retrieval | Top-k, hybrid search, reranker | E1 baseline: dense top-k. E2: BM25 (`rank_bm25`) + dense, merged with Reciprocal Rank Fusion (k = 60). Top-k chosen by Recall@k on the `val` split (candidates 3, 5, 8). No reranker | D12 |
-| Generation | LLM and version, temperature, prompt template | Llama-3.1-8B-Instruct, 4-bit `Q4_K_M` (fallback Phi-4-mini-instruct `Q4_K_M`); temperature 0; at most 300 answer tokens; context window 4,096 tokens; prompt with one example answer (tested in the [model selection spike](../docs/spikes/model-selection-spike-gozde-nur.md)); rule-based input check before and verdict check after the model ([checks.py](../docs/spikes/model-selection/checks.py)) | D9 |
+| Generation | LLM and version, temperature, prompt template | Llama-3.1-8B-Instruct, 4-bit `Q4_K_M` (fallback Phi-4-mini-instruct `Q4_K_M`); temperature 0; at most 300 answer tokens; context window 4,096 tokens; prompt with one example answer (tested in the [model selection spike](../docs/spikes/model-selection-spike.md)); rule-based input check before and verdict check after the model ([checks.py](../docs/spikes/model-selection/checks.py)) | D9 |
 
 ### Evaluation
 
@@ -200,7 +200,7 @@ Do not rewrite a past decision. Mark it superseded and add a new record [2].
 Copy the block below for each decision.
 -->
 
-<!-- D1–D6: architecture, web, database and deployment decisions (Kaan). D7–D12 below: NLP part (Gözde Nur). -->
+<!-- D1–D6: architecture, web, database and deployment decisions (Kaan). D7–D12 below: NLP part. -->
 
 ### D7: Parse the regulation by its structure instead of size-based chunking
 
@@ -220,9 +220,9 @@ Copy the block below for each decision.
 
 **Consequences:** No chunk-size experiments. In the model selection spike, splitting Article 6(3) into its points helped the models name the right point. Whether short points are better merged into their paragraph is checked with Recall@k in Sprint 2.
 
-**Evidence:** Source parsing task ([KAN-56](https://yarengursoy.atlassian.net/browse/KAN-56)); in the [model selection spike](../docs/spikes/model-selection-spike-gozde-nur.md), splitting Article 6(3) into its points helped the models name the right point.
+**Evidence:** [Parsing spike](../docs/spikes/parsing-spike.md) (22 chunks from Article 6 and Annex III point 3, all with the correct ID; [KAN-56](https://yarengursoy.atlassian.net/browse/KAN-56)); in the [model selection spike](../docs/spikes/model-selection-spike.md), splitting Article 6(3) into its points helped the models name the right point.
 
-**Owner and date:** Gözde Nur Özdemir, 2026-10-25
+**Owner and date:** NLP part, 2026-10-25
 
 **Status:** proposed
 
@@ -245,7 +245,7 @@ Copy the block below for each decision.
 
 **Evidence:** [KAN-56](https://yarengursoy.atlassian.net/browse/KAN-56)
 
-**Owner and date:** Gözde Nur Özdemir, 2026-10-25
+**Owner and date:** NLP part, 2026-10-25
 
 **Status:** proposed
 
@@ -269,9 +269,9 @@ Copy the block below for each decision.
 
 **Consequences:** The answer time on the deployment CPU is measured in Sprint 2; if it is too slow, the fallback is used (R-16). The machine size follows from this test. The licence and model card go into the AI SBOM (A-10).
 
-**Evidence:** [Model selection spike](../docs/spikes/model-selection-spike-gozde-nur.md) (5 runs; notebooks and results in `docs/spikes/model-selection/`), [KAN-57](https://yarengursoy.atlassian.net/browse/KAN-57)
+**Evidence:** [Model selection spike](../docs/spikes/model-selection-spike.md) (5 runs; notebooks and results in `docs/spikes/model-selection/`), [KAN-57](https://yarengursoy.atlassian.net/browse/KAN-57)
 
-**Owner and date:** Gözde Nur Özdemir, 2026-10-25
+**Owner and date:** NLP part, 2026-10-25
 
 **Status:** proposed
 
@@ -289,7 +289,7 @@ Copy the block below for each decision.
 
 **Evidence:** [KAN-58](https://yarengursoy.atlassian.net/browse/KAN-58); E1 experiment card (Sprint 2)
 
-**Owner and date:** Gözde Nur Özdemir, 2026-10-25
+**Owner and date:** NLP part, 2026-10-25
 
 **Status:** proposed
 
@@ -307,7 +307,7 @@ Copy the block below for each decision.
 
 **Evidence:** [KAN-58](https://yarengursoy.atlassian.net/browse/KAN-58)
 
-**Owner and date:** Gözde Nur Özdemir, 2026-10-25
+**Owner and date:** NLP part, 2026-10-25
 
 **Status:** proposed
 
@@ -325,7 +325,7 @@ Copy the block below for each decision.
 
 **Evidence:** [KAN-63](https://yarengursoy.atlassian.net/browse/KAN-63); E1 and E2 experiment cards (Sprint 2)
 
-**Owner and date:** Gözde Nur Özdemir, 2026-10-25
+**Owner and date:** NLP part, 2026-10-25
 
 **Status:** proposed
 
@@ -344,7 +344,7 @@ NLP part:
 
 | Version | Date | Change | Pull request |
 |---|---|---|---|
-| v1 | 2026-10-25 | NLP part: data pipeline, NLP pipeline diagram, RAG pipeline table, evaluation, decisions D7–D12 (Gözde Nur Özdemir) |  |
+| v1 | 2026-10-25 | NLP part: data pipeline, NLP pipeline diagram, RAG pipeline table, evaluation, decisions D7–D12 |  |
 
 ## Checklist before submitting
 
