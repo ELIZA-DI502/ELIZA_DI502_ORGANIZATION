@@ -98,7 +98,7 @@ The text is **parsed by its own structure; there is no separate chunking step.**
 |---|---|---|
 | 1. Load | Read the stored source file (EUR-Lex HTML; the PDF is the fallback if the HTML does not mark the units, see D8). | Raw text |
 | 2. Clean | Remove page headers and footers, amendment markers (▼B, ▼M1) and soft hyphens; join lines broken inside a sentence. | Clean text |
-| 3. Parse | Find the headings in order: `Article N` and its title, numbered paragraphs (`1.`, `2.`, ...), points (`(a)`, `(b)`, ...), and `ANNEX III` with its numbered areas and points. A unit runs from one heading to the next. | One chunk per Article paragraph or Annex point |
+| 3. Parse | Find the headings in order: `Article N` and its title, numbered paragraphs (`1.`, `2.`, ...), points (`(a)`, `(b)`, ...), and `ANNEX III` with its numbered areas and points. A unit runs from one heading to the next. One numbered paragraph of an Article is one chunk (not the whole Article); a long paragraph with points (a), (b), ... (for example Article 6(3)) is split into one chunk per point. | One chunk per Article paragraph or Annex point |
 | 4. Label | Attach metadata to each chunk: `article` or `annex`, `paragraph`, `point`, the Article or Annex title, the chapter, and `version_date` = 2026-07-27. The citation shown to the user (for example `Article 6(3)(a)`) is built from these fields. | Chunks with metadata |
 | 5. Add heading text | Prefix each chunk with its place in the text, for example `Article 6 – Classification rules for high-risk AI systems – paragraph 3:`, so that a chunk such as "(a) the AI system is intended to perform a narrow procedural task;" still makes sense on its own. | Text that is embedded |
 | 6. Check | Compare the chunks with the provision list of deliverable D3: every in-scope provision is present, and no chunk lacks an identifier (deliverable D5 acceptance criteria). Counts and the share of chunks corrected by hand go to `docs/eval/preprocessing.md`. | Chunk file + report |
@@ -118,7 +118,7 @@ Models used as-is go in the AI SBOM. Write a model card (12-model-cards/, follow
 
 | Stage | Parameter | Value | Decision |
 |---|---|---|---|
-| Chunking | Chunk size, overlap | No size-based chunking: one chunk per Article paragraph or Annex point; heading text in front; identifier and version date as metadata | D7, D8 |
+| Chunking | Chunk size, overlap | No size-based chunking: one chunk per Article paragraph (not per Article) or Annex point; a long paragraph with points (a), (b), ... (for example Article 6(3)) is split into one chunk per point; heading text in front; identifier and version date as metadata | D7, D8 |
 | Embedding | Model and version | `BAAI/bge-base-en-v1.5` (768 dimensions), via `sentence-transformers` | D10 |
 | Vector store | Index type, distance metric | Chroma, saved on disk; cosine distance | D11 |
 | Retrieval | Top-k, hybrid search, reranker | E1 baseline: dense top-k. E2: BM25 (`rank_bm25`) + dense, merged with Reciprocal Rank Fusion (k = 60). Top-k chosen by Recall@k on the `dev` split (candidates 3, 5, 8). No reranker | D12 |
@@ -168,11 +168,11 @@ Copy the block below for each decision.
 | Sentence splitting without structure | Keeps sentences whole | Loses the Article and point numbers needed for citations |
 | **One chunk per Article paragraph or Annex point** | One clear identifier per chunk; nothing to tune; the gold sources of the evaluation set use the same units | Needs a parser for the headings; some units are long, some very short |
 
-**Decision:** One chunk per Article paragraph or Annex point, with the heading text in front and the identifier and version date as metadata.
+**Decision:** One chunk per Article paragraph or Annex point, with the heading text in front and the identifier and version date as metadata. An Article is not one chunk: Article 6, for example, gives one chunk per paragraph. A long paragraph with points (a), (b), ... is split into one chunk per point, so Article 6(3)(a) and 6(3)(b) are separate chunks.
 
 **Why:** Citations come directly from the metadata, and retrieval can be scored per provision. Splitting at natural boundaries also worked better than fixed-size splitting on legal text in LegalBench-RAG [3].
 
-**Consequences:** No chunk-size experiments. Whether points (a), (b), ... stay separate or are merged into their paragraph is checked with Recall@k in Sprint 2.
+**Consequences:** No chunk-size experiments. In the model selection spike, splitting Article 6(3) into its points helped the models name the right point. Whether short points are better merged into their paragraph is checked with Recall@k in Sprint 2.
 
 **Evidence:** Source parsing task ([KAN-56](https://yarengursoy.atlassian.net/browse/KAN-56)); in the [model selection spike](../docs/spikes/model-selection-spike-gozde-nur.md), splitting Article 6(3) into its points helped the models name the right point.
 
@@ -289,7 +289,7 @@ Copy the block below for each decision.
 
 NLP part:
 
-- **Granularity of points:** keep each point (a), (b), ... as its own chunk, or merge the points into their paragraph. Settled by Recall@k on the `dev` split in E1.
+- **Granularity of points:** long paragraphs are split at their points (D7); whether short points are better merged into their paragraph is settled by Recall@k on the `dev` split in E1.
 - **Hybrid retrieval:** whether BM25 improves Recall@k over dense search (E1 versus E2, Sprint 2).
 - **Answer time on CPU:** answer time of Llama-3.1-8B on the deployment CPU, measured in Sprint 2; if it is too slow, Phi-4-mini-instruct is used (D9, R-16).
 - **Checks:** personal-data rules and the citation-ID check (KAN-49).
