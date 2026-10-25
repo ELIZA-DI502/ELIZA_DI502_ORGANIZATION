@@ -109,7 +109,7 @@ Add rows as needed. Rows with a score of 10 or more also need a detail block (ne
 
 This page lists only uncertain events that the team cannot fully control. Design questions, such as how to split the text, which model to use or how fast it runs, are not listed here. They are answered in the spikes and recorded in the System Architecture Design Document (D4).
 
-R-01 to R-04, R-06, R-07, R-09, R-11, R-12 and R-16 are the other side of the assumptions in [Assumptions & Constraints](03-assumptions-and-constraints.md) (R-16 for A-07). R-08 and R-10 come from constraints and from how the team and outside tools may act. R-13, R-14 and R-16 are the risks that an objective (O2, O4, O1) is not met; R-14, R-15 and R-16 are also the uncertain side of constraints C-08, C-10 and C-05. R-05 was closed on 25/10/2026, when the hosted cloud deployment was removed from the plan; its number is not reused. R-13 to R-16 are not scored yet.
+R-01 to R-04, R-06, R-07, R-09, R-11, R-12 and R-16 are the other side of the assumptions in [Assumptions & Constraints](03-assumptions-and-constraints.md) (R-16 for A-07). R-08 and R-10 come from constraints and from how the team and outside tools may act. R-13, R-14 and R-16 are the risks that an objective (O2, O4, O1) is not met; R-14, R-15 and R-16 are also the uncertain side of constraints C-08, C-10 and C-05. R-05 was closed on 25/10/2026, when the hosted cloud deployment was removed from the plan; its number is not reused. R-14 and R-15 are not scored yet.
 
 | # | Layer | Risk (event) | When / where | Probability | Impact | Score | Owner | Linked to |
 |---|---|---|---|---|---|---|---|---|
@@ -125,12 +125,12 @@ R-01 to R-04, R-06, R-07, R-09, R-11, R-12 and R-16 are the other side of the as
 | R-10 | Integration | **The system does not install on the pilot computer.** Installing the system from `README.md` on the computer used for the pilot and the final demo fails, or gives different results than on the developers' computers, because of a different operating system, Python version or package build. | Sprints 3–4; pilot | 2: a team member who did not build the system installs it from the README each sprint, and the pilot computer is set up by 09/12/2026 | 3: the pilot (16/12–23/12/2026) has a fixed window; a late fix shortens it and can reduce the number of O1 and O3 sessions | 6 (Medium) | Kaan (Development Team Member, Scrum Master) | C-05; [Major Activities](04-major-activities.md) rows 28, 29; [Dependencies](06-dependencies.md) row 8 |
 | R-11 | Data | **The law is unclear for some questions.** For more than 5 evaluation questions, the regulation text does not clearly say which provision applies, because the answer depends on legal interpretation. | Sprints 2–3; development | 3: the exceptions in Article 6(3) depend on interpretation, and the Commission's guidelines on them are still a draft | 2: the question set must be partly rewritten and checked again; 2–4 weeks | 6 (Medium) | Kaan (Development Team Member, Scrum Master) | A-03; [Dependencies](06-dependencies.md) row 2 |
 | R-12 | Data | **The source format is uneven.** The EUR-Lex HTML does not mark Articles, paragraphs and Annex points in the same way throughout the text, so more than 5% of the provisions lose their numbers. | Sprints 1–2; development | 2: EUR-Lex marks articles, paragraphs and annex points with separate HTML elements; the source parsing spike checks the HTML before the text is split | 2: missing numbers are added by hand; 2–4 weeks | 4 (Low) | Yeşim (Product Owner, Scrum Master) | A-05; [Dependencies](06-dependencies.md) row 4 |
-| R-13 | Model | **Evidence targets are not met.** At the beta evaluation on the frozen D8 `val` split, the expected provision is cited for fewer than 80% of the in-scope questions, or fewer than 75% of the in-scope answers are fully supported by the passages they cite (O2 (a), (b)). | Sprints 2–4; development | – | – | – | Kaan (Development Team Member, Scrum Master) | O2; C-03; [Major Activities](04-major-activities.md) rows 9, 10, 23 |
+| R-13 | Model | **Evidence targets are not met.** At the beta evaluation on the frozen D8 `val` split, the expected provision is cited for fewer than 80% of the in-scope questions, or fewer than 75% of the in-scope answers are fully supported by the passages they cite (O2 (a), (b)). | Sprints 2–4; development | 3: not measured yet; retrieval is not built, and the answer model has only been tried with the correct provisions given by hand on part of the scope; re-scored after the baseline evaluation on the D2 `val` split (18/11/2026) | 4: O2 (a) and (b) are success criteria | 12 (High) | Kaan (Development Team Member, Scrum Master) | O2; C-03; [Major Activities](04-major-activities.md) rows 9, 10, 23 |
 | R-14 | Model | **Safety responses fail.** At the beta evaluation on the frozen D8 `val` split, at least one answer contains a high-risk classification or a compliance verdict, or a safety category gets the expected response for fewer questions than its level in O4 (100% for legal-decision questions, 80% for the other three categories). | Sprints 2–4; development and pilot | – | – | – | Gözde Nur (Development Team Member, Scrum Master) | O4; C-08; [Major Activities](04-major-activities.md) rows 11, 12, 23 |
 | R-15 | Data | **Personal data is stored.** A personal-data item typed by a user, such as an e-mail address or a phone number, appears in the application or error logs, the database or the vector index. | Sprints 3–4; pilot | – | – | – | Gözde Nur (Development Team Member, Scrum Master) | C-10; [Major Activities](04-major-activities.md) rows 13, 30 |
-| R-16 | Infrastructure | **Answers take longer than the answer-time limit.** On the computer used for the pilot, the median answer time on the `val` questions is above the answer-time limit recorded in the System Design Document (D4), so the O1 time gain cannot be reached. | Sprints 2–3; development | – | – | – | Kaan (Development Team Member, Scrum Master) | O1; A-07; C-05; [Major Activities](04-major-activities.md) rows 6, 29; [Dependencies](06-dependencies.md) row 8; [Facilities & Resources](09-facilities-and-resources.md) row 1 |
+| R-16 | Infrastructure | **Answers take longer than the answer-time limit.** On the computer used for the pilot, the median answer time on the `val` questions is above the answer-time limit recorded in the System Design Document (D4), so the O1 time gain cannot be reached. | Sprints 2–3; development | 2: on one team computer (M3 Pro, CPU only), Llama-3.1-8B answered in 15.4 s, about 38 s in the worst case, below the 60 s limit; measured on one question, outside Docker, and the pilot computer is not fixed yet ([model selection spike](../../docs/spikes/model-selection-spike.md), section 6) | 4: the O1 time gain is a success criterion | 8 (Medium) | Kaan (Development Team Member, Scrum Master) | O1; A-07; C-05; [Major Activities](04-major-activities.md) rows 6, 29; [Dependencies](06-dependencies.md) row 8; [Facilities & Resources](09-facilities-and-resources.md) row 1 |
 
-Spread of the scored risks (R-01 to R-12, without the closed R-05): 1 High (R-03), 6 Medium, 4 Low.
+Spread of the scored risks (R-01 to R-13 and R-16, without the closed R-05): 2 High (R-03, R-13), 7 Medium, 4 Low.
 
 **After deployment.** The assistant uses one version of the law (27/07/2026), so its answers no longer match the law in force when an in-scope article changes (R-02). This is concept drift: the question stays the same, but the correct answer changes. EUR-Lex is checked for a new version at the start of each sprint. If an in-scope article has changed, the new text is loaded, recorded in the manifest and tested again.
 
@@ -340,13 +340,13 @@ Closed when the hosted cloud deployment was removed from the plan: the system ru
 | **Cause** | The answer depends on whether retrieval finds the expected provision and on how closely a quantized language model running on CPU follows the retrieved text (C-03, C-05). |
 | **When / where** | Sprints 2–4; development |
 | **Mitigation** | One chunk per Article paragraph or Annex point with its identifier; citations are checked against the retrieved chunks ([Major Activities](04-major-activities.md) rows 8–10). The baseline is evaluated on the D2 `val` split in Sprint 2, so a gap is visible before the beta ([Major Activities](04-major-activities.md) row 23). |
-| **Probability (basis)** | – |
-| **Impact (basis)** | – |
-| **Score** | – |
+| **Probability (basis)** | 3: not measured yet; retrieval is not built, and the answer model has only been tried with the correct provisions given by hand on part of the scope; re-scored after the baseline evaluation on the D2 `val` split (18/11/2026) |
+| **Impact (basis)** | 4: O2 (a) and (b) are success criteria |
+| **Score** | 12 (High) |
 | **Trigger** | O2 (a) below 80% or O2 (b) below 75% on the frozen D8 `val` split at the beta evaluation (05/12/2026) |
 | **Contingency plan (B plan)** | Degrade gracefully: for the use cases whose questions miss a level, the release candidate shows the retrieved provisions with their references and no generated summary. The Product Owner informs the Project Review Committee, and the result is reported in D11. |
 | **Owner** | Kaan (Development Team Member; retrieval and answer generation) |
-| **Schedule effect** | – |
+| **Schedule effect** | About 1 week |
 
 ### Risk R-14: Safety responses fail
 
@@ -391,13 +391,13 @@ Closed when the hosted cloud deployment was removed from the plan: the system ru
 | **Cause** | No GPU is available (C-05); a quantized language model on a CPU generates text more slowly than on a GPU, and longer prompts (more retrieved chunks) make it slower. |
 | **When / where** | Sprints 2–3; development |
 | **Mitigation** | The model selection spike measures the answer time on CPU ([Major Activities](04-major-activities.md) row 6); the baseline's answer time is recorded in Sprint 2 (A-07); top-k is chosen as the smallest value after which Recall@k no longer rises clearly; the answer time on the pilot computer is measured by 09/12/2026 (row 29). |
-| **Probability (basis)** | – |
-| **Impact (basis)** | – |
-| **Score** | – |
+| **Probability (basis)** | 2: on one team computer (M3 Pro, CPU only), Llama-3.1-8B answered in 15.4 s, about 38 s in the worst case, below the 60 s limit; measured on one question, outside Docker, and the pilot computer is not fixed yet ([model selection spike](../../docs/spikes/model-selection-spike.md), section 6) |
+| **Impact (basis)** | 4: the O1 time gain is a success criterion |
+| **Score** | 8 (Medium) |
 | **Trigger** | Median answer time above the D4 limit at the baseline (18/11/2026) or on the pilot computer (09/12/2026) |
 | **Contingency plan (B plan)** | The next smaller candidate model from the model selection spike is chosen and recorded in a new ADR; if the limit is still not met, the course's reserve Google Cloud credit (C-06) is used for a CPU instance during the pilot sessions and the final demo only. The Product Owner informs the Project Review Committee if O1 is at risk. |
 | **Owner** | Kaan (Development Team Member; model and answer time) |
-| **Schedule effect** | – |
+| **Schedule effect** | 1–2 weeks |
 
 ### Example (illustrative only)
 
