@@ -95,19 +95,19 @@ The product is released in three stages after a pre-alpha design sprint: Alpha 0
 |---|---|---|---|---|---|
 | 1 | Pre-alpha | Sprint 1 | 14/10/2026 | 28/10/2026 | D1 Project Charter v1; D3 Source Inventory and Manifest v1; D4 System Design v1 |
 | 2 | Alpha 0.1 | Sprint 2 | 28/10/2026 | 18/11/2026 | D2 Q&A Generation-Dataset v1; D5 Preprocessing Report v1; D6 Alpha Release; D7 Project Charter v2 |
-| 3 | Beta 0.5 | Sprint 3 | 18/11/2026 | 09/12/2026 | D8 Q&A Generation-Dataset v2; D9 Beta Release; D10 Project Charter v3 |
-| 4 | Release candidate 1.0 (following the Beta 0.5 pilot) | Sprint 4 | 09/12/2026 | 30/12/2026 | D11 Pilot Evaluation Report; D12 Release Candidate and Final Evaluation; D13 Project Charter v4; D14 Final Report and Lessons Learned |
+| 3 | Beta 0.5 | Sprint 3 | 18/11/2026 | 09/12/2026 | D8 Q&A Generation-Dataset v2; D9 Beta Release |
+| 4 | Release candidate 1.0 (following the pilot) | Sprint 4 | 09/12/2026 | 30/12/2026 | D10 Pilot Evaluation Report; D11 Release Candidate and Final Evaluation |
 
-Beta 0.5 is built in Sprint 3 and kept unchanged during the Sprint 4 pilot (16/12–23/12, D11), so that all participants evaluate the same version. Problems found during the pilot are recorded as they occur and fixed in the release candidate, which is built from the beta. The held-out `test` split is not used to guide fixes. The release candidate adds no new features.
+Sprint 2 builds the baseline (Alpha 0.1), Sprint 3 the whole pipeline (Beta 0.5) and Sprint 4 the final product (Release candidate 1.0), following the course's sprint goals. The version used in the pilot is Beta 0.5 with Check the source (Feature 6) and the application-date answers added in the first week of Sprint 4; it is kept unchanged during the pilot (16/12–23/12, D10), so that all participants evaluate the same version. Problems found during the pilot are recorded as they occur and fixed in the release candidate; the held-out `test` split is not used to guide fixes, and no feature is added after the pilot. Guided start and follow-up questions (Features 5 and 7) are not committed and are added only if time allows.
 
 ### What each release contains and who receives it
 
 | Release | Content | Received by |
 |---|---|---|
 | Pre-alpha | No production code (C-07): source manifest, provision list, System Architecture Design Document v1 with its diagram, ADRs, technical spike notes and one learning spike note per member | Development team; Project Review Committee (charter and design review) |
-| Alpha 0.1 | Q&A Generation-Dataset v1 (D2, due 11/11/2026) with the evaluation rubric and its data card, including questions taken or adapted from published work; core MVP, features 1–4: ask in their own words, find the relevant provisions with version date, plain-language answer, boundary notices; one-page web interface with a "not legal advice" notice | Development team (testing on the `dev` split); AI customer (course instructors and peer groups) at the Sprint 2 review |
-| Beta 0.5 | Alpha fixes plus features 5–7: guided start, check the source, follow-up questions in the same session; rule-based input and decision-phrase checks; deployed on Google Cloud with logs that do not record user questions (C-10). A beta feature that cannot be completed is deferred with a reason and the Product Owner's agreement (D9 criterion 5) | AI users: at least 5 technical proxy users representing EdTech developers and ML engineers (technical professionals working on software or AI, named in A-04); AI customer: course instructors and peer groups, acting as academic proxies for the legal and compliance team of an EdTech provider |
-| Release candidate 1.0 | Beta 0.5 with the fixes from the pilot; no new features | AI customer (course instructors and peer groups) at the final demonstration; Project Review Committee |
+| Alpha 0.1 | Q&A Generation-Dataset v1 (D2, due 11/11/2026) with the evaluation rubric and its data card, including questions taken or adapted from published work; the baseline: the most basic retrieval over the in-scope provisions, with every answer showing its provisions with the Article/Annex reference and the version date (first part of Feature 2), run from `README.md` with a pinned `requirements.txt` and `config/rag.yaml`; Recall@5 and the comparison with and without retrieval; a mockup of the one-page interface | Development team (testing on the `val` split); AI customer (course instructors and peer groups) at the Sprint 2 review |
+| Beta 0.5 | The MVP, features 1–4: ask in their own words, find the relevant provisions, plain-language answer, boundary notices; the one-page web interface calling the whole pipeline, with the "not legal advice" notice and the personal-data reminder; rule-based input and output checks; experiments tracked and compared with the baseline; runs from `README.md` on a team computer, with logs that do not record user questions (C-10). A feature that cannot be completed is deferred with a reason and the Product Owner's agreement (D9 criterion 5) | AI customer: course instructors and peer groups, acting as academic proxies for the legal and compliance team of an EdTech provider, at the Sprint 3 review |
+| Release candidate 1.0 | Beta 0.5 plus Check the source (Feature 6) and the application-date answers, used unchanged in the pilot; then the fixes from the pilot, with no new features | AI users: at least 5 technical proxy users representing EdTech developers and ML engineers in the pilot (technical professionals working on software or AI, named in A-04); AI customer (course instructors and peer groups) at the final demonstration; Project Review Committee |
 
 ### Checkpoints between sprints
 
@@ -124,13 +124,15 @@ The sprints follow each other without a gap, so each checkpoint falls on the day
 | Date | What is fixed | Why |
 |---|---|---|
 | 27/10, 14/11, 05/12 and 30/12/2026 | Course upload deadlines | Every deliverable is due on or before the upload date of its sprint ([Deliverables](05-deliverables.md)) |
-| 11/11/2026 | `test` split of D2 frozen | Held-out questions are not used while tuning (D2 criterion 8) |
-| 15/11 – 18/11 and 06/12 – 09/12/2026 | Review of our Sprint 2 and Sprint 3 deliverables by another team | Course calendar; the answers to the review go into the next charter version (D7, D10, D13) |
+| 11/11/2026 | `test` split of D2 frozen; baseline retrieves documents for a handful of questions | Held-out questions are not used while tuning (D2 criterion 8); course halfway check for Sprint 2 |
+| 15/11 – 18/11 and 06/12 – 09/12/2026 | Review of our Sprint 2 and Sprint 3 deliverables by another team | Course calendar; the team answers every review item in the next sprint's review page |
 | 18/11/2026 | 5 named pilot participants and their dates confirmed | Assumption A-04 |
-| 25/11/2026 (at the latest) | Trial cloud deployment with a smoke test from outside the team's network done | Access and answer-time problems surface before the beta deployment ([Major Activities](04-major-activities.md) row 28; R-10) |
-| 01/12/2026 | D8 `dev` questions frozen | Leaves 4 days to score the beta on the D8 `dev` split before the 05/12 upload (D9) |
+| 01/12/2026 | D8 `val` questions frozen | Leaves 4 days to score the beta on the D8 `val` split before the 05/12 upload (D9) |
+| 02/12/2026 | The interface calls the pipeline (even with stubs) and at least one improvement over the baseline is measured | Course halfway check for Sprint 3 |
 | 05/12/2026 | New D8 `test` questions frozen | D8 criterion 4 |
-| 16/12 – 23/12/2026 | Pilot with Beta 0.5 | Leaves one week to fix the release candidate and finish D11–D14 before 30/12 |
+| 09/12/2026 | Pilot computer set up from the README and its answer time measured | Installation and answer-time problems surface before the pilot ([Major Activities](04-major-activities.md) row 29; R-10, R-16) |
+| 16/12 – 23/12/2026 | Pilot, in person on the pilot computer | Leaves one week to fix the release candidate and finish D10 and D11 before 30/12 |
+| 23/12/2026 | Improvements measured, every story's test run, everything to be demonstrated in Git | Course halfway check for Sprint 4 |
 
 ## Example (illustrative only)
 
