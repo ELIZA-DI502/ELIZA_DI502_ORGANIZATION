@@ -123,7 +123,7 @@ Beta 0.5 is built in Sprint 3 and kept unchanged during the Sprint 4 pilot (16/1
 |---|---|---|
 | 28/10/2026 | `test` split of D2 frozen | Held-out questions are not used while tuning (D2 criterion 8) |
 | 18/11/2026 | 5 named pilot participants and their dates confirmed | Assumption A-04 |
-| 27/11/2026 (at the latest) | Trial cloud deployment with a smoke test from outside the team's network done | Access and answer-time problems surface before the beta deployment ([Major Activities](04-major-activities.md) row 28; R-10, R-15) |
+| 27/11/2026 (at the latest) | Trial cloud deployment with a smoke test from outside the team's network done | Access and answer-time problems surface before the beta deployment ([Major Activities](04-major-activities.md) row 28; R-10) |
 | 04/12/2026 | D8 `dev` questions frozen | Leaves 5 days to score the beta on the D8 `dev` split before 09/12 (D9) |
 | 09/12/2026 | New D8 `test` questions frozen | D8 criterion 4 |
 | 16/12 – 23/12/2026 | Pilot with Beta 0.5 | Leaves one week to fix the release candidate and finish D11–D14 before 30/12 |

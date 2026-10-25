@@ -27,7 +27,7 @@
 - **Indexing** (once, and again when the source changes): parse the documents, split them into chunks, turn each chunk into a vector and store it with its metadata.
 - **Query** (for every question): turn the question into a vector, retrieve the most similar chunks, put them in the prompt and generate an answer from them.
 
-**Expected output:** I can explain each phase for ELIZA at the Sprint 1 review: one chunk per Article paragraph or Annex point with its identifier and version date (D5), top-5 retrieval measured with Recall@5 (D6), and answers that cite only retrieved provisions (R-20).
+**Expected output:** I can explain each phase for ELIZA at the Sprint 1 review: one chunk per Article paragraph or Annex point with its identifier and version date (D5), top-5 retrieval measured with Recall@5 (D6), and answers that cite only retrieved provisions.
 
 ## 2. LLM basics
 
