@@ -103,7 +103,7 @@ How to read the diagram:
 | BM25 | Keyword search: scores chunks by the words they share with the question. Finds exact terms, for example "Article 6(3)" or "profiling". |
 | Hybrid search | Dense search and BM25 together, so that neither the meaning nor the exact Article numbers and terms are missed. |
 | RRF (Reciprocal Rank Fusion) | Merges the two result lists into one by rank. A chunk ranked high in both lists comes first. It needs no weights; k = 60 is the usual constant. |
-| Top-k | How many chunks are given to the LLM, for example 5. Chosen by Recall@k on the `dev` split. |
+| Top-k | How many chunks are given to the LLM, for example 5. Chosen by Recall@k on the `val` (validation) split. |
 
 The input check (before the search) and the output check (after the LLM) are rule-based safety checks; they are not part of the NLP pipeline and are described with the rest of the system.
 
@@ -138,7 +138,7 @@ Models used as-is go in the AI SBOM. Write a model card (12-model-cards/, follow
 | Chunking | Chunk size, overlap | No size-based chunking: one chunk per Article paragraph (not per Article) or Annex point; a paragraph with points (a), (b), ... (for example Article 6(3)) is split into one chunk per point; heading text in front; identifier and version date as metadata | D7, D8 |
 | Embedding | Model and version | `BAAI/bge-base-en-v1.5` (768 dimensions), via `sentence-transformers` | D10 |
 | Vector store | Index type, distance metric | Chroma, saved on disk; cosine distance | D11 |
-| Retrieval | Top-k, hybrid search, reranker | E1 baseline: dense top-k. E2: BM25 (`rank_bm25`) + dense, merged with Reciprocal Rank Fusion (k = 60). Top-k chosen by Recall@k on the `dev` split (candidates 3, 5, 8). No reranker | D12 |
+| Retrieval | Top-k, hybrid search, reranker | E1 baseline: dense top-k. E2: BM25 (`rank_bm25`) + dense, merged with Reciprocal Rank Fusion (k = 60). Top-k chosen by Recall@k on the `val` split (candidates 3, 5, 8). No reranker | D12 |
 | Generation | LLM and version, temperature, prompt template | Llama-3.1-8B-Instruct, 4-bit `Q4_K_M` (fallback Phi-4-mini-instruct `Q4_K_M`); temperature 0; at most 300 answer tokens; context window 4,096 tokens; prompt with one example answer (tested in the [model selection spike](../docs/spikes/model-selection-spike-gozde-nur.md)); rule-based input check before and verdict check after the model ([checks.py](../docs/spikes/model-selection/checks.py)) | D9 |
 
 ### Evaluation
@@ -167,8 +167,10 @@ O1 (search time) and O3 (understanding) are measured with pilot users in Sprint 
 
 **Dev and test data are kept separate:**
 
-- Every question is in either the `dev` or the `test` split (column `split`); a follow-up question is in the same split as the question it follows.
-- All choices (top-k, dense or hybrid, point granularity, prompt changes) are made on `dev` only.
+- There is no `train` split, because no model is trained or fine-tuned (C-03); the models are used as published.
+- Every question is in either the `val` (validation) or the `test` split (column `split`); a follow-up question is in the same split as the question it follows.
+- All choices (top-k, dense or hybrid, point granularity, prompt changes) are made on `val` only.
+- **How top-k is chosen:** for k = 3, 5 and 8, compute Recall@k on `val`, for dense (E1) and hybrid (E2) search. Choose the smallest k after which Recall@k no longer rises clearly (for example 70% → 88% → 90% gives k = 5), because every extra chunk makes the prompt longer and the answer slower on the CPU.
 - The `test` split is not looked at during development. It is run once for the release candidate (D12), and those are the final results.
 - The `test` split has at least one question of each safety category.
 
@@ -283,7 +285,7 @@ Copy the block below for each decision.
 
 **Why:** With about 190 chunks, the larger model is still fast, and it finds the right provision more often.
 
-**Consequences:** Checked with Recall@k on the dev split in the baseline experiment (E1).
+**Consequences:** Checked with Recall@k on the `val` split in the baseline experiment (E1).
 
 **Evidence:** [KAN-58](https://yarengursoy.atlassian.net/browse/KAN-58); E1 experiment card (Sprint 2)
 
@@ -315,7 +317,7 @@ Copy the block below for each decision.
 
 **Options considered:** **Dense top-k** (simplest; finds the same meaning but can miss exact terms); **hybrid BM25 + dense, merged with Reciprocal Rank Fusion** (also finds exact terms; RRF needs no weight tuning); a reranker (slower on a CPU, little gain on a small corpus).
 
-**Decision:** E1 baseline: dense top-k. E2: BM25 + dense, merged with RRF (k = 60). Top-k is chosen by Recall@k on the dev split (candidates 3, 5, 8). No reranker for now.
+**Decision:** E1 baseline: dense top-k. E2: BM25 + dense, merged with RRF (k = 60). Top-k is chosen by Recall@k on the `val` split (candidates 3, 5, 8; see Evaluation). No reranker for now.
 
 **Why:** One change at a time, so each experiment shows its own effect.
 
@@ -333,7 +335,7 @@ Copy the block below for each decision.
 
 NLP part:
 
-- **Granularity of points:** paragraphs with points are split into one chunk per point (D7); whether short points are better merged into their paragraph is settled by Recall@k on the `dev` split in E1.
+- **Granularity of points:** paragraphs with points are split into one chunk per point (D7); whether short points are better merged into their paragraph is settled by Recall@k on the `val` split in E1.
 - **Hybrid retrieval:** whether BM25 improves Recall@k over dense search (E1 versus E2, Sprint 2).
 - **Answer time on CPU:** answer time of Llama-3.1-8B on the deployment CPU, measured in Sprint 2; if it is too slow, Phi-4-mini-instruct is used (D9, R-16).
 - **Checks:** personal-data rules and the citation-ID check (KAN-49).
