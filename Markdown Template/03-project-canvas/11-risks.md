@@ -109,24 +109,28 @@ Add rows as needed. Rows with a score of 10 or more also need a detail block (ne
 
 This page lists only uncertain events that the team cannot fully control. Design questions, such as how to split the text, which model to use or how fast it runs, are not listed here. They are answered in the spikes and recorded in the System Architecture Design Document (D4).
 
-R-01 to R-07, R-09, R-11 and R-12 are the other side of the assumptions in [Assumptions & Constraints](03-assumptions-and-constraints.md). R-08 and R-10 come from constraints and from how the team and outside parties may act.
+R-01 to R-07, R-09, R-11 and R-12 are the other side of the assumptions in [Assumptions & Constraints](03-assumptions-and-constraints.md). R-08 and R-10 come from constraints and from how the team and outside parties may act. R-13, R-14 and R-16 are the risks that an objective (O2, O4, O1) is not met; R-14, R-15 and R-16 are also the uncertain side of constraints C-08, C-10 and C-05. R-13 to R-16 are not scored yet.
 
 | # | Layer | Risk (event) | When / where | Probability | Impact | Score | Owner | Linked to |
 |---|---|---|---|---|---|---|---|---|
 | R-01 | Data | **Source text differs from the Official Journal.** The EUR-Lex text differs from the Official Journal in an in-scope article. | Sprint 2; development | 1: EUR-Lex builds this text from the Official Journal | 4: answers would quote a text that is not the official wording (O2) | 4 (Low) | Yeşim (Product Owner) | A-01; C-01; [Dependencies](06-dependencies.md) row 3 |
-| R-02 | Data | **The law or its official reading changes (concept drift).** An in-scope article is amended, or the European Commission adopts its final guidelines on high-risk classification (Article 6), before 30/12/2026, so some answers describe outdated rules or miss the official reading. | Sprints 2–4; development and after deployment | 3: the Commission published draft Article 6 guidelines on 19/05/2026 and has said the final version will be adopted by the end of 2026; the last amendment (Regulation (EU) 2026/1744) is already in the 27/07/2026 version | 3: answers on the changed article or on Article 6 become partly wrong for users, so a technical requirement is partly unmet | 9 (Medium) | Yaren (Scrum Master) | A-02; C-01; [Major Activities](04-major-activities.md) rows 18, 32 |
+| R-02 | Data | **The law or its official reading changes (concept drift).** An in-scope article is amended, or the European Commission adopts its final guidelines on high-risk classification (Article 6), before 30/12/2026, so some answers describe outdated rules or miss the official reading. | Sprints 2–4; development and after deployment | 3: the Commission published draft Article 6 guidelines on 19/05/2026; the consultation closed on 23/07/2026, and the final version had not been adopted when checked on 25/10/2026; the last amendment (Regulation (EU) 2026/1744) is already in the 27/07/2026 version | 3: answers on the changed article or on Article 6 become partly wrong for users, so a technical requirement is partly unmet | 9 (Medium) | Yaren (Scrum Master) | A-02; C-01; [Major Activities](04-major-activities.md) rows 18, 32 |
 | R-03 | People / process | **Too few pilot users.** Fewer than 5 people join the pilot (16/12–23/12/2026). | Sprints 3–4; validation | 3: holiday period; participation is voluntary and unpaid | 4: O1 and O3 need at least 5 users | 12 (High) | Gözde Nur (Development Team Member) | A-04; [Dependencies](06-dependencies.md) row 9 |
 | R-04 | People / process | **Targets change after review.** The Project Review Committee asks for different targets or a different scope at a sprint review. | Sprints 1–2; planning | 2: the targets have not been reviewed yet | 2: questions, tests and charter pages need 2–4 weeks of changes | 4 (Low) | Yeşim (Product Owner) | A-06; [Dependencies](06-dependencies.md) row 5 |
 | R-05 | Infrastructure | **Cloud budget runs out.** Google Cloud spending reaches $70 before 09/12/2026, so the $100 credit would run out before 30/12/2026. | Sprints 2–4; development and after deployment | 2: billing alerts are set, and the server is off when not in use | 5: the credit is fixed; if it runs out, the assistant stops before the pilot | 10 (High) | Kaan (Development Team Member) | A-07; C-05; C-06; [Dependencies](06-dependencies.md) row 8 |
 | R-06 | People / process | **A team member leaves.** A team member leaves the course or cannot work for 2 weeks or more. | Sprints 1–4; development | 2: all four members are enrolled and active | 3: the other three members take over a quarter of the work; later deliverables move by 1–2 months | 6 (Medium) | Yaren (Scrum Master) | A-09; C-07 |
 | R-07 | Model | **The model or a library changes.** The selected model or a library that the assistant uses is changed or removed by its authors during the project. | Sprints 2–4; development | 2: model files on these sites are updated by their authors without notice; the version used is recorded in each evaluation run | 2: another model or library must be chosen and the evaluation runs repeated; 2–4 weeks | 4 (Low) | Kaan (Development Team Member) | A-10; C-03; [Dependencies](06-dependencies.md) row 6; [Facilities & Resources](09-facilities-and-resources.md) rows 4–6 |
 | R-08 | People / process | **Work falls behind.** A sprint ends with planned work not done, so the next release starts at least 1 week late. | Sprints 1–4; development | 3: four part-time students; every sprint has a fixed end date | 2: a delay of 1 week in each sprint adds up to 4 weeks | 6 (Medium) | Yaren (Scrum Master) | C-07; [Release Plan](10-release-plan.md); [Dependencies](06-dependencies.md) rows 1, 7, 10–16 |
-| R-09 | People / process | **Pilot users do not match the target users.** Fewer than 3 of the pilot users have worked on an AI or education software product, so the pilot results do not represent the target users. | Sprints 2–4; validation | 2: the contacts work in software and AI, but few of them work on education products | 3: O1 and O3 are measured, but on users outside the target group | 6 (Medium) | Gözde Nur (Development Team Member) | A-08; [Dependencies](06-dependencies.md) row 9 |
+| R-09 | People / process | **Pilot users do not match the target users.** Fewer than 3 of the pilot users have worked on an AI or education software product, so the pilot results do not represent the target users. | Sprints 2–4; validation | 2: the contacts work in software and AI, but not all of them work on education products | 3: O1 and O3 are measured, but on users outside the target group | 6 (Medium) | Gözde Nur (Development Team Member) | A-08; [Dependencies](06-dependencies.md) row 9 |
 | R-10 | Integration | **Cloud credit is late.** The Google Cloud credit is not available to the team by the start of the trial deployment (18/11/2026). | Sprint 2; deployment | 2: the credit is given through the course, and its date is set outside the team | 2: the beta and the pilot run from a team laptop instead; 2–4 weeks of extra work | 4 (Low) | Kaan (Development Team Member) | C-06; [Dependencies](06-dependencies.md) row 8 |
-| R-11 | Data | **The law is unclear for some questions.** For more than 5 evaluation questions, the regulation text does not clearly say which provision applies, because the answer depends on legal interpretation. | Sprints 1–3; development | 3: the exceptions in Article 6(3) depend on interpretation, and the Commission's guidelines on them are still a draft | 2: the question set must be partly rewritten and checked again; 2–4 weeks | 6 (Medium) | Kaan (Development Team Member) | A-03; [Dependencies](06-dependencies.md) row 2 |
-| R-12 | Data | **The source format is uneven.** The EUR-Lex HTML does not mark Articles, paragraphs and Annex points in the same way throughout the text, so more than 5% of the provisions lose their numbers. | Sprints 1–2; development | 2: EUR-Lex marks most provisions with separate elements; the source parsing spike checks the HTML before the text is split | 2: missing numbers are added by hand; 2–4 weeks | 4 (Low) | Yeşim (Product Owner) | A-05; [Dependencies](06-dependencies.md) row 4 |
+| R-11 | Data | **The law is unclear for some questions.** For more than 5 evaluation questions, the regulation text does not clearly say which provision applies, because the answer depends on legal interpretation. | Sprints 2–3; development | 3: the exceptions in Article 6(3) depend on interpretation, and the Commission's guidelines on them are still a draft | 2: the question set must be partly rewritten and checked again; 2–4 weeks | 6 (Medium) | Kaan (Development Team Member) | A-03; [Dependencies](06-dependencies.md) row 2 |
+| R-12 | Data | **The source format is uneven.** The EUR-Lex HTML does not mark Articles, paragraphs and Annex points in the same way throughout the text, so more than 5% of the provisions lose their numbers. | Sprints 1–2; development | 2: EUR-Lex marks articles, paragraphs and annex points with separate HTML elements; the source parsing spike checks the HTML before the text is split | 2: missing numbers are added by hand; 2–4 weeks | 4 (Low) | Yeşim (Product Owner) | A-05; [Dependencies](06-dependencies.md) row 4 |
+| R-13 | Model | **Evidence targets are not met.** At the beta evaluation on the D8 `dev` split, the expected provision is cited for fewer than 80% of the in-scope questions, or fewer than 75% of the in-scope answers are fully supported by the passages they cite (O2 (a), (b)). | Sprints 2–4; development | – | – | – | Kaan (Development Team Member) | O2; C-03; [Major Activities](04-major-activities.md) rows 9, 10, 23 |
+| R-14 | Model | **Safety responses fail.** At the beta evaluation on the D8 `dev` split, at least one answer contains a high-risk classification or a compliance verdict, or a safety category gets the expected response for fewer questions than its level in O4 (100% for legal-decision questions, 80% for the other three categories). | Sprints 2–4; development and after deployment | – | – | – | Gözde Nur (Development Team Member) | O4; C-08; [Major Activities](04-major-activities.md) rows 11, 12, 23 |
+| R-15 | Data | **Personal data is stored.** A personal-data item typed by a user, such as an e-mail address or a phone number, appears in the application, error or cloud logs, the database or the vector index. | Sprints 3–4; deployment and pilot | – | – | – | Gözde Nur (Development Team Member) | C-10; [Major Activities](04-major-activities.md) rows 13, 30 |
+| R-16 | Infrastructure | **Answers take longer than the answer-time limit.** In the trial cloud deployment, the median answer time on the D2 `dev` questions is above the answer-time limit recorded in the System Design Document (D4), so the O1 time gain cannot be reached. | Sprints 2–3; deployment | – | – | – | Kaan (Development Team Member) | O1; C-05; [Major Activities](04-major-activities.md) rows 6, 28; [Facilities & Resources](09-facilities-and-resources.md) rows 1, 3 |
 
-Spread: 2 High (R-03, R-05), 5 Medium, 5 Low.
+Spread of the scored risks (R-01 to R-12): 2 High (R-03, R-05), 5 Medium, 5 Low.
 
 **After deployment.** The assistant uses one version of the law (27/07/2026), so its answers no longer match the law in force when an in-scope article changes (R-02). This is concept drift: the question stays the same, but the correct answer changes. EUR-Lex is checked for a new version at the start of each sprint. If an in-scope article has changed, the new text is loaded, recorded in the manifest and tested again.
 
@@ -162,11 +166,11 @@ Copy this block for each risk.
 | **Cause** | The regulation is changed by amending acts, and the Commission explains it in guidelines; the knowledge base holds only the 27/07/2026 regulation text (C-01). |
 | **When / where** | Sprints 2–4; development and after deployment |
 | **Mitigation** | EUR-Lex and the Commission's AI Act page are checked at the start of every sprint ([Major Activities](04-major-activities.md) row 32). Every answer shows the version date and states that it is based only on the regulation text. |
-| **Probability (basis)** | 3: the Commission published draft Article 6 guidelines on 19/05/2026 and has said the final version will be adopted by the end of 2026; the last amendment (Regulation (EU) 2026/1744) is already in the 27/07/2026 version |
+| **Probability (basis)** | 3: the Commission published draft Article 6 guidelines on 19/05/2026; the consultation closed on 23/07/2026, and the final version had not been adopted when checked on 25/10/2026; the last amendment (Regulation (EU) 2026/1744) is already in the 27/07/2026 version |
 | **Impact (basis)** | 3: answers on the changed article or on Article 6 become partly wrong for users, so a technical requirement is partly unmet |
 | **Score** | 9 (Medium) |
-| **Trigger** | A newer consolidated version changes an in-scope article, or the final Article 6 guidelines are published, at a sprint-start check (04/11, 25/11 or 16/12/2026) |
-| **Contingency plan (B plan)** | Before 09/12/2026: a changed article is loaded, re-indexed and the `dev` evaluation is run again. After 09/12/2026: answers about the changed article, or about Article 6, show a notice with the change date and a link to the new text or guidelines. Adding the guidelines as a second source is brought to the next sprint review as a scope change. |
+| **Trigger** | A newer consolidated version changes an in-scope article, or the final Article 6 guidelines are published, at a sprint-start check (28/10, 18/11 or 09/12/2026) |
+| **Contingency plan (B plan)** | Before 05/12/2026: a changed article is loaded, re-indexed and the `dev` evaluation is run again. After 05/12/2026: answers about the changed article, or about Article 6, show a notice with the change date and a link to the new text or guidelines. Adding the guidelines as a second source is brought to the next sprint review as a scope change. |
 | **Owner** | Yaren (Scrum Master) |
 | **Schedule effect** | 1–2 weeks |
 
@@ -227,7 +231,7 @@ Copy this block for each risk.
 |---|---|
 | **Risk (event)** | A team member leaves the course or cannot work for 2 weeks or more. |
 | **Linked to** | A-09; C-07 |
-| **Cause** | Course withdrawal, illness or other courses can take a member away for weeks. |
+| **Cause** | Course withdrawal, illness or other courses can take a member away for 2 weeks or more. |
 | **When / where** | Sprints 1–4; development |
 | **Mitigation** | All work is documented in the repository; at least two members know each area ([Major Activities](04-major-activities.md) rows 37–38). |
 | **Probability (basis)** | 2: all four members are enrolled and active |
@@ -267,8 +271,8 @@ Copy this block for each risk.
 | **Probability (basis)** | 3: four part-time students; every sprint has a fixed end date |
 | **Impact (basis)** | 2: a delay of 1 week in each sprint adds up to 4 weeks |
 | **Score** | 6 (Medium) |
-| **Trigger** | A deliverable due in a sprint is not finished at that sprint's review (28/10, 18/11 or 09/12/2026) |
-| **Contingency plan (B plan)** | Narrow the scope: the Product Owner removes the lowest-priority story from the next sprint to make room for the late work, and the change is recorded in the sprint report. |
+| **Trigger** | A deliverable due in a sprint is not finished on that sprint's upload date (27/10, 14/11 or 05/12/2026) |
+| **Contingency plan (B plan)** | Narrow the scope: the Product Owner removes the lowest-priority story from the next sprint to make room for the late work, and the change is recorded on the sprint's welcome page. |
 | **Owner** | Yaren (Scrum Master) |
 | **Schedule effect** | About 1 week |
 
@@ -281,7 +285,7 @@ Copy this block for each risk.
 | **Cause** | Pilot users are volunteers from the team's contacts; the team cannot choose who agrees to take part. |
 | **When / where** | Sprints 2–4; validation |
 | **Mitigation** | Each candidate is asked about their work background when invited; candidates who work on AI or education products are invited first ([Major Activities](04-major-activities.md) row 26). |
-| **Probability (basis)** | 2: the contacts work in software and AI, but few of them work on education products |
+| **Probability (basis)** | 2: the contacts work in software and AI, but not all of them work on education products |
 | **Impact (basis)** | 3: O1 and O3 are measured, but on users outside the target group |
 | **Score** | 6 (Medium) |
 | **Trigger** | Fewer than 3 matching users among the confirmed participants on 18/11/2026 |
@@ -297,7 +301,7 @@ Copy this block for each risk.
 | **Linked to** | C-06; [Dependencies](06-dependencies.md) row 8 |
 | **Cause** | The course provides the credit; when it reaches the team is decided outside the team. |
 | **When / where** | Sprint 2; deployment |
-| **Mitigation** | The team asks the course staff for the credit by the start of Sprint 2 (04/11/2026), before the trial cloud deployment ([Major Activities](04-major-activities.md) row 28). |
+| **Mitigation** | The team asks the course staff for the credit by the start of Sprint 2 (28/10/2026), before the trial cloud deployment ([Major Activities](04-major-activities.md) row 28). |
 | **Probability (basis)** | 2: the credit is given through the course, and its date is set outside the team |
 | **Impact (basis)** | 2: the beta and the pilot run from a team laptop instead; 2–4 weeks of extra work |
 | **Score** | 4 (Low) |
@@ -313,12 +317,12 @@ Copy this block for each risk.
 | **Risk (event)** | For more than 5 evaluation questions, the regulation text does not clearly say which provision applies, because the answer depends on legal interpretation. |
 | **Linked to** | A-03; [Dependencies](06-dependencies.md) row 2 |
 | **Cause** | Some education use cases sit on the border of Annex III point 3 and the Article 6(3) exceptions, and the text leaves room for interpretation. |
-| **When / where** | Sprints 1–3; development |
+| **When / where** | Sprints 2–3; development |
 | **Mitigation** | Every question is written from one use case and checked by a second member; questions marked "unclear in the text" are recorded ([Major Activities](04-major-activities.md) row 3). |
 | **Probability (basis)** | 3: the exceptions in Article 6(3) depend on interpretation, and the Commission's guidelines on them are still a draft |
 | **Impact (basis)** | 2: the question set must be partly rewritten and checked again; 2–4 weeks |
 | **Score** | 6 (Medium) |
-| **Trigger** | More than 5 questions marked "unclear in the text" when D2 is frozen (28/10/2026) or D8 is frozen (04/12/2026) |
+| **Trigger** | More than 5 questions marked "unclear in the text" when D2 is complete (11/11/2026) or the D8 `dev` split is frozen (01/12/2026) |
 | **Contingency plan (B plan)** | These questions are moved to the legal-decision category: the expected answer shows the relevant provisions without a decision. They are listed in D2 or D8. |
 | **Owner** | Kaan (Development Team Member) |
 | **Schedule effect** | Under 1 week |
@@ -332,13 +336,82 @@ Copy this block for each risk.
 | **Cause** | The consolidated text is produced by the EU Publications Office; its HTML format is outside the team's control. |
 | **When / where** | Sprints 1–2; development |
 | **Mitigation** | The source parsing spike compares the HTML with the table of contents of the regulation before any splitting code is written ([Major Activities](04-major-activities.md) row 7). |
-| **Probability (basis)** | 2: EUR-Lex marks most provisions with separate elements; the source parsing spike checks the HTML before the text is split |
+| **Probability (basis)** | 2: EUR-Lex marks articles, paragraphs and annex points with separate HTML elements; the source parsing spike checks the HTML before the text is split |
 | **Impact (basis)** | 2: missing numbers are added by hand; 2–4 weeks |
 | **Score** | 4 (Low) |
-| **Trigger** | More than 5% of the in-scope provisions without a number in the source parsing spike note on 28/10/2026 |
+| **Trigger** | More than 5% of the in-scope provisions without a number in the source parsing spike note on 27/10/2026 |
 | **Contingency plan (B plan)** | The missing numbers are added by hand from the Official Journal PDF, and the manual changes are recorded in the preprocessing report (D5). |
 | **Owner** | Yeşim (Product Owner) |
 | **Schedule effect** | About 1 week |
+
+### Risk R-13: Evidence targets are not met
+
+| Field | Content |
+|---|---|
+| **Risk (event)** | At the beta evaluation on the D8 `dev` split, the expected provision is cited for fewer than 80% of the in-scope questions, or fewer than 75% of the in-scope answers are fully supported by the passages they cite (O2 (a), (b)). |
+| **Linked to** | O2; C-03; [Major Activities](04-major-activities.md) rows 9, 10, 23 |
+| **Cause** | The answer depends on whether retrieval finds the expected provision and on how closely a quantized language model running on CPU follows the retrieved text (C-03, C-05). |
+| **When / where** | Sprints 2–4; development |
+| **Mitigation** | One chunk per Article paragraph or Annex point with its identifier; citations are checked against the retrieved chunks ([Major Activities](04-major-activities.md) rows 8–10). The alpha is evaluated on the D2 `dev` split in Sprint 2, so a gap is visible before the beta ([Major Activities](04-major-activities.md) row 23). |
+| **Probability (basis)** | – |
+| **Impact (basis)** | – |
+| **Score** | – |
+| **Trigger** | O2 (a) below 80% or O2 (b) below 75% on the D8 `dev` split at the beta evaluation (05/12/2026) |
+| **Contingency plan (B plan)** | Degrade gracefully: for the use cases whose questions miss a level, the release candidate shows the retrieved provisions with their references and no generated summary. The Product Owner informs the Project Review Committee, and the result is reported in D12. |
+| **Owner** | Kaan (Development Team Member; retrieval and answer generation) |
+| **Schedule effect** | – |
+
+### Risk R-14: Safety responses fail
+
+| Field | Content |
+|---|---|
+| **Risk (event)** | At the beta evaluation on the D8 `dev` split, at least one answer contains a high-risk classification or a compliance verdict, or a safety category gets the expected response for fewer questions than its level in O4 (100% for legal-decision questions, 80% for the other three categories). |
+| **Linked to** | O4; C-08; [Major Activities](04-major-activities.md) rows 11, 12, 23 |
+| **Cause** | A language model can follow the wording of a question that asks for a decision, or an input that tries to override its rules (prompt injection). |
+| **When / where** | Sprints 2–4; development and after deployment |
+| **Mitigation** | Fixed system prompt, notice and refusal rules, and rule-based checks before and after the model call ([Major Activities](04-major-activities.md) rows 11, 12); safety questions in every split of D2 and D8. |
+| **Probability (basis)** | – |
+| **Impact (basis)** | – |
+| **Score** | – |
+| **Trigger** | At least 1 answer with a classification or compliance verdict, or a safety category below its O4 level, on the D8 `dev` split at the beta evaluation (05/12/2026) |
+| **Contingency plan (B plan)** | Hand over to a human: every answer that the output check flags is replaced by the legal-decision notice, which points the user to the company's legal team and to the relevant provisions. The Product Owner informs the Project Review Committee, and the result is reported in D12. |
+| **Owner** | Gözde Nur (Development Team Member; safety checks) |
+| **Schedule effect** | – |
+
+### Risk R-15: Personal data is stored
+
+| Field | Content |
+|---|---|
+| **Risk (event)** | A personal-data item typed by a user, such as an e-mail address or a phone number, appears in the application, error or cloud logs, the database or the vector index. |
+| **Linked to** | C-10; [Major Activities](04-major-activities.md) rows 13, 30 |
+| **Cause** | Users type free text, and logging tools and cloud services can record request content unless they are configured not to. |
+| **When / where** | Sprints 3–4; deployment and pilot |
+| **Mitigation** | A reminder and an input check for e-mail addresses and phone numbers; logs configured not to record question content; a marked test question is sent to the deployed beta and searched for in the logs ([Major Activities](04-major-activities.md) row 13; D9 criterion 8). |
+| **Probability (basis)** | – |
+| **Impact (basis)** | – |
+| **Score** | – |
+| **Trigger** | The marked test question, or any personal-data item, is found in a log, the database or the vector index at the beta check (05/12/2026) or during the pilot (16/12–23/12/2026) |
+| **Contingency plan (B plan)** | The affected entries are deleted, request logging is switched off, and the pilot is paused until the marked-question check passes again. The Product Owner informs the Project Review Committee. |
+| **Owner** | Gözde Nur (Development Team Member; deployment) |
+| **Schedule effect** | – |
+
+### Risk R-16: Answers take longer than the answer-time limit
+
+| Field | Content |
+|---|---|
+| **Risk (event)** | In the trial cloud deployment, the median answer time on the D2 `dev` questions is above the answer-time limit recorded in the System Design Document (D4), so the O1 time gain cannot be reached. |
+| **Linked to** | O1; C-05; [Major Activities](04-major-activities.md) rows 6, 28; [Facilities & Resources](09-facilities-and-resources.md) rows 1, 3 |
+| **Cause** | No GPU is available (C-05); a quantized language model on a CPU instance generates text more slowly than on a GPU. |
+| **When / where** | Sprints 2–3; deployment |
+| **Mitigation** | The model selection spike measures the answer time on CPU ([Major Activities](04-major-activities.md) row 6), and the trial deployment measures it on the planned instance type by 25/11/2026 ([Major Activities](04-major-activities.md) row 28). |
+| **Probability (basis)** | – |
+| **Impact (basis)** | – |
+| **Score** | – |
+| **Trigger** | Median answer time above the D4 limit in the trial deployment (by 25/11/2026) |
+| **Contingency plan (B plan)** | The next smaller candidate model from the model selection spike, or a larger CPU instance within the planned $70 (A-07), is chosen and recorded in a new ADR. The Product Owner informs the Project Review Committee if O1 is at risk. |
+| **Owner** | Kaan (Development Team Member; model hosting and cloud costs) |
+| **Schedule effect** | – |
+
 ### Example (illustrative only)
 
 | Field | Content |
