@@ -16,7 +16,7 @@ I compared my knowledge with the "Sprint 1 fundamentals" table in the Online Cou
 | Scrum basics | New to me | Read the course resource "What is Scrum?" (done) |
 | Git & GitHub | I use Git, but not often in a team | Refreshed branches and pull requests (done) |
 | Prompt engineering | I had not written prompts for a RAG system | Read two short guides (done) |
-| Chat interface (Gradio) | I have not used Gradio | "Hello world" chat app (by 28/10/2026) |
+| Chat interface (Gradio) | I have not used Gradio | Not needed: the team chose React for the interface (see section 4) |
 
 ## 1. Scrum basics
 
@@ -59,4 +59,6 @@ I compared my knowledge with the "Sprint 1 fundamentals" table in the Online Cou
 
 **Source:** Gradio documentation, ["Creating a chatbot fast"](https://www.gradio.app/guides/creating-a-chatbot-fast)
 
-**Plan:** Build a "hello world" chat app with Gradio's `ChatInterface`, by the end of Sprint 1 (28/10/2026).
+**What Gradio is:** a Python library that builds a simple web chat page in a few lines of code. It was one of the interface options in Spike 01.
+
+**Outcome:** not needed. The team chose React (with a Node.js backend) for the interface in the System Design Document, so I did not build the Gradio "hello world". My Sprint 1 work moved to the NLP part instead: the [model selection spike](model-selection-spike-gozde-nur.md) and the NLP decisions D7–D12 in the System Design Document.
