@@ -42,7 +42,7 @@ We also looked at Sprint 1 with the Hot Air Balloon retrospective on our [Miro b
 
 **Yeşim (Product Owner):** [to be added]
 
-**Yaren (Scrum Master):** [to be added]
+**Yaren (Scrum Master):** I wrote Milestones and dependencies parts. I'd entered user stories to Jira and rearrange all stories&tasks. I work on story map. In this sprint, my learning was GitHub, Jira, RAG systems. 
 
 **Kaan (Development Team Member):** I wrote the Project Executive Summary page and my learning spike, and I started the System Architecture Design Document v1 (KAN-59). I came into the sprint already knowing Git, Python and React, so my learning was mostly about Scrum, Jira, embeddings and vector search, RAG and evaluation basics. I learned why the evaluation set has to be fixed before experiments, and how each part of our architecture diagram fits into the RAG pipeline.
 
