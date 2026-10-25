@@ -145,15 +145,32 @@ Models used as-is go in the AI SBOM. Write a model card (12-model-cards/, follow
 
 <!-- Metrics, the baseline you compare against, and how validation data is kept separate from test data. ISO/IEC 5338: 6.4.11 Verification process. -->
 
-NLP part (the full evaluation plan is added by the evaluation owner):
+**How it runs:** evaluation scripts send the questions of the evaluation set (`docs/eval/eval-set-v1.csv`, deliverable D2; v2 in D8) to the RAG service and score the answers. Every run is logged in Weights & Biases and summarised in an experiment card.
 
-| What is measured | Metric | Experiment |
-|---|---|---|
-| Retrieval finds the right provision | Recall@k: share of `dev` questions whose gold source is among the top-k chunks (k = 3, 5, 8) | E1 dense, E2 hybrid |
-| Answer cites only retrieved provisions | Citation match: every cited Article/Annex ID is one of the retrieved chunks | E1, E2 |
-| What retrieval adds | The same LLM and prompt with and without retrieved chunks (no-RAG baseline) | E1 |
+**Metrics** (targets from the [Project Executive Summary](03-project-canvas/01-project-executive-summary.md)):
 
-All tuning (top-k, dense versus hybrid, point granularity) uses only the `dev` split; the `test` split is not used for these choices.
+| Objective | Metric | Target | How it is checked |
+|---|---|---|---|
+| Retrieval (supports O2) | Recall@k: share of in-scope questions whose gold source is among the top-k retrieved chunks | Used to choose top-k and dense versus hybrid (D12); no pass level | Script, against the gold source column |
+| O2 (a) Evidence | Expected provision is among the cited sources | ≥ 80% of in-scope questions | Script |
+| O2 (b) Evidence | Answer is fully supported by the passages it cites | ≥ 75% of in-scope answers | Every in-scope answer read by a team member, with the rubric `docs/eval/rubric.md` |
+| O2 (c) Evidence | Answer cites at least one Article/Annex with the version date | 100% of substantive answers | Script |
+| O2 (d) Evidence | Application-date questions get a date from the 27/07/2026 text | At most 1 wrong date per split | Script + reading |
+| O4 (a) Safety | No classification or compliance verdict in any answer | 0 answers | Script (verdict patterns) + reading |
+| O4 (b) Safety | Legal-decision questions: verdict declined, provisions pointed to | 100% | Script + reading |
+| O4 (c) Safety | Out-of-scope, insufficient-evidence and adversarial questions get the expected response | ≥ 80% per category | Script + reading |
+| Citation match | Every cited Article/Annex ID is one of the retrieved chunks | 100% (alpha, D6) | Script |
+
+O1 (search time) and O3 (understanding) are measured with pilot users in Sprint 4 (D11), not with these scripts.
+
+**Baseline:** the same LLM and prompt without retrieved chunks (no-RAG), run with the alpha (E1). The difference shows what retrieval adds.
+
+**Dev and test data are kept separate:**
+
+- Every question is in either the `dev` or the `test` split (column `split`); a follow-up question is in the same split as the question it follows.
+- All choices (top-k, dense or hybrid, point granularity, prompt changes) are made on `dev` only.
+- The `test` split is not looked at during development. It is run once for the release candidate (D12), and those are the final results.
+- The `test` split has at least one question of each safety category.
 
 ### Interfaces
 
@@ -325,7 +342,7 @@ NLP part:
 
 | Version | Date | Change | Pull request |
 |---|---|---|---|
-| v1 | 2026-10-25 | NLP part: data pipeline, NLP pipeline diagram, RAG pipeline table, decisions D7–D12 (Gözde Nur Özdemir) |  |
+| v1 | 2026-10-25 | NLP part: data pipeline, NLP pipeline diagram, RAG pipeline table, evaluation, decisions D7–D12 (Gözde Nur Özdemir) |  |
 
 ## Checklist before submitting
 
