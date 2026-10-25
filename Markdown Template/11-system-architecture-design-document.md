@@ -64,7 +64,7 @@ Use one tool and delete the other option below:
   Write the diagram in a ```mermaid block.
 -->
 
-**Version:** v1 (2026-10-20)
+**Version:** v1.1 (2026-10-25)
 
 ![System architecture diagram v1](../docs/images/system-architecture-v1.png)
 
@@ -79,18 +79,18 @@ Diagram source: [system-architecture-v1.svg](../docs/images/system-architecture-
 | AI user                | Technical team member at an EdTech provider who asks questions in a desktop browser                                                                                                                                                                                                                        | External actor                                                                                                                                                            | —              |
 | Evaluation             | Sends the evaluation questions to the RAG service, computes the metrics and logs every run                                                                                                                                                                                                                 | Python scripts (open) + Weights & Biases (course tool)                                                                                                                    | not yet listed |
 | Source                 | Official consolidated text of Regulation (EU) 2024/1689, version 27/07/2026 (C-01, C-09)                                                                                                                                                                                                                   | EUR-Lex HTML, CELEX 02024R1689-20260727                                                                                                                                   | not yet listed |
-| Ingestion and chunking | Reads the HTML and splits it into one chunk per paragraph or Annex point, with its Article/Annex identifier and the version date                                                                                                                                                                           | Python script rag/ingest.py; parser open (proposed: BeautifulSoup, see [KAN-56](https://yarengursoy.atlassian.net/browse/KAN-56))                                         | not yet listed |
-| Embedding model        | Turns each chunk, and each question at query time, into a vector                                                                                                                                                                                                                                           | Open (proposed: bge-small-en-v1.5, see [KAN-58](https://yarengursoy.atlassian.net/browse/KAN-58))                                                                         | not yet listed |
+| Ingestion and chunking | Reads the HTML and splits it into one chunk per paragraph or Annex point, with its Article/Annex identifier, heading text and the version date | Python script rag/ingest.py; BeautifulSoup (proposed); parse by structure, no size-based chunking (D7, D8) |
+| Embedding model        | Turns each chunk, and each question at query time, into a vector | bge-base-en-v1.5 via sentence-transformers (proposed, D10) |
 | User interface         | Question box, answer with cited provisions and their text, permanent not-legal-advice notice, a reminder not to enter personal data with a statement of how questions are stored, and a warning before sending a question that contains an e-mail address or phone number (KAN-21, KAN-22, KAN-25, KAN-26) | React, built with Vite; version pinned in the SBOM                                                                                                                        | not yet listed |
 | Web backend            | Session handling with a session cookie, reading and writing the conversation history in the database, rate limiting, anonymous logs without question content, error messages, forwarding questions to the RAG service                                                                                      | Node.js + Express; version pinned in the SBOM                                                                                                                             | not yet listed |
 | Database               | Keeps the question-answer pairs of the current session, so a conversation survives a restart of the web backend; deletes them when the session ends. The web backend reads the most recent pairs for each question (D4)                                                                                    | PostgreSQL in the db container, data in data/postgres/; version pinned in the SBOM                                                                                        | not yet listed |
-| Input check            | Decides whether a question is in scope, asks for a legal decision or contains personal data, and returns a notice instead of an answer when needed                                                                                                                                                         | Python in the RAG service; rules open (proposed: keyword rules + a short classification prompt to the LLM, see [KAN-49](https://yarengursoy.atlassian.net/browse/KAN-49)) | not yet listed |
-| Retriever              | Runs a keyword search and a vector search for every question and combines them into the most relevant chunks                                                                                                                                                                                               | Python in the RAG service; method open (proposed: hybrid BM25 + vector search, top 5, see [KAN-63](https://yarengursoy.atlassian.net/browse/KAN-63))                      | not yet listed |
-| Keyword index          | BM25 index over the chunk texts, rebuilt from the vector store each time the RAG service starts                                                                                                                                                                                                            | Open (proposed: rank_bm25, in memory, see [KAN-63](https://yarengursoy.atlassian.net/browse/KAN-63))                                                                      | not yet listed |
+| Input check            | Decides whether a question is in scope, asks for a legal decision or contains personal data, and returns a notice instead of an answer when needed | Python in the RAG service; keyword rules for evasion and out-of-scope questions, tested in the [model selection spike](../docs/spikes/model-selection-spike-gozde-nur.md) ([checks.py](../docs/spikes/model-selection/checks.py)); personal-data rules open ([KAN-49](https://yarengursoy.atlassian.net/browse/KAN-49)) |
+| Retriever              | Runs a keyword search and a vector search for every question and combines them into the most relevant chunks | Python in the RAG service; E1 dense top-k, E2 hybrid BM25 + vector search merged with RRF (k = 60); top-k chosen by Recall@k on the dev split; no reranker (proposed, D12) |
+| Keyword index          | BM25 index over the chunk texts, rebuilt from the vector store each time the RAG service starts | rank_bm25, in memory (proposed, D12) |
 | Prompt builder         | Fills the prompt template with the retrieved chunks and the session history                                                                                                                                                                                                                                | Prompt template file in prompts/; rules open                                                                                                                              | not yet listed |
-| LLM                    | Model and quantization (proposed: Qwen3-4B, 4-bit, via Ollama; alternatives Phi-3.5-mini and Llama-3.2-3B), after the answer-time and licence check                                                                                                                                                        | Open (proposed: Qwen3-4B, 4-bit quantized, served by Ollama; alternatives Phi-3.5-mini and Llama-3.2-3B, see [KAN-57](https://yarengursoy.atlassian.net/browse/KAN-57))   | not yet listed |
-| Output check           | Removes citations that are not among the retrieved chunks, blocks verdict wording and adds the version date                                                                                                                                                                                                | Python in the RAG service; rules open                                                                                                                                     | not yet listed |
-| Vector store           | Stores the vectors, chunk texts and metadata; returns the closest chunks to a question vector                                                                                                                                                                                                              | Open, data in data/vector-store/ (proposed: Chroma; alternative FAISS, see [KAN-58](https://yarengursoy.atlassian.net/browse/KAN-58))                                     | not yet listed |
+| LLM                    | Writes the answer from the retrieved chunks, with a citation for every statement | Llama-3.1-8B-Instruct, 4-bit `Q4_K_M`, served by Ollama; fallback Phi-4-mini-instruct `Q4_K_M`; temperature 0 (proposed, D9) |
+| Output check           | Removes citations that are not among the retrieved chunks, blocks verdict wording and adds the version date | Python in the RAG service; verdict-wording rules tested in the [model selection spike](../docs/spikes/model-selection-spike-gozde-nur.md) ([checks.py](../docs/spikes/model-selection/checks.py)); citation-ID check open |
+| Vector store           | Stores the vectors, chunk texts and metadata; returns the closest chunks to a question vector | Chroma, cosine distance, data in data/vector-store/ (proposed, D11) |
 
 ## 5. Design details
 
@@ -98,8 +98,14 @@ Diagram source: [system-architecture-v1.svg](../docs/images/system-architecture-
 
 <!-- Sources, cleaning, labelling, splits, storage, and how data reaches the model. ISO/IEC 5338: 6.4.8 AI data engineering process. -->
 
+**NLP pipeline** (v1, 2026-10-25; decisions D7–D12):
+
+![NLP pipeline v1](../docs/images/nlp-pipeline-v1.png)
+
+Diagram source: [nlp-pipeline-v1.svg](../docs/images/nlp-pipeline-v1.svg)
+
 - Source: the consolidated text of 27/07/2026 from EUR-Lex is the only source (C-01). The project covers this version only, so the pipeline runs once.
-- Preparation: python rag/ingest.py runs once on the host machine, outside Docker. It parses the HTML, splits it into provision-level chunks, attaches the Article/Annex identifier and the version date to each chunk, computes the vectors with the embedding model and writes them to the vector store in data/vector-store/. The parser, the chunk size, the embedding model and the vector store are open (section 7).
+- Preparation: python rag/ingest.py runs once on the host machine, outside Docker. It parses the HTML, splits it into provision-level chunks, attaches the Article/Annex identifier and the version date to each chunk, computes the vectors with the embedding model and writes them to the vector store in data/vector-store/. Each chunk is one Article paragraph or Annex point (D7). Its text starts with its place in the regulation, for example `Article 6 – Classification rules for high-risk AI systems – paragraph 3:`, so that a short point such as "(a) the AI system is intended to perform a narrow procedural task;" still makes sense on its own. Metadata: `article` or `annex`, `paragraph`, `point`, title, chapter and `version_date` = 2026-07-27; the citation shown to the user is built from these fields. The script checks that every in-scope provision is present and that no chunk lacks an identifier (deliverable D5).
 - Storage: data/vector-store/ is bind-mounted into the rag container, so the index survives rebuilds of the containers. The keyword index is not stored; the RAG service rebuilds it in memory from the chunk texts in the vector store when it starts (about 190 chunks).
 - Consistency: ingest.py and the rag container install the same requirements.txt, so both use the same library versions and the same embedding model.
 - No user data in the index: questions and answers never enter the pipeline or the vector index; they are kept only in the database, for the current session (D4).
@@ -108,9 +114,10 @@ Diagram source: [system-architecture-v1.svg](../docs/images/system-architecture-
 
 <!-- How the model is selected, trained, tuned or prompted. ISO/IEC 5338: 6.4.9 Implementation process. -->
 
-- Selection: open. Spike 01 proposes a 3–4B open-source model, 4-bit quantized, served by Ollama on a CPU (C-03, C-05), starting with Qwen3-4B, with Phi-3.5-mini-instruct and Llama-3.2-3B-Instruct as alternatives. The choice is settled by the answer-time and licence check in [KAN-57](https://yarengursoy.atlassian.net/browse/KAN-57) and recorded as an ADR ([KAN-58](https://yarengursoy.atlassian.net/browse/KAN-58)).
+- Selection: Llama-3.1-8B-Instruct, 4-bit (`Q4_K_M`), served by Ollama, with Phi-4-mini-instruct as fallback (D9). Five open-source models were tested on the same questions in the [model selection spike](../docs/spikes/model-selection-spike-gozde-nur.md). The answer time on the deployment CPU is measured in Sprint 2.
+- Settings: temperature 0 (the same answer every time, so runs can be compared), at most 300 answer tokens, context window 4,096 tokens.
 - No training: the model is not trained or fine-tuned; behaviour is controlled by the prompt, the retrieved chunks and the checks.
-- Prompting: the prompt template lives in prompts/ and is versioned. Its rules are open; Spike 01 proposes that it tells the model to answer only from the retrieved chunks, to cite the provision for every statement, to say when the text does not answer the question, and never to give a classification or compliance verdict.
+- Prompting: the prompt template lives in prompts/ and is versioned. The prompt tested in the model selection spike tells the model to answer only from the retrieved chunks, to cite the provision for every statement, to say when the text does not answer the question, and never to give a classification or compliance verdict. It contains one example answer that is not taken from the evaluation questions.
 - Conversation context: the web backend reads the most recent question-answer pairs of the session (how many is open, section 7) from the database and sends them with each question, so follow-up questions can use the product description given earlier (C-04, KAN-6).
 
 ### Evaluation
@@ -281,18 +288,145 @@ Copy the block below for each decision.
 
 **Status:** proposed
 
+### D7: Parse the regulation by its structure instead of size-based chunking
+
+**Context:** Every answer must cite the exact Article, paragraph and point (O2), and every chunk must carry its identifier (deliverable D5). The regulation is already divided into short numbered units.
+
+**Options considered:**
+
+| Option | Pros | Cons |
+|---|---|---|
+| Fixed-size chunks (for example 500 tokens with overlap) | Simplest to code | Cuts through paragraphs and points; a chunk can mix two provisions, so its citation is unclear; size and overlap need tuning |
+| Sentence splitting without structure | Keeps sentences whole | Loses the Article and point numbers needed for citations |
+| **One chunk per Article paragraph or Annex point** | One clear identifier per chunk; nothing to tune; the gold sources of the evaluation set use the same units | Needs a parser for the headings; some units are long, some very short |
+
+**Decision:** One chunk per Article paragraph or Annex point, with the heading text in front and the identifier and version date as metadata.
+
+**Why:** Citations come directly from the metadata, and retrieval can be scored per provision. Splitting at natural boundaries also worked better than fixed-size splitting on legal text in LegalBench-RAG [3].
+
+**Consequences:** No chunk-size experiments. Whether points (a), (b), ... stay separate or are merged into their paragraph is checked with Recall@k in Sprint 2.
+
+**Evidence:** Source parsing task ([KAN-56](https://yarengursoy.atlassian.net/browse/KAN-56)); in the [model selection spike](../docs/spikes/model-selection-spike-gozde-nur.md), splitting Article 6(3) into its points helped the models name the right point.
+
+**Owner and date:** Gözde Nur Özdemir, 2026-10-25
+
+**Status:** proposed
+
+### D8: Use the EUR-Lex HTML as the parsing input, with the PDF as fallback
+
+**Context:** EUR-Lex publishes the consolidated text as HTML and PDF. The PDF text contains page headers, amendment markers and broken lines.
+
+**Options considered:**
+
+| Option | Pros | Cons |
+|---|---|---|
+| **HTML** | Articles, paragraphs and points are separate elements; no page breaks | Structure must be confirmed on the real file (A-05, R-12) |
+| PDF (`pdftotext`) | The file the team reads | Headers, markers and broken lines must be cleaned; structure must be found from text patterns |
+
+**Decision:** HTML; PDF only if the HTML does not mark the units.
+
+**Why:** Fewer cleaning rules and fewer parsing errors.
+
+**Consequences:** The source manifest (deliverable D3) records which file is used, with its hash.
+
+**Evidence:** [KAN-56](https://yarengursoy.atlassian.net/browse/KAN-56)
+
+**Owner and date:** Gözde Nur Özdemir, 2026-10-25
+
+**Status:** proposed
+
+### D9: LLM: Llama-3.1-8B-Instruct, with Phi-4-mini-instruct as fallback
+
+**Context:** The LLM must be open-source and quantized (C-03) and run on a CPU (C-05). It must cite the right provision and give no verdict (C-08).
+
+**Options considered:**
+
+| Option | Passed in the spike (of 8) | Notes |
+|---|---|---|
+| Llama-3.2-3B-Instruct | 5 | Small and fast |
+| Qwen3-4B (Apache-2.0) | 5 | In the first run it helped a user avoid the rules |
+| Phi-4-mini-instruct (MIT) | 5 | Fastest; simplest licence |
+| Qwen3-8B (Apache-2.0) | – | A "thinking" model: its reasoning used the whole answer limit, and it was the slowest |
+| **Llama-3.1-8B-Instruct** (Llama 3.1 Community License) | 7 | Best answers; 2–3 times slower than Phi-4-mini |
+
+**Decision:** Llama-3.1-8B-Instruct `Q4_K_M`, served by Ollama, temperature 0. Phi-4-mini-instruct `Q4_K_M` is the fallback.
+
+**Why:** It gave the most correct answers, and it answers directly.
+
+**Consequences:** The answer time on the deployment CPU is measured in Sprint 2; if it is too slow, the fallback is used (R-16). The machine size follows from this test. The licence and model card go into the AI SBOM (A-10).
+
+**Evidence:** [Model selection spike](../docs/spikes/model-selection-spike-gozde-nur.md) (5 runs; notebooks and results in `docs/spikes/model-selection/`), [KAN-57](https://yarengursoy.atlassian.net/browse/KAN-57)
+
+**Owner and date:** Gözde Nur Özdemir, 2026-10-25
+
+**Status:** proposed
+
+### D10: Embedding model: bge-base-en-v1.5
+
+**Context:** The embedding model must be open-source and run on a CPU. The corpus is small (about 190 chunks) and in English (C-02).
+
+**Options considered:** all-MiniLM-L6-v2 (very small, weaker on retrieval); bge-small-en-v1.5 (small, proposed in Spike 01); **bge-base-en-v1.5** (stronger on retrieval, still fast on a CPU for a small corpus; MIT licence).
+
+**Decision:** bge-base-en-v1.5; bge-small-en-v1.5 is the faster alternative.
+
+**Why:** With about 190 chunks, the larger model is still fast, and it finds the right provision more often.
+
+**Consequences:** Checked with Recall@k on the dev split in the baseline experiment (E1).
+
+**Evidence:** [KAN-58](https://yarengursoy.atlassian.net/browse/KAN-58); E1 experiment card (Sprint 2)
+
+**Owner and date:** Gözde Nur Özdemir, 2026-10-25
+
+**Status:** proposed
+
+### D11: Vector store: Chroma
+
+**Context:** The vector store must be free, run inside the RAG service and keep each chunk's metadata for the citation.
+
+**Options considered:** NumPy array (simplest, but no metadata or saving); FAISS (fast, but metadata stored separately); **Chroma** (vectors, texts and metadata together; saves to disk).
+
+**Decision:** Chroma in data/vector-store/, cosine distance.
+
+**Why:** The identifier and version date come back with each result, so citations need no extra lookup. Speed is not a problem with about 190 chunks.
+
+**Consequences:** ingest.py rebuilds the index when the chunks change.
+
+**Evidence:** [KAN-58](https://yarengursoy.atlassian.net/browse/KAN-58)
+
+**Owner and date:** Gözde Nur Özdemir, 2026-10-25
+
+**Status:** proposed
+
+### D12: Retrieval: dense baseline, then hybrid with RRF; no reranker
+
+**Context:** Questions contain exact legal terms ("profiling", "Article 6(3)") as well as everyday descriptions ("a tool that calculates grades").
+
+**Options considered:** **Dense top-k** (simplest; finds the same meaning but can miss exact terms); **hybrid BM25 + dense, merged with Reciprocal Rank Fusion** (also finds exact terms; RRF needs no weight tuning); a reranker (slower on a CPU, little gain on a small corpus).
+
+**Decision:** E1 baseline: dense top-k. E2: BM25 + dense, merged with RRF (k = 60). Top-k is chosen by Recall@k on the dev split (candidates 3, 5, 8). No reranker for now.
+
+**Why:** One change at a time, so each experiment shows its own effect.
+
+**Consequences:** Two experiment cards in Sprint 2 (E1, E2). A reranker is tested only if Recall@k stays below the target.
+
+**Evidence:** [KAN-63](https://yarengursoy.atlassian.net/browse/KAN-63); E1 and E2 experiment cards (Sprint 2)
+
+**Owner and date:** Gözde Nur Özdemir, 2026-10-25
+
+**Status:** proposed
+
 ## 7. Open design areas
 
 <!-- Areas where a decision is still needed, and which spike in docs/spikes/ will settle it [2]. When the spike ends, record its outcome as a decision in section 6 and remove the area from this list. -->
 
 | Area                             | What is open                                                                                                                                              | Settled by                                                                                                                  |
 | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
-| Parsing and chunking             | Parser and chunk size (proposed: BeautifulSoup, one chunk per paragraph or Annex point); whether the split needs manual correction (R-07)                 | [KAN-56](https://yarengursoy.atlassian.net/browse/KAN-56)                                                                   |
-| LLM                              | Final model and quantization after the answer-time and licence check                                                                                      | [KAN-57](https://yarengursoy.atlassian.net/browse/KAN-57), ADR in [KAN-58](https://yarengursoy.atlassian.net/browse/KAN-58) |
-| Embedding model and vector store | Embedding model and vector store (proposed: bge-small-en-v1.5 and Chroma), after Recall@5 on the dev questions                                            | [KAN-58](https://yarengursoy.atlassian.net/browse/KAN-58), Sprint 2                                                         |
-| Hybrid retrieval                 | Retrieval method (proposed: BM25 + vector search, top 5); how the two result lists are merged; whether BM25 improves Recall@5                             | [KAN-63](https://yarengursoy.atlassian.net/browse/KAN-63), Sprint 2                                                         |
-| Input and output checks          | How the checks work (proposed: keyword rules + a short classification prompt for the input check; a citation-ID and verdict-wording check for the output) | [KAN-49](https://yarengursoy.atlassian.net/browse/KAN-49)                                                                   |
-| Prompt                           | Prompt rules and template                                                                                                                                 | [KAN-61](https://yarengursoy.atlassian.net/browse/KAN-61)                                                                   |
+| Parsing and chunking             | Proposed in D7 and D8; open: whether points stay separate chunks, and whether the HTML split needs manual correction (R-12) | [KAN-56](https://yarengursoy.atlassian.net/browse/KAN-56), Recall@k in Sprint 2 |
+| LLM                              | Proposed in D9; open: answer time on the deployment CPU | Sprint 2 answer-time test |
+| Embedding model and vector store | Proposed in D10 and D11; confirmed by Recall@k on the dev questions | E1, Sprint 2 |
+| Hybrid retrieval                 | Proposed in D12; open: whether BM25 improves Recall@k | E2, Sprint 2 |
+| Input and output checks          | Evasion, out-of-scope and verdict-wording rules tested in the [model selection spike](../docs/spikes/model-selection-spike-gozde-nur.md); open: personal-data rules and the citation-ID check | [KAN-49](https://yarengursoy.atlassian.net/browse/KAN-49) |
+| Prompt                           | First version tested in the [model selection spike](../docs/spikes/model-selection-spike-gozde-nur.md); open: final rules and template | [KAN-61](https://yarengursoy.atlassian.net/browse/KAN-61) |
 | Evaluation                       | Scripts, metrics and baseline (proposed: Recall@5, citation match and safety responses; baseline: the same LLM without retrieval)                         | [KAN-63](https://yarengursoy.atlassian.net/browse/KAN-63), Sprint 2                                                         |
 | Interface technology             | React + Node (D1) versus the Gradio option in [KAN-62](https://yarengursoy.atlassian.net/browse/KAN-62)                                                   | Team decision                                                                                                               |
 | Session parameters               | When a session ends (inactivity timeout), how many question-answer pairs are sent with each question, cookie settings and rate limits                     | Web side, Sprint 2                                                                                                          |
@@ -307,6 +441,7 @@ The proposals in this table come from Spike 01 (technology options, Gözde Nur �
 | Version | Date       | Change                                                                             | Pull request |
 | ------- | ---------- | ---------------------------------------------------------------------------------- | ------------ |
 | v1      | 2026-10-20 | First version. The RAG and LLM options are based on Spike 01 by Gözde Nur Özdemir. | —            |
+| v1.1    | 2026-10-25 | NLP part: decisions D7–D12 (parsing, chunking, LLM, embedding, vector store, retrieval) from the model selection spike; Components, Data pipeline, Model and Open design areas updated (Gözde Nur Özdemir) | —            |
 
 ## Checklist before submitting
 
@@ -322,5 +457,7 @@ The proposals in this table come from Spike 01 (technology options, Gözde Nur �
 [1] GitLab Inc. "Design document template" (`_template.md`). The GitLab Handbook. https://gitlab.com/gitlab-com/content-sites/handbook/-/blob/main/content/handbook/engineering/architecture/design-documents/_template.md
 
 [2] GitLab Inc. "Architecture Design Workflow." The GitLab Handbook. https://handbook.gitlab.com/handbook/engineering/architecture/workflow/
+
+[3] N. Pipitone and G. Houir Alami, "LegalBench-RAG: A Benchmark for Retrieval-Augmented Generation in the Legal Domain," arXiv:2408.10343, 2024.
 
 Diagram tools: [Miro, software architecture diagrams](https://miro.com/diagramming/software-architecture-diagram/) · [Mermaid, flowchart syntax](https://mermaid.js.org/syntax/flowchart.html)
