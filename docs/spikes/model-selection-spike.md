@@ -89,6 +89,33 @@ These are average times for one normal question.
 
 These times are too long for users. Runs 4 and 5 used a Colab GPU, but the times show that the model probably did not use it. We must measure the time again on the CPU machine that we will use for deployment.
 
+### Answer time on one team computer
+
+One of the team members' computers is a Mac with an Apple M3 Pro chip (12 cores: 6 performance and 6 efficiency cores) and 36 GB RAM. It is a candidate for the pilot computer (Major Activities row 29). We measured both selected models on it on 25/10/2026.
+
+How we measured:
+
+- **Settings**: Ollama on macOS, `Q4_K_M`, temperature 0, context window 4,096 tokens, answer limit 300 tokens.
+- **CPU only** (`num_gpu` 0), as in C-05.
+- **One question**: B-02, the longest prompt of the spike (the same prompt as in run 5).
+- **Two runs per model.** The first run includes loading the model; the answer time below is the first run without the loading time. In the second run the prompt came from the cache, so it is not used for the answer time.
+
+| Model | Prompt tokens | Answer tokens | Reading speed | Writing speed | Answer time |
+|---|---|---|---|---|---|
+| Llama-3.1-8B-Instruct | 894 | 103 | 83 tokens/s | 22 tokens/s | 15.4 s |
+| Phi-4-mini-instruct | 877 | 203 | 176 tokens/s | 39 tokens/s | 10.2 s |
+
+Loading the model took 6 s (Llama) and 9 s (Phi-4-mini), once at start.
+
+**Worst case**, calculated from the measured speeds: a prompt of about 2,000 tokens (more retrieved chunks and the session history) and an answer of the full 300 tokens.
+
+| Model | Worst case |
+|---|---|
+| Llama-3.1-8B-Instruct | about 38 s |
+| Phi-4-mini-instruct | about 19 s |
+
+This is one question and one run per model. Ollama ran directly on macOS, not in the Docker container of decision D6 in the design document, which may be slower. The time is measured again at the baseline (18/11/2026) and on the pilot computer by 09/12/2026 (A-07).
+
 ## 7. Recommendation
 
 1. Use **Llama-3.1-8B-Instruct** (`Q4_K_M`, temperature 0). This is decision [D9 in the design document](../../Markdown%20Template/11-system-architecture-design-document.md).
