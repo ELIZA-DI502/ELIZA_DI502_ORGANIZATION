@@ -1,6 +1,6 @@
 # Spike: choosing the answer model
 
-**Sprint:** 1 · **Author:** Gözde Nur · **Date:** 25/10/2026 · **Jira:** KAN-30, KAN-24
+**Sprint:** 1 · **Date:** 25/10/2026 · **Jira:** KAN-30, KAN-24
 
 ## 1. What question does this spike answer?
 
