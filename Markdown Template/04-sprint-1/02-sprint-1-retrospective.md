@@ -10,8 +10,8 @@ The table below is very basic, but feel free to follow a template from Miro. For
 
 | What went well? | What went bad? | Action | Assigned to |
 |---|---|---|---|
-| All ten Project Canvas pages were written on time, each with one owner. | Pages were written separately, so IDs (A-xx, R-xx) did not match across pages and Jira. | Before each review, one person checks that IDs match on all pages and in Jira. | Yaren (Scrum Master) |
-| Jira stories have acceptance criteria and traceability; epics and releases are set up. | Some stories were left without an epic or a sprint. | Every story gets an epic and a sprint at sprint planning. | Yeşim (Product Owner) |
+| All ten Project Canvas pages were written on time, each with one owner. | Pages were written separately, so IDs (A-xx, R-xx) did not match across pages and Jira. | Before each review, one person checks that IDs match on all pages and in Jira. | Yaren (Scrum Master, Business Analyst) |
+| Jira stories have acceptance criteria and traceability; epics and releases are set up. | Some stories were left without an epic or a sprint. | Every story gets an epic and a sprint at sprint planning. | Yeşim (Scrum Master, Product Owner) |
 | Feedback from the review was applied quickly. | Some pages were read differently from what the instructor expected (for example, what counts as a risk), so they were rewritten after feedback. | Share an early draft of each page and ask for feedback before the review. | Everyone |
 | The GitHub–Confluence and Jira sync works. | The sync stopped once because of missing secrets. | Check the sync and the course template updates at the start of every sprint. | Kaan, Gözde Nur |
 | The presentation for 21/10 was ready on time. | Many pages changed the night before the presentation, and not everyone saw the changes. | Freeze the pages 2 days before a review; announce changes that affect other pages in the group. | Everyone |
@@ -40,13 +40,13 @@ We also looked at Sprint 1 with the Hot Air Balloon retrospective on our [Miro b
 
 ## Individual comments
 
-**Yeşim (Product Owner):** [to be added]
+**Yeşim (Scrum Master, Product Owner):** [to be added]
 
-**Yaren (Scrum Master):** I wrote Milestones and dependencies parts. I'd entered user stories to Jira and rearrange all stories&tasks. I work on story map. In this sprint, my learning was GitHub, Jira, RAG systems. 
+**Yaren (Scrum Master, Business Analyst):** I wrote Milestones and dependencies parts. I'd entered user stories to Jira and rearrange all stories&tasks. I work on story map. In this sprint, my learning was GitHub, Jira, RAG systems. 
 
-**Kaan (Development Team Member):** I wrote the Project Executive Summary page and my learning spike, and I started the System Architecture Design Document v1 (KAN-59). I came into the sprint already knowing Git, Python and React, so my learning was mostly about Scrum, Jira, embeddings and vector search, RAG and evaluation basics. I learned why the evaluation set has to be fixed before experiments, and how each part of our architecture diagram fits into the RAG pipeline.
+**Kaan (Scrum Master, Development Team Member):** I wrote the Project Executive Summary page and my learning spike, and I started the System Architecture Design Document v1 (KAN-59). I came into the sprint already knowing Git, Python and React, so my learning was mostly about Scrum, Jira, embeddings and vector search, RAG and evaluation basics. I learned why the evaluation set has to be fixed before experiments, and how each part of our architecture diagram fits into the RAG pipeline.
 
-**Gözde Nur (Development Team Member):** I wrote the Assumptions & Constraints and Risks pages and my learning spike. I learned how assumptions, constraints, dependencies and risks link to each other, and after the instructor's feedback I learned how the instructor separates a risk from a design task. I rewrote the Risks page based on that feedback.
+**Gözde Nur (Scrum Master, Development Team Member):** I wrote the Assumptions & Constraints and Risks pages and my learning spike. I learned how assumptions, constraints, dependencies and risks link to each other, and after the instructor's feedback I learned how the instructor separates a risk from a design task. I rewrote the Risks page based on that feedback.
 
 ## Lessons Learned
 
