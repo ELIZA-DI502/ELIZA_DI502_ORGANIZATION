@@ -258,13 +258,11 @@ These rules are assessed at the end of Sprints 3 and 4.
 ├── tests/                  # Automated tests, including user story tests
 ├── Markdown Template/      # Course pages: charter, stories, design document, SBOM, datasheets
 │   ├── 05-sprint-2/        # One folder per sprint (07-sprint-3/, 08-sprint-4/)
-│   │   ├── README.md                       # Welcome page
-│   │   │   ├── 01-review-committee-technical-summary.md  # The technical summary
-│   │   │   ├── 02-sprint-2-retrospective.md
-│   │   │   └── 03-sprint-2-review-page.md
+│   │   ├── README.md                                 # Welcome page
+│   │   ├── 01-review-committee-technical-summary.md  # The technical summary
 │   │   ├── 02-sprint-2-retrospective.md
 │   │   └── 03-sprint-2-review-page.md
-│   └── 12-experiment-cards/  # Every experiment card of the project, one per file
+│   └── 12-experiment-cards/                          # Every experiment card of the project, one per file
 │           ├── E1-baseline.md
 │           └── E2-<short-name>.md
 └── docs/
