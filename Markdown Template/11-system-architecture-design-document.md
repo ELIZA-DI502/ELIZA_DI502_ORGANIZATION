@@ -239,9 +239,10 @@ O1 (search time) and O3 (understanding) are measured with pilot users in Sprint 
 
 **Baseline:** the same LLM and prompt without retrieved chunks (no-RAG), run with the alpha (E1). The difference shows what retrieval adds.
 
-**Validation and test data are kept separate:**
+**Sprint 1:** no model was trained. The model selection spike only tested the models on 8 questions, without a split.
 
-- **Sprint 1:** no model was trained. The model selection spike only tested the models on 8 questions, without a split.
+**From Sprint 2: validation and test data are kept separate:**
+
 - There is no `train` split, because no model is trained or fine-tuned (C-03); the models are used as published.
 - Every question is in either the `val` (validation) or the `test` split (column `split`); a follow-up question is in the same split as the question it follows.
 - All choices (top-k, dense or hybrid, point granularity, prompt changes) are made on `val` only.
