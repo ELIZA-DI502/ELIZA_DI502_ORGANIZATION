@@ -62,3 +62,14 @@ I compared my knowledge with the "Sprint 1 fundamentals" table in the Online Cou
 **What Gradio is:** a Python library that builds a simple web chat page in a few lines of code. It was one of the interface options in Spike 01.
 
 **Outcome:** not needed. The team chose React (with a Node.js backend) for the interface in the System Design Document, so I did not build the Gradio "hello world". My Sprint 1 work moved to the NLP part instead: the [model selection spike](model-selection-spike.md) and the NLP decisions D7–D12 in the System Design Document.
+
+## My computer
+
+Recorded for [Facilities & Resources](../../Markdown%20Template/03-project-canvas/09-facilities-and-resources.md) row 1 (CPU only, C-05).
+
+| Item | Value |
+|---|---|
+| Computer | MacBook Pro 14-inch (Nov 2024) |
+| Chip | Apple M4 (10-core CPU) |
+| Memory | 16 GB |
+| Operating system | macOS Sequoia 15.1 |
