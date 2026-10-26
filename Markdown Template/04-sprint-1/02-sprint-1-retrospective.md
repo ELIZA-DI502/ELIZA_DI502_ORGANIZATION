@@ -46,7 +46,7 @@ We also looked at Sprint 1 with the Hot Air Balloon retrospective on our [Miro b
 
 **Kaan (Scrum Master, Development Team Member):** I wrote the Project Executive Summary page and my learning spike, and I started the System Architecture Design Document v1 (KAN-59). I came into the sprint already knowing Git, Python and React, so my learning was mostly about Scrum, Jira, embeddings and vector search, RAG and evaluation basics. I learned why the evaluation set has to be fixed before experiments, and how each part of our architecture diagram fits into the RAG pipeline.
 
-**Gözde Nur (Scrum Master, Development Team Member):** I wrote the Assumptions & Constraints and Risks pages and my learning spike. I learned how assumptions, constraints, dependencies and risks link to each other, and after the instructor's feedback I learned how the instructor separates a risk from a design task. I rewrote the Risks page based on that feedback.
+**Gözde Nur (Scrum Master, Development Team Member):** I wrote the Assumptions & Constraints and Risks pages and my learning spike. I learned how assumptions, constraints, dependencies, and risks link to each other, and after the instructor's feedback I learned how the instructor separates a risk from a design task. I rewrote the Risks page based on that feedback. Also, I worked on the development of ELIZA’s NLP pipeline, including RAG implementation, information retrieval, and model selection.
 
 ## Lessons Learned
 
