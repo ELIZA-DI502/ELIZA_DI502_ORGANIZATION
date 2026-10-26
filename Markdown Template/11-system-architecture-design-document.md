@@ -235,7 +235,7 @@ Models used as-is go in the AI SBOM. Write a model card (12-model-cards/, follow
 | O4 (c) Safety           | Out-of-scope, insufficient-evidence and adversarial questions get the expected response     | ≥ 80% per category                                               | Script + reading                                                                     |
 | Citation match          | Every cited Article/Annex ID is one of the retrieved chunks                                 | 100% (alpha, D6)                                                  | Script                                                                               |
 
-O1 (search time) and O3 (understanding) are measured with pilot users in Sprint 4 (D11), not with these scripts.
+O1 (search time) and O3 (understanding) are measured with pilot users in Sprint 4 (deliverable D10), not with these scripts.
 
 **Baseline:** the same LLM and prompt without retrieved chunks (no-RAG), run with the alpha (E1). The difference shows what retrieval adds.
 
@@ -247,7 +247,7 @@ O1 (search time) and O3 (understanding) are measured with pilot users in Sprint 
 - Every question is in either the `val` (validation) or the `test` split (column `split`); a follow-up question is in the same split as the question it follows.
 - All choices (top-k, dense or hybrid, point granularity, prompt changes) are made on `val` only.
 - **How top-k is chosen:** for k = 3, 5 and 8, compute Recall@k on `val`, for dense (E1) and hybrid (E2) search. Choose the smallest k after which Recall@k no longer rises clearly (for example 70% → 88% → 90% gives k = 5), because every extra chunk makes the prompt longer and the answer slower on the CPU.
-- The `test` split is not looked at during development. It is run once for the release candidate (D12), and those are the final results.
+- The `test` split is not looked at during development. It is run once for the release candidate (deliverable D11), and those are the final results.
 - The `test` split has at least one question of each safety category.
 
 ### Interfaces
@@ -559,6 +559,7 @@ Web and deployment part:
 | ------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------ |
 | v1      | 2026-10-20 | Architecture part: summary, goals and non-goals, system architecture diagram, components, interfaces, deployment, decisions D1–D6 | —           |
 | v1      | 2026-10-25 | NLP part: data pipeline, NLP pipeline diagram, RAG pipeline table, evaluation, decisions D7–D12                                   |              |
+| v1      | 2026-10-26 | Deliverable numbers in the Evaluation section updated to the charter (pilot D10, release candidate D11)| —            |
 
 ## Checklist before submitting
 
