@@ -44,7 +44,7 @@
 - **Temperature** controls how random the next token is; a low temperature gives more repeatable answers, which ELIZA needs for evaluation.
 - LLMs **hallucinate** because they generate the most likely continuation, not a checked fact.
 
-**How it is used in ELIZA:** a small quantized model on CPU (C-03, C-05) needs short answers and few retrieved passages; the [model selection spike](model-selection-spike.md) measured the answer time of the candidate models (R-16).
+**How it is used in ELIZA:** a small quantized model on CPU (C-03, C-05) needs short answers and few retrieved passages; the [model selection spike](model-selection-spike.md) measured the answer time of the candidate models (A-07).
 
 **Hands-on:** Before the project, I used LLMs to generate synthetic data, so I have worked with prompts and checked model outputs myself. I did not run a separate small open-source model in Colab in Sprint 1; the model selection spike (KAN-57) ran the candidate open-source models on Colab and on a team computer.
 
