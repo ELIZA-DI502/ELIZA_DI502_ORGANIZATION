@@ -1,6 +1,6 @@
 # Spike: choosing the answer model
 
-**Sprint:** 1 · **Date:** 25/10/2026 · **Jira:** KAN-30, KAN-24 · **Results:** [`model-selection-results.csv`](model-selection-results.csv)
+**Sprint:** 1 · **Date:** 25/10/2026 · **Jira:** KAN-57 · **Results:** [`model-selection-results.csv`](model-selection-results.csv)
 
 ## Question
 
