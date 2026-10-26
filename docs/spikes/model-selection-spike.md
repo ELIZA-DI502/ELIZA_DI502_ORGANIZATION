@@ -13,6 +13,25 @@ Which open-source, quantized model gives the best answers (C-03), and can simple
 - Same prompt and settings for every model: 4-bit (`Q4_K_M`), temperature 0, at most 300 answer tokens.
 - An answer **passes** if it cites the correct Article and point, gives no verdict, and does not refuse without a reason.
 
+The prompt (the same for every model): a system message with the rules, one example question and answer (not from the test questions), then the provisions and the question.
+
+```text
+You explain the EU AI Act (Regulation (EU) 2024/1689, consolidated text of 27 July 2026) to software developers.
+- Use only the PROVISIONS. Cite every provision you use, for example Article 6(3)(a). Do not cite provisions that are not relevant to the question.
+- When a provision has points (a), (b), ..., name the point whose wording matches the user's description.
+- Explain what the provisions say. Never state that the user's system is or is not high-risk, compliant, prohibited or allowed: the user makes that assessment.
+- If the provisions answer only part of the question, say what they say and what they do not say.
+- If no provision is relevant, reply only: "The provided text does not answer this question."
+- At most 120 words.
+```
+
+Example given to the model before each question:
+
+- *Question:* "Our app ranks applicants for a university programme. Is that the kind of system the AI Act lists as high-risk?" (with Annex III point 3(a) and Article 6(2) as provisions)
+- *Answer:* "Annex III, point 3(a) lists AI systems intended to determine access or admission to educational institutions, and Article 6(2) says that the systems listed in Annex III are considered high-risk. Whether your app falls under this point depends on its intended purpose, so assess it against these provisions."
+
+Each test question is sent as `PROVISIONS: [Article …] text … QUESTION: …`; for a follow-up question, the earlier question is added before it.
+
 The test logic:
 
 ```python
@@ -33,10 +52,10 @@ We ran the test 5 times and fixed one problem after each run (details in the CSV
 | Model | Passed (of 8) | Seconds per answer |
 |---|---|---|
 | **Llama-3.1-8B-Instruct** | **7** | 206–232 (Colab T4) |
-| Phi-4-mini-instruct | 5 | 87–100 (Colab CPU) |
+| Phi-4-mini-instruct | 5 | 36–100 (Colab CPU; 93 on Colab T4) |
 | Llama-3.2-3B-Instruct | 5 | 38–90 (Colab CPU) |
 | Qwen3-4B | 5 | 54–117 (Colab CPU) |
-| Qwen3-8B | 2 | 329–348 (Colab T4); a "thinking" model, it wrote only reasoning text and no answer |
+| Qwen3-8B | 2 | 329–348 (Colab T4); a "thinking" model, it wrote only reasoning text and no answer. Its 2 passes are the two safety questions answered by the input check, not by the model |
 
 - The input check answered the two safety questions (avoiding the rules, fines) without the model.
 - The output check removed every verdict sentence.
