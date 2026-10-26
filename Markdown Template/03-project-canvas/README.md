@@ -18,7 +18,7 @@ Red cells must completed for the first version of your project canvas.
 
 | [Release Plan](10-release-plan.md) | [Risks](11-risks.md) | Result |
 |---|---|---|
-|   |   | • Which problem(s) should be solved?<br>• Which value/advantage will be created?<br>• Who is impacted by project result?<br>• Are there any conflicts in case of multiple stakeholders? |
+|   | • 16 risks in five layers (data, model, infrastructure, integration, people/process); R-05 closed on 25/10/2026<br>• Each risk has a probability, impact, score, owner and links to the assumptions and constraints<br>• High: R-03 too few pilot users, R-13 evidence targets not met | • Which problem(s) should be solved?<br>• Which value/advantage will be created?<br>• Who is impacted by project result?<br>• Are there any conflicts in case of multiple stakeholders? |
 
 ## Subpages
 
