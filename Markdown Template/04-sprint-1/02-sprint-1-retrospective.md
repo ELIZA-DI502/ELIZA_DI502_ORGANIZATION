@@ -22,6 +22,8 @@ We also looked at Sprint 1 with the Hot Air Balloon retrospective on our [Miro b
 
 ![Sprint 1 Hot Air Balloon Retrospective](hot-air-balloon-retro-sprint-1.png)
 
+*Note added on 26/10/2026:* the storm cloud "Cloud budget or credit not ready (R-05, R-10)" was written before the hosted cloud deployment was removed from the plan on 25/10/2026. R-05 is now closed, and R-10 is now "The system does not install on the pilot computer" (see [Risks](../03-project-canvas/11-risks.md)).
+
 | ☀️ Sunny Skies (positive things ahead) | 🔥 Hot Air (what pushes us along) | ⛈️ Storm Clouds (problems coming up) | 🎒 Sandbags (what slows us down) |
 |---|---|---|---|
 | M1: Charter v1 approved | One owner per page | Too few pilot users (R-03) | IDs did not match across pages and Jira |
@@ -34,13 +36,13 @@ We also looked at Sprint 1 with the Hot Air Balloon retrospective on our [Miro b
 | Commitment | Promised in | Fulfilled? | Notes |
 |---|---|---|---|
 | No production code is written in Sprint 1 | [Assumptions & Constraints](../03-project-canvas/03-assumptions-and-constraints.md), constraint C-07 (course rule) | Yes | Sprint 1 produced only documents, spike notes and the course's sync scripts. |
-| Sprint 1 runs from 14/10 to 28/10/2026, as the first of 4 sprints | [Assumptions & Constraints](../03-project-canvas/03-assumptions-and-constraints.md), constraint C-07 (duration) | Yes | Sprint 1 started on 14/10/2026 as planned and ends with the sprint review on 28/10/2026; Sprint 2 starts on 04/11/2026 as planned. |
+| Sprint 1 runs from 14/10 to 28/10/2026, as the first of 4 sprints | [Assumptions & Constraints](../03-project-canvas/03-assumptions-and-constraints.md), constraint C-07 (duration) | Yes | Sprint 1 started on 14/10/2026 as planned and ends with the sprint review on 28/10/2026; Sprint 2 starts on 28/10/2026, as in the course calendar updated on 23/10/2026. |
 | The project is done by the four team members, with no new members | [Assumptions & Constraints](../03-project-canvas/03-assumptions-and-constraints.md), constraint C-07 (team) | Yes | All four members contributed in Sprint 1. |
-| Development runs on Google Colab or the team members' own computers; paid cloud use stays within the $100 Google Cloud credit | [Assumptions & Constraints](../03-project-canvas/03-assumptions-and-constraints.md), constraints C-05 and C-06 | Yes | No code or deployment was started in Sprint 1, so no cloud credit was used. |
+| Development runs on Google Colab or the team members' own computers, without a GPU; the $100 Google Cloud credit is kept as a reserve | [Assumptions & Constraints](../03-project-canvas/03-assumptions-and-constraints.md), constraints C-05 and C-06 | Yes | The Sprint 1 spikes ran on Google Colab and a team computer; no cloud credit was used. |
 
 ## Individual comments
 
-**Yeşim (Scrum Master, Product Owner):** [to be added]
+**Yeşim (Scrum Master, Product Owner):** I wrote the Deliverables, Project Organization, Major Activities and Release Plan pages, checked the consistency of all charter pages, and prepared the source manifest and the in-scope provision list (D3). As Product Owner, I rewrote the user stories in Jira and, after the course changes of 23/10, rebuilt the backlog as epics, stories and sub-tasks for Sprints 2–4, so that every story has acceptance criteria and traces back to the charter. I also wrote the User Story Map v1 and the story requirements pages. I came into the sprint already knowing Git, Markdown, Python and evaluation basics, so my learning was mostly about the Product Owner's responsibilities in Scrum, writing user stories with testable acceptance criteria, planning sprints in Jira, and the indexing and query phases of RAG. The main lesson for me is that the charter and Jira describe the same plan: when one changes, the other has to be updated the same day.
 
 **Yaren (Scrum Master, Business Analyst):** I wrote Milestones and dependencies parts. I'd entered user stories to Jira and rearrange all stories&tasks. I work on story map. In this sprint, my learning was GitHub, Jira, RAG systems. 
 
