@@ -1,34 +1,35 @@
 # Spike: parsing and chunking the regulation
 
-**Sprint:** 1 · **Date:** 25/10/2026 · **Jira:** KAN-56
+**Sprint:** 1 · **Date:** 25/10/2026 · **Jira:** KAN-56 · **Results:** [`parsing-chunks.csv`](parsing-chunks.csv)
 
 ## Question
 
 Can the text be split into one chunk per point, or per paragraph when it has no points, each with the correct Article number (D7)?
 
-## What was done
+## How we tested
 
-Article 6 and Annex III point 3 were taken from the EUR-Lex PDF of 27/07/2026 and split with a short script ([`parse_spike.py`](parsing/parse_spike.py)):
+Article 6 and Annex III point 3 were taken from the EUR-Lex PDF of 27/07/2026 and split line by line:
 
-- A line that starts with `1.` (or `1a.`) begins a paragraph.
-- A line that starts with `(a)` begins a point.
-- A sentence after the last point, at the paragraph's indent, begins a new subparagraph.
+```python
+for line in lines:
+    if line starts with "1." or "1a.":   start a new paragraph chunk   -> Article 6(1a)
+    elif line starts with "(a)":         start a new point chunk       -> Article 6(3)(a)
+    elif after a point, back at the paragraph's indent:
+                                         start a new subparagraph chunk -> Article 6(3), second subparagraph
+    else:                                add the line to the current chunk
+# a word broken at the end of a line ("malfunc-" + "tioning") is joined again
+```
 
-## Result
+## Results
 
-The script made **22 chunks**, and every chunk got the correct ID.
+**22 chunks**, all with the correct ID: 18 from Article 6 and 4 from Annex III point 3 (3(a)–3(d)).
 
-| Text | Chunks |
-|---|---|
-| Article 6 | 18: paragraphs 1, 1a, 1b, 1c and 2–8; points 6(1)(a)–(b) and 6(3)(a)–(d); the second subparagraph of 6(3) (the profiling rule) |
-| Annex III point 3 | 4: 3(a), 3(b), 3(c), 3(d) |
+Three problems were found and fixed:
 
-## Problems found and fixed
-
-1. **The sentence after the last point was attached to that point.** The profiling rule of Article 6(3) ended up in chunk 6(3)(d). It is now its own chunk, "Article 6(3), second subparagraph", because the evaluation questions cite it.
-2. **Words broken across lines stayed split**, for example "malfunc tioning" and "appro priate". They are now joined again ("malfunctioning", "appropriate"); real hyphens such as "decision-making" are kept.
-3. **Amended paragraphs have letters in their numbers**: 6(1a), 6(1b) and 6(1c). The parser recognises them.
+1. The sentence after the last point (the profiling rule of Article 6(3)) was attached to point (d). It is now its own chunk.
+2. Words broken across lines stayed split ("malfunc tioning"). They are now joined.
+3. Amended paragraphs have letters in their numbers (6(1a), 6(1b), 6(1c)). They are now recognised.
 
 ## Decision
 
-D7 works. The same rules go into `rag/ingest.py` in Sprint 2, where the HTML version (D8) is also tried. This spike used the PDF.
+D7 works. The same rules go into `rag/ingest.py` in Sprint 2, where the HTML version (D8) is also tried.
