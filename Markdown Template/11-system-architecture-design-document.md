@@ -474,7 +474,7 @@ Copy the block below for each decision.
 
 **Why:** It gave the most correct answers, and it answers directly.
 
-**Consequences:** The answer time on the deployment CPU is measured in Sprint 2; if it is too slow, the fallback is used (R-16). The machine size follows from this test. Licence check (A-10, 2026-10-25): the Llama 3.1 Community License (Llama-3.1-8B-Instruct) and the MIT licence (Phi-4-mini-instruct) permit use in this academic project and publication of the generated answers. Llama 3.1 requires "Built with Llama" to be shown on the web page or in the README and use in line with its Acceptable Use Policy; the 700 million monthly user limit does not apply. The licence and model card go into the AI SBOM.
+**Consequences:** The answer time on the pilot computer is measured in Sprint 2; if it is too slow, the fallback is used (R-16). Licence check (A-10, 2026-10-25): the Llama 3.1 Community License (Llama-3.1-8B-Instruct) and the MIT licence (Phi-4-mini-instruct) permit use in this academic project and publication of the generated answers. Llama 3.1 requires "Built with Llama" to be shown on the web page or in the README and use in line with its Acceptable Use Policy; the 700 million monthly user limit does not apply. The licence and model card go into the AI SBOM.
 
 **Evidence:** [Model selection spike](../docs/spikes/model-selection-spike.md) (5 runs; results in [`model-selection-results.csv`](../docs/spikes/model-selection-results.csv)), [KAN-57](https://yarengursoy.atlassian.net/browse/KAN-57)
 
@@ -544,7 +544,7 @@ NLP part:
 
 - **Granularity of points:** paragraphs with points are split into one chunk per point (D7); whether short points are better merged into their paragraph is settled by Recall@k on the `val` split in E1.
 - **Hybrid retrieval:** whether BM25 improves Recall@k over dense search (E1 versus E2, Sprint 2).
-- **Answer time on CPU:** answer time of Llama-3.1-8B on the deployment CPU, measured in Sprint 2; if it is too slow, Phi-4-mini-instruct is used (D9, R-16).
+- **Answer time on CPU:** answer time of Llama-3.1-8B on the pilot computer, measured in Sprint 2; if it is too slow, Phi-4-mini-instruct is used (D9, R-16).
 - **Checks:** personal-data rules and the citation-ID check (KAN-49).
 
 Web and deployment part:
@@ -559,7 +559,7 @@ Web and deployment part:
 | ------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------ |
 | v1      | 2026-10-20 | Architecture part: summary, goals and non-goals, system architecture diagram, components, interfaces, deployment, decisions D1–D6 | —           |
 | v1      | 2026-10-25 | NLP part: data pipeline, NLP pipeline diagram, RAG pipeline table, evaluation, decisions D7–D12                                   |              |
-| v1      | 2026-10-26 | Deliverable numbers in the Evaluation section updated to the charter (pilot D10, release candidate D11)| —            |
+| v1      | 2026-10-26 | Deliverable numbers in the Evaluation section updated to the charter (pilot D10, release candidate D11); "deployment CPU" replaced by "pilot computer"| —            |
 
 ## Checklist before submitting
 
