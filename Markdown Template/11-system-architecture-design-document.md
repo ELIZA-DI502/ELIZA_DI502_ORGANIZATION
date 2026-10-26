@@ -153,6 +153,18 @@ flowchart LR
 
 <!-- Sources, cleaning, labelling, splits, storage, and how data reaches the model. ISO/IEC 5338: 6.4.8 AI data engineering process. -->
 
+**Evidence for the NLP part (Sprint 1)**
+
+The NLP decisions D7–D12 are based on two short spikes and the Annex III point 3(b) evaluation questions:
+
+| Files | What we did | Used for |
+|---|---|---|
+| [`parsing-spike.md`](../docs/spikes/parsing-spike.md), [`parsing-chunks.csv`](../docs/spikes/parsing-chunks.csv) | Split Article 6 and Annex III point 3 into 22 chunks, each with its correct Article number | D7 (chunk rule), D8 (source format) |
+| [`model-selection-spike.md`](../docs/spikes/model-selection-spike.md), [`model-selection-results.csv`](../docs/spikes/model-selection-results.csv) | Tested 5 open-source models on the same 8 questions | D9 (LLM), input and output checks |
+| [`eval-set-v1-3b.csv`](../docs/eval/eval-set-v1-3b.csv) | 8 questions on Annex III point 3(b), each with its gold source | The test questions of the model spike |
+
+We did these tests to understand how the text is split and how each model answers, so that the decisions are based on what we saw. The code is not included, because Sprint 1 does not ask for code; the notes and results are in the files above. No model was trained; the questions were only used for testing. D10–D12 (embedding, vector store, retrieval) are not tested yet; they are checked with Recall@k in Sprint 2.
+
 **NLP pipeline** (v1, 2026-10-25; decisions D7–D12):
 
 ![NLP pipeline v1](../docs/images/nlp-pipeline-v1.png)
