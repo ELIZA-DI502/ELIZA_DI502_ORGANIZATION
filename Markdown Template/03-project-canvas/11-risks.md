@@ -119,7 +119,7 @@ Where the risks come from: R-01 to R-04, R-06, R-07, R-09, R-11 and R-12 are the
 | R-04 | People / process | **Targets change after review.** The Project Review Committee asks for different targets or a different scope at a sprint review. | Sprints 1–2; planning | 2: the targets have not been reviewed yet | 2: questions, tests and charter pages need 2–4 weeks of changes | 4 (Low) | Yeşim (Product Owner) | A-06; [Dependencies](06-dependencies.md) row 5 |
 | R-05 | Infrastructure | **Closed on 25/10/2026 (was: cloud budget runs out).** No longer applies: no hosted deployment is planned, so the Google Cloud credit is not spent ([Major Activities](04-major-activities.md) row 31). | – | – | – | – | – | C-06 |
 | R-06 | People / process | **A team member leaves.** A team member leaves the course or cannot work for 2 weeks or more. | Sprints 1–4; development | 2: all four members are enrolled and active | 3: the other three members take over a quarter of the work; later deliverables move by 1–2 months | 6 (Medium) | Yaren (Scrum Master) | A-08; C-07 |
-| R-07 | Model | **The model or a library changes.** The selected model or a library that the assistant uses is changed or removed by its authors during the project. | Sprints 2–4; development | 2: model files on these sites are updated by their authors without notice; the version used is recorded in each evaluation run | 2: another model or library must be chosen and the evaluation runs repeated; 2–4 weeks | 4 (Low) | Kaan (Data Scientist) | A-09; C-03; [Dependencies](06-dependencies.md) row 6; [Facilities & Resources](09-facilities-and-resources.md) rows 4–6 |
+| R-07 | Model | **The model or a library becomes unavailable.** Access to the selected model or a library is withdrawn by its authors before the team has stored its copy: for example, access to Llama is refused for the team's region, or the files become paid or are removed. | Sprints 1–2; development | 2: the official Llama files on Hugging Face are gated, so Meta approves each download and can refuse it, and the copies on Ollama can be removed by their publishers; Phi-4-mini-instruct and bge-base-en-v1.5 are not gated | 2: another model or library must be chosen and the evaluation runs repeated; 2–4 weeks | 4 (Low) | Kaan (Data Scientist) | A-09; C-03; [Dependencies](06-dependencies.md) row 6; [Facilities & Resources](09-facilities-and-resources.md) rows 4–6 |
 | R-08 | People / process | **Work falls behind.** A task that later work depends on ([Dependencies](06-dependencies.md) rows 1, 7, 10–16) is not finished by its date, so the next release starts at least 1 week late. | Sprints 1–4; development | 3: four part-time students; every sprint has a fixed end date | 2: a delay of 1 week in each sprint adds up to 4 weeks | 6 (Medium) | Yaren (Scrum Master) | C-07; [Release Plan](10-release-plan.md); [Dependencies](06-dependencies.md) rows 1, 7, 10–16 |
 | R-09 | People / process | **Pilot users do not match the target users.** Fewer than 3 of the pilot users have worked on an AI or education software product, so the pilot results do not represent the target users. | Sprints 2–4; validation | 2: the contacts work in software and AI, but not all of them work on education products | 3: O1 and O3 are measured, but on users outside the target group | 6 (Medium) | Gözde Nur (Data Scientist) | A-07; [Dependencies](06-dependencies.md) row 9 |
 | R-10 | Integration | **The system does not install on the pilot computer.** Installing the system from `README.md` on the computer used for the pilot and the final demo fails, or gives different results than on the developers' computers, because of a different operating system, Python version or package build. | Sprints 3–4; pilot | 2: a team member who did not build the system installs it from the README each sprint, and the pilot computer is set up by 09/12/2026 | 3: the pilot (16/12–23/12/2026) has a fixed window; a late fix shortens it and can reduce the number of O1 and O3 sessions | 6 (Medium) | Kaan (Data Scientist) | C-05; [Major Activities](04-major-activities.md) rows 28, 29; [Dependencies](06-dependencies.md) row 8 |
@@ -228,20 +228,20 @@ Closed when the hosted cloud deployment was removed from the plan: the system ru
 | **Owner** | Yaren (Scrum Master) |
 | **Schedule effect** | 2–4 weeks |
 
-### Risk R-07: The model or a library changes
+### Risk R-07: The model or a library becomes unavailable
 
 | Field | Content |
 |---|---|
-| **Risk (event)** | The selected model or a library that the assistant uses is changed or removed by its authors during the project. |
+| **Risk (event)** | Access to the selected model or a library is withdrawn by its authors before the team has stored its copy: for example, access to Llama is refused for the team's region, or the files become paid or are removed. |
 | **Linked to** | A-09; C-03; [Dependencies](06-dependencies.md) row 6; [Facilities & Resources](09-facilities-and-resources.md) rows 4–6 |
-| **Cause** | Model and library authors publish new versions, change licences or remove files without notice. |
-| **When / where** | Sprints 2–4; development |
-| **Mitigation** | The model file is downloaded once and stored with its version and hash ([Major Activities](04-major-activities.md) row 16); the version is recorded in every evaluation run. |
-| **Probability (basis)** | 2: model files on these sites are updated by their authors without notice; the version used is recorded in each evaluation run |
+| **Cause** | The authors decide who can download their model and library files; they can refuse access for a country or a user, make the files paid or remove them, without notice. |
+| **When / where** | Sprints 1–2; development |
+| **Mitigation** | The model files are downloaded as soon as the models are confirmed (M3, 28/10/2026) and stored with their version and hash ([Major Activities](04-major-activities.md) row 16); after that, a change on the authors' side does not affect the stored copy. |
+| **Probability (basis)** | 2: the official Llama files on Hugging Face are gated, so Meta approves each download and can refuse it, and the copies on Ollama can be removed by their publishers; Phi-4-mini-instruct and bge-base-en-v1.5 are not gated |
 | **Impact (basis)** | 2: another model or library must be chosen and the evaluation runs repeated; 2–4 weeks |
 | **Score** | 4 (Low) |
-| **Trigger** | The model file's hash differs from the stored hash at any evaluation run, or the model can no longer be downloaded |
-| **Contingency plan (B plan)** | The stored copy of the model stays in use. If the stored copy cannot be used, the next candidate from the model selection spike is chosen, recorded as a new decision in the System Design Document (D4), and the `val` evaluation is run again. |
+| **Trigger** | A download or access request for a selected model or library is refused or fails before its copy is stored (by 18/11/2026), or the stored copy's hash differs at an evaluation run |
+| **Contingency plan (B plan)** | The fallback model Phi-4-mini-instruct (MIT licence, not gated) is used, or for a library the previous pinned version; the change is recorded as a new decision in the System Design Document (D4), and the `val` evaluation is run again. |
 | **Owner** | Kaan (Data Scientist) |
 | **Schedule effect** | 1–2 weeks |
 
