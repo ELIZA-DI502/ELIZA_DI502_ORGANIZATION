@@ -165,6 +165,8 @@ The NLP decisions D7–D12 are based on two short spikes and the Annex III point
 
 We did these tests to understand how the text is split and how each model answers, so that the decisions are based on what we saw. The code is not included, because Sprint 1 does not ask for code; the notes and results are in the files above. No model was trained: we ran the 5 models as published (4-bit, temperature 0), gave each one the same 8 questions, and compared their answers. The questions were only used for testing. D10–D12 (embedding, vector store, retrieval) are not tested yet; they are checked with Recall@k in Sprint 2.
 
+**Planned, not built yet.** The rest of this section describes the design. The files it names (`rag/ingest.py`, `data/vector-store/`, `requirements.txt`, `config/rag.yaml`, `docs/eval/preprocessing.md`) are created in Sprint 2, when the code is written. In Sprint 1 only the spikes above were run.
+
 **NLP pipeline** (v1, 2026-10-25; decisions D7–D12):
 
 ![NLP pipeline v1](../docs/images/nlp-pipeline-v1.png)
@@ -201,7 +203,7 @@ The text is **parsed by its own structure; there is no separate chunking step.**
 | 5. Add heading text | Prefix each chunk with its place in the text, for example `Article 6 – Classification rules for high-risk AI systems – paragraph 3:`, so that a chunk such as "(a) the AI system is intended to perform a narrow procedural task;" still makes sense on its own.                                                                                                                                               | Text that is embedded                          |
 | 6. Check            | Compare the chunks with the provision list of deliverable D3: every in-scope provision is present, and no chunk lacks an identifier (deliverable D5 acceptance criteria). Counts and the share of chunks corrected by hand go to `docs/eval/preprocessing.md`.                                                                                                                                                   | Chunk file + report                            |
 
-The script is `rag/ingest.py`. It runs once, embeds the chunks (D10) and writes them to the vector store in `data/vector-store/` (D11); the stored source file stays unchanged in `data/`.
+The script will be `rag/ingest.py` (Sprint 2). It will run once, embed the chunks (D10) and write them to the vector store in `data/vector-store/` (D11); the stored source file stays unchanged in `data/`.
 
 - Storage: `data/vector-store/` is bind-mounted into the rag container, so the index survives rebuilds of the containers. The keyword index is not stored; the RAG service rebuilds it in memory from the chunk texts in the vector store when it starts (about 190 chunks).
 - Consistency: `ingest.py` and the rag container install the same `requirements.txt`, so both use the same library versions and the same embedding model.
@@ -215,7 +217,7 @@ List each stage of the pipeline and the parameters it uses. config/rag.yaml hold
 Models used as-is go in the AI SBOM. Write a model card (12-model-cards/, following Mitchell et al.) only if you train or fine-tune a model, and link it here.
 -->
 
-**Configuration:** `config/rag.yaml` at commit `<hash>` (yyyy-mm-dd)
+**Configuration:** `config/rag.yaml` is not created yet; its first version comes with the baseline in Sprint 2 (E1). Until then, the values below are the planned settings.
 
 | Stage        | Parameter                                     | Value                                                                                                                                                                                                                                                                                                                                                                                            | Decision |
 | ------------ | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
@@ -231,7 +233,7 @@ Models used as-is go in the AI SBOM. Write a model card (12-model-cards/, follow
 
 <!-- Metrics, the baseline you compare against, and how validation data is kept separate from test data. ISO/IEC 5338: 6.4.11 Verification process. -->
 
-**How it runs:** evaluation scripts send the questions of the evaluation set (`docs/eval/eval-set-v1.csv`, deliverable D2; v2 in D8) directly to `POST /answer` on the RAG service, not through the web backend, which is why all safety checks run in the RAG service (D3), and score the answers. Every run is logged in Weights & Biases and summarised in an experiment card.
+**How it will run (from Sprint 2):** evaluation scripts will send the questions of the evaluation set (`docs/eval/eval-set-v1.csv`, deliverable D2; v2 in D8) directly to `POST /answer` on the RAG service, not through the web backend, which is why all safety checks run in the RAG service (D3), and will score the answers. Every run will be logged in Weights & Biases and summarised in an experiment card.
 
 **Metrics** (targets from the [Project Executive Summary](03-project-canvas/01-project-executive-summary.md)):
 
@@ -479,14 +481,14 @@ Copy the block below for each decision.
 | Llama-3.2-3B-Instruct                                         | 5                          | Small and fast                                                                        |
 | Qwen3-4B (Apache-2.0)                                         | 5                          | In the first run it helped a user avoid the rules                                     |
 | Phi-4-mini-instruct (MIT)                                     | 5                          | Fastest; simplest licence                                                             |
-| Qwen3-8B (Apache-2.0)                                         | –                         | A "thinking" model: its reasoning used the whole answer limit, and it was the slowest |
+| Qwen3-8B (Apache-2.0)                                         | 2 (both from the input check; the model answered none) | A "thinking" model: its reasoning used the whole answer limit, and it was the slowest |
 | **Llama-3.1-8B-Instruct** (Llama 3.1 Community License) | 7                          | Best answers; 2–3 times slower than Phi-4-mini                                       |
 
 **Decision:** Llama-3.1-8B-Instruct `Q4_K_M`, served by Ollama, temperature 0. Phi-4-mini-instruct `Q4_K_M` is the fallback.
 
 **Why:** It gave the most correct answers, and it answers directly.
 
-**Consequences:** The answer time on the pilot computer is measured in Sprint 2; if it is too slow, the fallback is used (R-16). Licence check (A-10, 2026-10-25): the Llama 3.1 Community License (Llama-3.1-8B-Instruct) and the MIT licence (Phi-4-mini-instruct) permit use in this academic project and publication of the generated answers. Llama 3.1 requires "Built with Llama" to be shown on the web page or in the README and use in line with its Acceptable Use Policy; the 700 million monthly user limit does not apply. The licence and model card go into the AI SBOM.
+**Consequences:** The answer time on the pilot computer is measured in Sprint 2; if it is above the answer-time limit (section 2), the fallback is used. Licence check (A-10, 2026-10-25): the Llama 3.1 Community License (Llama-3.1-8B-Instruct) and the MIT licence (Phi-4-mini-instruct) permit use in this academic project and publication of the generated answers. Llama 3.1 requires "Built with Llama" to be shown on the web page or in the README and use in line with its Acceptable Use Policy; the 700 million monthly user limit does not apply. The licence and model card go into the AI SBOM.
 
 **Evidence:** [Model selection spike](../docs/spikes/model-selection-spike.md) (5 runs; results in [`model-selection-results.csv`](../docs/spikes/model-selection-results.csv)), [KAN-57](https://yarengursoy.atlassian.net/browse/KAN-57)
 
@@ -556,7 +558,7 @@ NLP part:
 
 - **Granularity of points:** paragraphs with points are split into one chunk per point (D7); whether short points are better merged into their paragraph is settled by Recall@k on the `val` split in E1.
 - **Hybrid retrieval:** whether BM25 improves Recall@k over dense search (E1 versus E2, Sprint 2).
-- **Answer time on CPU:** answer time of Llama-3.1-8B on the pilot computer, measured in Sprint 2; if it is too slow, Phi-4-mini-instruct is used (D9, R-16).
+- **Answer time on CPU:** answer time of Llama-3.1-8B on the pilot computer, measured in Sprint 2; if it is above the answer-time limit (section 2), Phi-4-mini-instruct is used (D9).
 - **Checks:** personal-data rules and the citation-ID check (KAN-49).
 
 Web and deployment part:
