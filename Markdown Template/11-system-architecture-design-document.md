@@ -37,7 +37,7 @@ Link to the charter instead of restating it.
 
 The design serves the four objectives and their success criteria in the [Project Executive Summary](03-project-canvas/01-project-executive-summary.md):
 
-- O1 Search time: answers are produced on a CPU without waiting for a hosted API; the answer time is the main design risk (R-13). **Answer-time limit:** the median answer time on the `val` questions on the pilot computer is at most 60 s (O1, A-07, R-13). Measured on one team computer: 15 s for Llama-3.1-8B, about 38 s in the worst case ([model selection spike](../docs/spikes/model-selection-spike.md), section 6).
+- O1 Search time: answers are produced on a CPU without waiting for a hosted API; the answer time is the main design risk (R-13). **Answer-time limit:** the median answer time on the `val` questions on the pilot computer is at most 60 s (O1, A-07, R-13). Measured on one team computer: 15 s for Llama-3.1-8B, about 38 s in the worst case ([model selection spike](../docs/spikes/model-selection-spike.md), "Answer time on one team computer").
 - O2 Evidence: the LLM answers only from the retrieved provisions, and the output check removes citations that are not among them.
 - O3 Understanding: the prompt asks for a short plain-language summary first, and the interface shows the text of every cited provision.
 - O4 Safety: the input check returns a notice for out-of-scope, evasion and personal-data questions. Legal-decision questions are not blocked: the input check flags them, and the answer declines the decision and shows the relevant provisions (KAN-2). The output check blocks verdict wording (C-08).
@@ -179,7 +179,7 @@ How to read the diagram:
 
 | Term                         | Meaning in ELIZA                                                                                                                                                                                                                                               |
 | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Chunk                        | One piece of the regulation that is stored and searched. One point (a), (b), ... is one chunk; a paragraph without points is one chunk. An Article is never one chunk. Example: Article 6(2) is one chunk; Article 6(3) gives four chunks, 6(3)(a) to 6(3)(d). |
+| Chunk                        | One piece of the regulation that is stored and searched. One point (a), (b), ... is one chunk; a paragraph without points is one chunk. An Article is never one chunk. Example: Article 6(2) is one chunk; Article 6(3) gives six chunks: its first subparagraph, points (a) to (d) and its third subparagraph. |
 | Metadata                     | The Article, paragraph and point numbers and the version date stored with each chunk. The citation in the answer is built from it.                                                                                                                             |
 | Embedding (bge-base-en-v1.5) | Turns a text into a vector (a list of 768 numbers). Texts with a similar meaning get similar vectors.                                                                                                                                                          |
 | Vector store (Chroma)        | Keeps the vector, the text and the metadata of every chunk, and returns the closest chunks to a question.                                                                                                                                                      |
@@ -192,7 +192,7 @@ How to read the diagram:
 
 The input check (before the search) and the output check (after the LLM) are rule-based safety checks; they are not part of the NLP pipeline and are described with the rest of the system.
 
-The knowledge base has one source: the consolidated text of Regulation (EU) 2024/1689 of 27/07/2026 (CELEX 02024R1689-20260727), downloaded once from EUR-Lex and stored with its file hash in the source manifest (deliverable D3). Only the in-scope provisions are used (C-01): Annex III point 3, Article 5(1)(f), Article 6, Articles 8–15, Article 16, Article 49, Article 50(1) and Article 113, together with the definitions in Article 3 that they rely on.
+The knowledge base has one source: the consolidated text of Regulation (EU) 2024/1689 of 27/07/2026 (CELEX 02024R1689-20260727), downloaded once from EUR-Lex and stored with its file hash in the source manifest (deliverable D3). Only the in-scope provisions are used (C-01): Annex III point 3, Article 2, the definitions in Article 3 that the other provisions use, Article 5(1)(f), Article 6(2)–(3), Articles 8–15, Article 16, Article 50(1) and Article 113; Articles 4 and 4a only if time allows (`data/provision-list.csv`).
 
 The text is **parsed by its own structure; there is no separate chunking step.** The regulation is already divided into short, self-contained units: Articles, numbered paragraphs, and points (a), (b), ... in Articles and Annexes. Parsing follows these headings, and each unit becomes one chunk. Chunk size and overlap are therefore not tuned.
 
@@ -518,17 +518,17 @@ Copy the block below for each decision.
 
 | Option                                                        | Passed in the spike (of 8) | Notes                                                                                 |
 | ------------------------------------------------------------- | -------------------------- | ------------------------------------------------------------------------------------- |
-| Llama-3.2-3B-Instruct                                         | 5                          | Small and fast                                                                        |
+| Llama-3.2-3B-Instruct (Llama 3.2 Community License)           | 5                          | Small and fast                                                                        |
 | Qwen3-4B (Apache-2.0)                                         | 5                          | Thinking mode turned off, so it answered directly; in the first run it helped a user avoid the rules |
 | Phi-4-mini-instruct (MIT)                                     | 5                          | Fastest; simplest licence                                                             |
 | Qwen3-8B (Apache-2.0)                                         | 2 (both from the input check; the model answered none) | A "thinking" model: its reasoning used the whole answer limit, and it was the slowest |
-| **Llama-3.1-8B-Instruct** (Llama 3.1 Community License) | 7                          | Best answers; 2–3 times slower than Phi-4-mini                                       |
+| **Llama-3.1-8B-Instruct** (Llama 3.1 Community License) | 7                          | Best answers; slower than Phi-4-mini (15.4 s versus 10.2 s on a team computer's CPU)                                       |
 
 **Decision:** Llama-3.1-8B-Instruct `Q4_K_M`, served by Ollama, temperature 0. Phi-4-mini-instruct `Q4_K_M` is the fallback.
 
 **Why:** It gave the most correct answers, and it answers directly.
 
-**Consequences:** The answer time on the pilot computer is measured in Sprint 2; if it is above the answer-time limit (section 2), the fallback is used. Licence check (A-10, 2026-10-25): the Llama 3.1 Community License (Llama-3.1-8B-Instruct) and the MIT licence (Phi-4-mini-instruct) permit use in this academic project and publication of the generated answers. Llama 3.1 requires "Built with Llama" to be shown on the web page or in the README and use in line with its Acceptable Use Policy; the 700 million monthly user limit does not apply. The licence and model card go into the AI SBOM.
+**Consequences:** The answer time is measured again at the baseline (18/11/2026) and on the pilot computer by 09/12/2026 (A-07); if it is above the answer-time limit (section 2), the fallback is used. Licence check (A-10, 2026-10-25): the Llama 3.1 Community License (Llama-3.1-8B-Instruct) and the MIT licence (Phi-4-mini-instruct) permit use in this academic project and publication of the generated answers. Llama 3.1 requires "Built with Llama" to be shown on the web page or in the README and use in line with its Acceptable Use Policy; the 700 million monthly user limit does not apply. The licence and model card go into the AI SBOM.
 
 **Evidence:** [Model selection spike](../docs/spikes/model-selection-spike.md) (5 runs; results in [`model-selection-results.csv`](../docs/spikes/model-selection-results.csv)), [KAN-57](https://yarengursoy.atlassian.net/browse/KAN-57)
 
@@ -602,7 +602,7 @@ Copy the block below for each decision.
 
 **Consequences:** Two experiment cards in Sprint 2 (E1, E2). A reranker is tested only if Recall@k stays below the target.
 
-**Evidence:** [KAN-63](https://yarengursoy.atlassian.net/browse/KAN-63); E1 and E2 experiment cards (Sprint 2)
+**Evidence:** [KAN-58](https://yarengursoy.atlassian.net/browse/KAN-58); E1 and E2 experiment cards (Sprint 2)
 
 **Owner and date:** NLP part, 2026-10-25
 
@@ -616,7 +616,7 @@ NLP part:
 
 - **Granularity of points:** paragraphs with points are split into one chunk per point (D7); whether short points are better merged into their paragraph is settled by Recall@k on the `val` split in E1.
 - **Hybrid retrieval:** whether BM25 improves Recall@k over dense search (E1 versus E2, Sprint 2).
-- **Answer time on CPU:** answer time of Llama-3.1-8B on the pilot computer, measured in Sprint 2; if it is above the answer-time limit (section 2), Phi-4-mini-instruct is used (D9).
+- **Answer time on CPU:** answer time of Llama-3.1-8B, measured at the baseline (18/11/2026) and on the pilot computer by 09/12/2026 (A-07); if it is above the answer-time limit (section 2), Phi-4-mini-instruct is used (D9).
 - **Checks:** personal-data rules and the citation-ID check (KAN-49).
 
 Web and deployment part:
@@ -630,9 +630,10 @@ Web and deployment part:
 | Version | Date       | Change                                                                                                                             | Pull request |
 | ------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------ |
 | v1      | 2026-10-20 | Architecture part: summary, goals and non-goals, system architecture diagram, components, interfaces, deployment, decisions D1–D6 | —           |
-| v1      | 2026-10-25 | NLP part: data pipeline, NLP pipeline diagram, RAG pipeline table, evaluation, decisions D7–D12                                   |              |
+| v1      | 2026-10-25 | NLP part: data pipeline, NLP pipeline diagram, RAG pipeline table, evaluation, decisions D7–D12                                   | #6           |
 | v1      | 2026-10-26 | Deliverable numbers in the Evaluation section updated to the charter (pilot D10, release candidate D11); "deployment CPU" replaced by "pilot computer"| —            |
 | v1      | 2026-10-27 | Options considered of D1–D6 and D10–D12 written as Option / Pros / Cons tables, as in the template; evidence of D1 and D3 updated | —            |
+| v1      | 2026-10-27 | NLP part: in-scope provision list matched to the charter; D9 answer-time dates and licences; D12 evidence corrected | —            |
 
 ## Checklist before submitting
 
