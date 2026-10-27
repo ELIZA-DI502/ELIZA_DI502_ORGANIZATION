@@ -177,7 +177,7 @@ Objective: O3 Understanding; O4 Safety (business outcome)
 Deliverable: D10 Pilot Evaluation Report (due 30/12/2026)        
 Milestone: M9 Pilot measured (30/12/2026)        
 Major Activities: row 26        
-Assumptions / Risks: A-04, A-08 / R-03, R-09        
+Assumptions / Risks: A-04, A-07 / R-03, R-09        
 Constraint: C-10
 
 ## S5 · Find the provisions faster than with manual search
@@ -211,7 +211,7 @@ Objective: O1 Search time
 Deliverable: D10 Pilot Evaluation Report (due 30/12/2026)        
 Milestone: M9 Pilot measured (30/12/2026)        
 Major Activities: row 26        
-Assumptions / Risks: A-04, A-08 / R-03, R-09        
+Assumptions / Risks: A-04, A-07 / R-03, R-09        
 Constraint: C-10
 
 ## S6 · Ask follow-up questions about our product in the same session
