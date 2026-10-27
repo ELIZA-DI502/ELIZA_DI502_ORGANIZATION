@@ -37,7 +37,7 @@ Link to the charter instead of restating it.
 
 The design serves the four objectives and their success criteria in the [Project Executive Summary](03-project-canvas/01-project-executive-summary.md):
 
-- O1 Search time: answers are produced on a CPU without waiting for a hosted API; the answer time is the main design risk (R-13). **Answer-time limit:** the median answer time on the `val` questions on the pilot computer is at most 60 s (O1, A-07, R-13). Measured on one team computer: 15 s for Llama-3.1-8B, about 38 s in the worst case ([model selection spike](../docs/spikes/model-selection-spike.md), "Answer time on one team computer").
+- O1 Search time: answers are produced on a CPU without waiting for a hosted API; the answer time is the main design risk (R-13). **Answer-time limit:** the median answer time on the `val` questions on the pilot computer is at most 60 s (O1, R-13). Measured on one team computer: 15 s for Llama-3.1-8B, about 38 s in the worst case ([model selection spike](../docs/spikes/model-selection-spike.md), "Answer time on one team computer").
 - O2 Evidence: the LLM answers only from the retrieved provisions, and the output check removes citations that are not among them.
 - O3 Understanding: the prompt asks for a short plain-language summary first, and the interface shows the text of every cited provision.
 - O4 Safety: the input check returns a notice for out-of-scope, evasion and personal-data questions. Legal-decision questions are not blocked: the input check flags them, and the answer declines the decision and shows the relevant provisions (KAN-2). The output check blocks verdict wording (C-08).
@@ -298,12 +298,12 @@ O1 (search time) and O3 (understanding) are measured with pilot users in Sprint 
 | Stage                                                         | Where it runs                                                                                       | How users reach it                                                                                             |
 | ------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
 | Development and alpha (deliverable D6)                        | Team members' own computers, docker compose up (C-05)                                               | localhost:3000 on the same computer                                                                            |
-| Beta (deliverable D9) and release candidate (deliverable D11) | One team computer, docker compose up from README.md; the pilot and the final demo are held in person on it (C-05, A-07) | localhost:3000 on that computer; no shared link or hosted server |
+| Beta (deliverable D9) and release candidate (deliverable D11) | One team computer, docker compose up from README.md; the pilot and the final demo are held in person on it (C-05) | localhost:3000 on that computer; no shared link or hosted server |
 
 - Containers: web (React build served by Node.js + Express), db (PostgreSQL), rag (FastAPI) and ollama. Only web publishes a port; db, rag and ollama are reachable only on the internal Docker network.
 - Data on the host: data/vector-store/ (bind mount into rag), data/postgres/ (bind mount into db) and the downloaded model files (Docker volume for ollama). data/postgres/ holds only the conversations of active sessions.
 - Preparation step: python rag/ingest.py is run once on the computer before the first start.
-- Pilot computer: the team computer used for the pilot and the final demo; the answer time of Llama-3.1-8B is measured at the baseline (18/11/2026) and on this computer by 09/12/2026 and compared with the answer-time limit in section 2 (D9, A-07, R-13). The $100 Google Cloud credit (C-06) is kept as a reserve: it is used only if the limit is still not met after reducing top-k or the answer length (A-07) and switching to the fallback model (R-13).
+- Pilot computer: the team computer used for the pilot and the final demo; the answer time of Llama-3.1-8B is measured at the baseline (18/11/2026) and on this computer by 09/12/2026 and compared with the answer-time limit in section 2 (D9, R-13). The $100 Google Cloud credit (C-06) is kept as a reserve: it is used only if the limit is still not met after reducing top-k or the answer length and switching to the fallback model (R-13).
 
 ## 6. Decisions
 
@@ -449,15 +449,15 @@ Copy the block below for each decision.
 | Option | Pros | Cons |
 | --- | --- | --- |
 | **Team computer with Docker Compose** | No cost; follows C-05; the pilot is held in person | The answer time depends on that computer (R-13) |
-| Google Cloud CPU instance with Docker Compose, paid from the $100 credit (C-06) | Reachable from outside the team's network; the machine size can be chosen | Uses the credit and needs cloud setup; not needed for an in-person pilot (A-07) |
+| Google Cloud CPU instance with Docker Compose, paid from the $100 credit (C-06) | Reachable from outside the team's network; the machine size can be chosen | Uses the credit and needs cloud setup; not needed for an in-person pilot (C-05) |
 
 **Decision:** Development, beta and release candidate on the team's computers with the four containers (web, db, rag, ollama); the pilot and the final demo run on one team computer.
 
-**Why:** Follows C-05; no paid instance and no shared link are needed (A-07).
+**Why:** Follows C-05; no paid instance and no shared link are needed.
 
-**Consequences:** The pilot computer is set up from README.md and its answer time is measured by 09/12/2026 (Major Activities row 29). If the answer-time limit is still not met after the steps in A-07 and R-13, the reserve Google Cloud credit is used for a CPU instance during the pilot sessions and the final demo only (C-06, R-13).
+**Consequences:** The pilot computer is set up from README.md and its answer time is measured by 09/12/2026 (Major Activities row 29). If the answer-time limit is still not met after the steps in R-13, the reserve Google Cloud credit is used for a CPU instance during the pilot sessions and the final demo only (C-06, R-13).
 
-**Evidence:** C-05, C-06, A-07, R-13
+**Evidence:** C-05, C-06, R-13
 
 **Owner and date:** Architecture part, 2026-10-20
 
@@ -528,7 +528,7 @@ Copy the block below for each decision.
 
 **Why:** It gave the most correct answers, and it answers directly.
 
-**Consequences:** The answer time is measured again at the baseline (18/11/2026) and on the pilot computer by 09/12/2026 (A-07); if it is above the answer-time limit (section 2), the fallback is used. Licence check (A-10, 2026-10-25): the Llama 3.1 Community License (Llama-3.1-8B-Instruct) and the MIT licence (Phi-4-mini-instruct) permit use in this academic project and publication of the generated answers. Llama 3.1 requires "Built with Llama" to be shown on the web page or in the README and use in line with its Acceptable Use Policy; the 700 million monthly user limit does not apply. The licence and model card go into the AI SBOM.
+**Consequences:** The answer time is measured again at the baseline (18/11/2026) and on the pilot computer by 09/12/2026 (R-13); if it is above the answer-time limit (section 2), the fallback is used. Licence check (A-10, 2026-10-25): the Llama 3.1 Community License (Llama-3.1-8B-Instruct) and the MIT licence (Phi-4-mini-instruct) permit use in this academic project and publication of the generated answers. Llama 3.1 requires "Built with Llama" to be shown on the web page or in the README and use in line with its Acceptable Use Policy; the 700 million monthly user limit does not apply. The licence and model card go into the AI SBOM.
 
 **Evidence:** [Model selection spike](../docs/spikes/model-selection-spike.md) (5 runs; results in [`model-selection-results.csv`](../docs/spikes/model-selection-results.csv)), [KAN-57](https://yarengursoy.atlassian.net/browse/KAN-57)
 
@@ -616,14 +616,14 @@ NLP part:
 
 - **Granularity of points:** paragraphs with points are split into one chunk per point (D7); whether short points are better merged into their paragraph is settled by Recall@k on the `val` split in E1.
 - **Hybrid retrieval:** whether BM25 improves Recall@k over dense search (E1 versus E2, Sprint 2).
-- **Answer time on CPU:** answer time of Llama-3.1-8B, measured at the baseline (18/11/2026) and on the pilot computer by 09/12/2026 (A-07); if it is above the answer-time limit (section 2), Phi-4-mini-instruct is used (D9).
+- **Answer time on CPU:** answer time of Llama-3.1-8B, measured at the baseline (18/11/2026) and on the pilot computer by 09/12/2026 (R-13); if it is above the answer-time limit (section 2), Phi-4-mini-instruct is used (D9).
 - **Checks:** personal-data rules and the citation-ID check (KAN-49).
 
 Web and deployment part:
 
 - **Session parameters:** when a session ends (inactivity timeout), how many question-answer pairs are sent with each question, cookie settings and rate limits (Sprint 2).
 - **API contract:** final fields of `POST /answer`, agreed between the web and RAG sides.
-- **Pilot computer:** which team computer is used for the pilot and the final demo, chosen together with the answer-time measurement of Llama-3.1-8B (D9, A-07, R-13).
+- **Pilot computer:** which team computer is used for the pilot and the final demo, chosen together with the answer-time measurement of Llama-3.1-8B (D9, R-13).
 
 ## 8. Change log
 
@@ -633,7 +633,7 @@ Web and deployment part:
 | v1      | 2026-10-25 | NLP part: data pipeline, NLP pipeline diagram, RAG pipeline table, evaluation, decisions D7–D12                                   | #6           |
 | v1      | 2026-10-26 | Deliverable numbers in the Evaluation section updated to the charter (pilot D10, release candidate D11); "deployment CPU" replaced by "pilot computer"| —            |
 | v1      | 2026-10-27 | Options considered of D1–D6 and D10–D12 written as Option / Pros / Cons tables, as in the template; evidence of D1 and D3 updated | —            |
-| v1      | 2026-10-27 | NLP part: in-scope provision list matched to the charter; D9 answer-time dates and licences; D12 evidence corrected | —            |
+| v1      | 2026-10-27 | NLP part: in-scope provision list matched to the charter; D9 answer-time dates and licences; D12 evidence corrected; A-07 removed from the charter, so its references point to R-13 | —            |
 
 ## Checklist before submitting
 
