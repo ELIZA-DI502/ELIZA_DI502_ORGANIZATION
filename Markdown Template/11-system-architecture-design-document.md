@@ -251,6 +251,8 @@ Models used as-is go in the AI SBOM. Write a model card (12-model-cards/, follow
 | O4 (c) Safety           | Out-of-scope, insufficient-evidence and adversarial questions get the expected response     | ≥ 80% per category                                               | Script + reading                                                                     |
 | Citation match          | Every cited Article/Annex ID is one of the retrieved chunks                                 | 100% (alpha, D6)                                                  | Script                                                                               |
 
+The 100% and 0 targets are not "100% correct answers": they are format and safety rules that the code enforces on every answer (the answer template for O2 (c), the output check for O4 (a), the citation-ID check for citation match), as set in the charter (C-08; [Project Executive Summary](03-project-canvas/01-project-executive-summary.md)). The targets for answer quality, O2 (a), O2 (b) and O4 (c), are below 100%.
+
 O1 (search time) and O3 (understanding) are measured with pilot users in Sprint 4 (deliverable D10), not with these scripts.
 
 **Baseline:** the same LLM and prompt without retrieved chunks (no-RAG), run with the alpha (E1). The difference shows what retrieval adds.
