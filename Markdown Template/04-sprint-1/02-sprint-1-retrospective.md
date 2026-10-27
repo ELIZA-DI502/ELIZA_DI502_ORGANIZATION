@@ -22,7 +22,7 @@ We also looked at Sprint 1 with the Hot Air Balloon retrospective on our [Miro b
 
 ![Sprint 1 Hot Air Balloon Retrospective](hot-air-balloon-retro-sprint-1.png)
 
-*Note added on 26/10/2026:* the storm cloud "Cloud budget or credit not ready" was written before the hosted cloud deployment was removed from the plan on 25/10/2026. The cloud budget risk was then removed, and the risk about the pilot computer is now R-08 "The system does not install on the pilot computer" (see [Risks](../03-project-canvas/11-risks.md)).
+*Note added on 26/10/2026:* the storm cloud "Cloud budget or credit not ready" was written before the hosted cloud deployment was removed from the plan on 25/10/2026. The cloud budget risk was then removed, and the risk about the pilot computer is now R-09 "The system does not install on the pilot computer" (see [Risks](../03-project-canvas/11-risks.md)).
 
 | ☀️ Sunny Skies (positive things ahead) | 🔥 Hot Air (what pushes us along) | ⛈️ Storm Clouds (problems coming up) | 🎒 Sandbags (what slows us down) |
 |---|---|---|---|
