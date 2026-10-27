@@ -25,6 +25,8 @@ For more info you can visit: https://www.atlassian.com/agile/product-management/
 
 Priority, points, owner and sprint are as in Jira on 27/10/2026. Sprint 1 stories were estimated with planning poker; the other stories are estimated and assigned at their sprint planning, starting with Sprint 2 on 28/10/2026. A dash means not decided yet.
 
+Test cases: KAN-8, KAN-2 and KAN-3 already have test cases; a test for every story (the input or steps and the expected result) is added next to it in Sprint 2 ([KAN-90](https://yarengursoy.atlassian.net/browse/KAN-90)).
+
 ## S1 · Ask about my product in my own words
 
 [KAN-19](https://yarengursoy.atlassian.net/browse/KAN-19) · Sprint 3 (Beta 0.5) · Priority High · Points – · Owner –
