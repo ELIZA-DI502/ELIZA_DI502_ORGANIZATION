@@ -88,6 +88,18 @@
 
 **Outcome:** not needed. The team chose React with a Node.js backend for the interface (System Design Document, decision D1), so I did not build the Gradio "hello world".
 
+## My computer
+
+Recorded for [Facilities & Resources](../../Markdown%20Template/03-project-canvas/09-facilities-and-resources.md) row 1. The system runs on CPU only; the GPU may be used only to speed up offline experiments (C-05).
+
+| Item | Value |
+|---|---|
+| Computer | Dell Precision 7680 |
+| Processor | Intel Core i7-13850HX (2.10 GHz) |
+| Memory | 32 GB |
+| Graphics | Intel UHD Graphics; NVIDIA GeForce RTX laptop GPU |
+| Operating system | Windows 11 Enterprise 24H2 |
+
 ## Definition of Done
 
 - [ ] Explain the indexing and query phases of ELIZA's RAG pipeline at the Sprint 1 review (28/10/2026).
