@@ -126,7 +126,7 @@ The activities below expand the Scope Definition in the [Project Executive Summa
 | C-02 English only | — (no work created) | 19 |
 | C-03 RAG with open-source quantized model | 6, 9, 10 | 17 |
 | C-04 Education use cases; follow-ups within one session | 11, 15 | 20, 21 |
-| C-05 No GPU; the system runs on a team computer | 6, 28, 29 | 17, 31 |
+| C-05 CPU only; the system runs on a team computer | 6, 28, 29 | 17, 31 |
 | C-06 $100 Google Cloud credit (kept as a reserve) | — (no work created) | 31 |
 | C-07 Team, duration, no production code in Sprint 1 | 6, 7 | 39 |
 | C-08 Information, not legal advice | 10, 11, 12, 14 | 22 |
