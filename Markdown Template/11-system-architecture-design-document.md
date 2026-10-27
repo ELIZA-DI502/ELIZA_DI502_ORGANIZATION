@@ -408,7 +408,7 @@ Copy the block below for each decision.
 
 **Why:** An active conversation is not lost when the web backend restarts.
 
-**Consequences:** C-10 and KAN-26 should say that the conversation history is deleted when the session ends, instead of that it is not written to any database (charter v2, deliverable D7).
+**Consequences:** C-10 and KAN-26 were updated to say that the conversation history is deleted when the session ends, instead of that it is not written to any database (C-10 updated in Charter v1 on 26/10/2026).
 
 **Evidence:** Team discussion, 20/10/2026; C-04, C-10, KAN-6, KAN-21, KAN-26
 
