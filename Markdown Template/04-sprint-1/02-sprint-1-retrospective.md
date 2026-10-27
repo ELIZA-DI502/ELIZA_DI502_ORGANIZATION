@@ -38,7 +38,7 @@ We also looked at Sprint 1 with the Hot Air Balloon retrospective on our [Miro b
 | No production code is written in Sprint 1 | [Assumptions & Constraints](../03-project-canvas/03-assumptions-and-constraints.md), constraint C-07 (course rule) | Yes | Sprint 1 produced only documents, spike notes and the course's sync scripts. |
 | Sprint 1 runs from 14/10 to 28/10/2026, as the first of 4 sprints | [Assumptions & Constraints](../03-project-canvas/03-assumptions-and-constraints.md), constraint C-07 (duration) | Yes | Sprint 1 started on 14/10/2026 as planned and ends with the sprint review on 28/10/2026; Sprint 2 starts on 28/10/2026, as in the course calendar updated on 23/10/2026. |
 | The project is done by the four team members, with no new members | [Assumptions & Constraints](../03-project-canvas/03-assumptions-and-constraints.md), constraint C-07 (team) | Yes | All four members contributed in Sprint 1. |
-| Development runs on Google Colab or the team members' own computers, without a GPU; the $100 Google Cloud credit is kept as a reserve | [Assumptions & Constraints](../03-project-canvas/03-assumptions-and-constraints.md), constraints C-05 and C-06 | Yes | The Sprint 1 spikes ran on Google Colab and a team computer; no cloud credit was used. |
+| Development runs on Google Colab or the team members' own computers, and the system runs on CPU only; the $100 Google Cloud credit is kept as a reserve | [Assumptions & Constraints](../03-project-canvas/03-assumptions-and-constraints.md), constraints C-05 and C-06 | Yes | The Sprint 1 spikes ran on Google Colab and a team computer; no cloud credit was used. |
 
 ## Individual comments
 
