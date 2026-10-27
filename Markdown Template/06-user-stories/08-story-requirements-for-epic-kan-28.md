@@ -4,8 +4,8 @@ Version v1, end of Sprint 1 (27/10/2026). Source: Jira project KAN. Back to the 
 
 | Epic | Evaluation |
 |---|---|
-| Summary | Everything that measures the assistant: the Q&A Generation-Dataset v1 (D2, Sprint 2) and v2 (D8, Sprint 3) with the evaluation rubric and data card, the evaluation runs on the `val` split, the pilot (D10, Sprint 4) and the final evaluation on the held-out `test` split (D11, Sprint 4). |
-| Features | Q&A datasets (D2, D8), rubric, pilot and final evaluation (D10, D11) |
+| Summary | Everything that measures the assistant: the Q&A Generation-Dataset v1 (D2, Sprint 2) and v2 (D8, Sprint 3) with the evaluation rubric and data card, the evaluation runs on the `val` split, the pilot (D10) and the final evaluation on the held-out `test` split (D11) in Sprint 4, whose stories sit in the product epics: KAN-202 and KAN-72 (pilot), KAN-77 and KAN-75 (`test` split). |
+| Features | Q&A datasets (D2, D8), rubric, evaluation runs on the `val` split |
 | Document Owner | Yeşim (Product Owner) |
 | Designer | Not applicable: this epic produces documents, not a user interface |
 | Developers | Yaren, Yeşim, Kaan, Gözde Nur (Sprint 1); later stories are assigned at each sprint planning |
@@ -24,6 +24,8 @@ For more info you can visit: https://www.atlassian.com/agile/product-management/
 | S3 | [Extend the question set for the beta](#s3--extend-the-question-set-for-the-beta) | As a Project Review Committee member, I want a larger question set with new questions from the baseline errors, so that the beta is measured on more cases while the held-out questions stay untouched. | High | – | – | Sprint 3 | Release: Beta 0.5. | [KAN-170](https://yarengursoy.atlassian.net/browse/KAN-170) |
 
 Priority, points, owner and sprint are as in Jira on 27/10/2026. Sprint 1 stories were estimated with planning poker; the other stories are estimated and assigned at their sprint planning, starting with Sprint 2 on 28/10/2026. A dash means not decided yet.
+
+Test cases: KAN-8, KAN-2 and KAN-3 already have test cases; a test for every story (the input or steps and the expected result) is added next to it in Sprint 2 ([KAN-90](https://yarengursoy.atlassian.net/browse/KAN-90)).
 
 ## S1 · Test the assistant on in-scope questions checked against the official text
 

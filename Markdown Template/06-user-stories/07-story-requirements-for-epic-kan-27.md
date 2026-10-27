@@ -4,7 +4,7 @@ Version v1, end of Sprint 1 (27/10/2026). Source: Jira project KAN. Back to the 
 
 | Epic | Project charter and sprint reporting |
 |---|---|
-| Summary | Project-management work across all sprints: the Project Charter (D1 v1 in Sprint 1, D7 v2 in Sprint 2), the backlog and User Story Map, the story requirements and test cases, the pilot evaluation report (D10), and the documents delivered every sprint (welcome page, Definition of Ready and Done, burndown chart, retrospective, review page, technical summary, Jira backlog export). |
+| Summary | Project-management work across all sprints: the Project Charter (D1 v1 in Sprint 1, D7 v2 in Sprint 2), the backlog and User Story Map, the story requirements and test cases, the pilot evaluation report (D10; the pilot itself is measured in KAN-202 and KAN-72), and the documents delivered every sprint (welcome page, Definition of Ready and Done, burndown chart, retrospective, review page, technical summary, Jira backlog export). |
 | Features | Charter v1 and v2 (D1, D7), user stories, sprint documents |
 | Document Owner | Yaren |
 | Designer | Not applicable: this epic produces documents, not a user interface |
@@ -30,6 +30,8 @@ For more info you can visit: https://www.atlassian.com/agile/product-management/
 | S9 | [Follow Sprint 4 from one welcome page](#s9--follow-sprint-4-from-one-welcome-page) | As a Project Review Committee member, I want to follow all of Sprint 4 from one welcome page, so that I can review the final product, its test results and the team's process without searching the repository. | Medium | – | – | Sprint 4 | Release: Release candidate 1.0. | [KAN-204](https://yarengursoy.atlassian.net/browse/KAN-204) |
 
 Priority, points, owner and sprint are as in Jira on 27/10/2026. Sprint 1 stories were estimated with planning poker; the other stories are estimated and assigned at their sprint planning, starting with Sprint 2 on 28/10/2026. A dash means not decided yet.
+
+Test cases: KAN-8, KAN-2 and KAN-3 already have test cases; a test for every story (the input or steps and the expected result) is added next to it in Sprint 2 ([KAN-90](https://yarengursoy.atlassian.net/browse/KAN-90)).
 
 ## S1 · Judge whether the plan can hold
 

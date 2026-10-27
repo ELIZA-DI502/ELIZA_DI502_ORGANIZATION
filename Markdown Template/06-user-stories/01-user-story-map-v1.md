@@ -221,7 +221,7 @@ Features: Charter v1 and v2 (D1, D7), user stories, sprint documents · [Story r
 
 ### Evaluation ([KAN-28](https://yarengursoy.atlassian.net/browse/KAN-28))
 
-Features: Q&A datasets (D2, D8), rubric, pilot and final evaluation (D10, D11) · [Story requirements](08-story-requirements-for-epic-kan-28.md)
+Features: Q&A datasets (D2, D8), rubric, evaluation runs on the `val` split · [Story requirements](08-story-requirements-for-epic-kan-28.md)
 
 - **[KAN-65](https://yarengursoy.atlassian.net/browse/KAN-65) Test the assistant on in-scope questions checked against the official text** · Sprint 2 · Yaren
   - [KAN-45](https://yarengursoy.atlassian.net/browse/KAN-45) Write evaluation questions for use case (a) admission · Yeşim
