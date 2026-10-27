@@ -22,6 +22,8 @@ Status [2]:
 
 ## 1. Summary
 
+*This is the planned design; no code is written in Sprint 1 (C-07).*
+
 ELIZA answers questions from technical teams at EdTech providers about the EU AI Act provisions that relate to their education use case (scope: [Project Executive Summary](03-project-canvas/01-project-executive-summary.md), [C-04](03-project-canvas/03-assumptions-and-constraints.md)). A React page sends each question to a Node.js web backend, which keeps the conversation of the current session in a PostgreSQL database, deletes it when the session ends, and forwards each question with its recent history to a Python RAG service. The RAG service checks the question, retrieves the most relevant provisions, asks a quantized open-source LLM (C-03, D9) to answer only from them, and checks the answer's citations and wording before it is returned. The provisions are prepared once by an offline script that splits the consolidated text into provision-level chunks and stores their vectors in a vector store. All services, including the database, run with Docker Compose on one CPU machine. The NLP choices inside the RAG service and the offline pipeline are recorded in decisions D7–D12.
 
 <!--
