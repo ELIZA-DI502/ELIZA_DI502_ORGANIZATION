@@ -86,5 +86,13 @@ Recorded for [Facilities & Resources](../../Markdown%20Template/03-project-canva
 
 ## Definition of Done
 
-- [ ] Describe the indexing and query phases of ELIZA's pipeline at the Sprint 1 review (28/10/2026).
-- [ ] Study the RAG lecture slides by 04/11/2026 (first week of Sprint 2).
+- [x] My starting knowledge and learning gaps are recorded in the topic table above.
+- [x] I reviewed Scrum fundamentals and applied them as Product Owner while organizing the Jira backlog.
+- [x] The LLM, embeddings, vector search, and prompt engineering concepts introduced in the 14/10 workshop are documented in sections 2–4.
+- [x] The RAG and evaluation concepts encountered while preparing the charter and reviewing the team's technical documents are documented in section 1 and the topic table.
+- [x] The learning sources, relevant project artifacts, and activities not performed individually are clearly documented.
+- [ ] I can explain ELIZA's indexing and query phases in my own words at the Sprint 1 review (28/10/2026).
+
+**Planned follow-up (Sprint 2):**
+
+- [ ] Review the RAG lecture slides during the first week of Sprint 2 (by 04/11/2026).
