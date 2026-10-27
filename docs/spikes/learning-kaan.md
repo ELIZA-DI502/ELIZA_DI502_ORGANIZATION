@@ -58,6 +58,17 @@
 
 **Expected output:** my charter pages and the design document are written in Markdown, and every branch and commit carries its Jira key (for example `KAN-59`).
 
+## My computer
+
+Recorded for [Facilities & Resources](../../Markdown%20Template/03-project-canvas/09-facilities-and-resources.md) row 1 (CPU only, C-05).
+
+| Item | Value |
+|---|---|
+| Computer | MacBook Pro 16-inch (Nov 2023) |
+| Chip | Apple M3 Pro (12-core CPU) |
+| Memory | 36 GB |
+| Operating system | macOS Tahoe 26 |
+
 ## Definition of Done
 
 - [ ] Explain the topic at the Sprint 1 review.
