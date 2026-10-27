@@ -8,7 +8,7 @@ Which open-source, quantized model gives the best answers (C-03), and can simple
 
 ## How we tested
 
-- **No training.** The models are used as published. We only **tested** them: every model answered the same 8 Annex III 3(b) questions ([`eval-set-v1-3b.csv`](../eval/eval-set-v1-3b.csv)). The questions were not split into train, validation and test sets.
+- **No training.** The models are used as published. We only **tested** them: every model answered the same 8 questions on Annex III point 3(b) (AI systems that evaluate learning outcomes, for example grading students' work) ([`eval-set-v1-3b.csv`](../eval/eval-set-v1-3b.csv)). The questions were not split into train, validation and test sets.
 - Retrieval is not built yet, so each question got its correct provisions by hand.
 - Same prompt and settings for every model: 4-bit (`Q4_K_M`), temperature 0, at most 300 answer tokens.
 - An answer **passes** if it cites the correct Article and point, gives no verdict, and does not refuse without a reason.
