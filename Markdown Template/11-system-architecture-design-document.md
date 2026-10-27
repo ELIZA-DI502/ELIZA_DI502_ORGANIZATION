@@ -10,7 +10,7 @@ How to use this template
 
 | Team  | Sprint | Status   | Last updated | Updated by                  |
 | ----- | ------ | -------- | ------------ | --------------------------- |
-| ELIZA | 1      | proposed | 2026-10-25   | Architecture part; NLP part |
+| ELIZA | 1      | proposed | 2026-10-27   | Architecture part; NLP part |
 
 <!--
 Status [2]:
@@ -323,7 +323,13 @@ Copy the block below for each decision.
 
 **Context:** Users need a chat page with the cited provision text, a permanent notice and a personal-data warning (KAN-21, KAN-22, KAN-25, KAN-26). Spike 01 proposed Gradio; the learning spike KAN-62 covers Gradio.
 
-**Options considered:** Gradio ChatInterface in the RAG service (simplest option); Streamlit; React + Node.js/Express.
+**Options considered:**
+
+| Option | Pros | Cons |
+| --- | --- | --- |
+| Gradio ChatInterface in the RAG service (simplest option) | Little code; runs inside the Python service | Hard to go beyond the default chat widget (cited provision text, permanent notice, personal-data warning); the RAG team also builds the interface |
+| Streamlit | Python only; quick to build pages | Limited control over the chat layout and session handling |
+| **React + Node.js/Express** | Full control over the interface (KAN-21, KAN-22, KAN-25, KAN-26); the web side is built in JavaScript without touching the RAG code | Two languages and one more service; the API contract must be agreed |
 
 **Decision:** React (built with Vite) for the interface and Node.js + Express for the web backend, in one web container. The conversation of the current session is kept in PostgreSQL (D4).
 
@@ -331,7 +337,7 @@ Copy the block below for each decision.
 
 **Consequences:** The RAG service exposes an HTTP API; KAN-62 (Gradio spike) should be reconsidered or kept only as a quick demo option.
 
-**Evidence:** Spike 01 technology options (19/10/2026; not yet in docs/spikes/), row 10; KAN-21, KAN-26
+**Evidence:** Team discussion of the Spike 01 technology options, 19/10/2026; KAN-21, KAN-26
 
 **Owner and date:** Architecture part, 2026-10-20
 
@@ -341,7 +347,13 @@ Copy the block below for each decision.
 
 **Context:** Retrieval, the LLM call and the checks are written by the RAG team in Python, and the evaluation scripts need to call them directly.
 
-**Options considered:** All logic in Node.js (LangChain.js, Ollama JS client); One Python application with the interface inside; Separate FastAPI service with POST /answer.
+**Options considered:**
+
+| Option | Pros | Cons |
+| --- | --- | --- |
+| All logic in Node.js (LangChain.js, Ollama JS client) | One language and one service | The RAG team works in Python; the evaluation scripts would not test the Python code |
+| One Python application with the interface inside | One service; no API contract | The interface is tied to Python, which conflicts with D1 |
+| **Separate FastAPI service with POST /answer** | RAG stays in Python; the evaluation uses the same code path as users; no state to keep | The API contract must be agreed between the web and RAG sides |
 
 **Decision:** The RAG pipeline runs as a FastAPI service in the rag container. It keeps no state: the history comes with every request.
 
@@ -359,7 +371,13 @@ Copy the block below for each decision.
 
 **Context:** C-08 and C-10 require notices for legal-decision, out-of-scope and personal-data questions and checked citations (KAN-2, KAN-5, KAN-8, KAN-26).
 
-**Options considered:** Checks in the web backend; Prompt instructions only; Checks in the RAG service, plus a pre-send warning in the interface.
+**Options considered:**
+
+| Option | Pros | Cons |
+| --- | --- | --- |
+| Checks in the web backend | A notice is returned before the RAG service is called | Not covered by the evaluation, because the evaluation scripts call the RAG service directly |
+| Prompt instructions only | No extra code | The LLM may not follow them; the result cannot be tested rule by rule |
+| **Checks in the RAG service, plus a pre-send warning in the interface** | Covered by the evaluation of D6 (alpha) and D9 (beta); the user is warned before personal data is sent | The personal-data pattern is used in two places and must come from one definition |
 
 **Decision:** Input and output checks run in the RAG service; they are rule-based, as tested in the model selection spike, and the personal-data rules are still open (section 7). The interface also detects e-mail addresses and phone numbers before sending and asks the user to edit or confirm (KAN-26). The web backend runs no content checks.
 
@@ -367,7 +385,7 @@ Copy the block below for each decision.
 
 **Consequences:** The personal-data pattern used by the interface and by the RAG service should come from one shared definition.
 
-**Evidence:** Spike 01 technology options (19/10/2026; not yet in docs/spikes/), rows 8–9; KAN-26
+**Evidence:** Team discussion of the Spike 01 technology options, 19/10/2026; KAN-26
 
 **Owner and date:** Architecture part, 2026-10-20
 
@@ -377,7 +395,14 @@ Copy the block below for each decision.
 
 **Context:** Follow-up questions must use the product description given earlier in the same session (C-04, KAN-6). The team wants the conversation to be kept in a database rather than in the web backend's memory.
 
-**Options considered:** No history (simplest option); History in the web backend's memory, keyed by a session cookie; History kept by the interface and sent with every question; PostgreSQL keeping only the current session.
+**Options considered:**
+
+| Option | Pros | Cons |
+| --- | --- | --- |
+| No history (simplest option) | Nothing to store or delete | Follow-up questions cannot use the product description given earlier (C-04, KAN-6) |
+| History in the web backend's memory, keyed by a session cookie | No database; nothing written to disk | The conversation is lost when the web backend restarts |
+| History kept by the interface and sent with every question | No storage on the server | Lost when the page is reloaded; the history can be changed in the browser |
+| **PostgreSQL keeping only the current session** | The conversation survives a restart of the web backend | One more container; the data must be deleted when the session ends (C-10) |
 
 **Decision:** A PostgreSQL database in a separate db container keeps the question-answer pairs of the current session. The web backend reads the most recent pairs for each question and sends them to the RAG service, which stays stateless. When the session ends, its data is deleted; earlier sessions are not kept and no user account is needed (KAN-21).
 
@@ -395,7 +420,13 @@ Copy the block below for each decision.
 
 **Context:** The text is prepared once for the 27/07/2026 version; the project covers only this version (C-01).
 
-**Options considered:** Compose service that runs at every start; Separate one-off Compose service; Script run once on the host.
+**Options considered:**
+
+| Option | Pros | Cons |
+| --- | --- | --- |
+| Compose service that runs at every start | Always matches the current code | Parses and embeds the same text again at every start; slower start |
+| Separate one-off Compose service | Runs in Docker with the same image | More Compose configuration for a step that runs once |
+| **Script run once on the host** | Simplest; the source does not change during the project (C-01) | ingest.py and the rag image must install the same requirements.txt |
 
 **Decision:** python rag/ingest.py runs once on the host and writes to data/vector-store/, which is bind-mounted into the rag container.
 
@@ -413,7 +444,12 @@ Copy the block below for each decision.
 
 **Context:** C-05 runs the system, including the pilot and the final demo, locally from README.md on a team computer. The pilot is held in person, so no access from outside the team's network is needed.
 
-**Options considered:** Team computer with Docker Compose; Google Cloud CPU instance with Docker Compose, paid from the $100 credit (C-06).
+**Options considered:**
+
+| Option | Pros | Cons |
+| --- | --- | --- |
+| **Team computer with Docker Compose** | No cost; follows C-05; the pilot is held in person | The answer time depends on that computer (R-13) |
+| Google Cloud CPU instance with Docker Compose, paid from the $100 credit (C-06) | Reachable from outside the team's network; the machine size can be chosen | Uses the credit and needs cloud setup; not needed for an in-person pilot (A-07) |
 
 **Decision:** Development, beta and release candidate on the team's computers with the four containers (web, db, rag, ollama); the pilot and the final demo run on one team computer.
 
@@ -504,7 +540,13 @@ Copy the block below for each decision.
 
 **Context:** The embedding model must be open-source and run on a CPU. The corpus is small (about 190 chunks) and in English (C-02).
 
-**Options considered:** all-MiniLM-L6-v2 (very small, weaker on retrieval); bge-small-en-v1.5 (small, proposed in Spike 01); **bge-base-en-v1.5** (stronger on retrieval, still fast on a CPU for a small corpus; MIT licence).
+**Options considered:**
+
+| Option | Pros | Cons |
+| --- | --- | --- |
+| all-MiniLM-L6-v2 | Very small | Weaker on retrieval |
+| bge-small-en-v1.5 | Small; proposed in Spike 01 | Weaker on retrieval than bge-base-en-v1.5 |
+| **bge-base-en-v1.5** | Stronger on retrieval; still fast on a CPU for a small corpus; MIT licence | Larger than the other two |
 
 **Decision:** bge-base-en-v1.5; bge-small-en-v1.5 is the faster alternative.
 
@@ -522,7 +564,13 @@ Copy the block below for each decision.
 
 **Context:** The vector store must be free, run inside the RAG service and keep each chunk's metadata for the citation.
 
-**Options considered:** NumPy array (simplest, but no metadata or saving); FAISS (fast, but metadata stored separately); **Chroma** (vectors, texts and metadata together; saves to disk).
+**Options considered:**
+
+| Option | Pros | Cons |
+| --- | --- | --- |
+| NumPy array (simplest option) | No extra library | No metadata and no saving |
+| FAISS | Fast | Metadata stored separately |
+| **Chroma** | Vectors, texts and metadata together; saves to disk | Slower than FAISS on large collections; not a problem with about 190 chunks |
 
 **Decision:** Chroma in data/vector-store/, cosine distance.
 
@@ -540,7 +588,13 @@ Copy the block below for each decision.
 
 **Context:** Questions contain exact legal terms ("profiling", "Article 6(3)") as well as everyday descriptions ("a tool that calculates grades").
 
-**Options considered:** **Dense top-k** (simplest; finds the same meaning but can miss exact terms); **hybrid BM25 + dense, merged with Reciprocal Rank Fusion** (also finds exact terms; RRF needs no weight tuning); a reranker (slower on a CPU, little gain on a small corpus).
+**Options considered:**
+
+| Option | Pros | Cons |
+| --- | --- | --- |
+| **Dense top-k** (simplest option) | Finds the same meaning | Can miss exact terms |
+| **Hybrid BM25 + dense, merged with Reciprocal Rank Fusion** | Also finds exact terms; RRF needs no weight tuning | One more index, rebuilt at each start |
+| A reranker | Can order the candidates more precisely | Slower on a CPU; little gain on a small corpus |
 
 **Decision:** E1 baseline: dense top-k. E2: BM25 + dense, merged with RRF (k = 60). Top-k is chosen by Recall@k on the `val` split (candidates 3, 5, 8; see Evaluation). No reranker for now.
 
@@ -578,6 +632,7 @@ Web and deployment part:
 | v1      | 2026-10-20 | Architecture part: summary, goals and non-goals, system architecture diagram, components, interfaces, deployment, decisions D1–D6 | —           |
 | v1      | 2026-10-25 | NLP part: data pipeline, NLP pipeline diagram, RAG pipeline table, evaluation, decisions D7–D12                                   |              |
 | v1      | 2026-10-26 | Deliverable numbers in the Evaluation section updated to the charter (pilot D10, release candidate D11); "deployment CPU" replaced by "pilot computer"| —            |
+| v1      | 2026-10-27 | Options considered of D1–D6 and D10–D12 written as Option / Pros / Cons tables, as in the template; evidence of D1 and D3 updated | —            |
 
 ## Checklist before submitting
 
