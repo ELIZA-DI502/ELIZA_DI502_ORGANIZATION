@@ -23,6 +23,26 @@ Welcome. This is the main page of Sprint 1 of team **ELIZA**: an information ass
 - **We have a backlog for Sprints 2–4.** Eight epics and 30 user stories for Sprints 2–4 (plus two in the backlog), each with acceptance criteria and sub-tasks, mapped to the releases in the [User Story Map v1](../06-user-stories/01-user-story-map-v1.md) and described epic by epic in the [story requirements pages](../06-user-stories/README.md).
 - **We closed our gaps in the Sprint 1 fundamentals** with one learning spike each.
 
+## Sprint results
+
+Status in Jira at the upload on 27/10/2026: **6 of 7 stories done (50 of 55 story points)**.
+
+| Story | Points | Status |
+|---|---|---|
+| [KAN-79](https://yarengursoy.atlassian.net/browse/KAN-79) Decide whether to approve the project's purpose and scope | 13 | Done |
+| [KAN-69](https://yarengursoy.atlassian.net/browse/KAN-69) Judge whether the plan can hold | 8 | Done |
+| [KAN-70](https://yarengursoy.atlassian.net/browse/KAN-70) Check that the delivery plan fits the course calendar | 8 | Done |
+| [KAN-67](https://yarengursoy.atlassian.net/browse/KAN-67) Work from one verified copy of the source | 5 | Done |
+| [KAN-81](https://yarengursoy.atlassian.net/browse/KAN-81) Agree on the technologies for the baseline | 13 | Done |
+| [KAN-82](https://yarengursoy.atlassian.net/browse/KAN-82) Close my gaps in the Sprint 1 fundamentals | 3 | Done |
+| [KAN-80](https://yarengursoy.atlassian.net/browse/KAN-80) Know which stories I can start and when my work is done | 5 | Open until the Sprint 1 review (28/10/2026) |
+
+**Not finished at the upload, and why:**
+
+- [KAN-80](https://yarengursoy.atlassian.net/browse/KAN-80) stays open until the review, because its sub-task [KAN-44](https://yarengursoy.atlassian.net/browse/KAN-44) includes preparing and giving the Sprint 1 review on 28/10/2026.
+- [KAN-40](https://yarengursoy.atlassian.net/browse/KAN-40) (submit Project Charter v1) is closed right after the upload.
+- Planned learning follow-ups (for example the RAG lecture slides) are listed with their dates in the Definition of Done of each [learning spike](../../docs/spikes/README.md).
+
 ## Deliverables
 
 | Deliverable | Pages | Jira |
@@ -33,6 +53,8 @@ Welcome. This is the main page of Sprint 1 of team **ELIZA**: an information ass
 | User stories | [User Story Map v1](../06-user-stories/01-user-story-map-v1.md), [story requirements for each epic](../06-user-stories/README.md) | [KAN-80](https://yarengursoy.atlassian.net/browse/KAN-80) |
 | Learning spikes | [Yeşim](../../docs/spikes/learning-yesim.md), [Yaren](../../docs/spikes/learning-yaren.md), [Kaan](../../docs/spikes/learning-kaan.md), [Gözde Nur](../../docs/spikes/learning-gozde-nur.md) | [KAN-82](https://yarengursoy.atlassian.net/browse/KAN-82) |
 | Definition of Ready and Done for Sprint 2 | [Definition of Ready and Definition of Done](../03-definition-of-ready-definition-of-done.md) | [KAN-43](https://yarengursoy.atlassian.net/browse/KAN-43) |
+| Jira backlog export | [docs/backlog](../../docs/backlog/_README.md): the backlog exported from Jira on 27/10/2026 | |
+| Burndown chart | [Burndown chart](../04-burndown-chart.md), Sprint 1 | |
 | Retrospective | [Sprint 1 Retrospective](02-sprint-1-retrospective.md) | |
 | Review | [Sprint 1 Review Page](01-sprint-1-review-page.md), filled in by the reviewing team | |
 
@@ -46,6 +68,25 @@ From the Sprint 1 sub-tasks in Jira.
 | Yaren | Scrum Master | Milestones and Dependencies pages; Definition of Ready and Done; repository folders |
 | Kaan | Data Scientist | Project Executive Summary; Facilities and Resources page; System Architecture Design Document v1 |
 | Gözde Nur | Data Scientist | Assumptions and Constraints, and Risks pages; parsing and model selection spikes; design decisions in the design document |
+
+## Sprint 1 review (28/10/2026)
+
+Ten minutes. Each part is presented by the member who wrote it.
+
+| # | Who | Time | Topic | Page |
+|---|---|---|---|---|
+| 1 | Yeşim | 0:30 | Opening: what ELIZA does, the team, the Sprint 1 goal | This page |
+| 2 | Kaan | 0:45 | Charter: problem, users, objectives O1–O4, scope | [Project Executive Summary](../03-project-canvas/01-project-executive-summary.md) |
+| 3 | Yeşim | 0:30 | Charter: deliverables, roles and stakeholders, major activities | [Deliverables](../03-project-canvas/05-deliverables.md), [Project Organization](../03-project-canvas/08-project-organization.md) |
+| 4 | Yaren | 0:30 | Charter: milestones and dependencies | [Milestones](../03-project-canvas/02-milestones.md), [Dependencies](../03-project-canvas/06-dependencies.md) |
+| 5 | Gözde Nur | 0:45 | Charter: assumptions, constraints and risks | [Assumptions & Constraints](../03-project-canvas/03-assumptions-and-constraints.md), [Risks](../03-project-canvas/11-risks.md) |
+| 6 | Yeşim | 2:30 | User stories: releases, epics, story map, one story's requirements and the same story in Jira | [Release Plan](../03-project-canvas/10-release-plan.md), [User Story Map v1](../06-user-stories/01-user-story-map-v1.md), [Know the Limits](../06-user-stories/06-story-requirements-for-epic-kan-18.md) (KAN-2) |
+| 7 | Gözde Nur | 1:15 | Spikes that led to the design choices | [Parsing spike](../../docs/spikes/parsing-spike.md), [model selection spike](../../docs/spikes/model-selection-spike.md) |
+| 8 | Kaan | 1:15 | Architecture diagram and design decisions | [System Architecture Design Document](../11-system-architecture-design-document.md) |
+| 9 | Yaren | 1:00 | How we work: planning poker, Definition of Ready and Done, retrospective | [DoR and DoD](../03-definition-of-ready-definition-of-done.md), [Retrospective](02-sprint-1-retrospective.md) |
+| 10 | Yeşim | 0:30 | Question to the Project Review Committee (A-06) | – |
+
+**Question to the Project Review Committee ([A-06](../03-project-canvas/03-assumptions-and-constraints.md)):** do you agree with our target levels? For evidence (O2), the expected provision is cited for at least 80% of the in-scope questions, and at least 75% of the in-scope answers are fully supported by the text they cite. For safety (O4), no answer gives a legal verdict, 100% of the legal-decision questions get the expected response, and at least 80% of the questions in each of the other three safety categories (out of scope, missing evidence, adversarial) get it. The answer is recorded for Charter v2 ([KAN-89](https://yarengursoy.atlassian.net/browse/KAN-89)).
 
 ## Next: Sprint 2 (28/10 – 18/11/2026)
 
