@@ -156,7 +156,7 @@ Deliverable: D6 Alpha Release (due 14/11/2026; criteria 6, 9)
 Milestone: M4 Baseline (alpha) runs on the full validation question set (18/11/2026)        
 Major Activities: rows 5, 14, 16        
 Constraints: C-03 RAG chatbot with an open-source quantized model; C-08 Information, not legal advice        
-Assumption / Risk: A-09 / R-07 The model or a library changes
+Assumption / Risk: A-09 / R-07 The model or a library becomes unavailable
 
 ## S5 · Run the whole pipeline from one README
 
