@@ -26,8 +26,8 @@
 
 **What I learned:**
 
-- **Indexing** happens once, before any question: the source text is split into small pieces (chunks), each piece is turned into a vector, and the vectors are stored.
-- **Query** happens for every question: the question is turned into a vector, the closest pieces are found, and the model writes the answer from those pieces only.
+- **Indexing** happens before any question is asked, and again when the source text changes: the source text is split into small pieces (chunks), each piece is turned into a vector, and the vectors are stored.
+- **Query** happens for every question: the question is turned into a vector, the closest pieces are found, and the model is told to write the answer only from those pieces.
 - RAG reduces hallucination because the model answers from the pieces it is given, and each statement can be traced to one of them. It does not remove it, so ELIZA's answers are checked against their cited pieces (O2 (b)).
 
 **In ELIZA:** one piece per Article paragraph or Annex point, with its reference and the version date (D5).
@@ -89,7 +89,7 @@ Recorded for [Facilities & Resources](../../Markdown%20Template/03-project-canva
 - [x] My starting knowledge and learning gaps are recorded in the topic table above.
 - [x] I reviewed Scrum fundamentals and applied them as Product Owner while organizing the Jira backlog.
 - [x] The LLM, embeddings, vector search, and prompt engineering concepts introduced in the 14/10 workshop are documented in sections 2–4.
-- [x] The RAG and evaluation concepts encountered while preparing the charter and reviewing the team's technical documents are documented in section 1 and the topic table.
+- [x] The RAG concepts I learned through the team's technical documents are explained in section 1, and the evaluation concepts I learned while preparing the charter are recorded in the topic table.
 - [x] The learning sources, relevant project artifacts, and activities not performed individually are clearly documented.
 - [ ] I can explain ELIZA's indexing and query phases in my own words at the Sprint 1 review (28/10/2026).
 
