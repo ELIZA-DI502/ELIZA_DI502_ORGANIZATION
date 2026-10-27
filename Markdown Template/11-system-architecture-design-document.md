@@ -157,7 +157,7 @@ flowchart LR
 
 **Evidence for the NLP part (Sprint 1)**
 
-The NLP decisions D7–D12 are based on two short spikes and the Annex III point 3(b) evaluation questions:
+The NLP decisions D7–D12 are based on two short spikes and the evaluation questions on Annex III point 3(b) (AI systems that evaluate learning outcomes, for example grading students' work):
 
 | Files | What we did | Used for |
 |---|---|---|
