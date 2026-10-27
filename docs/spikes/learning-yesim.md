@@ -28,7 +28,7 @@
 
 - **Indexing** happens before any question is asked, and again when the source text changes: the source text is split into small pieces (chunks), each piece is turned into a vector, and the vectors are stored.
 - **Query** happens for every question: the question is turned into a vector, the closest pieces are found, and the model is told to write the answer only from those pieces.
-- RAG can reduce hallucination because the model is given the relevant source text to answer from and can cite it. It does not guarantee that every statement is supported by the retrieved pieces, so ELIZA's answers are checked against their cited pieces (O2 (b)). It does not remove it, so ELIZA's answers are checked against their cited pieces (O2 (b)).
+- RAG can reduce hallucination because the model is given the relevant source text to answer from and can cite it. It does not guarantee that every statement is supported by the retrieved pieces, so ELIZA's answers are checked against their cited pieces (O2 (b)).
 
 **In ELIZA:** one piece per Article paragraph or Annex point, with its reference and the version date (D5).
 
