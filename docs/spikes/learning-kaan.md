@@ -14,7 +14,7 @@
 | Embeddings & vector search | Need to learn | Workshop material (14/10) |
 | RAG | Need to learn | Lewis et al. (2020) and the lecture slides |
 | Prompt engineering | Need to learn | Workshop material |
-| Evaluation basics | Need to learn | This learning spike (KAN-63), by 28/10/2026 |
+| Evaluation basics | Need to learn | This learning spike (KAN-63) (done) |
 | Python environment | Known; I use virtual environments | – |
 | Chat interface (React) | Known; I build JavaScript and React applications | – |
 
@@ -24,7 +24,16 @@
 
 **Goal:** learn what an evaluation set is, why it must be fixed before experiments, and what Recall@5 ("the gold provision is in the top 5 results") measures.
 
-**Expected output:** I can explain how our D2 question set and the dev/test split (KAN-53) are used to compare retrieval settings in the alpha evaluation (KAN-8).
+**Expected output:** I can explain how our D2 question set and the `val`/`test` split (KAN-53) are used to compare retrieval settings in the alpha evaluation (KAN-8).
+
+**What I learned:**
+
+- An **evaluation set** is a fixed list of questions, each with its expected result: the gold source, a gold answer and the expected behaviour. Every version of the system answers the same questions, so the results can be compared. Our set is not finished yet: it is due with D2 (11/11/2026) as `docs/eval/eval-set-v1.csv`. The questions written so far (for example `eval-set-v1-3b.csv`) already have these columns (`gold_source`, `gold_answer`, `expected_behaviour`, `split`).
+- The set must be **fixed before the experiments** (D2, before the Sprint 2 runs). If questions change between two runs, a difference in the result may come from the questions and not from the change we tested. The set is also split: settings are chosen on `val`, and `test` is not looked at until the final evaluation. A score on questions that were used to choose the settings is too optimistic.
+- **Recall@5** is the share of in-scope questions whose gold provision is among the top 5 retrieved chunks: questions with a hit ÷ in-scope questions. Example (made-up numbers): if the gold provision is in the top 5 for 6 of 8 questions, Recall@5 = 6/8 = 75%.
+- Recall@5 measures **only the retrieval step**, not the answer. It is an upper limit for O2 (a): a provision that is not retrieved cannot be cited. A larger k raises recall but makes the prompt longer, which costs answer time on a CPU and space in the 4,096-token context window.
+
+**How it will be used in ELIZA:** once the set is fixed in D2, E1 (dense) and E2 (hybrid BM25 + dense) will be compared by Recall@k on the `val` split, and top-k will be chosen from 3, 5 and 8 (design decision D12) in Sprint 2. The `test` split will be used only for the final evaluation (D11). Open point for the scoring script: when a question has more than one gold provision (for example `B-01`), we must decide whether one hit is enough.
 
 ## 2. Embeddings & vector search
 
