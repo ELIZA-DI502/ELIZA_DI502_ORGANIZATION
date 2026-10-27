@@ -13,7 +13,7 @@ The table below is very basic, but feel free to follow a template from Miro. For
 | All ten Project Canvas pages were written on time, each with one owner. | Pages were written separately, so IDs (A-xx, R-xx) did not match across pages and Jira. | Before each review, one person checks that IDs match on all pages and in Jira. | Yaren (Scrum Master) |
 | Jira stories have acceptance criteria and traceability; epics and releases are set up. | Some stories were left without an epic or a sprint. | Every story gets an epic and a sprint at sprint planning. | Yeşim (Product Owner) |
 | Feedback from the review was applied quickly. | Some pages were read differently from what the instructor expected (for example, what counts as a risk), so they were rewritten after feedback. | Share an early draft of each page and ask for feedback before the review. | Everyone |
-| The GitHub–Confluence and Jira sync works. | The sync stopped once because of missing secrets. | Check the sync and the course template updates at the start of every sprint. | Kaan, Gözde Nur |
+| The GitHub–Confluence sync works. | The sync stopped once because of missing secrets. | Check the sync and the course template updates at the start of every sprint. | Kaan, Gözde Nur |
 | The presentation for 21/10 was ready on time. | Many pages changed the night before the presentation, and not everyone saw the changes. | Freeze the pages 2 days before a review; announce changes that affect other pages in the group. | Everyone |
 
 ## Hot Air Balloon Retrospective
@@ -29,7 +29,7 @@ We also looked at Sprint 1 with the Hot Air Balloon retrospective on our [Miro b
 | M1: Charter v1 approved | One owner per page | Too few pilot users (R-03) | IDs did not match across pages and Jira |
 | M2: Evaluation set, sources and first design | Clear constraints for Sprint 1 | Cloud budget or credit not ready (see the note above) | Pages rewritten after feedback |
 | Presentation on 21/10 was ready on time | Fast response to feedback | The law or its official reading changes (R-02) | Many changes the night before the presentation |
-| | Working GitHub–Confluence and Jira sync | Work falls behind in Sprint 2 (R-07) | |
+| | Working GitHub–Confluence sync | Work falls behind in Sprint 2 (R-07) | |
 
 ## Commitments check
 
