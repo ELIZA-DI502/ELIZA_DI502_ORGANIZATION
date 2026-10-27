@@ -528,7 +528,7 @@ Copy the block below for each decision.
 
 **Why:** It gave the most correct answers, and it answers directly.
 
-**Consequences:** The answer time is measured again at the baseline (18/11/2026) and on the pilot computer by 09/12/2026 (R-13); if it is above the answer-time limit (section 2), the fallback is used. Licence check (A-10, 2026-10-25): the Llama 3.1 Community License (Llama-3.1-8B-Instruct) and the MIT licence (Phi-4-mini-instruct) permit use in this academic project and publication of the generated answers. Llama 3.1 requires "Built with Llama" to be shown on the web page or in the README and use in line with its Acceptable Use Policy; the 700 million monthly user limit does not apply. The licence and model card go into the AI SBOM.
+**Consequences:** The answer time is measured again at the baseline (18/11/2026) and on the pilot computer by 09/12/2026 (R-13); if it is above the answer-time limit (section 2), the fallback is used. Licence check (A-09, 2026-10-25): the Llama 3.1 Community License (Llama-3.1-8B-Instruct) and the MIT licence (Phi-4-mini-instruct) permit use in this academic project and publication of the generated answers. Llama 3.1 requires "Built with Llama" to be shown on the web page or in the README and use in line with its Acceptable Use Policy; the 700 million monthly user limit does not apply. The licence and model card go into the AI SBOM.
 
 **Evidence:** [Model selection spike](../docs/spikes/model-selection-spike.md) (5 runs; results in [`model-selection-results.csv`](../docs/spikes/model-selection-results.csv)), [KAN-57](https://yarengursoy.atlassian.net/browse/KAN-57)
 
@@ -552,7 +552,7 @@ Copy the block below for each decision.
 
 **Why:** With about 100 chunks, the larger model is still fast, and it finds the right provision more often.
 
-**Consequences:** Checked with Recall@k on the `val` split in the baseline experiment (E1). Licence check (A-10, 2026-10-25): the MIT licence permits use in this academic project and publication of the results, with no extra terms.
+**Consequences:** Checked with Recall@k on the `val` split in the baseline experiment (E1). Licence check (A-09, 2026-10-25): the MIT licence permits use in this academic project and publication of the results, with no extra terms.
 
 **Evidence:** [KAN-58](https://yarengursoy.atlassian.net/browse/KAN-58); E1 experiment card (Sprint 2)
 
@@ -633,7 +633,7 @@ Web and deployment part:
 | v1      | 2026-10-25 | NLP part: data pipeline, NLP pipeline diagram, RAG pipeline table, evaluation, decisions D7–D12                                   | #6           |
 | v1      | 2026-10-26 | Deliverable numbers in the Evaluation section updated to the charter (pilot D10, release candidate D11); "deployment CPU" replaced by "pilot computer"| —            |
 | v1      | 2026-10-27 | Options considered of D1–D6 and D10–D12 written as Option / Pros / Cons tables, as in the template; evidence of D1 and D3 updated | —            |
-| v1      | 2026-10-27 | NLP part: in-scope provision list matched to the charter; D9 answer-time dates and licences; D12 evidence corrected; A-07 removed from the charter, so its references point to R-13 | —            |
+| v1      | 2026-10-27 | NLP part: in-scope provision list matched to the charter; D9 answer-time dates and licences; D12 evidence corrected | —            |
 
 ## Checklist before submitting
 
