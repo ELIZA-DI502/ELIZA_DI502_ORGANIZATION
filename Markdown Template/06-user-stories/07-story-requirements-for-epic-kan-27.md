@@ -51,10 +51,10 @@ Test cases: KAN-8, KAN-2 and KAN-3 already have test cases; a test for every sto
 
 | Sub-task | Done when | Owner | Estimate | Status | Jira |
 |---|---|---|---|---|---|
-| Write Risks page and link it to Assumptions & Constraints | The risk register lists R-01 to R-13 (R-05 closed on 25/10/2026) with at least one risk from each of the five layers (data, model, infrastructure, integration, people/process); every assumption A-01 to A-09 has its linked risk and the IDs match both ways; probabilities are residual and each has a basis; every risk scoring 10 or more has a mitigation, a numeric trigger with a date or sprint, a contingency plan and a named owner; every risk that comes from a constraint names the Major Activities row that mitigates it; the page passes its checklist. | Gözde Nur | – | Done | [KAN-14](https://yarengursoy.atlassian.net/browse/KAN-14) |
+| Write Risks page and link it to Assumptions & Constraints | The risk register lists R-01 to R-11 with at least one risk from each of the five layers (data, model, infrastructure, integration, people/process); every assumption A-01 to A-09 has its linked risk and the IDs match both ways; probabilities are residual and each has a basis; every risk scoring 10 or more has a mitigation, a numeric trigger with a date or sprint, a contingency plan and a named owner; every risk that comes from a constraint names the Major Activities row that mitigates it; the page passes its checklist. | Gözde Nur | – | Done | [KAN-14](https://yarengursoy.atlassian.net/browse/KAN-14) |
 | Write the Assumptions and Constraints Page | Assumptions A-01 to A-09 with basis, check, owner and linked risk; constraints C-01 to C-10 with their links to Major Activities and Risks; the page passes its checklist. | Gözde Nur | – | Done | [KAN-33](https://yarengursoy.atlassian.net/browse/KAN-33) |
 | Write the Facilities and Resources Page | The page lists the team computers (including the computer used for the pilot and the final demo, which is also the deployment environment), Google Colab, the Google Cloud credit ($100, C-06, kept as a reserve), the open-source models from Hugging Face and the other tools the team uses, and passes its checklist. | Kaan | – | In progress | [KAN-38](https://yarengursoy.atlassian.net/browse/KAN-38) |
-| Write the Dependencies Page | The page lists the external dependencies (EUR-Lex for the source text, Hugging Face for the open-source model files, published benchmark questions) and the order dependencies between activities, including EUR-Lex for R-01 and the pilot computer set-up for R-10 and R-13, and passes its checklist. | Yaren | – | Done | [KAN-39](https://yarengursoy.atlassian.net/browse/KAN-39) |
+| Write the Dependencies Page | The page lists the external dependencies (EUR-Lex for the source text, Hugging Face for the open-source model files, published benchmark questions) and the order dependencies between activities, including EUR-Lex for R-01 and the pilot computer set-up for R-09 and R-12, and passes its checklist. | Yaren | – | Done | [KAN-39](https://yarengursoy.atlassian.net/browse/KAN-39) |
 
 The story carries the points and its sub-tasks are not estimated separately (Model A of the course's [Jira sync guide](../../docs/JIRA_SYNC_SETUP.md)).
 
@@ -260,7 +260,7 @@ Sub-task owners are assigned at the sprint planning.
 Deliverables: common sprint documents (Deliverables page, introduction); D6 and D7 are linked from the welcome page      
 Milestone: M6 Checkpoint: go/no-go for the beta (18/11/2026)      
 Major Activities: row 37      
-Risk: R-08 Work falls behind
+Risk: R-07 Work falls behind
 
 ## S8 · Follow Sprint 3 from one welcome page
 
@@ -295,7 +295,7 @@ Sub-task owners are assigned at the sprint planning.
 Deliverables: common sprint documents; D8 and D9 are linked from the welcome page      
 Milestone: M8 Checkpoint (09/12/2026)      
 Major Activities: rows 32, 37, 38      
-Risk: R-08 Work falls behind
+Risk: R-07 Work falls behind
 
 ## S9 · Follow Sprint 4 from one welcome page
 
