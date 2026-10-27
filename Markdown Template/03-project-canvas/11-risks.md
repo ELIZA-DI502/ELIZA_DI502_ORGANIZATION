@@ -107,9 +107,9 @@ Across the layers, cover the whole life cycle: data preparation, model developme
 
 Add rows as needed. Rows with a score of 10 or more also need a detail block (next section).
 
-This page lists only uncertain events that the team cannot fully control. Design questions, such as how to split the text, which model to use or how fast it runs, are not listed here. They are answered in the spikes and recorded in the System Architecture Design Document (D4).
+This page lists only uncertain events that the team cannot fully control. Design questions, such as how to split the text or which model to use, are not listed here. They are answered in the spikes and recorded in the System Architecture Design Document (D4).
 
-R-01 to R-04, R-06, R-07, R-09, R-11 and R-12 are the other side of the assumptions in [Assumptions & Constraints](03-assumptions-and-constraints.md). R-08, R-10 and R-13 come from constraints and from how the team and outside tools may act; R-10 and R-13 are the uncertain side of constraint C-05. Whether the assistant reaches its targets (O2, O4) and handles personal data as C-10 requires are design and test questions, not risks: they are answered in the System Design Document (D4) and checked by the acceptance criteria of D6, D9 and D11 (for example D9 criteria 2–4, 7 and 8). R-05 was closed on 25/10/2026, when the hosted cloud deployment was removed from the plan; its number is not reused.
+Where the risks come from: R-01 to R-04, R-06, R-07, R-09, R-11 and R-12 are the other side of an assumption in [Assumptions & Constraints](03-assumptions-and-constraints.md); the assumption is named in **Linked to**. The other three come from constraints: R-08 from C-07 (four students, fixed sprint dates), and R-10 and R-13 from C-05 (CPU only, run on a team computer). R-13 is not a design question: the model was chosen in the spike, but the computer used for the pilot is not fixed yet. Whether the assistant reaches its targets (O2, O4) and handles personal data as C-10 requires are design and test questions, not risks: they are answered in the System Design Document (D4) and checked by the acceptance criteria of D6, D9 and D11 (for example D9 criteria 2–4, 7 and 8). R-05 was closed on 25/10/2026, when the hosted cloud deployment was removed from the plan; its number is not reused.
 
 | # | Layer | Risk (event) | When / where | Probability | Impact | Score | Owner | Linked to |
 |---|---|---|---|---|---|---|---|---|
@@ -136,6 +136,8 @@ Spread of the scored risks (R-01 to R-13, without the closed R-05): 1 High (R-03
 ## Risk details
 
 Copy this block for each risk.
+
+**Impact** is the effect if the risk happens; **Schedule effect** is the delay that remains when the contingency plan (B plan) is used.
 
 ### Risk R-01: Source text differs from the Official Journal
 
