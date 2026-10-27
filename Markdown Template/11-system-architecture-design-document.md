@@ -519,7 +519,7 @@ Copy the block below for each decision.
 | Option                                                        | Passed in the spike (of 8) | Notes                                                                                 |
 | ------------------------------------------------------------- | -------------------------- | ------------------------------------------------------------------------------------- |
 | Llama-3.2-3B-Instruct                                         | 5                          | Small and fast                                                                        |
-| Qwen3-4B (Apache-2.0)                                         | 5                          | In the first run it helped a user avoid the rules                                     |
+| Qwen3-4B (Apache-2.0)                                         | 5                          | Thinking mode turned off, so it answered directly; in the first run it helped a user avoid the rules |
 | Phi-4-mini-instruct (MIT)                                     | 5                          | Fastest; simplest licence                                                             |
 | Qwen3-8B (Apache-2.0)                                         | 2 (both from the input check; the model answered none) | A "thinking" model: its reasoning used the whole answer limit, and it was the slowest |
 | **Llama-3.1-8B-Instruct** (Llama 3.1 Community License) | 7                          | Best answers; 2–3 times slower than Phi-4-mini                                       |

@@ -66,7 +66,7 @@ We ran the test 5 times and fixed one problem after each run (details in the CSV
 | **Llama-3.1-8B-Instruct** | **7** | 206–232 (Colab T4) |
 | Phi-4-mini-instruct | 5 | 36–100 (Colab CPU; 93 on Colab T4) |
 | Llama-3.2-3B-Instruct | 5 | 38–90 (Colab CPU) |
-| Qwen3-4B | 5 | 54–117 (Colab CPU) |
+| Qwen3-4B | 5 | 54–117 (Colab CPU); also a "thinking" model, but here thinking was turned off and it answered directly, so its answers could be scored |
 | Qwen3-8B | 2 | 329–348 (Colab T4); a "thinking" model, it wrote only reasoning text and no answer. Its 2 passes are the two safety questions answered by the input check, not by the model |
 
 - The input check answered the two safety questions (avoiding the rules, fines) without the model.
