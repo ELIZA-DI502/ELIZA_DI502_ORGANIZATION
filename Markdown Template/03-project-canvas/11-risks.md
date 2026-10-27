@@ -109,7 +109,7 @@ Add rows as needed. Rows with a score of 10 or more also need a detail block (ne
 
 This page lists only uncertain events that the team cannot fully control. Design questions, such as how to split the text, which model to use or how fast it runs, are not listed here. They are answered in the spikes and recorded in the System Architecture Design Document (D4).
 
-R-01 to R-04, R-06, R-07, R-09 and R-11 to R-13 are the other side of the assumptions in [Assumptions & Constraints](03-assumptions-and-constraints.md) (R-13 for A-07). R-08 and R-10 come from constraints and from how the team and outside tools may act; R-10 and R-13 are also the uncertain side of constraint C-05. Whether the assistant reaches its targets (O2, O4), handles personal data as C-10 requires and answers fast enough (A-07) are design and test questions, not risks: they are answered in the System Design Document (D4) and checked by the acceptance criteria of D6, D9 and D11 (for example D9 criteria 2–4, 7 and 8). R-05 was closed on 25/10/2026, when the hosted cloud deployment was removed from the plan; its number is not reused.
+R-01 to R-04, R-06, R-07, R-09 and R-11 to R-13 are the other side of the assumptions in [Assumptions & Constraints](03-assumptions-and-constraints.md) (R-13 for A-07). R-08 and R-10 come from constraints and from how the team and outside tools may act; R-10 and R-13 are also the uncertain side of constraint C-05. Whether the assistant reaches its targets (O2, O4) and handles personal data as C-10 requires are design and test questions, not risks: they are answered in the System Design Document (D4) and checked by the acceptance criteria of D6, D9 and D11 (for example D9 criteria 2–4, 7 and 8). R-05 was closed on 25/10/2026, when the hosted cloud deployment was removed from the plan; its number is not reused.
 
 | # | Layer | Risk (event) | When / where | Probability | Impact | Score | Owner | Linked to |
 |---|---|---|---|---|---|---|---|---|
@@ -125,7 +125,7 @@ R-01 to R-04, R-06, R-07, R-09 and R-11 to R-13 are the other side of the assump
 | R-10 | Integration | **The system does not install on the pilot computer.** Installing the system from `README.md` on the computer used for the pilot and the final demo fails, or gives different results than on the developers' computers, because of a different operating system, Python version or package build. | Sprints 3–4; pilot | 2: a team member who did not build the system installs it from the README each sprint, and the pilot computer is set up by 09/12/2026 | 3: the pilot (16/12–23/12/2026) has a fixed window; a late fix shortens it and can reduce the number of O1 and O3 sessions | 6 (Medium) | Kaan (Data Scientist) | C-05; [Major Activities](04-major-activities.md) rows 28, 29; [Dependencies](06-dependencies.md) row 8 |
 | R-11 | Data | **The law is unclear for some questions.** For more than 5 evaluation questions, the regulation text does not clearly say which provision applies, because the answer depends on legal interpretation. | Sprints 2–3; development | 3: the exceptions in Article 6(3) depend on interpretation, and the Commission's guidelines on them are still a draft | 2: the question set must be partly rewritten and checked again; 2–4 weeks | 6 (Medium) | Kaan (Data Scientist) | A-03; [Dependencies](06-dependencies.md) row 2 |
 | R-12 | Data | **The source format is uneven.** The EUR-Lex HTML does not mark Articles, paragraphs and Annex points in the same way throughout the text, so more than 5% of the provisions lose their numbers. | Sprints 1–2; development | 2: EUR-Lex marks articles, paragraphs and annex points with separate HTML elements; the source parsing spike checks the HTML before the text is split | 2: missing numbers are added by hand; 2–4 weeks | 4 (Low) | Yeşim (Product Owner) | A-05; [Dependencies](06-dependencies.md) row 4 |
-| R-13 | Infrastructure | **The pilot computer becomes unavailable.** The team computer chosen for the pilot and the final demo breaks down or cannot be used between 16/12 and 30/12/2026, for example because of a hardware fault, loss or theft, or because its owner cannot attend. | Sprint 4; pilot and final demo | 2: the team computers are personal laptops in daily use and none has failed so far, but the pilot and the demo depend on one machine | 4: without a working computer the pilot (O1, O3) and the final demo (D11 criterion 6) cannot take place | 8 (Medium) | Kaan (Data Scientist) | A-07; C-05; [Major Activities](04-major-activities.md) row 29; [Dependencies](06-dependencies.md) row 8; [Facilities & Resources](09-facilities-and-resources.md) rows 1, 13 |
+| R-13 | Infrastructure | **The answer time does not meet the limit on the pilot computer.** On the team computer used for the pilot and the final demo, the median answer time on the `val` questions is above the answer-time limit recorded in the System Design Document (D4), so the O1 time gain cannot be reached. | Sprints 2–4; development and pilot | 2: on one team computer (CPU only), the selected model answered in 15.4 s, about 38 s in the worst case, below the 60 s limit; measured on one question, outside Docker, and the pilot computer is not fixed yet ([model selection spike](../../docs/spikes/model-selection-spike.md)) | 4: the O1 time gain is a success criterion | 8 (Medium) | Kaan (Data Scientist) | A-07; C-05; [Major Activities](04-major-activities.md) rows 6, 29; [Dependencies](06-dependencies.md) row 8; [Facilities & Resources](09-facilities-and-resources.md) rows 1, 3, 13 |
 
 Spread of the scored risks (R-01 to R-13, without the closed R-05): 1 High (R-03), 7 Medium, 4 Low.
 
@@ -328,22 +328,22 @@ Closed when the hosted cloud deployment was removed from the plan: the system ru
 | **Owner** | Yeşim (Product Owner) |
 | **Schedule effect** | About 1 week |
 
-### Risk R-13: The pilot computer becomes unavailable
+### Risk R-13: The answer time does not meet the limit on the pilot computer
 
 | Field | Content |
 |---|---|
-| **Risk (event)** | The team computer chosen for the pilot and the final demo breaks down or cannot be used between 16/12 and 30/12/2026. |
-| **Linked to** | A-07; C-05; [Major Activities](04-major-activities.md) row 29; [Dependencies](06-dependencies.md) row 8; [Facilities & Resources](09-facilities-and-resources.md) rows 1, 13 |
-| **Cause** | The whole system runs locally on one team member's personal computer, because there is no hosted deployment (C-05); a hardware fault, loss or theft, or the owner's absence, takes it out of use. |
-| **When / where** | Sprint 4; pilot and final demo |
-| **Mitigation** | By 09/12/2026 the system is also installed from `README.md` on a second team computer and checked on the `val` questions, together with the pilot computer ([Major Activities](04-major-activities.md) row 29). |
-| **Probability (basis)** | 2: the team computers are personal laptops in daily use and none has failed so far; the pilot and the demo fall within two weeks |
-| **Impact (basis)** | 4: without a working computer the pilot (O1, O3) and the final demo (D11 criterion 6) cannot take place |
+| **Risk (event)** | On the team computer used for the pilot and the final demo, the median answer time on the `val` questions is above the answer-time limit recorded in the System Design Document (D4), so the O1 time gain cannot be reached. |
+| **Linked to** | A-07: "The selected open-source quantized language model and the whole pipeline run on a team member's computer without a GPU, within the answer-time limit"; C-05; [Major Activities](04-major-activities.md) rows 6, 29; [Dependencies](06-dependencies.md) row 8; [Facilities & Resources](09-facilities-and-resources.md) rows 1, 3, 13 |
+| **Cause** | No GPU is available (C-05); a quantized language model generates text more slowly on a CPU, and longer prompts (more retrieved passages) make it slower. The computer used for the pilot is not chosen yet, and the answer time has so far been measured on one computer only. |
+| **When / where** | Sprints 2–4; development and pilot |
+| **Mitigation** | The model selection spike measured the answer time on CPU ([Major Activities](04-major-activities.md) row 6); the baseline's answer time is recorded in Sprint 2 (A-07); the answer time on the pilot computer is measured on the `val` questions by 09/12/2026 (row 29). |
+| **Probability (basis)** | 2: on one team computer (CPU only), the selected model answered in 15.4 s, about 38 s in the worst case, below the 60 s limit; measured on one question, outside Docker, and the pilot computer is not fixed yet ([model selection spike](../../docs/spikes/model-selection-spike.md)) |
+| **Impact (basis)** | 4: the O1 time gain is a success criterion |
 | **Score** | 8 (Medium) |
-| **Trigger** | The pilot computer does not start, or cannot be brought to the session, 2 days before a scheduled pilot session or before the final demo on 30/12/2026 |
-| **Contingency plan (B plan)** | The pilot sessions and the final demo run on the second computer prepared by 09/12/2026; the change of computer is recorded in the pilot protocol and in D10. If neither computer can be used, the reserve Google Cloud credit (C-06) pays for a CPU instance for the remaining sessions only, after billing alerts are set. |
-| **Owner** | Kaan (Data Scientist; pilot computer) |
-| **Schedule effect** | Under 1 week |
+| **Trigger** | Median answer time above the D4 limit at the baseline evaluation (18/11/2026) or on the pilot computer (09/12/2026) |
+| **Contingency plan (B plan)** | The smaller fallback model from the model selection spike is used and recorded in the design document; if the limit is still not met, the course's reserve Google Cloud credit (C-06) pays for a CPU instance during the pilot sessions and the final demo only, after billing alerts are set. The Product Owner informs the Project Review Committee if O1 is at risk. |
+| **Owner** | Kaan (Data Scientist; model and answer time) |
+| **Schedule effect** | 1–2 weeks |
 
 ### Example (illustrative only)
 
