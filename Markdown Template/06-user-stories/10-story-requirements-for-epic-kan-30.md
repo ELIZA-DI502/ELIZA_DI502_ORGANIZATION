@@ -19,8 +19,8 @@ For more info you can visit: https://www.atlassian.com/agile/product-management/
 
 | # | User story title | User story description | Priority | Points | Owner | Sprint | Notes | Jira |
 |---|---|---|---|---|---|---|---|---|
-| S1 | [Agree on the technologies for the baseline](#s1--agree-on-the-technologies-for-the-baseline) | As a Data Scientist, I want the architecture, the chosen technologies and the reasons behind them recorded before Sprint 2, so that I can start building the baseline on agreed technologies. | High | 13 | Gözde Nur | Sprint 1 | Release: Pre-alpha; Status: In progress (27/10/2026). | [KAN-81](https://yarengursoy.atlassian.net/browse/KAN-81) |
-| S2 | [Close my gaps in the Sprint 1 fundamentals](#s2--close-my-gaps-in-the-sprint-1-fundamentals) | As a Data Scientist, I want to close my gaps in the Sprint 1 fundamentals with a learning spike, so that I can work on the RAG pipeline from Sprint 2. | Medium | 3 | Yaren | Sprint 1 | Release: Pre-alpha; Status: In progress (27/10/2026). | [KAN-82](https://yarengursoy.atlassian.net/browse/KAN-82) |
+| S1 | [Agree on the technologies for the baseline](#s1--agree-on-the-technologies-for-the-baseline) | As a Data Scientist, I want the architecture, the chosen technologies and the reasons behind them recorded before Sprint 2, so that I can start building the baseline on agreed technologies. | High | 13 | Gözde Nur | Sprint 1 | Release: Pre-alpha; Status: Done (27/10/2026). | [KAN-81](https://yarengursoy.atlassian.net/browse/KAN-81) |
+| S2 | [Close my gaps in the Sprint 1 fundamentals](#s2--close-my-gaps-in-the-sprint-1-fundamentals) | As a Data Scientist, I want to close my gaps in the Sprint 1 fundamentals with a learning spike, so that I can work on the RAG pipeline from Sprint 2. | Medium | 3 | Yaren | Sprint 1 | Release: Pre-alpha; Status: Done (27/10/2026). | [KAN-82](https://yarengursoy.atlassian.net/browse/KAN-82) |
 | S3 | [Measure how well the baseline retrieval finds the expected provisions](#s3--measure-how-well-the-baseline-retrieval-finds-the-expected-provisions) | As a Project Review Committee member, I want to see how often the most basic retrieval finds the expected provision, compared with the target in the charter, so that I can judge whether the project starts from a measured baseline. | High | – | – | Sprint 2 | Release: Alpha 0.1; Depends on [KAN-65](https://yarengursoy.atlassian.net/browse/KAN-65) (question set v1) and [KAN-86](https://yarengursoy.atlassian.net/browse/KAN-86) (indexed source text). | [KAN-87](https://yarengursoy.atlassian.net/browse/KAN-87) |
 | S4 | [Review the system design, the models used and the interface plan](#s4--review-the-system-design-the-models-used-and-the-interface-plan) | As a Project Review Committee member, I want the design document, the software bill of materials and the interface mockup to match the system as it is built in Sprint 2, so that I can review every decision and every model the team used. | High | – | – | Sprint 2 | Release: Alpha 0.1. | [KAN-88](https://yarengursoy.atlassian.net/browse/KAN-88) |
 | S5 | [Run the whole pipeline from one README](#s5--run-the-whole-pipeline-from-one-readme) | As a Project Review Committee member, I want to install and run the whole assistant, user interface included, from one README, so that I can check that the pipeline works end to end. | High | – | – | Sprint 3 | Release: Beta 0.5. | [KAN-168](https://yarengursoy.atlassian.net/browse/KAN-168) |
@@ -51,15 +51,15 @@ Test cases: KAN-8, KAN-2 and KAN-3 already have test cases; a test for every sto
 |---|---|---|---|---|---|
 | Spike: parse and chunk the EUR-Lex HTML | A spike note in docs/spikes/ shows whether Articles, paragraphs and Annex points can be extracted with their identifiers, and proposes a first chunking rule (one chunk per Article paragraph or Annex point). Throw-away notebook, no production code. | Gözde Nur | – | Done | [KAN-56](https://yarengursoy.atlassian.net/browse/KAN-56) |
 | Spike: run open-source quantized models on CPU, check their licences and record the answer time | At least two open-source quantized models run on CPU only (Colab CPU runtime or a team member's computer) on a few sample questions. The answer time and the licence of each are recorded in a spike note. Throw-away notebook, no production code. | Gözde Nur | – | Done | [KAN-57](https://yarengursoy.atlassian.net/browse/KAN-57) |
-| Write the ADRs for the model, embedding, vector store and user interface choices | Every technology marked as chosen in the design document has an ADR in docs/adr/. Every open choice links to a spike note. The chosen LLM is open-source and runs on CPU on a team member's computer, without a paid cloud instance. | Gözde Nur | – | Done | [KAN-58](https://yarengursoy.atlassian.net/browse/KAN-58) |
-| Write the System Architecture Design Document v1 with the architecture diagram | The design document fills every section of the course template (Markdown Template/11-system-architecture-design-document.md): summary, goals and non-goals, diagram, components, design details, decisions, open design areas, change log. The diagram shows every component: ingestion, chunking, embedding, vector store, retriever, LLM, input and output checks, user interface. Each component names its chosen technology or is marked "open" with a link to a spike note. The document states the session and privacy boundaries (C-04, C-10). | Kaan | – | To do | [KAN-59](https://yarengursoy.atlassian.net/browse/KAN-59) |
+| Write the ADRs for the model, embedding, vector store and user interface choices | Every technology marked as chosen in the design document has a decision record in section 6 of the design document. Every open choice links to a spike note. The chosen LLM is open-source and runs on CPU on a team member's computer, without a paid cloud instance. | Gözde Nur | – | Done | [KAN-58](https://yarengursoy.atlassian.net/browse/KAN-58) |
+| Write the System Architecture Design Document v1 with the architecture diagram | The design document fills every section of the course template (Markdown Template/11-system-architecture-design-document.md): summary, goals and non-goals, diagram, components, design details, decisions, open design areas, change log. The diagram shows every component: ingestion, chunking, embedding, vector store, retriever, LLM, input and output checks, user interface. Each component names its chosen technology or is marked "open" with a link to a spike note. The document states the session and privacy boundaries (C-04, C-10). | Kaan | – | Done | [KAN-59](https://yarengursoy.atlassian.net/browse/KAN-59) |
 
 The story carries the points and its sub-tasks are not estimated separately (Model A of the course's [Jira sync guide](../../docs/JIRA_SYNC_SETUP.md)).
 
 **Traceability**
 
-Deliverable: D4 System Design v1 (due 27/10/2026)    
-Milestone: M2 Sources and first design ready; M3 Checkpoint: Sprint 1 reviewed, development starts (28/10/2026)    
+Deliverable: D4 System Design v1 (due 27/10/2026)      
+Milestone: M2 Sources and first design ready; M3 Checkpoint: Sprint 1 reviewed, development starts (28/10/2026)      
 Assumptions / constraints / risks: A-09; C-03, C-04, C-05; R-12
 
 ## S2 · Close my gaps in the Sprint 1 fundamentals
@@ -79,9 +79,9 @@ Assumptions / constraints / risks: A-09; C-03, C-04, C-05; R-12
 | Sub-task | Done when | Owner | Estimate | Status | Jira |
 |---|---|---|---|---|---|
 | Learning spike: RAG indexing and query phases | A learning spike note of at most one page is in docs/spikes/. It explains the indexing and query phases of a RAG pipeline and why RAG reduces hallucination. The member can explain the topic at the Sprint 1 review. Timeboxed; the member may choose another topic from the course's Sprint 1 fundamentals. | Yeşim | – | Done | [KAN-60](https://yarengursoy.atlassian.net/browse/KAN-60) |
-| Learning spike: LLM basics and prompt engineering | A learning spike note of at most one page is in docs/spikes/. It covers tokens, context window, temperature and why LLMs hallucinate, and gives a prompt that answers only from the given passages and says when it does not know. The member can explain the topic at the Sprint 1 review. Timeboxed; the member may choose another topic from the course's Sprint 1 fundamentals. | Yaren | – | To do | [KAN-61](https://yarengursoy.atlassian.net/browse/KAN-61) |
+| Learning spike: LLM basics and prompt engineering | A learning spike note of at most one page is in docs/spikes/. It covers tokens, context window, temperature and why LLMs hallucinate, and gives a prompt that answers only from the given passages and says when it does not know. The member can explain the topic at the Sprint 1 review. Timeboxed; the member may choose another topic from the course's Sprint 1 fundamentals. | Yaren | – | Done | [KAN-61](https://yarengursoy.atlassian.net/browse/KAN-61) |
 | Learning spike: Scrum, Git and prompt engineering | A learning spike note of at most one page is in docs/spikes/ (`learning-gozde-nur.md`). It covers Scrum, Git and prompt engineering from the course's Sprint 1 fundamentals and states what the member learned for each topic; throw-away code only. The member can explain the topics at the Sprint 1 review. Timeboxed. | Gözde Nur | – | Done | [KAN-62](https://yarengursoy.atlassian.net/browse/KAN-62) |
-| Learning spike: evaluation basics and Recall@5 | A learning spike note of at most one page is in docs/spikes/. It explains what an evaluation set is, why it must be fixed before experiments, and what Recall@5 measures. The member can explain the topic at the Sprint 1 review. Timeboxed; the member may choose another topic from the course's Sprint 1 fundamentals. | Kaan | – | To do | [KAN-63](https://yarengursoy.atlassian.net/browse/KAN-63) |
+| Learning spike: evaluation basics and Recall@5 | A learning spike note of at most one page is in docs/spikes/. It explains what an evaluation set is, why it must be fixed before experiments, and what Recall@5 measures. The member can explain the topic at the Sprint 1 review. Timeboxed; the member may choose another topic from the course's Sprint 1 fundamentals. | Kaan | – | Done | [KAN-63](https://yarengursoy.atlassian.net/browse/KAN-63) |
 
 The story carries the points and its sub-tasks are not estimated separately (Model A of the course's [Jira sync guide](../../docs/JIRA_SYNC_SETUP.md)).
 
@@ -118,12 +118,12 @@ Sub-task owners are assigned at the sprint planning.
 
 **Traceability**
 
-Deliverable: D6 Alpha Release (due 14/11/2026; criteria 1, 5, 8, 9)    
-Milestone: M4 Baseline (alpha) runs on the full validation question set (18/11/2026)    
-Objective: O2 Evidence (a)    
-Major Activities: rows 9, 23, 28    
-Dependencies: rows 6, 7    
-Constraints: C-03 RAG chatbot with an open-source quantized model; C-05 No GPU
+Deliverable: D6 Alpha Release (due 14/11/2026; criteria 1, 5, 8, 9)      
+Milestone: M4 Baseline (alpha) runs on the full validation question set (18/11/2026)      
+Objective: O2 Evidence (a)      
+Major Activities: rows 9, 23, 28      
+Dependencies: rows 6, 7      
+Constraints: C-03 RAG chatbot with an open-source quantized model; C-05 CPU only
 
 ## S4 · Review the system design, the models used and the interface plan
 
@@ -152,10 +152,10 @@ Sub-task owners are assigned at the sprint planning.
 
 **Traceability**
 
-Deliverable: D6 Alpha Release (due 14/11/2026; criteria 6, 9)        
-Milestone: M4 Baseline (alpha) runs on the full validation question set (18/11/2026)        
-Major Activities: rows 5, 14, 16        
-Constraints: C-03 RAG chatbot with an open-source quantized model; C-08 Information, not legal advice        
+Deliverable: D6 Alpha Release (due 14/11/2026; criteria 6, 9)      
+Milestone: M4 Baseline (alpha) runs on the full validation question set (18/11/2026)      
+Major Activities: rows 5, 14, 16      
+Constraints: C-03 RAG chatbot with an open-source quantized model; C-08 Information, not legal advice      
 Assumption / Risk: A-09 / R-06 The model or a library becomes unavailable
 
 ## S5 · Run the whole pipeline from one README

@@ -178,8 +178,8 @@ Features: Charter v1 and v2 (D1, D7), user stories, sprint documents · [Story r
   - [KAN-41](https://yarengursoy.atlassian.net/browse/KAN-41) Review and rewrite the user stories in Jira · Yeşim
   - [KAN-42](https://yarengursoy.atlassian.net/browse/KAN-42) Write the Story Requirements pages and User Story Map v1 · Yeşim
   - [KAN-43](https://yarengursoy.atlassian.net/browse/KAN-43) Write the Definition of Ready and Definition of Done · Yaren
-  - [KAN-44](https://yarengursoy.atlassian.net/browse/KAN-44) Write the Sprint 1 report and prepare the Sprint 1 review · Yeşim
-  - [KAN-64](https://yarengursoy.atlassian.net/browse/KAN-64) Set up the repository folders for Sprint 1 outputs · Yaren
+  - [KAN-44](https://yarengursoy.atlassian.net/browse/KAN-44) Write the Sprint 1 welcome page and prepare the Sprint 1 review · Yeşim
+  - [KAN-64](https://yarengursoy.atlassian.net/browse/KAN-64) Set up the repository folders for Sprint 1 outputs · Yeşim
 - **[KAN-89](https://yarengursoy.atlassian.net/browse/KAN-89) Check that the Sprint 1 feedback changed the charter** · Sprint 2
   - [KAN-106](https://yarengursoy.atlassian.net/browse/KAN-106) Write the response table for the Sprint 1 review comments
   - [KAN-107](https://yarengursoy.atlassian.net/browse/KAN-107) Update the Scope Definition with the final provision list

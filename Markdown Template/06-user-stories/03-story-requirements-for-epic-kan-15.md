@@ -86,12 +86,12 @@ Sub-task owners are assigned at the sprint planning.
 
 **Traceability**
 
-Feature: Web interface supporting Features 1–4 and 6 (Major Activities row 14)    
-Objectives: O1 Search time; O3 Understanding (measured in the D10 pilot)    
-Deliverable: D9 Beta Release (due 05/12/2026)    
-Milestone: M7 (09/12/2026)    
-Major Activities: row 29    
-Constraints: C-05 No GPU; C-10 No personal data requested; conversation deleted when the session ends    
+Feature: Web interface supporting Features 1–4 and 6 (Major Activities row 14)        
+Objectives: O1 Search time; O3 Understanding (measured in the D10 pilot)        
+Deliverable: D9 Beta Release (due 05/12/2026)        
+Milestone: M7 (09/12/2026)        
+Major Activities: row 29        
+Constraints: C-05 CPU only; C-10 No personal data requested; conversation deleted when the session ends        
 Risks: R-09 The system does not install on the pilot computer; R-12 The answer time does not meet the limit on the pilot computer
 
 ## S3 · Start from example questions or my use case
