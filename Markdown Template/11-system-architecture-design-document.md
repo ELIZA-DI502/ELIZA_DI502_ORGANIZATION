@@ -37,7 +37,7 @@ Link to the charter instead of restating it.
 
 The design serves the four objectives and their success criteria in the [Project Executive Summary](03-project-canvas/01-project-executive-summary.md):
 
-- O1 Search time: answers are produced on a CPU without waiting for a hosted API; the answer time is the main design risk (R-16). **Answer-time limit:** the median answer time on the `val` questions on the pilot computer is at most 60 s (O1, A-07, R-16). Measured on one team computer: 15 s for Llama-3.1-8B, about 38 s in the worst case ([model selection spike](../docs/spikes/model-selection-spike.md), section 6).
+- O1 Search time: answers are produced on a CPU without waiting for a hosted API; the answer time is the main design risk (R-13). **Answer-time limit:** the median answer time on the `val` questions on the pilot computer is at most 60 s (O1, A-07, R-13). Measured on one team computer: 15 s for Llama-3.1-8B, about 38 s in the worst case ([model selection spike](../docs/spikes/model-selection-spike.md), section 6).
 - O2 Evidence: the LLM answers only from the retrieved provisions, and the output check removes citations that are not among them.
 - O3 Understanding: the prompt asks for a short plain-language summary first, and the interface shows the text of every cited provision.
 - O4 Safety: the input check returns a notice for out-of-scope, legal-decision and personal-data questions, and the output check blocks verdict wording (C-08).
@@ -303,7 +303,7 @@ O1 (search time) and O3 (understanding) are measured with pilot users in Sprint 
 - Containers: web (React build served by Node.js + Express), db (PostgreSQL), rag (FastAPI) and ollama. Only web publishes a port; db, rag and ollama are reachable only on the internal Docker network.
 - Data on the host: data/vector-store/ (bind mount into rag), data/postgres/ (bind mount into db) and the downloaded model files (Docker volume for ollama). data/postgres/ holds only the conversations of active sessions.
 - Preparation step: python rag/ingest.py is run once on the computer before the first start.
-- Pilot computer: the team computer used for the pilot and the final demo; the answer time of Llama-3.1-8B is measured at the baseline (18/11/2026) and on this computer by 09/12/2026 and compared with the answer-time limit in section 2 (D9, A-07, R-16). The $100 Google Cloud credit (C-06) is kept as a reserve: it is used only if the limit is still not met after reducing top-k or the answer length (A-07) and switching to the fallback model (R-16).
+- Pilot computer: the team computer used for the pilot and the final demo; the answer time of Llama-3.1-8B is measured at the baseline (18/11/2026) and on this computer by 09/12/2026 and compared with the answer-time limit in section 2 (D9, A-07, R-13). The $100 Google Cloud credit (C-06) is kept as a reserve: it is used only if the limit is still not met after reducing top-k or the answer length (A-07) and switching to the fallback model (R-13).
 
 ## 6. Decisions
 
@@ -419,9 +419,9 @@ Copy the block below for each decision.
 
 **Why:** Follows C-05; no paid instance and no shared link are needed (A-07).
 
-**Consequences:** The pilot computer is set up from README.md and its answer time is measured by 09/12/2026 (Major Activities row 29). If the answer-time limit is still not met after the steps in A-07 and R-16, the reserve Google Cloud credit is used for a CPU instance during the pilot sessions and the final demo only (C-06, R-16).
+**Consequences:** The pilot computer is set up from README.md and its answer time is measured by 09/12/2026 (Major Activities row 29). If the answer-time limit is still not met after the steps in A-07 and R-13, the reserve Google Cloud credit is used for a CPU instance during the pilot sessions and the final demo only (C-06, R-13).
 
-**Evidence:** C-05, C-06, A-07, R-16
+**Evidence:** C-05, C-06, A-07, R-13
 
 **Owner and date:** Architecture part, 2026-10-20
 
@@ -569,7 +569,7 @@ Web and deployment part:
 
 - **Session parameters:** when a session ends (inactivity timeout), how many question-answer pairs are sent with each question, cookie settings and rate limits (Sprint 2).
 - **API contract:** final fields of `POST /answer`, agreed between the web and RAG sides.
-- **Pilot computer:** which team computer is used for the pilot and the final demo, chosen together with the answer-time measurement of Llama-3.1-8B (D9, A-07, R-16).
+- **Pilot computer:** which team computer is used for the pilot and the final demo, chosen together with the answer-time measurement of Llama-3.1-8B (D9, A-07, R-13).
 
 ## 8. Change log
 
