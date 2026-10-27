@@ -321,7 +321,7 @@ Copy the block below for each decision.
 
 ### D1: Web interface and backend: React + Node.js/Express
 
-**Context:** Users need a chat page with the cited provision text, a permanent notice and a personal-data warning (KAN-21, KAN-22, KAN-25, KAN-26). Spike 01 proposed Gradio; the learning spike KAN-62 covers Gradio.
+**Context:** Users need a chat page with the cited provision text, a permanent notice and a personal-data warning (KAN-21, KAN-22, KAN-25, KAN-26). Spike 01 proposed Gradio.
 
 **Options considered:**
 
@@ -335,7 +335,7 @@ Copy the block below for each decision.
 
 **Why:** The team member building the web side works in JavaScript, and the interface requirements go beyond a default chat widget.
 
-**Consequences:** The RAG service exposes an HTTP API; KAN-62 (Gradio spike) should be reconsidered or kept only as a quick demo option.
+**Consequences:** The RAG service exposes an HTTP API; Gradio is not used.
 
 **Evidence:** Team discussion of the Spike 01 technology options, 19/10/2026; KAN-21, KAN-26
 
