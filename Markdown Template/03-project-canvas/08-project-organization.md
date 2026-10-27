@@ -72,9 +72,9 @@ Define the roles and responsibilities of each team member, and of any stakeholde
 | **Scrum Master** | One person [1]. Accountable for how effectively the team works: coaches the team in self-management, gets impediments removed, and makes sure the Scrum events happen and are useful [1]. Together with the Product Owner, guides the team towards user stories that meet the INVEST criteria [2]. |
 | **Data Scientist** | Builds the product. In Scrum terms, everyone in the team who is neither the Product Owner nor the Scrum Master is a Developer [1]. Developers plan the sprint, meet the Definition of Done, adapt the plan daily towards the Sprint Goal, and decide among themselves how to turn backlog items into working increments [1]. |
 | **Business Analyst** | Owns work the Product Owner does not, for example gathering requirements from a named outside stakeholder and handing them to the Product Owner as draft stories. |
-| **Group Manager** | Coordinates a named area, for example the shared resources in [Facilities & Resources](03-project-canvas_v2/09-facilities-and-resources.md). Coordinating gives no authority over other members. |
+| **Group Manager** | Coordinates a named area, for example the shared resources in [Facilities & Resources](09-facilities-and-resources.md). Coordinating gives no authority over other members. |
 | **Team Lead** | Coordinates a named area, for example technical design decisions and code review. Coordinating gives no authority over other members. |
-| **Project Lead** | Coordinates a named area that differs from the Scrum Master's, for example tracking progress against the success criteria in the [Project Executive Summary](03-project-canvas_v2/01-project-executive-summary.md). |
+| **Project Lead** | Coordinates a named area that differs from the Scrum Master's, for example tracking progress against the success criteria in the [Project Executive Summary](01-project-executive-summary.md). |
 | **Project Review Committee** | The course instructors. |
 
 Delete a row only if nobody in your team holds that role. Business Analyst, Group Manager, Team Lead and Project Lead are often unnecessary in a small team.
@@ -106,13 +106,13 @@ Add a row for each outside stakeholder with a significant influence on the proje
 10. The AI customer row names the course instructors and the peer groups.
 11. Outside stakeholders use an ISO/IEC 5339 stakeholder role where one fits, and each names the team member who holds the contact [3].
 12. The team chart shows how the team relates to governance: the Project Review Committee, the peer groups and the outside stakeholders.
-13. Every person named as an owner, approver or contact on another page appears here: deliverable approvers in [Deliverables](03-project-canvas_v2/05-deliverables.md), risk owners in [Risks](03-project-canvas_v2/11-risks.md), contacts in [Dependencies](03-project-canvas_v2/06-dependencies.md).
+13. Every person named as an owner, approver or contact on another page appears here: deliverable approvers in [Deliverables](05-deliverables.md), risk owners in [Risks](11-risks.md), contacts in [Dependencies](06-dependencies.md).
 
 ## Test to apply to your draft
 
 Cover the Project Role column and read only the Responsibilities column. Can you tell which role each row belongs to? If two rows could swap places, they overlap.
 
-Then collect every name and role that appears on [Milestones](03-project-canvas_v2/02-milestones.md), [Dependencies](03-project-canvas_v2/06-dependencies.md) and [Risks](03-project-canvas_v2/11-risks.md). Can you find each one on this page?
+Then collect every name and role that appears on [Milestones](02-milestones.md), [Dependencies](06-dependencies.md) and [Risks](11-risks.md). Can you find each one on this page?
 
 ## Not this / this
 
@@ -121,8 +121,8 @@ The left column shows weak entries, each tagged with the rule it breaks.
 | Not this | Rule broken | This (illustrative only) |
 |---|---|---|
 | "Project Review Committee: reviews project outcomes, ensures alignment with goals, tests and validations. Assigned to: two team members." | The committee is the instructors (rule 9) | "Project Review Committee: reviews the charter and the sprint deliverables. Assigned to: course instructors." Testing and validation go under Data Scientist. |
-| "Scrum Master: manages sprint planning and team coordination" and "Project Lead: manages overall project execution and ensures objectives are met", given to the same person. A peer reviewer flagged the two as overlapping. | Two rows share a responsibility (rule 6) | "Scrum Master: runs sprint planning, reviews and retrospectives; tracks impediments in Jira." "Project Lead: checks progress against the success criteria in the [Project Executive Summary](03-project-canvas_v2/01-project-executive-summary.md) at each sprint review." Or delete the Project Lead row. |
-| "Group Manager: oversees group-level project progress and resource allocation." | No area named; reads as authority over others (rules 5, 7) | "Group Manager: coordinates the shared resources in [Facilities & Resources](03-project-canvas_v2/09-facilities-and-resources.md) (cloud credit, repository access) and reports their status at each sprint review." |
+| "Scrum Master: manages sprint planning and team coordination" and "Project Lead: manages overall project execution and ensures objectives are met", given to the same person. A peer reviewer flagged the two as overlapping. | Two rows share a responsibility (rule 6) | "Scrum Master: runs sprint planning, reviews and retrospectives; tracks impediments in Jira." "Project Lead: checks progress against the success criteria in the [Project Executive Summary](01-project-executive-summary.md) at each sprint review." Or delete the Project Lead row. |
+| "Group Manager: oversees group-level project progress and resource allocation." | No area named; reads as authority over others (rules 5, 7) | "Group Manager: coordinates the shared resources in [Facilities & Resources](09-facilities-and-resources.md) (cloud credit, repository access) and reports their status at each sprint review." |
 | "Data Scientist: develops and fine-tunes the model." | Not specific to this project (rule 5) | "Data Scientist (Members 1 and 2): fine-tune the answer model on the prepared document set, record each run in an experiment card, and test each increment against the Definition of Done." |
 | "AI developer: builds the retrieval pipeline. Assigned to: Members 1 and 2." | An ISO stakeholder role used for team members (rules 1, 11) | "Data Scientist (Members 1 and 2): build the retrieval pipeline." |
 | A roles table with no team chart. | No chart or governance relation (rule 12) | A chart with the Scrum Team as one box, the instructors as Project Review Committee, the peer groups, and the outside stakeholders (data provider, AI partner). |
@@ -138,10 +138,10 @@ The left column shows weak entries, each tagged with the rule it breaks.
 
 ## What doesn't belong here
 
-- **The stakeholders who benefit from the project** go in [Project Executive Summary](03-project-canvas_v2/01-project-executive-summary.md). This page gives responsibilities, not benefits.
-- **Team size and weekly hours** are constraints in [Assumptions & Constraints](03-project-canvas_v2/03-assumptions-and-constraints.md).
-- **Who approves each deliverable** goes in [Deliverables](03-project-canvas_v2/05-deliverables.md).
-- **Who owns each risk** goes in [Risks](03-project-canvas_v2/11-risks.md).
+- **The stakeholders who benefit from the project** go in [Project Executive Summary](01-project-executive-summary.md). This page gives responsibilities, not benefits.
+- **Team size and weekly hours** are constraints in [Assumptions & Constraints](03-assumptions-and-constraints.md).
+- **Who approves each deliverable** goes in [Deliverables](05-deliverables.md).
+- **Who owns each risk** goes in [Risks](11-risks.md).
 
 ## Roles and Responsibilities table
 
@@ -176,11 +176,11 @@ Team chart (as a list):
 |---|---|---|
 | Product Owner | Write and order the user stories; keep the backlog in Jira up to date; agree the target metric with the AI customer. | Member 1 |
 | Scrum Master | Run sprint planning, reviews and retrospectives; track impediments; check that stories meet INVEST before planning. | Member 4 |
-| Business Analyst | Gather requirements from the legal expert and hand them to the Product Owner as draft stories; hold the contact with the data provider ([Dependencies](03-project-canvas_v2/06-dependencies.md) row 2). | Member 3 |
+| Business Analyst | Gather requirements from the legal expert and hand them to the Product Owner as draft stories; hold the contact with the data provider ([Dependencies](06-dependencies.md) row 2). | Member 3 |
 | Team Lead | Coordinate technical design decisions and code review across the pipeline. | Member 2 |
-| Data Scientist | Member 1: cloud set-up and retrieval pipeline ([Facilities & Resources](03-project-canvas_v2/09-facilities-and-resources.md) row 1). Member 2: answer model and LLM API (row 2). Member 3: data pipeline and PII masking (C-03). Member 4: staging deployment (row 7). All: experiments and the Definition of Done. | Members 1, 2, 3, 4 |
+| Data Scientist | Member 1: cloud set-up and retrieval pipeline ([Facilities & Resources](09-facilities-and-resources.md) row 1). Member 2: answer model and LLM API (row 2). Member 3: data pipeline and PII masking (C-03). Member 4: staging deployment (row 7). All: experiments and the Definition of Done. | Members 1, 2, 3, 4 |
 | Project Review Committee | Review the charter and the sprint deliverables. | Course instructors |
-| AI customer | Accept the MVP ([Milestones](03-project-canvas_v2/02-milestones.md)). | Course instructors and peer groups |
+| AI customer | Accept the MVP ([Milestones](02-milestones.md)). | Course instructors and peer groups |
 | Data provider | Publishes the document set under its licence. Contact: Member 3. | Document publisher |
 | AI partner | Provides GPU compute and hosting under the university credit. Contact: Member 1. | Cloud service |
 | Legal expert | Reviews answers at least 2 hours per week (A-02). Contact: Member 3. | Named expert |
@@ -202,7 +202,7 @@ Group Manager and Project Lead are deleted: in a team of four, their work is alr
 - [x] The AI customer row names the course instructors and peer groups (rule 10)
 - [x] Outside stakeholders use ISO/IEC 5339 role names where one fits, each with a team contact (rule 11)
 - [x] The team chart shows the relation to governance (rule 12)
-- [x] Every owner, approver and contact on [Milestones](03-project-canvas_v2/02-milestones.md), [Dependencies](03-project-canvas_v2/06-dependencies.md) and [Risks](03-project-canvas_v2/11-risks.md) appears here (rule 13)
+- [x] Every owner, approver and contact on [Milestones](02-milestones.md), [Dependencies](06-dependencies.md) and [Risks](11-risks.md) appears here (rule 13)
 
 ---
 

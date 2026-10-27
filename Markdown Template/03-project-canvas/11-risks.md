@@ -6,10 +6,10 @@ Record here the strategic risks identified at the start of the project. Write ea
 
 A risk is an uncertain event that would hurt the project if it happens. It is connected to two other entries in the charter:
 
-- **Every assumption has a risk on its flip side.** Each assumption in [Assumptions & Constraints](03-project-canvas_v2/03-assumptions-and-constraints.md) has an ID (A-01, …) and names its linked risk. Register that risk here, give it an ID (R-01, …), and write the assumption's ID in **Linked to**. The IDs must point both ways. Example: the assumption "the dataset covers the in-scope categories" has the risk "the dataset under-represents some categories, leading to poor performance on them".
-- **The uncertain part of a constraint is a risk.** A constraint in [Assumptions & Constraints](03-project-canvas_v2/03-assumptions-and-constraints.md) is a fixed limit, but complying with it can fail. The in-scope activity in [Major Activities](03-project-canvas_v2/04-major-activities.md) that enforces the constraint is the risk's mitigation. Example: the constraint "no PII is stored" has the risk "users submit PII in free-text queries, and it ends up in logs or the retrieval index"; PII masking is the mitigation.
+- **Every assumption has a risk on its flip side.** Each assumption in [Assumptions & Constraints](03-assumptions-and-constraints.md) has an ID (A-01, …) and names its linked risk. Register that risk here, give it an ID (R-01, …), and write the assumption's ID in **Linked to**. The IDs must point both ways. Example: the assumption "the dataset covers the in-scope categories" has the risk "the dataset under-represents some categories, leading to poor performance on them".
+- **The uncertain part of a constraint is a risk.** A constraint in [Assumptions & Constraints](03-assumptions-and-constraints.md) is a fixed limit, but complying with it can fail. The in-scope activity in [Major Activities](04-major-activities.md) that enforces the constraint is the risk's mitigation. Example: the constraint "no PII is stored" has the risk "users submit PII in free-text queries, and it ends up in logs or the retrieval index"; PII masking is the mitigation.
 
-A risk can also come from a dependency in [Dependencies](03-project-canvas_v2/06-dependencies.md), for example an external API that changes or becomes unavailable. Write the dependency's row number in **Linked to**.
+A risk can also come from a dependency in [Dependencies](06-dependencies.md), for example an external API that changes or becomes unavailable. Write the dependency's row number in **Linked to**.
 
 ## How to fill in each risk
 
@@ -31,7 +31,7 @@ Each risk has three parts that act at different times. Keep them separate.
 | 2 | Low (10–30%): possible, but only under special conditions |
 | 3 | Medium (30–50%): seen in about half of similar projects |
 | 4 | High (50–75%): typical in this area; it would be a surprise if it did not happen |
-| 5 | Very high (>75%): almost certain. If it is basically going to happen, treat it as a constraint in [Assumptions & Constraints](03-project-canvas_v2/03-assumptions-and-constraints.md). If some uncertainty remains, keep it as an assumption in [Assumptions & Constraints](03-project-canvas_v2/03-assumptions-and-constraints.md) and link this risk to it |
+| 5 | Very high (>75%): almost certain. If it is basically going to happen, treat it as a constraint in [Assumptions & Constraints](03-assumptions-and-constraints.md). If some uncertainty remains, keep it as an assumption in [Assumptions & Constraints](03-assumptions-and-constraints.md) and link this risk to it |
 
 Every probability value needs a **basis**, written next to it: a pilot measurement, the literature, a data profile (e.g., the class or category distribution), a third-party dependency, or team experience. "3, because it feels medium" cannot be defended. "3, because the pilot retrieval test gave Recall@5 = 0.52" can.
 
@@ -68,7 +68,7 @@ Ask these three questions of every contingency plan:
 
 1. **Would I have done this anyway?** If yes, it belongs in the Major Activities, not here. "Try different models", "tune hyperparameters" and "keep testing and optimizing" are not contingency plans.
 2. **What is the trigger?** A contingency plan needs a **numeric threshold** and a **date or sprint**. Write "If groundedness on the evaluation set is &lt; 0.70 at the end of Sprint 4, …", not "If performance stays low, …".
-3. **Who is the owner?** Name the person who decides to narrow the scope, switch the model or renegotiate the target with the AI customer. "The project team" is not an owner. Every member manages the project in some capacity, so an owner is always a named person, together with the role they hold in [Project Organization](03-project-canvas_v2/08-project-organization.md).
+3. **Who is the owner?** Name the person who decides to narrow the scope, switch the model or renegotiate the target with the AI customer. "The project team" is not an owner. Every member manages the project in some capacity, so an owner is always a named person, together with the role they hold in [Project Organization](08-project-organization.md).
 
 | Not a contingency plan | Contingency plan |
 |---|---|
@@ -85,7 +85,7 @@ If you are stuck, use one of these four patterns:
 
 ## Where risks come from
 
-Do not write only "the model may not work". Write **at least one risk from each of the five layers**. A table with only technical risks is incomplete. The same five layers are used as the constraint categories in [Assumptions & Constraints](03-project-canvas_v2/03-assumptions-and-constraints.md).
+Do not write only "the model may not work". Write **at least one risk from each of the five layers**. A table with only technical risks is incomplete. The same five layers are used as the constraint categories in [Assumptions & Constraints](03-assumptions-and-constraints.md).
 
 | Layer | Typical risks |
 |---|---|
@@ -100,8 +100,8 @@ Across the layers, cover the whole life cycle: data preparation, model developme
 **Not risks:**
 
 - A fixed limit is a **constraint**. For example, "limited computational resources" belongs under Assumptions & Constraints. The resources fluctuating or failing *is* a risk.
-- An **assumption** is logged in [Assumptions & Constraints](03-project-canvas_v2/03-assumptions-and-constraints.md), not here. Its flip-side risk is registered here, with the assumption's ID in **Linked to**.
-- Work the team will not do is an **out-of-scope activity** in [Major Activities](03-project-canvas_v2/04-major-activities.md).
+- An **assumption** is logged in [Assumptions & Constraints](03-assumptions-and-constraints.md), not here. Its flip-side risk is registered here, with the assumption's ID in **Linked to**.
+- Work the team will not do is an **out-of-scope activity** in [Major Activities](04-major-activities.md).
 
 ## Risk register
 
@@ -367,12 +367,12 @@ Closed when the hosted cloud deployment was removed from the plan: the system ru
 - [x] At least 5 risks
 - [x] At least one risk from each of the five layers (data / model / infrastructure / integration / people-process)
 - [x] Every risk is written as an event, with when and where
-- [x] Every assumption in [Assumptions & Constraints](03-project-canvas_v2/03-assumptions-and-constraints.md) has a risk here, and the IDs match both ways
-- [x] Every risk that comes from a constraint names the in-scope activity in [Major Activities](03-project-canvas_v2/04-major-activities.md) that mitigates it
+- [x] Every assumption in [Assumptions & Constraints](03-assumptions-and-constraints.md) has a risk here, and the IDs match both ways
+- [x] Every risk that comes from a constraint names the in-scope activity in [Major Activities](04-major-activities.md) that mitigates it
 - [x] Probability values are residual (after mitigation), and each has a basis
 - [x] Risks that threaten an acceptance criterion or success criterion have an impact of at least 4
 - [x] Every risk scoring 10 or more has a mitigation, a numeric trigger with a date or sprint, a contingency plan and a named owner
-- [x] Every owner is a named person listed in [Project Organization](03-project-canvas_v2/08-project-organization.md)
-- [x] No contingency plan repeats work already planned under [Major Activities](03-project-canvas_v2/04-major-activities.md)
+- [x] Every owner is a named person listed in [Project Organization](08-project-organization.md)
+- [x] No contingency plan repeats work already planned under [Major Activities](04-major-activities.md)
 - [x] Scores are spread out (not all low, not all high)
 - [x] Risk timings fall inside the project's sprint timeline
