@@ -97,7 +97,7 @@ Loading the model took 6 s (Llama) and 9 s (Phi-4-mini), once at start.
 | Llama-3.1-8B-Instruct | about 38 s |
 | Phi-4-mini-instruct | about 19 s |
 
-This is one question and one run per model. Ollama ran directly on macOS, not in the Docker container of decision D6 in the design document, which may be slower. The time is measured again at the baseline (18/11/2026) and on the pilot computer by 09/12/2026 (A-07).
+This is one question and one run per model. Ollama ran directly on macOS, not in the Docker container of decision D6 in the design document, which may be slower. The time is measured again at the baseline (18/11/2026) and on the pilot computer by 09/12/2026 (R-13).
 
 ## Decision
 
