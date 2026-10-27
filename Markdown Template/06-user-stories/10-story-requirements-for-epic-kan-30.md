@@ -60,7 +60,7 @@ The story carries the points and its sub-tasks are not estimated separately (Mod
 
 Deliverable: D4 System Design v1 (due 27/10/2026)    
 Milestone: M2 Sources and first design ready; M3 Checkpoint: Sprint 1 reviewed, development starts (28/10/2026)    
-Assumptions / constraints / risks: A-10; C-03, C-04, C-05; R-13
+Assumptions / constraints / risks: A-09; C-03, C-04, C-05; R-13
 
 ## S2 · Close my gaps in the Sprint 1 fundamentals
 
@@ -156,7 +156,7 @@ Deliverable: D6 Alpha Release (due 14/11/2026; criteria 6, 9)
 Milestone: M4 Baseline (alpha) runs on the full validation question set (18/11/2026)        
 Major Activities: rows 5, 14, 16        
 Constraints: C-03 RAG chatbot with an open-source quantized model; C-08 Information, not legal advice        
-Assumption / Risk: A-10 / R-07 The model or a library changes
+Assumption / Risk: A-09 / R-07 The model or a library changes
 
 ## S5 · Run the whole pipeline from one README
 
