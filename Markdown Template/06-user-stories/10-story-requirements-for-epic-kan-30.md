@@ -42,8 +42,8 @@ Test cases: KAN-8, KAN-2 and KAN-3 already have test cases; a test for every sto
 1. The design document fills every section of the current course template and contains the architecture diagram with every component (ingestion, chunking, embedding, vector store, retriever, LLM, input and output checks, user interface).
 2. Each component names its chosen technology and has an ADR, or is marked open and links to a spike note.
 3. Spike notes exist for source parsing and for running an open-source quantized LLM on CPU, and the chosen models' licences are recorded.
-4. The model spike note records the answer time of each candidate model on CPU, so that the chosen model can run on a team member's computer without a paid cloud instance (A-07; D4 criterion 5).
-5. The design document records an answer-time limit (A-07, R-13) and describes the out-of-scope notice in its Interfaces section (C-04).
+4. The model spike note records the answer time of each candidate model on CPU, so that the chosen model can run on a team member's computer without a paid cloud instance (R-13; D4 criterion 5).
+5. The design document records an answer-time limit (R-13) and describes the out-of-scope notice in its Interfaces section (C-04).
 
 **Sub-tasks**
 
@@ -60,7 +60,7 @@ The story carries the points and its sub-tasks are not estimated separately (Mod
 
 Deliverable: D4 System Design v1 (due 27/10/2026)    
 Milestone: M2 Sources and first design ready; M3 Checkpoint: Sprint 1 reviewed, development starts (28/10/2026)    
-Assumptions / constraints / risks: A-07, A-10; C-03, C-04, C-05; R-13
+Assumptions / constraints / risks: A-10; C-03, C-04, C-05; R-13
 
 ## S2 · Close my gaps in the Sprint 1 fundamentals
 
