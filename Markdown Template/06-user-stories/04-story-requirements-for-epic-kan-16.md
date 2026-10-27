@@ -72,7 +72,7 @@ Deliverable: D6 Alpha Release (due 14/11/2026)
 Milestone: M4 Baseline (alpha) runs on the full validation question set (18/11/2026)    
 Major Activities: row 9    
 Constraints: C-01 Single source (consolidated text of 27/07/2026); C-09 EUR-Lex reuse with source acknowledgement    
-Risk: R-12 The source format is uneven
+Risk: R-11 The source format is uneven
 
 ## S2 · Understand the relevant requirements in plain language
 
@@ -177,7 +177,7 @@ Objective: O3 Understanding; O4 Safety (business outcome)
 Deliverable: D10 Pilot Evaluation Report (due 30/12/2026)        
 Milestone: M9 Pilot measured (30/12/2026)        
 Major Activities: row 26        
-Assumptions / Risks: A-04, A-07 / R-03, R-09        
+Assumptions / Risks: A-04, A-07 / R-03, R-08        
 Constraint: C-10
 
 ## S5 · Find the provisions faster than with manual search
@@ -211,7 +211,7 @@ Objective: O1 Search time
 Deliverable: D10 Pilot Evaluation Report (due 30/12/2026)        
 Milestone: M9 Pilot measured (30/12/2026)        
 Major Activities: row 26        
-Assumptions / Risks: A-04, A-07 / R-03, R-09        
+Assumptions / Risks: A-04, A-07 / R-03, R-08        
 Constraint: C-10
 
 ## S6 · Ask follow-up questions about our product in the same session

@@ -92,7 +92,7 @@ Deliverable: D9 Beta Release (due 05/12/2026)
 Milestone: M7 (09/12/2026)    
 Major Activities: row 29    
 Constraints: C-05 No GPU; C-10 No personal data requested; conversation deleted when the session ends    
-Risks: R-10 The system does not install on the pilot computer; R-13 The answer time does not meet the limit on the pilot computer
+Risks: R-09 The system does not install on the pilot computer; R-12 The answer time does not meet the limit on the pilot computer
 
 ## S3 · Start from example questions or my use case
 

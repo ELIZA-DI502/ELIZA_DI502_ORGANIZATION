@@ -67,7 +67,7 @@ Milestone: M4 Baseline (alpha) runs on the full validation question set (18/11/2
 Objective: O2 Evidence    
 Major Activities: row 3    
 Dependencies: rows 1, 2    
-Assumption / Risk: A-03 / R-11 The law is unclear for some questions
+Assumption / Risk: A-03 / R-10 The law is unclear for some questions
 
 ## S2 · Test the assistant's safety responses against a written rubric
 
@@ -131,4 +131,4 @@ Deliverable: D8 Q&A Generation-Dataset v2 (due 05/12/2026)
 Milestone: M7 (09/12/2026)        
 Objectives: O2 Evidence; O4 Safety        
 Major Activities: row 25        
-Assumption / Risk: A-03 / R-11
+Assumption / Risk: A-03 / R-10
