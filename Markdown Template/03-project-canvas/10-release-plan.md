@@ -130,7 +130,7 @@ The sprints follow each other without a gap, so each checkpoint falls on the day
 | 01/12/2026 | D8 `val` questions frozen | Leaves 4 days to score the beta on the D8 `val` split before the 05/12 upload (D9) |
 | 02/12/2026 | The interface calls the pipeline (even with stubs) and at least one improvement over the baseline is measured | Course halfway check for Sprint 3 |
 | 05/12/2026 | New D8 `test` questions frozen | D8 criterion 4 |
-| 09/12/2026 | Pilot computer set up from the README and its answer time measured | Installation and answer-time problems surface before the pilot ([Major Activities](04-major-activities.md) row 29; R-10, R-13) |
+| 09/12/2026 | Pilot computer set up from the README and its answer time measured | Installation and answer-time problems surface before the pilot ([Major Activities](04-major-activities.md) row 29; R-09, R-12) |
 | 16/12 – 23/12/2026 | Pilot, in person on the pilot computer | Leaves one week to fix the release candidate and finish D10 and D11 before 30/12 |
 | 23/12/2026 | Improvements measured, every story's test run, everything to be demonstrated in Git | Course halfway check for Sprint 4 |
 

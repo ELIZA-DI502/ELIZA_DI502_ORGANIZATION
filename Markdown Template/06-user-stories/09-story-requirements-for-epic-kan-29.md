@@ -54,7 +54,7 @@ The story carries the points and its sub-tasks are not estimated separately (Mod
 
 Deliverable: D3 Source Inventory and Manifest v1 (due 27/10/2026)    
 Milestone: M2 Sources and first design ready (28/10/2026)    
-Assumptions / constraints / risks: A-01, A-05; C-01, C-09; R-01, R-12
+Assumptions / constraints / risks: A-01, A-05; C-01, C-09; R-01, R-11
 
 ## S2 · Index every in-scope provision with its reference and version date
 
@@ -92,4 +92,4 @@ Milestone: M4 Baseline (alpha) runs on the full validation question set (18/11/2
 Major Activities: row 8    
 Dependencies: rows 3, 4    
 Constraint: C-01 Single source (consolidated text of 27/07/2026)    
-Assumption / Risk: A-05 / R-12 The source format is uneven
+Assumption / Risk: A-05 / R-11 The source format is uneven

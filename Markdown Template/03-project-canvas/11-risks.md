@@ -109,7 +109,7 @@ Add rows as needed. Rows with a score of 10 or more also need a detail block (ne
 
 This page lists only uncertain events that the team cannot fully control. Design questions, such as how to split the text or which model to use, are not listed here. They are answered in the spikes and recorded in the System Architecture Design Document (D4).
 
-Where the risks come from: R-01 to R-04, R-06, R-07, R-09, R-11 and R-12 are the other side of an assumption in [Assumptions & Constraints](03-assumptions-and-constraints.md); the assumption is named in **Linked to**. The other three come from constraints: R-08 from C-07 (four students, fixed sprint dates), and R-10 and R-13 from C-05 (CPU only, run on a team computer). R-13 is not a design question: the model was chosen in the spike, but the computer used for the pilot is not fixed yet. Whether the assistant reaches its targets (O2, O4) and handles personal data as C-10 requires are design and test questions, not risks: they are answered in the System Design Document (D4) and checked by the acceptance criteria of D6, D9 and D11 (for example D9 criteria 2–4, 7 and 8). R-05 was closed on 25/10/2026, when the hosted cloud deployment was removed from the plan; its number is not reused.
+Where the risks come from: R-01 to R-06, R-08, R-10 and R-11 are the other side of an assumption in [Assumptions & Constraints](03-assumptions-and-constraints.md); the assumption is named in **Linked to**. The other three come from constraints: R-07 from C-07 (four students, fixed sprint dates), and R-09 and R-12 from C-05 (CPU only, run on a team computer). R-12 is not a design question: the model was chosen in the spike, but the computer used for the pilot is not fixed yet. Whether the assistant reaches its targets (O2, O4) and handles personal data as C-10 requires are design and test questions, not risks: they are answered in the System Design Document (D4) and checked by the acceptance criteria of D6, D9 and D11 (for example D9 criteria 2–4, 7 and 8).
 
 | # | Layer | Risk (event) | When / where | Probability | Impact | Score | Owner | Linked to |
 |---|---|---|---|---|---|---|---|---|
@@ -117,17 +117,16 @@ Where the risks come from: R-01 to R-04, R-06, R-07, R-09, R-11 and R-12 are the
 | R-02 | Data | **The law or its official reading changes (concept drift).** An in-scope article is amended, or the European Commission adopts its final guidelines on high-risk classification (Article 6), before 30/12/2026, so some answers describe outdated rules or miss the official reading. | Sprints 2–4; development and after deployment | 3: the Commission published draft Article 6 guidelines on 19/05/2026; the consultation closed on 23/07/2026, and the final version had not been adopted when checked on 25/10/2026; the last amendment (Regulation (EU) 2026/1744) is already in the 27/07/2026 version | 3: answers on the changed article or on Article 6 become partly wrong for users, so a technical requirement is partly unmet | 9 (Medium) | Yaren (Scrum Master) | A-02; C-01; [Major Activities](04-major-activities.md) rows 18, 32 |
 | R-03 | People / process | **Too few pilot users.** Fewer than 5 people join the pilot (16/12–23/12/2026). | Sprints 3–4; validation | 3: holiday period; participation is voluntary and unpaid | 4: O1 and O3 need at least 5 users | 12 (High) | Gözde Nur (Data Scientist; pilot) | A-04; [Dependencies](06-dependencies.md) row 9 |
 | R-04 | People / process | **Targets change after review.** The Project Review Committee asks for different targets or a different scope at a sprint review. | Sprints 1–2; planning | 2: the targets have not been reviewed yet | 2: questions, tests and charter pages need 2–4 weeks of changes | 4 (Low) | Yeşim (Product Owner) | A-06; [Dependencies](06-dependencies.md) row 5 |
-| R-05 | Infrastructure | **Closed on 25/10/2026 (was: cloud budget runs out).** No longer applies: no hosted deployment is planned, so the Google Cloud credit is not spent ([Major Activities](04-major-activities.md) row 31). | – | – | – | – | – | C-06 |
-| R-06 | People / process | **A team member leaves.** A team member leaves the course or cannot work for 2 weeks or more. | Sprints 1–4; development | 2: all four members are enrolled and active | 3: the other three members take over a quarter of the work; later deliverables move by 1–2 months | 6 (Medium) | Yaren (Scrum Master) | A-08; C-07 |
-| R-07 | Model | **The model or a library becomes unavailable.** Access to the selected model or a library is withdrawn by its authors before the team has stored its copy: for example, access to Llama is refused for the team's region, or the files become paid or are removed. | Sprints 1–2; development | 2: the official Llama files on Hugging Face are gated, so Meta approves each download and can refuse it, and the copies on Ollama can be removed by their publishers; Phi-4-mini-instruct and bge-base-en-v1.5 are not gated | 2: another model or library must be chosen and the evaluation runs repeated; 2–4 weeks | 4 (Low) | Kaan (Data Scientist) | A-09; C-03; [Dependencies](06-dependencies.md) row 6; [Facilities & Resources](09-facilities-and-resources.md) rows 4–6 |
-| R-08 | People / process | **Work falls behind.** A task that later work depends on ([Dependencies](06-dependencies.md) rows 1, 7, 10–16) is not finished by its date, so the next release starts at least 1 week late. | Sprints 1–4; development | 3: four part-time students; every sprint has a fixed end date | 2: a delay of 1 week in each sprint adds up to 4 weeks | 6 (Medium) | Yaren (Scrum Master) | C-07; [Release Plan](10-release-plan.md); [Dependencies](06-dependencies.md) rows 1, 7, 10–16 |
-| R-09 | People / process | **Pilot users do not match the target users.** Fewer than 3 of the pilot users have worked on an AI or education software product, so the pilot results do not represent the target users. | Sprints 2–4; validation | 2: the contacts work in software and AI, but not all of them work on education products | 3: O1 and O3 are measured, but on users outside the target group | 6 (Medium) | Gözde Nur (Data Scientist; pilot) | A-07; [Dependencies](06-dependencies.md) row 9 |
-| R-10 | Integration | **The system does not install on the pilot computer.** Installing the system from `README.md` on the computer used for the pilot and the final demo fails, or gives different results than on the developers' computers, because of a different operating system, Python version or package build. | Sprints 3–4; pilot | 2: a team member who did not build the system installs it from the README each sprint, and the pilot computer is set up by 09/12/2026 | 3: the pilot (16/12–23/12/2026) has a fixed window; a late fix shortens it and can reduce the number of O1 and O3 sessions | 6 (Medium) | Kaan (Data Scientist) | C-05; [Major Activities](04-major-activities.md) rows 28, 29; [Dependencies](06-dependencies.md) row 8 |
-| R-11 | Data | **The law is unclear for some questions.** For more than 5 evaluation questions, the regulation text does not clearly say which provision applies, because the answer depends on legal interpretation. | Sprints 2–3; development | 3: the exceptions in Article 6(3) depend on interpretation, and the Commission's guidelines on them are still a draft | 2: the question set must be partly rewritten and checked again; 2–4 weeks | 6 (Medium) | Kaan (Data Scientist) | A-03; [Dependencies](06-dependencies.md) row 2 |
-| R-12 | Data | **The source format is uneven.** The EUR-Lex HTML does not mark Articles, paragraphs and Annex points in the same way throughout the text, so more than 5% of the provisions lose their numbers. | Sprints 1–2; development | 2: EUR-Lex marks articles, paragraphs and annex points with separate HTML elements, and in the Sprint 1 parsing spike all 22 chunks of Article 6 and Annex III point 3 got their correct identifier from the PDF; the HTML is checked in Sprint 2 (KAN-92) | 2: missing numbers are added by hand; 2–4 weeks | 4 (Low) | Yeşim (Product Owner) | A-05; [Dependencies](06-dependencies.md) row 4 |
-| R-13 | Infrastructure | **The answer time does not meet the limit on the pilot computer.** On the team computer used for the pilot and the final demo, the median answer time on the `val` questions is above the answer-time limit recorded in the System Design Document (D4), so the O1 time gain cannot be reached. | Sprints 2–4; development and pilot | 2: on one team computer (CPU only), the selected model answered in 15.4 s, about 38 s in the worst case, below the 60 s limit; measured on one question, outside Docker, and the pilot computer is not fixed yet ([model selection spike](../../docs/spikes/model-selection-spike.md)) | 4: the O1 time gain is a success criterion | 8 (Medium) | Kaan (Data Scientist; model and answer time) | C-05; [Major Activities](04-major-activities.md) rows 6, 29; [Dependencies](06-dependencies.md) row 8; [Facilities & Resources](09-facilities-and-resources.md) rows 1, 3, 13 |
+| R-05 | People / process | **A team member leaves.** A team member leaves the course or cannot work for 2 weeks or more. | Sprints 1–4; development | 2: all four members are enrolled and active | 3: the other three members take over a quarter of the work; later deliverables move by 1–2 months | 6 (Medium) | Yaren (Scrum Master) | A-08; C-07 |
+| R-06 | Model | **The model or a library becomes unavailable.** Access to the selected model or a library is withdrawn by its authors before the team has stored its copy: for example, access to Llama is refused for the team's region, or the files become paid or are removed. | Sprints 1–2; development | 2: the official Llama files on Hugging Face are gated, so Meta approves each download and can refuse it, and the copies on Ollama can be removed by their publishers; Phi-4-mini-instruct and bge-base-en-v1.5 are not gated | 2: another model or library must be chosen and the evaluation runs repeated; 2–4 weeks | 4 (Low) | Kaan (Data Scientist) | A-09; C-03; [Dependencies](06-dependencies.md) row 6; [Facilities & Resources](09-facilities-and-resources.md) rows 4–6 |
+| R-07 | People / process | **Work falls behind.** A task that later work depends on ([Dependencies](06-dependencies.md) rows 1, 7, 10–16) is not finished by its date, so the next release starts at least 1 week late. | Sprints 1–4; development | 3: four part-time students; every sprint has a fixed end date | 2: a delay of 1 week in each sprint adds up to 4 weeks | 6 (Medium) | Yaren (Scrum Master) | C-07; [Release Plan](10-release-plan.md); [Dependencies](06-dependencies.md) rows 1, 7, 10–16 |
+| R-08 | People / process | **Pilot users do not match the target users.** Fewer than 3 of the pilot users have worked on an AI or education software product, so the pilot results do not represent the target users. | Sprints 2–4; validation | 2: the contacts work in software and AI, but not all of them work on education products | 3: O1 and O3 are measured, but on users outside the target group | 6 (Medium) | Gözde Nur (Data Scientist; pilot) | A-07; [Dependencies](06-dependencies.md) row 9 |
+| R-09 | Integration | **The system does not install on the pilot computer.** Installing the system from `README.md` on the computer used for the pilot and the final demo fails, or gives different results than on the developers' computers, because of a different operating system, Python version or package build. | Sprints 3–4; pilot | 2: a team member who did not build the system installs it from the README each sprint, and the pilot computer is set up by 09/12/2026 | 3: the pilot (16/12–23/12/2026) has a fixed window; a late fix shortens it and can reduce the number of O1 and O3 sessions | 6 (Medium) | Kaan (Data Scientist) | C-05; [Major Activities](04-major-activities.md) rows 28, 29; [Dependencies](06-dependencies.md) row 8 |
+| R-10 | Data | **The law is unclear for some questions.** For more than 5 evaluation questions, the regulation text does not clearly say which provision applies, because the answer depends on legal interpretation. | Sprints 2–3; development | 3: the exceptions in Article 6(3) depend on interpretation, and the Commission's guidelines on them are still a draft | 2: the question set must be partly rewritten and checked again; 2–4 weeks | 6 (Medium) | Kaan (Data Scientist) | A-03; [Dependencies](06-dependencies.md) row 2 |
+| R-11 | Data | **The source format is uneven.** The EUR-Lex HTML does not mark Articles, paragraphs and Annex points in the same way throughout the text, so more than 5% of the provisions lose their numbers. | Sprints 1–2; development | 2: EUR-Lex marks articles, paragraphs and annex points with separate HTML elements, and in the Sprint 1 parsing spike all 22 chunks of Article 6 and Annex III point 3 got their correct identifier from the PDF; the HTML is checked in Sprint 2 (KAN-92) | 2: missing numbers are added by hand; 2–4 weeks | 4 (Low) | Yeşim (Product Owner) | A-05; [Dependencies](06-dependencies.md) row 4 |
+| R-12 | Infrastructure | **The answer time does not meet the limit on the pilot computer.** On the team computer used for the pilot and the final demo, the median answer time on the `val` questions is above the answer-time limit recorded in the System Design Document (D4), so the O1 time gain cannot be reached. | Sprints 2–4; development and pilot | 2: on one team computer (CPU only), the selected model answered in 15.4 s, about 38 s in the worst case, below the 60 s limit; measured on one question, outside Docker, and the pilot computer is not fixed yet ([model selection spike](https://github.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/blob/main/docs/spikes/model-selection-spike.md)) | 4: the O1 time gain is a success criterion | 8 (Medium) | Kaan (Data Scientist; model and answer time) | C-05; [Major Activities](04-major-activities.md) rows 6, 29; [Dependencies](06-dependencies.md) row 8; [Facilities & Resources](09-facilities-and-resources.md) rows 1, 3, 13 |
 
-Spread of the scored risks (R-01 to R-13, without the closed R-05): 1 High (R-03), 7 Medium, 4 Low.
+Spread of the risks (R-01 to R-11): 1 High (R-03), 7 Medium, 4 Low.
 
 **After deployment.** The assistant uses one version of the law (27/07/2026), so its answers no longer match the law in force when an in-scope article changes (R-02). This is concept drift: the question stays the same, but the correct answer changes. EUR-Lex is checked for a new version at the start of each sprint. If an in-scope article has changed, the new text is loaded, recorded in the manifest and tested again.
 
@@ -207,11 +206,7 @@ Copy this block for each risk.
 | **Owner** | Yeşim (Product Owner) |
 | **Schedule effect** | 2–4 weeks |
 
-### Risk R-05: Closed on 25/10/2026 (was: cloud budget runs out)
-
-Closed when the hosted cloud deployment was removed from the plan: the system runs on a team computer (C-05; [Major Activities](04-major-activities.md) rows 28, 29, 31), so the Google Cloud credit is not spent and kept as a reserve (C-06). The number is not reused.
-
-### Risk R-06: A team member leaves
+### Risk R-05: A team member leaves
 
 | Field | Content |
 |---|---|
@@ -228,7 +223,7 @@ Closed when the hosted cloud deployment was removed from the plan: the system ru
 | **Owner** | Yaren (Scrum Master) |
 | **Schedule effect** | 2–4 weeks |
 
-### Risk R-07: The model or a library becomes unavailable
+### Risk R-06: The model or a library becomes unavailable
 
 | Field | Content |
 |---|---|
@@ -245,7 +240,7 @@ Closed when the hosted cloud deployment was removed from the plan: the system ru
 | **Owner** | Kaan (Data Scientist) |
 | **Schedule effect** | 1–2 weeks |
 
-### Risk R-08: Work falls behind
+### Risk R-07: Work falls behind
 
 | Field | Content |
 |---|---|
@@ -262,7 +257,7 @@ Closed when the hosted cloud deployment was removed from the plan: the system ru
 | **Owner** | Yaren (Scrum Master) |
 | **Schedule effect** | About 1 week |
 
-### Risk R-09: Pilot users do not match the target users
+### Risk R-08: Pilot users do not match the target users
 
 | Field | Content |
 |---|---|
@@ -279,7 +274,7 @@ Closed when the hosted cloud deployment was removed from the plan: the system ru
 | **Owner** | Gözde Nur (Data Scientist; pilot) |
 | **Schedule effect** | Under 1 week |
 
-### Risk R-10: The system does not install on the pilot computer
+### Risk R-09: The system does not install on the pilot computer
 
 | Field | Content |
 |---|---|
@@ -296,7 +291,7 @@ Closed when the hosted cloud deployment was removed from the plan: the system ru
 | **Owner** | Kaan (Data Scientist) |
 | **Schedule effect** | Under 1 week |
 
-### Risk R-11: The law is unclear for some questions
+### Risk R-10: The law is unclear for some questions
 
 | Field | Content |
 |---|---|
@@ -313,7 +308,7 @@ Closed when the hosted cloud deployment was removed from the plan: the system ru
 | **Owner** | Kaan (Data Scientist) |
 | **Schedule effect** | Under 1 week |
 
-### Risk R-12: The source format is uneven
+### Risk R-11: The source format is uneven
 
 | Field | Content |
 |---|---|
@@ -330,7 +325,7 @@ Closed when the hosted cloud deployment was removed from the plan: the system ru
 | **Owner** | Yeşim (Product Owner) |
 | **Schedule effect** | About 1 week |
 
-### Risk R-13: The answer time does not meet the limit on the pilot computer
+### Risk R-12: The answer time does not meet the limit on the pilot computer
 
 | Field | Content |
 |---|---|
@@ -339,7 +334,7 @@ Closed when the hosted cloud deployment was removed from the plan: the system ru
 | **Cause** | The system runs on CPU only (C-05); a quantized language model generates text more slowly on a CPU, and longer prompts (more retrieved passages) make it slower. The computer used for the pilot is not chosen yet, and the answer time has so far been measured on one computer only. |
 | **When / where** | Sprints 2–4; development and pilot |
 | **Mitigation** | The model selection spike measured the answer time on CPU ([Major Activities](04-major-activities.md) row 6); the baseline's answer time is recorded in Sprint 2 (18/11/2026); the answer time on the pilot computer is measured on the `val` questions by 09/12/2026 (row 29). |
-| **Probability (basis)** | 2: on one team computer (CPU only), the selected model answered in 15.4 s, about 38 s in the worst case, below the 60 s limit; measured on one question, outside Docker, and the pilot computer is not fixed yet ([model selection spike](../../docs/spikes/model-selection-spike.md)) |
+| **Probability (basis)** | 2: on one team computer (CPU only), the selected model answered in 15.4 s, about 38 s in the worst case, below the 60 s limit; measured on one question, outside Docker, and the pilot computer is not fixed yet ([model selection spike](https://github.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/blob/main/docs/spikes/model-selection-spike.md)) |
 | **Impact (basis)** | 4: the O1 time gain is a success criterion |
 | **Score** | 8 (Medium) |
 | **Trigger** | Median answer time above the D4 limit at the baseline evaluation (18/11/2026) or on the pilot computer (09/12/2026) |

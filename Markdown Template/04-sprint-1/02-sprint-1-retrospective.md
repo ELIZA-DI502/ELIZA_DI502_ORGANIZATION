@@ -22,14 +22,14 @@ We also looked at Sprint 1 with the Hot Air Balloon retrospective on our [Miro b
 
 ![Sprint 1 Hot Air Balloon Retrospective](hot-air-balloon-retro-sprint-1.png)
 
-*Note added on 26/10/2026:* the storm cloud "Cloud budget or credit not ready (R-05, R-10)" was written before the hosted cloud deployment was removed from the plan on 25/10/2026. R-05 is now closed, and R-10 is now "The system does not install on the pilot computer" (see [Risks](../03-project-canvas/11-risks.md)).
+*Note added on 26/10/2026:* the storm cloud "Cloud budget or credit not ready" was written before the hosted cloud deployment was removed from the plan on 25/10/2026. The cloud budget risk was then removed, and the risk about the pilot computer is now R-08 "The system does not install on the pilot computer" (see [Risks](../03-project-canvas/11-risks.md)).
 
 | ☀️ Sunny Skies (positive things ahead) | 🔥 Hot Air (what pushes us along) | ⛈️ Storm Clouds (problems coming up) | 🎒 Sandbags (what slows us down) |
 |---|---|---|---|
 | M1: Charter v1 approved | One owner per page | Too few pilot users (R-03) | IDs did not match across pages and Jira |
-| M2: Evaluation set, sources and first design | Clear constraints for Sprint 1 | Cloud budget or credit not ready (R-05, R-10) | Pages rewritten after feedback |
+| M2: Evaluation set, sources and first design | Clear constraints for Sprint 1 | Cloud budget or credit not ready (see the note above) | Pages rewritten after feedback |
 | Presentation on 21/10 was ready on time | Fast response to feedback | The law or its official reading changes (R-02) | Many changes the night before the presentation |
-| | Working GitHub–Confluence and Jira sync | Work falls behind in Sprint 2 (R-08) | |
+| | Working GitHub–Confluence and Jira sync | Work falls behind in Sprint 2 (R-07) | |
 
 ## Commitments check
 
