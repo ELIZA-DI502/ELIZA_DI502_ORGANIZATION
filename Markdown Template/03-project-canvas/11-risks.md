@@ -239,7 +239,7 @@ Closed when the hosted cloud deployment was removed from the plan: the system ru
 | **Impact (basis)** | 2: another model or library must be chosen and the evaluation runs repeated; 2–4 weeks |
 | **Score** | 4 (Low) |
 | **Trigger** | The model file's hash differs from the stored hash at any evaluation run, or the model can no longer be downloaded |
-| **Contingency plan (B plan)** | The stored copy of the model stays in use. If the stored copy cannot be used, the next candidate from the model selection spike is chosen, recorded in a new ADR, and the `val` evaluation is run again. |
+| **Contingency plan (B plan)** | The stored copy of the model stays in use. If the stored copy cannot be used, the next candidate from the model selection spike is chosen, recorded as a new decision in the System Design Document (D4), and the `val` evaluation is run again. |
 | **Owner** | Kaan (Data Scientist) |
 | **Schedule effect** | 1–2 weeks |
 
@@ -341,7 +341,7 @@ Closed when the hosted cloud deployment was removed from the plan: the system ru
 | **Impact (basis)** | 4: the O1 time gain is a success criterion |
 | **Score** | 8 (Medium) |
 | **Trigger** | Median answer time above the D4 limit at the baseline evaluation (18/11/2026) or on the pilot computer (09/12/2026) |
-| **Contingency plan (B plan)** | First top-k or the answer length is reduced; if that is not enough, the smaller fallback model from the model selection spike is used and recorded in the design document; if the limit is still not met, the course's reserve Google Cloud credit (C-06) pays for a CPU instance during the pilot sessions and the final demo only, after billing alerts are set. The Product Owner informs the Project Review Committee if O1 is at risk. |
+| **Contingency plan (B plan)** | First top-k or the answer length is reduced; if the limit is still not met, the smaller fallback model from the model selection spike is used and recorded in the design document; if the limit is still not met, the course's reserve Google Cloud credit (C-06) pays for a CPU instance during the pilot sessions and the final demo only, after billing alerts are set. The Product Owner informs the Project Review Committee if O1 is at risk. |
 | **Owner** | Kaan (Data Scientist; model and answer time) |
 | **Schedule effect** | 1–2 weeks |
 
