@@ -45,6 +45,18 @@ for model in models:
         passed = cites_gold_source(answer, q) and not has_verdict(answer)
 ```
 
+What each step does:
+
+| Step | What it does |
+|---|---|
+| `input_check(q)` | Looks for keywords in the question before the model is called. Words such as "avoid", "bypass", "hide" or "loophole" together with "rules" or "AI Act" mean a request to avoid the rules; "fine", "penalty" or "GDPR" mean an out-of-scope topic. |
+| `fixed_reply(q)` | Returns a fixed sentence instead of a model answer: a refusal ("I can't help with avoiding or hiding from the AI Act's rules …") or an out-of-scope notice. |
+| `prompt(q)` | Builds the message for the model: the rules and the example (above), then the question's provisions and the question. |
+| `model.chat(...)` | Sends the message to the model and returns its answer (4-bit model, temperature 0, at most 300 tokens). |
+| `remove_verdicts(answer)` | Finds sentences that decide for the user, such as "your system is not high-risk" or "this does not violate the AI Act", deletes them and adds the notice "this is not a legal decision". Sentences that only state a condition ("If your system is high-risk, it must …") are kept. |
+| `has_verdict(answer)` | Checks with the same patterns whether a verdict sentence is still in the answer. |
+| `cites_gold_source(answer, q)` | Checks that the answer names the question's gold source from [`eval-set-v1-3b.csv`](../eval/eval-set-v1-3b.csv), for example Article 6(3)(a) for B-01. |
+
 ## Results
 
 We ran the test 5 times and fixed one problem after each run (details in the CSV).
