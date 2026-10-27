@@ -1,6 +1,6 @@
 # Learning spike: Aliye Yeşim Yaman
 
-**Sprint:** 1 (14/10–28/10/2026) · **Goal:** close my gaps in the Sprint 1 fundamentals from the [Online Course Register](../../online-course-register/README.md) · **Jira:** KAN-60 · **Updated:** 26/10/2026
+**Sprint:** 1 (14/10–28/10/2026) · **Goal:** close my gaps in the Sprint 1 fundamentals from the [Online Course Register](../../online-course-register/README.md) · **Jira:** [KAN-60](https://yarengursoy.atlassian.net/browse/KAN-60) · **Updated:** 27/10/2026
 
 ## Where I start
 
@@ -9,84 +9,68 @@
 | Git & GitHub | Known; I have used Git and GitHub for years | – |
 | Markdown | Known | – |
 | Python environment | Known | – |
-| Evaluation basics | Known | – |
-| Scrum basics | Basic knowledge | Scrum.org "What is Scrum?" and the Scrum Guide; Product Owner work in Sprint 1 |
+| Evaluation basics | Basic knowledge | Learned through the work: the O2 targets, Recall@5 and the `val`/`test` split while writing the charter |
+| Scrum basics | Basic knowledge | Read Scrum.org "What is Scrum?" and the Scrum Guide; Product Owner work in Sprint 1 |
 | Jira | Basic knowledge | Built the KAN backlog: epics, stories, sub-tasks, sprints and releases |
-| LLM basics | Basic knowledge | Workshop material (14/10) |
-| Embeddings & vector search | Basic knowledge | Workshop material (14/10) |
-| RAG | Need to learn | Lewis et al. (2020) and the lecture slides (section 1) |
-| Prompt engineering | Basic knowledge | Workshop material |
-| Chat interface (Gradio) | Need to learn | Not needed: the team chose React (section 6) |
+| LLM basics | Basic knowledge; I had used LLMs to generate synthetic data | 14/10 workshop |
+| Embeddings & vector search | New to me | 14/10 workshop; the embedding choice in the design document |
+| RAG | New to me | Learned through the work: the design document and the team's parsing and model selection spikes. The RAG lecture slides are planned for the first week of Sprint 2 |
+| Prompt engineering | Basic knowledge, from generating synthetic data | 14/10 workshop; the prompt of the model selection spike |
+| Chat interface (Gradio) | New to me | Not needed: the team chose React (section 6) |
 
 ## 1. RAG
 
-**Source:** [Lewis et al. (2020)](https://arxiv.org/abs/2005.11401) and the lecture slides (resources given in the Online Course Register)
+**Source:** the team's [design document](../../Markdown%20Template/11-system-architecture-design-document.md), [parsing spike](parsing-spike.md) and [model selection spike](model-selection-spike.md)
 
-**Goal:** learn the indexing and query phases of a RAG pipeline and why RAG reduces hallucination.
+**Expected output:** I can describe the two phases of ELIZA's pipeline in my own words at the Sprint 1 review.
 
 **What I learned:**
 
-- **Indexing** (once, and again when the source changes): parse the documents, split them into chunks, turn each chunk into a vector and store it with its metadata.
-- **Query** (for every question): turn the question into a vector, retrieve the most similar chunks, put them in the prompt and generate an answer from them.
-- RAG reduces hallucination because the model answers from passages it is given, and each statement can be traced back to a passage. It does not remove hallucination: the model can still misread a passage, so the answers are checked against their cited passages (O2 (b)).
+- **Indexing** happens once, before any question: the source text is split into small pieces (chunks), each piece is turned into a vector, and the vectors are stored.
+- **Query** happens for every question: the question is turned into a vector, the closest pieces are found, and the model writes the answer from those pieces only.
+- RAG reduces hallucination because the model answers from the pieces it is given, and each statement can be traced to one of them. It does not remove it, so ELIZA's answers are checked against their cited pieces (O2 (b)).
 
-**How it is used in ELIZA:** one chunk per Article paragraph or Annex point, with its identifier and the version date (D5); retrieval measured with Recall@5 on the `val` split (D6); answers cite only retrieved provisions. The provisions that can be retrieved are listed in the D3 provision list (`data/provision-list.csv`).
+**In ELIZA:** one piece per Article paragraph or Annex point, with its reference and the version date (D5).
 
 ## 2. LLM basics
 
-**Source:** workshop material (14/10)
+**Source:** 14/10 workshop
 
-**Goal:** understand tokens, the context window, prompts and temperature, and why LLMs hallucinate; run a small open-source model in Colab.
+**Expected output:** I can explain what a token, the context window and temperature are, and why an LLM can make things up.
 
-**What I learned:**
+**What I learned:** the model reads and writes **tokens** (pieces of words); the **context window** is how many tokens fit in at once, so the question and the retrieved pieces must fit in it; a low **temperature** gives more repeatable answers; an LLM **hallucinates** because it writes the most likely continuation, not a checked fact.
 
-- A model reads and writes **tokens** (pieces of words); the **context window** is the number of tokens it can take in at once, so the prompt and the retrieved passages must fit in it.
-- **Temperature** controls how random the next token is; a low temperature gives more repeatable answers, which ELIZA needs for evaluation.
-- LLMs **hallucinate** because they generate the most likely continuation, not a checked fact.
-
-**How it is used in ELIZA:** a small quantized model on CPU (C-03, C-05) needs short answers and few retrieved passages; the [model selection spike](model-selection-spike.md) measured the answer time of the candidate models (A-07).
-
-**Hands-on:** Before the project, I used LLMs to generate synthetic data, so I have worked with prompts and checked model outputs myself. I did not run a separate small open-source model in Colab in Sprint 1; the model selection spike (KAN-57) ran the candidate open-source models on Colab and on a team computer.
+**Hands-on:** I did not run a model in Colab myself; the team's model selection spike (KAN-57) ran the candidate open-source models on Colab and on a team computer.
 
 ## 3. Embeddings & vector search
 
-**Source:** workshop material (14/10)
+**Source:** 14/10 workshop; decision D10 in the design document
 
-**Goal:** understand how a text becomes a vector and how similarity search finds the passages closest to a question.
+**Expected output:** I can explain why a question in everyday words can find the right provision.
 
-**What I learned:** an embedding model turns a text into a vector so that texts with a similar meaning get vectors that are close to each other; similarity search returns the stored vectors closest to the question's vector (for example by cosine similarity).
-
-**How it is used in ELIZA:** "our AI grades exams" can find the provision on "evaluate learning outcomes" (Annex III point 3(b)) although the words differ. A question that names "Article 6(3)" depends on an exact identifier, which keyword search finds better; this is why the design document plans hybrid search (vector and BM25) after the baseline.
+**What I learned:** an embedding turns a text into a vector, so that texts with a similar meaning are close to each other; vector search returns the stored pieces closest to the question. So "our AI grades exams" can find "evaluate learning outcomes" (Annex III point 3(b)) although the words differ.
 
 ## 4. Prompt engineering
 
-**Source:** workshop material
+**Source:** 14/10 workshop; the prompt in the model selection spike
 
-**Goal:** write a prompt that tells the model to answer only from the given passages and to say when it does not know.
+**Expected output:** I can check the team's prompt against the acceptance criteria of my stories.
 
-**What I learned:** put the retrieved passages in a separate, marked part of the prompt; tell the model to answer only from them and to cite the Article or Annex for every statement; allow it to say that the passages do not answer the question.
-
-**How it is used in ELIZA:** the prompt is checked against the acceptance criteria of KAN-2 (no legal decision) and KAN-23 (insufficient evidence).
+**What I learned:** give the retrieved pieces in a separate, marked part of the prompt; tell the model to answer only from them and to cite the Article or Annex; let it say that the pieces do not answer the question (KAN-23) and never give a legal verdict (KAN-2).
 
 ## 5. Scrum basics and Jira
 
 **Sources:** Scrum.org ["What is Scrum?"](https://www.scrum.org/resources/what-scrum-module), the [Scrum Guide](https://scrumguides.org/scrum-guide.html), the course's [Jira sync guide](../JIRA_SYNC_SETUP.md)
 
-**Goal:** understand the Product Owner's responsibilities and the difference between a user story, a task and a spike; plan sprints in Jira.
+**Expected output:** the KAN backlog, ready for Sprint 2 planning.
 
-**What I learned:**
+**What I learned:** the Product Owner orders the backlog and keeps the stories clear enough to start; a **user story** is a user's need with testable acceptance criteria, a **task** delivers part of a story, a **spike** is timeboxed learning like this note; story points go on the stories and hours on the sub-tasks (Model A of the sync guide).
 
-- The Product Owner is accountable for the Product Backlog: its order, and stories that are clear enough for the team to start.
-- A **user story** is a need of a user with testable acceptance criteria; a **task** is a piece of work that delivers part of a story; a **spike** is timeboxed learning or research, like this note.
-- In Jira, story points go on the stories and hours on their sub-tasks (Model A of the course's sync guide), so that the burndown chart shows progress during the sprint.
-
-**Result:** the KAN backlog: eight epics (four product epics and four project epics), the user stories of Sprints 1–4 with their sub-tasks, and two stories in the backlog that are built only if time allows. Every story has acceptance criteria and a traceability section that links it to the charter (objectives, deliverables, milestones, risks). The stories are shown in the [User Story Map v1](../../Markdown%20Template/06-user-stories/01-user-story-map-v1.md).
+**Result:** eight epics and their stories and sub-tasks, shown in the [User Story Map v1](../../Markdown%20Template/06-user-stories/01-user-story-map-v1.md).
 
 ## 6. Chat interface (Gradio)
 
-**Source:** Gradio documentation, ["Creating a chatbot fast"](https://www.gradio.app/guides/creating-a-chatbot-fast)
-
-**Outcome:** not needed. The team chose React with a Node.js backend for the interface (System Design Document, decision D1), so I did not build the Gradio "hello world".
+Not needed: the team chose React with a Node.js backend (design document, decision D1), so I did not build the Gradio "hello world".
 
 ## My computer
 
@@ -102,5 +86,5 @@ Recorded for [Facilities & Resources](../../Markdown%20Template/03-project-canva
 
 ## Definition of Done
 
-- [ ] Explain the indexing and query phases of ELIZA's RAG pipeline at the Sprint 1 review (28/10/2026).
-- [x] Close the gaps marked "Basic knowledge" and "Need to learn" in the table above (Gradio dropped, see section 6).
+- [ ] Describe the indexing and query phases of ELIZA's pipeline at the Sprint 1 review (28/10/2026).
+- [ ] Study the RAG lecture slides by 04/11/2026 (first week of Sprint 2).
