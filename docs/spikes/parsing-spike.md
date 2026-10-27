@@ -22,7 +22,7 @@ for line in lines:
 
 ## Results
 
-**22 chunks**, all with the correct ID: 18 from Article 6 and 4 from Annex III point 3 (3(a)–3(d)).
+**22 chunks**, all with the correct ID: 18 from Article 6 and 4 from Annex III point 3 (3(a)–3(d)). For the whole scope, the same rules give about 100 chunks, one per provision in `data/provision-list.csv` (101 provisions).
 
 Three problems were found and fixed:
 
