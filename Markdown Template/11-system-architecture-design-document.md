@@ -207,7 +207,7 @@ The text is **parsed by its own structure; there is no separate chunking step.**
 
 The script will be `rag/ingest.py` (Sprint 2). It will run once, embed the chunks (D10) and write them to the vector store in `data/vector-store/` (D11); the stored source file stays unchanged in `data/`.
 
-- Storage: `data/vector-store/` is bind-mounted into the rag container, so the index survives rebuilds of the containers. The keyword index is not stored; the RAG service rebuilds it in memory from the chunk texts in the vector store when it starts (about 190 chunks).
+- Storage: `data/vector-store/` is bind-mounted into the rag container, so the index survives rebuilds of the containers. The keyword index is not stored; the RAG service rebuilds it in memory from the chunk texts in the vector store when it starts (about 100 chunks).
 - Consistency: `ingest.py` and the rag container install the same `requirements.txt`, so both use the same library versions and the same embedding model.
 - No user data in the index: questions and answers never enter the pipeline or the vector index; they are kept only in the database, for the current session (D4).
 
@@ -538,7 +538,7 @@ Copy the block below for each decision.
 
 ### D10: Embedding model: bge-base-en-v1.5
 
-**Context:** The embedding model must be open-source and run on a CPU. The corpus is small (about 190 chunks) and in English (C-02).
+**Context:** The embedding model must be open-source and run on a CPU. The corpus is small (about 100 chunks: 101 in-scope provisions in `data/provision-list.csv`) and in English (C-02).
 
 **Options considered:**
 
@@ -550,7 +550,7 @@ Copy the block below for each decision.
 
 **Decision:** bge-base-en-v1.5; bge-small-en-v1.5 is the faster alternative.
 
-**Why:** With about 190 chunks, the larger model is still fast, and it finds the right provision more often.
+**Why:** With about 100 chunks, the larger model is still fast, and it finds the right provision more often.
 
 **Consequences:** Checked with Recall@k on the `val` split in the baseline experiment (E1). Licence check (A-10, 2026-10-25): the MIT licence permits use in this academic project and publication of the results, with no extra terms.
 
@@ -570,11 +570,11 @@ Copy the block below for each decision.
 | --- | --- | --- |
 | NumPy array (simplest option) | No extra library | No metadata and no saving |
 | FAISS | Fast | Metadata stored separately |
-| **Chroma** | Vectors, texts and metadata together; saves to disk | Slower than FAISS on large collections; not a problem with about 190 chunks |
+| **Chroma** | Vectors, texts and metadata together; saves to disk | Slower than FAISS on large collections; not a problem with about 100 chunks |
 
 **Decision:** Chroma in data/vector-store/, cosine distance.
 
-**Why:** The identifier and version date come back with each result, so citations need no extra lookup. Speed is not a problem with about 190 chunks.
+**Why:** The identifier and version date come back with each result, so citations need no extra lookup. Speed is not a problem with about 100 chunks.
 
 **Consequences:** ingest.py rebuilds the index when the chunks change.
 
