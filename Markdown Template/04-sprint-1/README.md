@@ -67,7 +67,7 @@ From the Sprint 1 sub-tasks in Jira.
 | Yeşim | Product Owner | Deliverables, Project Organization, Major Activities and Release Plan pages; charter consistency check; source text, manifest and provision list (D3); user stories, story map and story requirements; this page |
 | Yaren | Scrum Master | Milestones and Dependencies pages; Definition of Ready and Done; repository folders |
 | Kaan | Data Scientist | Project Executive Summary; Facilities and Resources page; System Architecture Design Document v1 |
-| Gözde Nur | Data Scientist | Assumptions and Constraints, and Risks pages; parsing and model selection spikes; design decisions in the design document |
+| Gözde Nur | Data Scientist | Assumptions and Constraints, and Risks pages; parsing and model selection spikes; the NLP design decisions D7–D12 in the design document |
 
 ## Sprint 1 review (28/10/2026)
 
