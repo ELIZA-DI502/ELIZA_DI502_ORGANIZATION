@@ -8,14 +8,14 @@ I compared my knowledge with the "Sprint 1 fundamentals" table in the Online Cou
 
 | Topic | My level before Sprint 1 | What I do in Sprint 1 |
 |---|---|---|
-| LLM basics | Known from the NLP course at METU Informatics Institute (IS 584) | – |
-| Embeddings & vector search | Known from IS 584 | – |
-| RAG | Known from IS 584 | – |
-| Evaluation basics | Known before the project | – |
-| Python environment | Known; I use virtual environments and `requirements.txt` | – |
+| LLM basics | Known from the NLP course at METU Informatics Institute (IS 584) | Tested 5 open-source quantized LLMs and chose one ([model selection spike](model-selection-spike.md), D9) |
+| Embeddings & vector search | Known from IS 584 | Chose the embedding model and the vector store ([design document](../../Markdown%20Template/11-system-architecture-design-document.md), D10, D11) |
+| RAG | Known from IS 584 | Designed the NLP pipeline: chunking by structure and hybrid search ([parsing spike](parsing-spike.md), D7, D8, D12) |
+| Evaluation basics | Known before the project | Wrote the 8 test questions for Annex III point 3(b) and the metrics and `val`/`test` split in the design document |
+| Python environment | Known; I use virtual environments and `requirements.txt` | Ran the spikes in Python (`llama-cpp-python` on Google Colab) |
 | Scrum basics | New to me | Read the course resource "What is Scrum?" (done) |
 | Git & GitHub | I use Git, but not often in a team | Refreshed branches and pull requests (done) |
-| Prompt engineering | I had not written prompts for a RAG system | Read two short guides (done) |
+| Prompt engineering | I had not written prompts for a RAG system | Read two short guides and wrote the prompt of the model selection spike (done) |
 | Chat interface (Gradio) | I have not used Gradio | Not needed: the team chose React for the interface (see section 4) |
 
 ## 1. Scrum basics
