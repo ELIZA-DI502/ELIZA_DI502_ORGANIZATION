@@ -4,7 +4,7 @@ This template is created according to Gebru, Timnit, et al. "Datasheets for data
 
 Datasheets for Datasets
 
-| Date Updated: | 24/10/2026 (draft) |
+| Date Updated: | 02/11/2026 (draft) |
 |---|---|
 | Last Updated by: | Gözde Nur |
 | Team Name: | ELIZA |
@@ -17,6 +17,7 @@ Datasheets for Datasets
 - Uses
 - Distribution
 - Maintenance
+- Decision log
 
 > Draft status: this card describes the planned v1. So far it contains the 8 questions on Annex III point 3(b) (IDs `B-01`–`B-05`, `B-S1`–`B-S3`). Counts marked "[to be updated]" are filled in when the questions for (a), (c) and (d) are added.
 
@@ -143,3 +144,22 @@ As with the previous questions, dataset creators should provide answers to these
 | Will older versions of the dataset continue to be supported/hosted/maintained? If so, please describe how. If not, please describe how its obsolescence will be communicated to dataset consumers. | Yes. v1 stays in the repository next to v2, as the course requires. |
 | If others want to extend/augment/build on/contribute to the dataset, is there a mechanism for them to do so? If so, please provide a description. Will these contributions be validated/verified? If so, please describe how. If not, why not? Is there a process for communicating/distributing these contributions to dataset consumers? If so, please provide a description. | Within the course, through pull requests to the team repository; every new question is checked by a second member against the source text. |
 | Any other comments? | - |
+
+## Decision log
+
+Every decision that shaped the question set, in one place (Sprint 1 review feedback). New decisions are added as new rows; a changed decision keeps its row and gets a new one that replaces it.
+
+| # | Decision | Why | Date | Recorded in |
+|---|---|---|---|---|
+| Q-01 | Each member writes the questions for one Annex III point 3 use case: 4–5 scenario questions and 3 safety questions | The four use cases are covered equally | 20/10/2026 | D2 criterion 2; Jira KAN-45, KAN-46, KAN-47, KAN-66 |
+| Q-02 | Every question has one of five types: direct lookup, condition/exception, multi-provision, follow-up, boundary case | Tests the different ways a developer asks; each type needs at least 2 questions | 20/10/2026 | D2 criterion 3 |
+| Q-03 | Safety questions are in four categories: out-of-scope, insufficient evidence, legal decision, adversarial | Objective O4 is measured per category | 20/10/2026 | D2 criterion 4; Executive Summary (O4) |
+| Q-04 | At least 5 questions are taken or adapted from published work on the EU AI Act, with their source | Questions are not only written by the team | 20/10/2026 | D2 criterion 13; Jira KAN-48 |
+| Q-05 | Questions describe a real situation in a developer's own words, not keywords | A user does not know the Article numbers; keyword questions would make retrieval look better than it is | 25/10/2026 | Composition, question 1 |
+| Q-06 | Questions are drafted with an LLM (`claude-opus-5-5`), and every question records the model and the prompt file ([`prompts-3b.md`](../../docs/eval/prompts-3b.md)); each draft is checked by hand against the official text before it is kept | Faster drafting, and anyone can see how a question was made | 25/10/2026 | Collection Process, question 2; D2 criterion 6 |
+| Q-07 | Every scenario question has a gold answer and a gold source down to the paragraph or point; safety questions have an expected behaviour instead | The answer can be scored per provision (Recall@k, O2) | 25/10/2026 | Composition, question 5; D2 criterion 5 |
+| Q-08 | Gold sources are written with the names used in `data/provision-list.csv` | Every gold source can be matched to the provision list (D3 criterion 3) | 27/10/2026 | `docs/eval/eval-set-v1-3b.csv` |
+| Q-09 | No question contains personal data; adversarial questions use placeholders instead | C-10 | 20/10/2026 | D2 criterion 9 |
+| Q-10 | The questions are split into `val` and `test` only (no `train`, because no model is trained); at least one third is `test`, a follow-up is in the same split as the question it follows, and `test` is not used while tuning | Results on `test` are not inflated by tuning | 26/10/2026 | D2 criteria 8 and 10; System Design Document, Evaluation |
+| Q-11 | In Sprint 1, the 8 questions on Annex III point 3(b) were used only to compare the answer models, without a split | Retrieval was not built yet; the split is made when D2 is complete | 25/10/2026 | [Model selection spike](../../docs/spikes/model-selection-spike.md) |
+| Q-12 | **Open:** gold sources must be in the retrieval set (course rule). B-02 and B-03 use Article 6(4) and Article 49(2), which are not in `data/provision-list.csv`. Either they are added to the provision list (a scope change in Charter v2) or B-02 and B-03 are rewritten | Only provisions that the assistant can retrieve can be expected in an answer | Decision by 11/11/2026 (Product Owner) | D3 criterion 3; Jira KAN-84 |
