@@ -4,12 +4,12 @@ This template is created according to Gebru, Timnit, et al. "Datasheets for data
 
 Datasheets for Datasets
 
-| Date Updated: |  |
+| Date Updated: | 04/11/2026 (draft) |
 |---|---|
-| Last Updated by: |   |
-| Team Name: |   |
-| Team Members: |   |
-| Dataset Name: |   |
+| Last Updated by: | Yeşim (Product Owner) |
+| Team Name: | ELIZA |
+| Team Members: | Yeşim (Product Owner), Yaren (Scrum Master), Kaan, Gözde Nur (Development Team Members) |
+| Dataset Name: | ELIZA Q&A Generation-Dataset v1 (`docs/eval/eval-set-v1.csv`) |
 
 - Motivation
 - Composition
@@ -17,6 +17,9 @@ Datasheets for Datasets
 - Uses
 - Distribution
 - Maintenance
+- Decision log
+
+> **Draft status (04/11/2026):** the dataset now holds the 7 questions adapted from the AI Act Evaluation Benchmark. Each member adds the questions for their use case by 11/11/2026; answers marked "[to be updated by 11/11/2026]" change then.
 
 ## Motivation
 
@@ -24,9 +27,9 @@ The following questions are primarily intended to encourage dataset creators to 
 
 | # | Question | Answer |
 |---|---|---|
-| 1 | For what purpose was the dataset created? Was there a specific task in mind? Was there a specific gap that needed to be filled? |   |
-| 2 | Who created the dataset (for example, which team, research group) and on behalf of which entity (for example, company, institution, organization)? |   |
-| 3 | Who funded the creation of the dataset? If there is an associated grant, please provide the name of the grantor and the grant name and number. |   |
+| 1 | For what purpose was the dataset created? Was there a specific task in mind? Was there a specific gap that needed to be filled? | To evaluate the ELIZA assistant, a RAG system that helps technical teams building AI systems for education find the EU AI Act provisions that relate to their system. The questions test whether the assistant finds and cites the expected provision (objective O2) and whether it handles safety cases correctly: no legal decisions, out-of-scope notices, saying when the evidence is missing, and refusing requests to evade the law (objective O4). No public question set covers the four education use cases of Annex III point 3 with gold sources for the consolidated text of 27/07/2026. |
+| 2 | Who created the dataset (for example, which team, research group) and on behalf of which entity (for example, company, institution, organization)? | Team ELIZA, METU Graduate School of Informatics, DI 502 course project (2026–2027 Fall). Each member writes the questions for one Annex III point 3 use case, and another member checks them (decision Q-01). |
+| 3 | Who funded the creation of the dataset? If there is an associated grant, please provide the name of the grantor and the grant name and number. | No funding. The dataset is written by the students as part of the course. |
 | 4 | Any other comments? | - |
 
 ## Composition
@@ -35,26 +38,35 @@ Dataset creators should read through these questions prior to any data collectio
 
 | # | Question | Answer |
 |---|---|---|
-| 1 | What do the instances that comprise the dataset represent (for example, documents, photos, people, and countries)? Are there multiple types of instances (for example, movies, users, and ratings; people and interactions between them; nodes and edges)? Please provide a description. |   |
-| 2 | How many instances are there in total (of each type, if appropriate)? |   |
-| 3 | Does the dataset contain all possible instances or is it a sample (not necessarily random) of instances from a larger set? If the dataset is a sample, then what is the larger set? Is the sample representative of the larger set (for example, geographic coverage)? If so, please describe how this representativeness was validated/verified. If it is not representative of the larger set, please describe why not (for example, to cover a more diverse range of instances, because instances were withheld or unavailable |   |
-| 4 | What data does each instance consist of? "Raw" data (for example, unprocessed text or images) or features? In either case, please provide a description. |   |
-| 5 | Is there a label or target associated with each instance? If so, please provide a description. |   |
-| 6 | Is any information missing from individual instances? If so, please provide a description, explaining why this information is missing (for example, because it was unavailable). This does not include intentionally removed information, but might include, for example, redacted text. |   |
-| 7 | Are relationships between individual instances made explicit (for example, users' movie ratings, and social network links)? If so, please describe how these relationships are made explicit. |   |
-| 8 | Are there recommended data splits (for example, training, development/validation, testing)? If so, please describe these splits, explaining the rationale behind them. |   |
-| 9 | Are there any errors, sources of noise, or redundancies in the dataset? If so, please provide a description. |   |
-| 10 | Is the dataset self-contained, or does it link to or otherwise rely on external resources (for example, websites, tweets, and other datasets)? If it links to or relies on external resources, a) are there guarantees that they will exist, and remain constant, over time; b) are there official archival versions of the complete dataset (that is, including the external resources as they existed at the time the dataset was created); c) are there any restrictions (for example, licenses, fees) associated with any of the external resources that might apply to a dataset consumer? Please provide descriptions of all external resources and any restrictions associated with them, as well as links or other access points, as appropriate. |   |
-| 11 | Does the dataset contain data that might be considered confidential (for example, data that is protected by legal privilege or by doctor-patient confidentiality, data that includes the content of individuals' non-public communications)? If so, please provide a description. |   |
-| 12 | Does the dataset contain data that, if viewed directly, might be offensive, insulting, threatening, or might otherwise cause anxiety? If so, please describe why. |   |
+| 1 | What do the instances that comprise the dataset represent (for example, documents, photos, people, and countries)? Are there multiple types of instances (for example, movies, users, and ratings; people and interactions between them; nodes and edges)? Please provide a description. | Each instance is one question that a developer at an EdTech provider might ask about the EU AI Act, with its gold answer or expected behaviour. There are two kinds: **scenario questions** (in scope, answered from the regulation text) and **safety questions** (legal-decision, out-of-scope, insufficient-evidence and adversarial inputs). |
+| 2 | How many instances are there in total (of each type, if appropriate)? | Planned v1: 20–30 questions, with at least 3 per use case and at least 11 safety questions (D2 criteria 1, 2 and 4). Current draft: 7 scenario questions adapted from the AI Act Evaluation Benchmark (`BM-01`–`BM-07`): use case (a) 3, (b) 1, (c) 1, (d) 2; question types: direct lookup 5, condition / exception 1, boundary case 1. No safety questions yet. [to be updated by 11/11/2026] |
+| 3 | Does the dataset contain all possible instances or is it a sample (not necessarily random) of instances from a larger set? If the dataset is a sample, then what is the larger set? Is the sample representative of the larger set (for example, geographic coverage)? If so, please describe how this representativeness was validated/verified. If it is not representative of the larger set, please describe why not (for example, to cover a more diverse range of instances, because instances were withheld or unavailable | A purposive sample of the questions EdTech developers could ask, not a random one. It is built to cover the four Annex III point 3 use cases, five question types (direct lookup, condition / exception, multi-provision, follow-up, boundary case; at least 2 each) and four safety categories (decisions Q-01 to Q-03). At least 5 questions are taken or adapted from published work, so that the set is not written only by the team (decision Q-04). |
+| 4 | What data does each instance consist of? "Raw" data (for example, unprocessed text or images) or features? In either case, please provide a description. | Raw text in one CSV row per question: `id`, `question`, `type`, `gold_source`, `gold_answer`, `use_case`, `category` (scenario / safety), `context` (for a follow-up: the ID of the question it follows), `expected_behaviour` (answer / abstain / refuse / redirect), `origin`, `answer_origin`, `model`, `prompt_file`, `author`, `reviewer`, `split`. Example rows are shown below this table. |
+| 5 | Is there a label or target associated with each instance? If so, please provide a description. | Yes. Scenario questions have a gold answer and a gold source: the Article or Annex, with its paragraph or point, of Regulation (EU) 2024/1689 in the consolidated text of 27/07/2026, named as in `data/provision-list.csv` (decisions Q-07 and Q-08). Safety questions have an expected behaviour. |
+| 6 | Is any information missing from individual instances? If so, please provide a description, explaining why this information is missing (for example, because it was unavailable). This does not include intentionally removed information, but might include, for example, redacted text. | `reviewer` and `split` are empty in the draft; they are filled in during the cross-check (KAN-52) and when the set is split (KAN-53). Safety questions that are refused or redirected have no gold source, because the expected behaviour does not depend on a provision. |
+| 7 | Are relationships between individual instances made explicit (for example, users' movie ratings, and social network links)? If so, please describe how these relationships are made explicit. | Yes. A follow-up question names the question it follows in `context`, and both are in the same split (decision Q-10). The current 7 questions have no follow-ups. |
+| 8 | Are there recommended data splits (for example, training, development/validation, testing)? If so, please describe these splits, explaining the rationale behind them. | `val` (validation) and `test`; there is no `train` split, because no model is trained. At least one third of the questions are `test`; they are not used while tuning prompts, retrieval or rules, so that the final score is measured on unseen questions. The `test` split holds at least one question of each safety category (decision Q-10). The split is assigned and `test` is frozen on 11/11/2026 (KAN-53). [to be updated by 11/11/2026] |
+| 9 | Are there any errors, sources of noise, or redundancies in the dataset? If so, please provide a description. | Gold answers are short summaries of the cited text and can leave out details; they state the provisions and their conditions, never a verdict (constraint C-08). For the 7 adapted questions, the benchmark's own answers and risk labels were not used as gold: some answers are older than the consolidated text of 27/07/2026, and some risk labels contradict the text (decision Q-15). Every question is checked against the PDF by its author and by a second member; unclear questions are flagged and resolved before v1 is fixed (KAN-52). |
+| 10 | Is the dataset self-contained, or does it link to or otherwise rely on external resources (for example, websites, tweets, and other datasets)? If it links to or relies on external resources, a) are there guarantees that they will exist, and remain constant, over time; b) are there official archival versions of the complete dataset (that is, including the external resources as they existed at the time the dataset was created); c) are there any restrictions (for example, licenses, fees) associated with any of the external resources that might apply to a dataset consumer? Please provide descriptions of all external resources and any restrictions associated with them, as well as links or other access points, as appropriate. | It relies on the consolidated text of Regulation (EU) 2024/1689 of 27/07/2026 on EUR-Lex (CELEX 02024R1689-20260727): a) EUR-Lex keeps every consolidated version under its own CELEX number; on 04/11/2026 this was still the latest version (KAN-157). b) The PDF used is stored in `data/` with its hash in `data/manifest.csv` (D3). c) EUR-Lex content may be reused with attribution (Commission Decision 2011/833/EU). Seven questions are adapted from the AI Act Evaluation Benchmark (Davvetas et al., 2026; [arXiv:2603.09435](https://arxiv.org/abs/2603.09435); [GitHub](https://github.com/davidath/ai-act-evaluation-benchmark), commit `d323167`), whose data files are under CC BY 4.0; each one names its source in `origin`. The selection is documented in [`docs/eval/benchmark-selection.md`](../../docs/eval/benchmark-selection.md). |
+| 11 | Does the dataset contain data that might be considered confidential (for example, data that is protected by legal privilege or by doctor-patient confidentiality, data that includes the content of individuals' non-public communications)? If so, please provide a description. | No. |
+| 12 | Does the dataset contain data that, if viewed directly, might be offensive, insulting, threatening, or might otherwise cause anxiety? If so, please describe why. | No. Adversarial questions may ask for help to evade the law, but contain no offensive language. |
+
+
+**Example rows** (from `eval-set-v1.csv`):
+
+| id | question | type | gold_source | gold_answer |
+|---|---|---|---|---|
+| BM-01 | Our platform decides which applicants are admitted to our university programmes, using their transcripts, standardised test scores and socio-economic data. Which AI Act provisions relate to it? | direct lookup | Annex III, point 3(a); Article 6(2); Article 6(3), third subparagraph | Annex III, point 3(a) lists AI systems intended to be used to determine access or admission or to assign natural persons to educational and vocational training institutions at all levels, and Article 6(2) makes the AI systems referred to in Annex III high-risk. If the system performs profiling of natural persons, the Article 6(3) exception can never apply (Article 6(3), third subparagraph). |
+| BM-06 | We want to detect stress and possible cheating in online exams by analysing students' emotions from their webcam video and voice. Which AI Act provisions relate to this? | boundary case | Article 5(1), first subparagraph, point (f); Annex III, point 3(d) | Article 5(1)(f) prohibits placing on the market, putting into service for this specific purpose, or using AI systems to infer emotions of a natural person in the areas of workplace and education institutions, except where the use of the AI system is intended to be put in place or into the market for medical or safety reasons. Monitoring and detecting prohibited behaviour of students during tests is an Annex III use case (point 3(d)), but being listed in Annex III does not lift the prohibition on inferring emotions. |
+| BM-07 | From when do the high-risk rules apply to an AI system that decides student admissions? | direct lookup | Article 113, third paragraph, point (c)(i); Annex III, point 3(a) | Chapter III, Sections 1, 2 and 3 (with the exception of Article 6(5)) apply from 2 December 2027 as regards AI systems classified as high-risk pursuant to Article 6(2) and Annex III, which includes admission systems under Annex III, point 3(a) (Article 113, third paragraph, point (c)(i), as amended by Regulation (EU) 2026/1744). The general application date of 2 August 2026 does not apply to these rules. |
 
 If the dataset does not relate to people, you may skip the remaining questions in this section.
 
 | # | Question | Answer |
 |---|---|---|
-| 1 | Does the dataset identify any sub-populations (for example, by age, or gender)? If so, please describe how these subpopulations are identified and provide a description of their respective distributions within the dataset. |   |
-| 2 | Is it possible to identify individuals (that is, one or more natural persons), either directly or indirectly (that is, in combination with other data) from the dataset? If so, please describe how. |   |
-| 3 | Does the dataset contain data that might be considered sensitive in any way (for example, data that reveals race or ethnic origins, sexual orientations,religious beliefs, political opinions or union memberships, or locations; financial or health data; biometric or genetic data; forms of government identification, such as social security numbers; criminal history)? If so, please provide a description. |   |
+| 1 | Does the dataset identify any sub-populations (for example, by age, or gender)? If so, please describe how these subpopulations are identified and provide a description of their respective distributions within the dataset. | Not applicable: the dataset does not relate to people. |
+| 2 | Is it possible to identify individuals (that is, one or more natural persons), either directly or indirectly (that is, in combination with other data) from the dataset? If so, please describe how. | No. Questions that test personal-data handling use placeholders such as `[NAME]`, never real data (decision Q-09). |
+| 3 | Does the dataset contain data that might be considered sensitive in any way (for example, data that reveals race or ethnic origins, sexual orientations,religious beliefs, political opinions or union memberships, or locations; financial or health data; biometric or genetic data; forms of government identification, such as social security numbers; criminal history)? If so, please provide a description. | No. |
 | 4 | Any other comments? | - |
 
 ## Collection Process
@@ -63,22 +75,22 @@ As with the questions in the previous section, dataset creators should read thro
 
 | # | Question | Answer |
 |---|---|---|
-| 1 | How was the data associated with each instance acquired? Was the data directly observable (for example,raw text, movie ratings),reported by subjects (for example, survey responses), or indirectly inferred/derived from other data (for example, part-of-speech tags, model-based guesses for age or language)? If the data was reported by subjects or indirectly inferred/derived from other data, was the data validated/verified? If so, please describe how. |   |
-| 2 | What mechanisms or procedures were used to collect the data (for example, hardware apparatuses or sensors, manual human curation, software programs, and software APIs)? How were these mechanisms or procedures validated? |   |
-| 3 | If the dataset is a sample from a larger set, what was the sampling strategy (for example, deterministic, probabilistic with specific sampling probabilities)? |   |
-| 4 | Who was involved in the data collection process (for example, students, crowd workers, contractors) and how were they compensated (for example, how much were crowd workers paid)? |   |
-| 5 | Over what timeframe was the data collected? Does this timeframe match the creation timeframe of the data associated with the instances (for example, recent crawl of old news articles)? If not, please describe the timeframe in which the data associated with the instances was created. |   |
-| 6 | Were any ethical review processes conducted (for example, by an institutional review board)? If so, please describe these review processes, including the outcomes, as well as a link or other access point to any supporting documentation. |   |
+| 1 | How was the data associated with each instance acquired? Was the data directly observable (for example,raw text, movie ratings),reported by subjects (for example, survey responses), or indirectly inferred/derived from other data (for example, part-of-speech tags, model-based guesses for age or language)? If the data was reported by subjects or indirectly inferred/derived from other data, was the data validated/verified? If so, please describe how. | The questions are written by the team, and some are taken or adapted from published work. The 7 current questions were adapted from the AI Act Evaluation Benchmark: a situation (scenario) or a question from the benchmark was rewritten as a question a developer would ask about their own product (decision Q-05). Every gold answer and gold source was written from the PDF of the consolidated text and checked by the author; it is checked again by a second member (KAN-52). |
+| 2 | What mechanisms or procedures were used to collect the data (for example, hardware apparatuses or sensors, manual human curation, software programs, and software APIs)? How were these mechanisms or procedures validated? | Manual curation with LLM assistance. For the benchmark questions, Claude Opus 5.5 (`claude-opus-5-5`) helped find the education items in the benchmark files, compare them with the provision list and draft the questions and gold answers; the process is recorded in [`docs/eval/benchmark-selection.md`](../../docs/eval/benchmark-selection.md) (decision Q-18). The `model`, `prompt_file` and `answer_origin` columns record this for each question. Gold answers are never taken from the system under test. [to be updated by 11/11/2026] |
+| 3 | If the dataset is a sample from a larger set, what was the sampling strategy (for example, deterministic, probabilistic with specific sampling probabilities)? | Deterministic, by coverage targets: the four Annex III point 3 use cases, five question types and four safety categories (D2 acceptance criteria). From the benchmark, the education items were filtered (31 scenarios, 26 question-answer pairs on in-scope articles) and 7 items were chosen that fit one use case clearly and add a use case or question type the set needs (decisions Q-14 and Q-16). Only provisions in `data/provision-list.csv` are used as gold sources. |
+| 4 | Who was involved in the data collection process (for example, students, crowd workers, contractors) and how were they compensated (for example, how much were crowd workers paid)? | The four team members, as part of the course; no compensation. |
+| 5 | Over what timeframe was the data collected? Does this timeframe match the creation timeframe of the data associated with the instances (for example, recent crawl of old news articles)? If not, please describe the timeframe in which the data associated with the instances was created. | October–November 2026: team decisions from 20/10/2026, the benchmark questions on 04/11/2026; v1 is fixed by 14/11/2026. Gold answers refer to the consolidated text of 27/07/2026; a later amendment can change the correct answer (risk R-02). The benchmark data (commit of 26/06/2026) was created before Regulation (EU) 2026/1744 was applied in that text, which is why its answers were not used as gold. |
+| 6 | Were any ethical review processes conducted (for example, by an institutional review board)? If so, please describe these review processes, including the outcomes, as well as a link or other access point to any supporting documentation. | No. The dataset contains no personal data and involves no human subjects. |
 
 If the dataset does not relate to people, you may skip the remaining questions in this section.
 
 | # | Question | Answer |
 |---|---|---|
-| 1 | Did you collect the data from the individuals in question directly, or obtain it via third parties or other sources (for example, websites)? |   |
-| 2 | Were the individuals in question notified about the data collection? If so, please describe (or show with screenshots or other information) how notice was provided, and provide a link or other access point to, or otherwise reproduce, the exact language of the notification itself |   |
-| 3 | Did the individuals in question consent to the collection and use of their data? If so, please describe (or show with screenshots or other information) how consent was requested and provided, and provide a link or other access point to, or otherwise reproduce, the exact language to which the individuals consented. |   |
-| 4 | If consent was obtained, were the consenting individuals provided with a mechanism to revoke their consent in the future or for certain uses? If so, please provide a description, as well as a link or other access point to the mechanism (if appropriate). |   |
-| 5 | Has an analysis of the potential impact of the dataset and its use on data subjects (for example, a data protection impact analysis) been conducted? If so, please provide a description of this analysis, including the outcomes, as well as a link or other access point to any supporting documentation. |   |
+| 1 | Did you collect the data from the individuals in question directly, or obtain it via third parties or other sources (for example, websites)? | Not applicable. |
+| 2 | Were the individuals in question notified about the data collection? If so, please describe (or show with screenshots or other information) how notice was provided, and provide a link or other access point to, or otherwise reproduce, the exact language of the notification itself | Not applicable. |
+| 3 | Did the individuals in question consent to the collection and use of their data? If so, please describe (or show with screenshots or other information) how consent was requested and provided, and provide a link or other access point to, or otherwise reproduce, the exact language to which the individuals consented. | Not applicable. |
+| 4 | If consent was obtained, were the consenting individuals provided with a mechanism to revoke their consent in the future or for certain uses? If so, please provide a description, as well as a link or other access point to the mechanism (if appropriate). | Not applicable. |
+| 5 | Has an analysis of the potential impact of the dataset and its use on data subjects (for example, a data protection impact analysis) been conducted? If so, please provide a description of this analysis, including the outcomes, as well as a link or other access point to any supporting documentation. | Not applicable. |
 | 6 | Any other comments? | - |
 
 ## Preprocessing/ Cleaning/ Labeling
@@ -87,10 +99,10 @@ Dataset creators should read through these questions prior to any preprocessing,
 
 | Question | Answer |
 |---|---|
-| Was any preprocessing/cleaning/labeling of the data done (for example, discretization or bucketing, tokenization, part-of-speech tagging, SIFT feature extraction,removal of instances, processing of missing values)? If so, please provide a description. If not, you may skip the remaining questions in this section. |   |
-| Was the "raw" data saved in addition to the preprocessed/cleaned/labeled data (for example, to support unanticipated future uses)? If so, please provide a link or other access point to the "raw" data. |   |
-| Is the software that was used to preprocess/clean/label the data available? If so, please provide a link or other access point. |   |
-| Any other comments? |   |
+| Was any preprocessing/cleaning/labeling of the data done (for example, discretization or bucketing, tokenization, part-of-speech tagging, SIFT feature extraction,removal of instances, processing of missing values)? If so, please provide a description. If not, you may skip the remaining questions in this section. | Labeling only: each question is labeled by its author with its type, use case, category, expected behaviour, gold source and gold answer, and checked by a second member. |
+| Was the "raw" data saved in addition to the preprocessed/cleaned/labeled data (for example, to support unanticipated future uses)? If so, please provide a link or other access point to the "raw" data. | The original benchmark items (situation or question, and the benchmark's answer or label) are quoted word for word in [`docs/eval/benchmark-selection.md`](../../docs/eval/benchmark-selection.md). |
+| Is the software that was used to preprocess/clean/label the data available? If so, please provide a link or other access point. | No software was used for labeling. |
+| Any other comments? | - |
 
 ## Uses
 
@@ -98,12 +110,12 @@ The following questions are intended to encourage dataset creators to reflect on
 
 | Question | Answer |
 |---|---|
-| Has the dataset been used for any tasks already? If so, please provide a description. |   |
-| Is there a repository that links to any or all papers or systems that use the dataset? If so, please provide a link or other access point. |   |
-| What (other) tasks could the dataset be used for? |   |
-| Is there anything about the composition of the dataset or the way it was collected and preprocessed/cleaned/labeled that might impact future uses? For example, is there anything that a dataset consumer might need to know to avoid uses that could result in unfair treatment of individuals or groups (for example, stereotyping, quality of service issues) or other risks or harms (for example, legal risks, financial harms)? If so, please provide a description. Is there anything a dataset consumer could do to mitigate these risks or harms? |   |
-| Are there tasks for which the dataset should not be used? If so, please provide a description. |   |
-| Any other comments? |   |
+| Has the dataset been used for any tasks already? If so, please provide a description. | Not yet. It will score the Sprint 2 baseline (experiment card E1, KAN-87). |
+| Is there a repository that links to any or all papers or systems that use the dataset? If so, please provide a link or other access point. | The team repository: `docs/eval/` and the experiment cards in `Markdown Template/12-experiment-cards/`. |
+| What (other) tasks could the dataset be used for? | Evaluating other retrieval or question-answering systems on the education use cases of the EU AI Act, for the same source version. |
+| Is there anything about the composition of the dataset or the way it was collected and preprocessed/cleaned/labeled that might impact future uses? For example, is there anything that a dataset consumer might need to know to avoid uses that could result in unfair treatment of individuals or groups (for example, stereotyping, quality of service issues) or other risks or harms (for example, legal risks, financial harms)? If so, please provide a description. Is there anything a dataset consumer could do to mitigate these risks or harms? | Gold answers are tied to the consolidated text of 27/07/2026; dates and some provisions can change with later amendments. Gold answers are written by students, not lawyers. Check the source version before reuse. |
+| Are there tasks for which the dataset should not be used? If so, please provide a description. | It must not be used as legal advice or to decide whether a real system is high-risk or compliant. |
+| Any other comments? | - |
 
 ## Distribution
 
@@ -111,13 +123,13 @@ Dataset creators should provide answers to these questions before distributing t
 
 | Question | Answer |
 |---|---|
-| Will the dataset be distributed to third parties outside of the entity (for example, a company, institution, or organization) on behalf of which the dataset was created? If so, please provide a description. |   |
-| How will the dataset be distributed (for example, tarball on the website, API, GitHub)? Does the dataset have a digital object identifier (DOI)? |   |
-| When will the dataset be distributed? |   |
-| Will the dataset be distributed under a copyright or other intellectual property (IP) license, and/or under applicable terms of use (ToU)? If so, please describe this license and/ or ToU, and provide a link or other access point to, or otherwise reproduce, any relevant licensing terms or ToU, as well as any fees associated with these restrictions. |   |
-| Have any third parties imposed IP-based or other restrictions on the data associated with the instances? If so, please describe these restrictions, and provide a link or other access point to, or otherwise reproduce, any relevant licensing terms, as well as any fees associated with these restrictions. |   |
-| Do any export controls or other regulatory restrictions apply to the dataset or individual instances? If so, please describe these restrictions, and provide a link or other access point to, or otherwise reproduce, any supporting documentation. |   |
-| Any other comments? |   |
+| Will the dataset be distributed to third parties outside of the entity (for example, a company, institution, or organization) on behalf of which the dataset was created? If so, please provide a description. | Only to the course instructors and reviewers. |
+| How will the dataset be distributed (for example, tarball on the website, API, GitHub)? Does the dataset have a digital object identifier (DOI)? | As a CSV file in the team's GitHub repository (`docs/eval/eval-set-v1.csv`) and uploaded to ODTUClass. No DOI. |
+| When will the dataset be distributed? | With the Sprint 2 deliverables, by 14/11/2026. |
+| Will the dataset be distributed under a copyright or other intellectual property (IP) license, and/or under applicable terms of use (ToU)? If so, please describe this license and/ or ToU, and provide a link or other access point to, or otherwise reproduce, any relevant licensing terms or ToU, as well as any fees associated with these restrictions. | No licence has been chosen for the dataset yet. The adapted benchmark questions keep the attribution that CC BY 4.0 requires (source, licence and the fact that they were changed, in `origin`). [to be updated by 11/11/2026] |
+| Have any third parties imposed IP-based or other restrictions on the data associated with the instances? If so, please describe these restrictions, and provide a link or other access point to, or otherwise reproduce, any relevant licensing terms, as well as any fees associated with these restrictions. | The AI Act Evaluation Benchmark data files are under CC BY 4.0, which requires attribution. Quoted regulation text is reused with attribution under Commission Decision 2011/833/EU. |
+| Do any export controls or other regulatory restrictions apply to the dataset or individual instances? If so, please describe these restrictions, and provide a link or other access point to, or otherwise reproduce, any supporting documentation. | No. |
+| Any other comments? | - |
 
 ## Maintenance
 
@@ -125,11 +137,37 @@ As with the previous questions, dataset creators should provide answers to these
 
 | Question | Answer |
 |---|---|
-| Who will be supporting/hosting/maintaining the dataset? |   |
-| How can the owner/curator/manager of the dataset be contacted (for example, email address)? |   |
-| Is there an erratum? If so, please provide a link or other access point. |   |
-| Will the dataset be updated (for example, to correct labeling errors, add new instances, or delete instances)? If so, please describe how often, by whom, and how updates will be communicated to dataset consumers (for example, mailing list, GitHub). |   |
-| If the dataset relates to people, are there applicable limits on the retention of the data associated with the instances (for example, were the individuals in question told that their data would be retained for a fixed period and then deleted)? If so, please describe these limits and explain how they will be enforced. |   |
-| Will older versions of the dataset continue to be supported/hosted/maintained? If so, please describe how. If not, please describe how its obsolescence will be communicated to dataset consumers. |   |
-| If others want to extend/augment/build on/contribute to the dataset, is there a mechanism for them to do so? If so, please provide a description. Will these contributions be validated/verified? If so, please describe how. If not, why not? Is there a process for communicating/distributing these contributions to dataset consumers? If so, please provide a description. |   |
-| Any other comments? |   |
+| Who will be supporting/hosting/maintaining the dataset? | Team ELIZA, until the end of the course (30/12/2026). |
+| How can the owner/curator/manager of the dataset be contacted (for example, email address)? | Through the team repository's issues. |
+| Is there an erratum? If so, please provide a link or other access point. | Not yet. Corrections to v1 are listed in the change log of v2. |
+| Will the dataset be updated (for example, to correct labeling errors, add new instances, or delete instances)? If so, please describe how often, by whom, and how updates will be communicated to dataset consumers (for example, mailing list, GitHub). | Yes. Until 11/11/2026, each member adds the questions for their use case to `eval-set-v1.csv`. v2 (`eval-set-v2.csv`, Sprint 3, D8) grows to at least 40 questions, with a change log; the `test` questions of v1 stay unchanged. |
+| If the dataset relates to people, are there applicable limits on the retention of the data associated with the instances (for example, were the individuals in question told that their data would be retained for a fixed period and then deleted)? If so, please describe these limits and explain how they will be enforced. | Not applicable. |
+| Will older versions of the dataset continue to be supported/hosted/maintained? If so, please describe how. If not, please describe how its obsolescence will be communicated to dataset consumers. | Yes. v1 stays in the repository next to v2. |
+| If others want to extend/augment/build on/contribute to the dataset, is there a mechanism for them to do so? If so, please provide a description. Will these contributions be validated/verified? If so, please describe how. If not, why not? Is there a process for communicating/distributing these contributions to dataset consumers? If so, please provide a description. | Within the course, through pull requests to the team repository; every new question is checked by a second member against the source text. |
+| Any other comments? | - |
+
+## Decision log
+
+Every decision that shaped the question set, in one place, as asked in the Sprint 1 review feedback. New decisions are added as new rows; a changed decision keeps its row and gets a new row that replaces it. New decisions get the next number.
+
+| # | Decision | Why | Date | Recorded in |
+|---|---|---|---|---|
+| Q-01 | Each member writes the questions for one Annex III point 3 use case: 4–5 scenario questions and 3 safety questions | The four use cases are covered equally | 20/10/2026 | D2 criterion 2; Jira KAN-45, KAN-46, KAN-47, KAN-66 |
+| Q-02 | Every question has one of five types: direct lookup, condition / exception, multi-provision, follow-up, boundary case | Tests the different ways a developer asks; each type needs at least 2 questions | 20/10/2026 | D2 criterion 3 |
+| Q-03 | Safety questions are in four categories: out-of-scope, insufficient evidence, legal decision, adversarial | Objective O4 is measured per category | 20/10/2026 | D2 criterion 4; Executive Summary (O4) |
+| Q-04 | At least 5 questions are taken or adapted from published work on the EU AI Act, with their source | Questions are not only written by the team | 20/10/2026 | D2 criterion 13; Jira KAN-48 |
+| Q-05 | Questions describe a real situation in a developer's own words, not keywords | A user does not know the Article numbers; keyword questions would make retrieval look better than it is | 25/10/2026 | Composition, question 1 |
+| Q-06 | Questions are drafted with an LLM (`claude-opus-5-5`), and every question records the model and the prompt file ([`prompts-3b.md`](../../docs/eval/prompts-3b.md)); each draft is checked by hand against the official text before it is kept | Faster drafting, and anyone can see how a question was made | 25/10/2026 | Collection Process, question 2; D2 criterion 6 |
+| Q-07 | Every scenario question has a gold answer and a gold source down to the paragraph or point; safety questions have an expected behaviour instead | The answer can be scored per provision (Recall@k, O2) | 25/10/2026 | Composition, question 5; D2 criterion 5 |
+| Q-08 | Gold sources are written with the names used in `data/provision-list.csv` | Every gold source can be matched to the provision list | 27/10/2026 | D3 criterion 3; Jira KAN-84 |
+| Q-09 | No question contains personal data; adversarial questions use placeholders instead | C-10 | 20/10/2026 | D2 criterion 9 |
+| Q-10 | The questions are split into `val` and `test` only (no `train`, because no model is trained); at least one third is `test`, a follow-up is in the same split as the question it follows, and `test` is not used while tuning | Results on `test` are not inflated by tuning | 26/10/2026 | D2 criteria 8 and 10; System Design Document, Evaluation |
+| Q-11 | In Sprint 1, the 8 questions on Annex III point 3(b) were used only to compare the answer models, without a split | Retrieval was not built yet; the split is made when D2 is complete | 25/10/2026 | [Model selection spike](../../docs/spikes/model-selection-spike.md) |
+| Q-12 | **Open:** gold sources must be in the retrieval set (course rule). B-02 and B-03 use Article 6(4) and Article 49(2), which are not in `data/provision-list.csv`. Either they are added to the provision list (a scope change in Charter v2) or B-02 and B-03 are rewritten. The same applies to BM-02: its gold answer leaves out Article 6(4) until this is decided | Only provisions that the assistant can retrieve can be expected in an answer | Decision by 11/11/2026 (Product Owner) | D3 criterion 3; Jira KAN-84 |
+| Q-13 | The published work used is the AI Act Evaluation Benchmark (Davvetas et al., 2026), data files `scenarios.json` and `qa_pairs.json` at commit `d323167`; its licence was re-checked: CC BY 4.0 | Needed to reuse and adapt the items with attribution | 04/11/2026 | Dependencies row 1; Jira KAN-48; [benchmark-selection.md](../../docs/eval/benchmark-selection.md) |
+| Q-14 | Benchmark items are selected only if they concern education, fit one Annex III point 3 use case clearly (or concern all four), add a use case or question type the set needs, and are not already covered by the team's own questions | The adapted questions must fit ELIZA's scope and complete the set | 04/11/2026 | [benchmark-selection.md](../../docs/eval/benchmark-selection.md), "How the items were selected" |
+| Q-15 | From the benchmark, only the situation or the question is taken; the gold answer and gold source are written from the consolidated text of 27/07/2026, not from the benchmark's answer, risk label or article list | Some benchmark answers are older than the source text (for example item #88 gives 2 August 2026 for Annex III, while Article 113, third paragraph, point (c)(i) now gives 2 December 2027), and some risk labels contradict the text (emotion recognition in education is labelled prohibited in #45 but high-risk in #109 and #139; Article 5(1)(f) prohibits it) | 04/11/2026 | [benchmark-selection.md](../../docs/eval/benchmark-selection.md), "Two findings"; `answer_origin` column |
+| Q-16 | Seven benchmark items are adapted: scenarios #73, #103, #94, #84, #139 and question-answer pairs #11, #88 (questions `BM-01`–`BM-07`); items about dropout, scholarships and apprenticeships, disputable `prohibited` labels, teachers, and limited- or minimal-risk systems are not used | Two more than the minimum, so at least 5 remain after the cross-check; the excluded items have no clear use case or no clear gold answer | 04/11/2026 | [benchmark-selection.md](../../docs/eval/benchmark-selection.md); Jira KAN-48 |
+| Q-17 | The adapted questions count towards the questions of their use case; their IDs are `BM-01`–`BM-07`, and `origin` names the benchmark, the file, the item number and CC BY 4.0 | D2 criterion 13 counts them inside the 20–30 questions; the attribution is required by CC BY 4.0 | 04/11/2026 | D2 criteria 1 and 13; `eval-set-v1.csv` |
+| Q-18 | The benchmark questions and their gold answers were drafted with Claude Opus 5.5 (`claude-opus-5-5`); the Product Owner chose the items, edited the questions and checked every gold answer against the PDF | D2 criterion 6 asks to record the model and the prompt | 04/11/2026 | Collection Process, question 2; [benchmark-selection.md](../../docs/eval/benchmark-selection.md), "How the questions were written" |
+| Q-19 | All v1 questions go into one file, `docs/eval/eval-set-v1.csv`, started on 04/11/2026; each member adds the questions for their use case by 11/11/2026 | One file for the course deliverable and the 11/11/2026 halfway check | 04/11/2026 | Course Sprint 2 deliverables; Jira KAN-65 |
