@@ -29,12 +29,12 @@ EUR-Lex content is reused under Commission Decision 2011/833/EU, with source ack
 
 ## Provision list
 
-101 provisions: 66 core, 28 supporting, 2 boundary and 5 if-time. They follow the provision priority in the Scope Definition:
+103 provisions: 68 core, 28 supporting, 2 boundary and 5 if-time. They follow the provision priority in the Scope Definition. Article 6(4) and Article 49(2) were added on 05/11/2026 because the D2 questions `B-02` and `B-03` need them (D3 criterion 3); the Scope Definition is updated with the final list in KAN-107.
 
 | Priority | Area | Provisions | Count |
 |---|---|---|---|
 | core | Education use cases | Annex III, point 3(a); Annex III, point 3(b); Annex III, point 3(c); Annex III, point 3(d) | 4 |
-| core | High-risk classification | Article 6(2) … Article 6(3), third subparagraph | 7 |
+| core | High-risk classification | Article 6(2) … Article 6(3), third subparagraph; Article 6(4); Article 49(2) | 9 |
 | core | Requirements for high-risk systems | Article 8(1) … Article 15(5) | 36 |
 | core | Provider obligations | Article 16, point (a) … Article 16, point (l) | 12 |
 | core | Application dates | Article 113, first paragraph … Article 113, third paragraph, point (d) | 7 |

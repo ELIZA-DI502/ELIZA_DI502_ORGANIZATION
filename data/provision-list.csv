@@ -10,6 +10,8 @@ ART6-3-b,"Article 6(3), second subparagraph, point (b)",Classification rules for
 ART6-3-c,"Article 6(3), second subparagraph, point (c)",Classification rules for high-risk AI systems,core,High-risk classification,,Condition for the exception: detects decision-making patterns without replacing human assessment.,
 ART6-3-d,"Article 6(3), second subparagraph, point (d)",Classification rules for high-risk AI systems,core,High-risk classification,,Condition for the exception: preparatory task to an assessment.,
 ART6-3-3,"Article 6(3), third subparagraph",Classification rules for high-risk AI systems,core,High-risk classification,,An Annex III system that performs profiling is always high-risk.,
+ART6-4,Article 6(4),Classification rules for high-risk AI systems,core,High-risk classification,,"A provider that uses the Article 6(3) exception must document its assessment and register under Article 49(2).",B-02; B-03
+ART49-2,Article 49(2),Registration,core,High-risk classification,,"Registration in the EU database for an Annex III system that the provider considers not high-risk under Article 6(3).",B-03
 ART8-1,Article 8(1),Compliance with the requirements,core,Requirements for high-risk systems,,"Requirement for high-risk AI systems (compliance with the requirements); identified and explained, no implementation guidance.",
 ART8-2,Article 8(2),Compliance with the requirements,core,Requirements for high-risk systems,,"Requirement for high-risk AI systems (compliance with the requirements); identified and explained, no implementation guidance.",
 ART9-1,Article 9(1),Risk management system,core,Requirements for high-risk systems,,"Requirement for high-risk AI systems (risk management system); identified and explained, no implementation guidance.",
