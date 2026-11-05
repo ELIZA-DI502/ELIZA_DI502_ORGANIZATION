@@ -192,7 +192,7 @@ How to read the diagram:
 
 The input check (before the search) and the output check (after the LLM) are rule-based safety checks; they are not part of the NLP pipeline and are described with the rest of the system.
 
-The knowledge base has one source: the consolidated text of Regulation (EU) 2024/1689 of 27/07/2026 (CELEX 02024R1689-20260727), downloaded once from EUR-Lex and stored with its file hash in the source manifest (deliverable D3). Only the in-scope provisions are used (C-01): Annex III point 3, Article 2, the definitions in Article 3 that the other provisions use, Article 5(1)(f), Article 6(2)–(3), Articles 8–15, Article 16, Article 50(1) and Article 113; Articles 4 and 4a only if time allows (`data/provision-list.csv`).
+The knowledge base has one source: the consolidated text of Regulation (EU) 2024/1689 of 27/07/2026 (CELEX 02024R1689-20260727), downloaded once from EUR-Lex and stored with its file hash in the source manifest (deliverable D3). Only the in-scope provisions are used (C-01): Annex III point 3, Article 2, the definitions in Article 3 that the other provisions use, Article 5(1)(f), Article 6(2)–(4), Articles 8–15, Article 16, Article 49(2), Article 50(1) and Article 113; Articles 4 and 4a only if time allows (`data/provision-list.csv`).
 
 The text is **parsed by its own structure; there is no separate chunking step.** The regulation is already divided into short, self-contained units: Articles, numbered paragraphs, and points (a), (b), ... in Articles and Annexes. Parsing follows these headings, and each unit becomes one chunk. Chunk size and overlap are therefore not tuned.
 
@@ -538,7 +538,7 @@ Copy the block below for each decision.
 
 ### D10: Embedding model: bge-base-en-v1.5
 
-**Context:** The embedding model must be open-source and run on a CPU. The corpus is small (about 100 chunks: 101 in-scope provisions in `data/provision-list.csv`) and in English (C-02).
+**Context:** The embedding model must be open-source and run on a CPU. The corpus is small (about 100 chunks: 103 in-scope provisions in `data/provision-list.csv`) and in English (C-02).
 
 **Options considered:**
 
