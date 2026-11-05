@@ -163,7 +163,7 @@ The NLP decisions D7–D12 are based on two short spikes and the evaluation ques
 |---|---|---|
 | [`parsing-spike.md`](../docs/spikes/parsing-spike.md), [`parsing-chunks.csv`](../docs/spikes/parsing-chunks.csv) | Split Article 6 and Annex III point 3 into 22 chunks, each with its correct Article number | D7 (chunk rule), D8 (source format) |
 | [`model-selection-spike.md`](../docs/spikes/model-selection-spike.md), [`model-selection-results.csv`](../docs/spikes/model-selection-results.csv) | Tested 5 open-source models on the same 8 questions | D9 (LLM), input and output checks |
-| [`eval-set-v1-3b.csv`](../docs/eval/eval-set-v1-3b.csv) | 8 questions on Annex III point 3(b), each with its gold source | The test questions of the model spike |
+| [`eval-set-v1-3b.csv`](https://github.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/blob/69932de4f1db4a593356de976219de3e74d644e4/docs/eval/eval-set-v1-3b.csv) (Sprint 1 version; now in [`eval-set-v1.csv`](../docs/eval/eval-set-v1.csv)) | 8 questions on Annex III point 3(b), each with its gold source | The test questions of the model spike |
 
 We did these tests to understand how the text is split and how each model answers, so that the decisions are based on what we saw. The code is not included, because Sprint 1 does not ask for code; the notes and results are in the files above. No model was trained: we ran the 5 models as published (4-bit, temperature 0), gave each one the same 8 questions, and compared their answers. The questions were only used for testing. D10–D12 (embedding, vector store, retrieval) are not tested yet; they are checked with Recall@k in Sprint 2.
 
