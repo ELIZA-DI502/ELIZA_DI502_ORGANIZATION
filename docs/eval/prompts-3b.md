@@ -9,9 +9,9 @@ The questions are in [`eval-set-v1.csv`](eval-set-v1.csv) (`B-01`–`B-06`, `B-S
 1. I picked the use case: AI that grades or evaluates students (Annex III, point 3(b)).
 2. I chose the articles a developer of such a tool needs: Annex III 3(b), Article 6(2)–(4), 49(2), 5(1)(f), Articles 8–15 and 113. All of them are in `data/provision-list.csv`.
 3. I asked Claude Opus 5.5 for candidate questions with answers (prompt below). It gave 22. Some were based on real examples from the EU AI Act Service Desk.
-4. I kept 8. I wanted at least one question of each type and no two questions about the same situation.
+4. In Sprint 1 I kept 8 of the 22. I wanted at least one question of each type and no two questions about the same situation.
 5. I rewrote them in simple words, the way a developer would ask, without article numbers.
-6. On 05/11/2026 I changed three questions and added one, so that different people ask in different ways (see the last section).
+6. On 05/11/2026 I changed three questions and added a ninth one (`B-06`), so that different people ask in different ways (see the last section). The set now has **9 questions**.
 7. I checked every answer and source against the PDF and fixed two mistakes.
 8. For each question, `eval-set-v1.csv` says who wrote it, which model and prompt were used, and where it came from.
 
