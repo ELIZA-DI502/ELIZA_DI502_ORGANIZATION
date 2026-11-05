@@ -1,0 +1,8 @@
+# Product configuration (see the course's repository structure).
+# Sprint 2: chunking (KAN-93). Embedding and retrieval settings are added with KAN-97.
+chunking:
+  strategy: structure                                # one chunk per provision in data/provision-list.csv (D7)
+  source_file: CELEX_02024R1689-20260727_EN.html     # SRC-02 in data/manifest.csv (D8)
+  version_date: "27/07/2026"
+  celex: "02024R1689-20260727"
+  max_chars: 1500                                    # a longer provision is split at its points or lines
