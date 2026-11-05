@@ -2,7 +2,7 @@
 
 **Author:** Gözde Nur Özdemir (questions `B-01`–`B-06`, `B-S1`–`B-S3`, and this record) · [KAN-46](https://yarengursoy.atlassian.net/browse/KAN-46)
 
-The questions are in [`eval-set-v1.csv`](eval-set-v1.csv) (`B-01`–`B-06`, `B-S1`–`B-S3`). The Sprint 1 file `eval-set-v1-3b.csv` was merged into it on 05/11/2026 and removed; its last version is [here](https://github.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/blob/69932de4f1db4a593356de976219de3e74d644e4/docs/eval/eval-set-v1-3b.csv).
+The questions are in [`eval-set-v1.csv`](eval-set-v1.csv) (`B-01`–`B-06`, `B-S1`–`B-S3`).
 
 ## How I made the 3(b) questions
 
@@ -39,7 +39,7 @@ The author selected 8 of the candidates and checked every gold answer against th
 
 ## Rewording for more varied questions (05/11/2026)
 
-Model: Claude Opus 5.5 (`claude-opus-5-5`). Questions `B-02`, `B-04` and `B-05` were reworded and `B-06` was added so that the 3(b) questions are not all of one kind: different users (developer, compliance officer, product manager), wording that uses or avoids the terms of the legal text, a legal-decision request and a "when" question. The situation and the gold source stay the same; the Sprint 1 wording is kept in the [Sprint 1 file](https://github.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/blob/69932de4f1db4a593356de976219de3e74d644e4/docs/eval/eval-set-v1-3b.csv) (commit `69932de`).
+Model: Claude Opus 5.5 (`claude-opus-5-5`). Questions `B-02`, `B-04` and `B-05` were reworded and `B-06` was added so that the 3(b) questions are not all of one kind: different users (developer, compliance officer, product manager), wording that uses or avoids the terms of the legal text, a legal-decision request and a "when" question. The situation and the gold source stay the same.
 
 ```text
 Rewrite this question (for B-06: write a new question about the given provisions) for the EU AI Act test set so that it matches these labels:
