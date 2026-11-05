@@ -8,7 +8,7 @@ Which open-source, quantized model gives the best answers (C-03), and can simple
 
 ## How we tested
 
-- **No training.** The models are used as published. We only **tested** them: every model answered the same 8 questions on Annex III point 3(b) (AI systems that evaluate learning outcomes, for example grading students' work) ([`eval-set-v1-3b.csv`](../eval/eval-set-v1-3b.csv)). The questions were not split into train, validation and test sets.
+- **No training.** The models are used as published. We only **tested** them: every model answered the same 8 questions on Annex III point 3(b) (AI systems that evaluate learning outcomes, for example grading students' work) ([`eval-set-v1-3b.csv`](https://github.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/blob/69932de4f1db4a593356de976219de3e74d644e4/docs/eval/eval-set-v1-3b.csv), Sprint 1 version; the questions are now in [`eval-set-v1.csv`](../eval/eval-set-v1.csv)). The questions were not split into train, validation and test sets.
 - Retrieval is not built yet, so each question got its correct provisions by hand.
 - Same prompt and settings for every model: 4-bit (`Q4_K_M`), temperature 0, at most 300 answer tokens. The models ran with `llama-cpp-python` on Google Colab; the answer time on the team computer below was measured with Ollama, which the system will use (D9).
 - An answer **passes** if it cites the correct Article and point, gives no verdict, and does not refuse without a reason.
@@ -55,7 +55,7 @@ What each step does:
 | `model.chat(...)` | Sends the message to the model and returns its answer (4-bit model, temperature 0, at most 300 tokens). |
 | `remove_verdicts(answer)` | Finds sentences that decide for the user, such as "your system is not high-risk" or "this does not violate the AI Act", deletes them and adds the notice "this is not a legal decision". Sentences that only state a condition ("If your system is high-risk, it must …") are kept. |
 | `has_verdict(answer)` | Checks with the same patterns whether a verdict sentence is still in the answer. |
-| `cites_gold_source(answer, q)` | Checks that the answer names the question's gold source from [`eval-set-v1-3b.csv`](../eval/eval-set-v1-3b.csv), for example Article 6(3)(a) for B-01. |
+| `cites_gold_source(answer, q)` | Checks that the answer names the question's gold source from [`eval-set-v1-3b.csv`](https://github.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/blob/69932de4f1db4a593356de976219de3e74d644e4/docs/eval/eval-set-v1-3b.csv), for example Article 6(3)(a) for B-01. |
 
 ## Results
 
