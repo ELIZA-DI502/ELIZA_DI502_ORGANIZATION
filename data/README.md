@@ -9,6 +9,7 @@ This folder holds the single source behind every answer (C-01): the consolidated
 | File | What it is |
 |---|---|
 | `CELEX_02024R1689-20260727_EN.pdf` | The stored consolidated text (EUR-Lex, CELEX 02024R1689-20260727, English, 151 pages). It includes the amendment by Regulation (EU) 2026/1744 (marked ▼M1 in the text). |
+| `CELEX_02024R1689-20260727_EN.html` | The same consolidated text as HTML (SRC-02). It is the parsing input of `src/chunking.ipynb` (design decision D8), because its tags mark every Article, paragraph and point; the PDF is the fallback. |
 | `manifest.csv` | One row per stored document: source URL, CELEX number, version date, reuse basis and SHA-256 hash, plus the format, the amendments included and notes. |
 | `provision-list.csv` | The in-scope provisions, one row per paragraph, point or definition, each marked core, supporting, boundary or if-time as in the [Project Executive Summary](../Markdown%20Template/03-project-canvas/01-project-executive-summary.md) (Scope Definition). |
 
@@ -21,7 +22,14 @@ sha256sum data/CELEX_02024R1689-20260727_EN.pdf
 # expected: 1ccd38d1c78482cf2053b70110115adcc5080700acc8bd7bead8cb3579143ccf
 ```
 
-Result on 26/10/2026: **match (yes)**. The parsing script checks the same hash before every run (D5, [KAN-92](https://yarengursoy.atlassian.net/browse/KAN-92)).
+Result on 26/10/2026: **match (yes)**.
+
+```bash
+sha256sum data/CELEX_02024R1689-20260727_EN.html
+# expected: e7184c2b0a8037fb7e8ab8a98ab70832513579e841e520363bcca6a9ced0a2ea
+```
+
+Result on 05/11/2026: **match (yes)**. The parsing script checks the same hash before every run (D5, [KAN-92](https://yarengursoy.atlassian.net/browse/KAN-92)).
 
 ## Reuse basis and legal status
 
