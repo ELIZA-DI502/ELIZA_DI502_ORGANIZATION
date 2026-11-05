@@ -12,6 +12,7 @@ This folder holds the single source behind every answer (C-01): the consolidated
 | `CELEX_02024R1689-20260727_EN.html` | The same consolidated text as HTML (SRC-02). It is the parsing input of `src/chunking.ipynb` (design decision D8), because its tags mark every Article, paragraph and point; the PDF is the fallback. |
 | `manifest.csv` | One row per stored document: source URL, CELEX number, version date, reuse basis and SHA-256 hash, plus the format, the amendments included and notes. |
 | `provision-list.csv` | The in-scope provisions, one row per paragraph, point or definition, each marked core, supporting, boundary or if-time as in the [Project Executive Summary](../Markdown%20Template/03-project-canvas/01-project-executive-summary.md) (Scope Definition). |
+| `chunks.csv`, `chunks.jsonl` | The chunks made by `src/chunking.ipynb` (KAN-93): 105 chunks for the 103 provisions, because Article 13(3) and Article 4a(1) are longer than 1,500 characters and are split in two. Each chunk has its reference, title, chapter, priority, version date and amendment, and the IDs of the chunks before and after it. `chunks.jsonl` is read by the retriever; `chunks.csv` opens in Excel. The settings are in `config/rag.yaml`. |
 
 ## Checking the stored file
 
