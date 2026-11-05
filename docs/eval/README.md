@@ -8,4 +8,6 @@ Evaluation questions and their records (course repository structure: `docs/eval/
 | [benchmark-selection.md](benchmark-selection.md) | How the 7 benchmark questions were selected and adapted (KAN-48): source and licence, selection criteria, the original items word for word, the questions, gold answers and gold sources, and the items not selected |
 | [prompts-3b.md](prompts-3b.md) | How the Annex III 3(b) questions (`B-01`–`B-06`, `B-S1`–`B-S3`) were drafted with an LLM: the prompts, the model and the dates. The Sprint 1 file of these questions, used in the [model selection spike](../spikes/model-selection-spike.md), was merged into `eval-set-v1.csv` on 05/11/2026; its last version is [here](https://github.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/blob/69932de4f1db4a593356de976219de3e74d644e4/docs/eval/eval-set-v1-3b.csv) |
 
+**IDs:** `BM` = adapted from the benchmark, `EM` = exam monitoring (d), `B` = learning-outcome assessment (b).
+
 Planned: `rubric.md` (D2, Sprint 2, due 11/11/2026) and `eval-set-v2.csv` (D8, Sprint 3).
