@@ -35,7 +35,7 @@ For each question give the gold source (Article, paragraph, point) and a short g
 Rewrite these questions in simpler, everyday language, as a developer would ask them. Do not use legal terms or article numbers in the question.
 ```
 
-The author selected 8 of the candidates and checked every gold answer against the PDF of the consolidated text.
+In Sprint 1 I selected 8 of the 22 candidates (`B-01`–`B-05`, `B-S1`–`B-S3`) and checked every gold answer against the PDF of the consolidated text. The ninth question, `B-06`, was added on 05/11/2026 (next section).
 
 ## Rewording for more varied questions (05/11/2026)
 
