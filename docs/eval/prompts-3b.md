@@ -39,7 +39,7 @@ The author selected 8 of the candidates and checked every gold answer against th
 
 ## Rewording for more varied questions (05/11/2026)
 
-Model: Claude Opus 5.5 (`claude-opus-5-5`). Questions `B-02`, `B-04` and `B-05` were reworded and `B-06` was added so that the 3(b) questions are not all of one kind: different users (developer, compliance officer, product manager), wording that uses or avoids the terms of the legal text, a legal-decision request and a "when" question. The situation and the gold source stay the same.
+Model: Claude Opus 5.5 (`claude-opus-5-5`). I chose the labels below for each question; the model drafted the wording, and I edited and checked it. I reworded `B-02`, `B-04` and `B-05` and added `B-06` so that the 3(b) questions are not all of one kind: different users (developer, compliance officer, product manager), wording that uses or avoids the terms of the legal text, a legal-decision request and a "when" question. The situation and the gold source stay the same.
 
 ```text
 Rewrite this question (for B-06: write a new question about the given provisions) for the EU AI Act test set so that it matches these labels:
@@ -48,11 +48,11 @@ question type = {type}.
 Keep the same situation and the same provisions, so the gold answer still holds. Do not add facts that are not in the original question.
 ```
 
-| ID | Labels asked for |
+| ID | Labels I chose |
 |---|---|
 | B-02 | developer, natural, everyday words, legal-decision request ("yes or no") |
 | B-04 | compliance officer, natural, same terms as the legal text |
 | B-05 | product manager, natural, same terms as the legal text |
 | B-06 (new) | product manager, natural, everyday words, "when" question on the application date of Annex III point 3(b) |
 
-Search-query phrasing was not used: the course asks for natural-language questions, not keyword matches. The author checked the new wording and all gold sources against the PDF of the consolidated text on 05/11/2026. Two errors found in this check were also fixed: `B-01` now lists Article 6(3), first subparagraph (the "no significant risk of harm" condition its answer uses), and `B-04` no longer names Article 5(1)(f) in the question, so the question does not give away its gold source.
+Search-query phrasing was not used: the course asks for natural-language questions, not keyword matches. I checked the new wording and all gold sources against the PDF of the consolidated text on 05/11/2026. I also fixed two errors I found in this check: `B-01` now lists Article 6(3), first subparagraph (the "no significant risk of harm" condition its answer uses), and `B-04` no longer names Article 5(1)(f) in the question, so the question does not give away its gold source.
