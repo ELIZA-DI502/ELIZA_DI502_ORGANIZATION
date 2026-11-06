@@ -14,7 +14,8 @@ embedding:
 vector_store:
   path: ../data/vector-store                         # D11, Chroma on disk with cosine distance (not committed; rebuilt by src/embedding.ipynb)
 bm25:
-  option: C                                          # C = standard stopwords, keeping not/no/nor; chosen in src/embedding.ipynb, step 5
+  stopwords: scikit-learn English list, keeping not/no/nor   # negations change a rule (src/embedding.ipynb, step 2)
+  frequent_words: LLM judge + human check                    # words in at least 20% of chunks (step 3)
 judge:
   model: qwen3:4b                                    # LLM judge for frequent words: not the answer model's family (Llama, D9)
   url: http://localhost:11434/api/chat               # Ollama
