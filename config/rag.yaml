@@ -9,13 +9,14 @@ chunking:
 
 # Sprint 2: embedding, vector store and search (KAN-97), decisions D10-D12 in the design document.
 embedding:
-  model: BAAI/bge-base-en-v1.5                       # D10, 768 dimensions; checked in src/embedding.ipynb step 6
+  model: BAAI/bge-small-en-v1.5                      # best Recall@5 on B-01 to B-06 (src/embedding.ipynb step 6); D10 chose bge-base, compared again in KAN-99
   candidates: ["sentence-transformers/all-MiniLM-L6-v2", "BAAI/bge-small-en-v1.5", "BAAI/bge-base-en-v1.5"]   # the D10 options
   query_instruction: "Represent this sentence for searching relevant passages: "   # from the model card, questions only
 vector_store:
   path: ../data/vector-store                         # D11, Chroma on disk with cosine distance (not committed; rebuilt by src/embedding.ipynb)
 bm25:
-  remove: none                                       # none / jury / stopwords; default none (Dickinson 2026), tested in src/embedding.ipynb step 5
+  remove: jury                                       # chosen in src/embedding.ipynb step 5 (default was none, Dickinson 2026)
+  jury_words: [a, and, for, in, of, shall, that, the, this, to, with]   # majority of the LLM jury, step 4
 judge:
   jury: ["qwen3:4b", "phi4-mini", "gemma3:4b"]       # three families, majority vote (Verga et al. 2024); not Llama (answer model, D9)
   url: http://localhost:11434/api/chat               # Ollama
