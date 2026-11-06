@@ -11,14 +11,10 @@ chunking:
 embedding:
   model: BAAI/bge-base-en-v1.5                       # D10, 768 dimensions
   query_instruction: "Represent this sentence for searching relevant passages: "   # from the model card, questions only
-  batch_size: 16
 vector_store:
-  path: ../data/vector-store                         # D11, Chroma on disk (not committed; rebuilt by src/embedding.ipynb)
-  collection: ai-act-chunks
-  distance: cosine
+  path: ../data/vector-store                         # D11, Chroma on disk with cosine distance (not committed; rebuilt by src/embedding.ipynb)
 bm25:
-  ignore: "C: stopwords, keep not/no/nor"           # chosen by measurement in src/embedding.ipynb, step 4
-  candidate_min_share: 0.2                           # words in at least 20% of chunks go to the LLM judge (step 3)
+  option: C                                          # C = standard stopwords, keeping not/no/nor; chosen in src/embedding.ipynb, step 5
 judge:
   model: qwen3:4b                                    # LLM judge for frequent words: not the answer model's family (Llama, D9)
   url: http://localhost:11434/api/chat               # Ollama
