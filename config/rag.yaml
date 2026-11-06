@@ -17,8 +17,11 @@ vector_store:
   collection: ai-act-chunks
   distance: cosine
 bm25:
-  stopwords: true                                    # scikit-learn English stopword list
-  keep_words: ["not", "no", "nor"]                       # kept, because they change the meaning of a rule
+  ignore: "C: stopwords, keep not/no/nor"           # chosen by measurement in src/embedding.ipynb, step 4
+  candidate_min_share: 0.2                           # words in at least 20% of chunks go to the LLM judge (step 3)
+judge:
+  model: qwen3:4b                                    # LLM judge for frequent words: not the answer model's family (Llama, D9)
+  url: http://localhost:11434/api/chat               # Ollama
 retrieval:
   mode: hybrid                                       # dense (E1 baseline) or hybrid (E2), D12
   top_k: 5                                           # chosen later with Recall@k on val (3, 5 or 8)
