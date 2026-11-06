@@ -15,6 +15,19 @@ The questions are in [`eval-set-v1.csv`](eval-set-v1.csv) (`B-01`–`B-06`, `B-S
 7. I checked every answer and source against the PDF and fixed two mistakes.
 8. For each question, `eval-set-v1.csv` says who wrote it, which model and prompt were used, and where it came from.
 
+## Which methods from the course slides I used
+
+The course slides *Building test datasets for RAG* list five method families. My 3(b) questions use four of them; I applied them by hand with one LLM prompt, not with the RAGAS or DeepEval tools.
+
+| Method (slides) | What I did | Example |
+|---|---|---|
+| **A · Generate, then filter** | The LLM wrote 22 questions with answers; I kept the clear ones and checked every answer and source against the text of the law. | 22 candidates → 8 kept (steps 3, 4, 7 above) |
+| **B · Category-controlled** | I chose the question types first, one of each, and different people asking (developer, product manager). | `B-01` condition / exception, `B-04` boundary case, `B-05` asked by a product manager |
+| **C · Multi-hop** | Some answers need two provisions together. | `B-03`: Article 6(4) **and** Article 49(2); `B-06`: the date in Article 113 **and** the use case in Annex III 3(b) |
+| **E · Hard cases on purpose** | Questions the assistant must refuse, redirect, or say it cannot answer. | `B-S1` asks how to get around the law; `B-S2` asks about fines (out of scope); `B-S3` asks for an accuracy number the law does not give |
+
+I did not use **D · Schema-based generation**: the slides suggest it when real documents are few or private, and our document, the AI Act, is public.
+
 ## Prompts
 
 Model: Claude Opus 5.5 (`claude-opus-5-5`), 24/10/2026. Questions `B-01`–`B-05`, `B-S1`–`B-S3`.
