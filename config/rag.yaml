@@ -1,8 +1,27 @@
 # Product configuration (see the course's repository structure).
-# Sprint 2: chunking (KAN-93). Embedding and retrieval settings are added with KAN-97.
+# Sprint 2: chunking (KAN-93), embedding and retrieval (KAN-97).
 chunking:
   strategy: structure                                # one chunk per provision in data/provision-list.csv (D7)
   source_file: CELEX_02024R1689-20260727_EN.html     # SRC-02 in data/manifest.csv (D8)
   version_date: "27/07/2026"
   celex: "02024R1689-20260727"
   max_chars: 1500                                    # a longer provision is split at its points or lines
+
+# Sprint 2: embedding, vector store and search (KAN-97), decisions D10-D12 in the design document.
+embedding:
+  model: BAAI/bge-base-en-v1.5                       # D10 (Sprint 1); checked in src/embedding.ipynb step 2: no model better on both Recall@5 and MRR
+  candidates: ["sentence-transformers/all-MiniLM-L6-v2", "BAAI/bge-small-en-v1.5", "BAAI/bge-base-en-v1.5"]   # the D10 options
+  query_instruction: "Represent this sentence for searching relevant passages: "   # from the model card, questions only
+vector_store:
+  path: ../data/vector-store                         # D11, Chroma on disk with cosine distance (not committed; rebuilt by src/embedding.ipynb)
+bm25:
+  remove: jury                                       # chosen in src/embedding.ipynb step 5 (default was none, Dickinson 2026)
+  jury_words: [a, and, for, in, of, shall, that, the, this, to, with]   # majority of the LLM jury, step 4
+judge:
+  jury: ["qwen3:4b", "phi4-mini", "gemma3:4b"]       # three families, majority vote (Verga et al. 2024); not Llama (answer model, D9)
+  url: http://localhost:11434/api/chat               # Ollama
+retrieval:
+  mode: hybrid                                       # dense (E1 baseline) or hybrid (E2), D12
+  top_k: 5                                           # chosen later with Recall@k on val (3, 5 or 8)
+  candidates: 20                                     # how many chunks each list gives to the fusion
+  rrf_k: 60                                          # Reciprocal Rank Fusion constant
