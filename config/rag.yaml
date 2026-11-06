@@ -1,8 +1,26 @@
 # Product configuration (see the course's repository structure).
-# Sprint 2: chunking (KAN-93). Embedding and retrieval settings are added with KAN-97.
+# Sprint 2: chunking (KAN-93), embedding and retrieval (KAN-97).
 chunking:
   strategy: structure                                # one chunk per provision in data/provision-list.csv (D7)
   source_file: CELEX_02024R1689-20260727_EN.html     # SRC-02 in data/manifest.csv (D8)
   version_date: "27/07/2026"
   celex: "02024R1689-20260727"
   max_chars: 1500                                    # a longer provision is split at its points or lines
+
+# Sprint 2: embedding, vector store and search (KAN-97), decisions D10-D12 in the design document.
+embedding:
+  model: BAAI/bge-base-en-v1.5                       # D10, 768 dimensions
+  query_instruction: "Represent this sentence for searching relevant passages: "   # from the model card, questions only
+  batch_size: 16
+vector_store:
+  path: ../data/vector-store                         # D11, Chroma on disk (not committed; rebuilt by src/embedding.ipynb)
+  collection: ai-act-chunks
+  distance: cosine
+bm25:
+  stopwords: true                                    # scikit-learn English stopword list
+  keep_words: ["not", "no", "nor"]                       # kept, because they change the meaning of a rule
+retrieval:
+  mode: hybrid                                       # dense (E1 baseline) or hybrid (E2), D12
+  top_k: 5                                           # chosen later with Recall@k on val (3, 5 or 8)
+  candidates: 20                                     # how many chunks each list gives to the fusion
+  rrf_k: 60                                          # Reciprocal Rank Fusion constant

@@ -2,3 +2,6 @@
 /.DS_store
 Markdown Template/.DS_Store
 Markdown Template/05-sprint-2/.DS_Store
+
+# Chroma vector store, rebuilt by src/embedding.ipynb (KAN-97)
+data/vector-store/
