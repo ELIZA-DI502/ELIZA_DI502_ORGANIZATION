@@ -15,9 +15,10 @@ vector_store:
   path: ../data/vector-store                         # D11, Chroma on disk with cosine distance (not committed; rebuilt by src/embedding.ipynb)
 bm25:
   stopwords: scikit-learn English list, keeping not/no/nor   # negations change a rule (src/embedding.ipynb, step 2)
-  frequent_words: LLM judge + human check                    # words in at least 20% of chunks (step 3)
+  frequent_words: human labels                               # words in at least 20% of chunks; LLM judges tested against them (step 3)
 judge:
-  model: qwen3:4b                                    # LLM judge for frequent words: not the answer model's family (Llama, D9)
+  candidates: ["qwen3:4b", "phi4-mini", "gemma3:4b"]   # tested against human labels in src/embedding.ipynb, step 3
+  model: qwen3:4b                                    # replace with the best judge from step 3 (not Llama, the answer model, D9)
   url: http://localhost:11434/api/chat               # Ollama
 retrieval:
   mode: hybrid                                       # dense (E1 baseline) or hybrid (E2), D12
