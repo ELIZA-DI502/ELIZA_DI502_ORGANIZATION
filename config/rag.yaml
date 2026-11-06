@@ -14,11 +14,9 @@ embedding:
 vector_store:
   path: ../data/vector-store                         # D11, Chroma on disk with cosine distance (not committed; rebuilt by src/embedding.ipynb)
 bm25:
-  stopwords: scikit-learn English list, keeping not/no/nor   # negations change a rule (src/embedding.ipynb, step 2)
-  frequent_words: human labels                               # words in at least 20% of chunks; LLM judges tested against them (step 3)
+  remove: none                                       # none / jury / stopwords; default none (Dickinson 2026), tested in src/embedding.ipynb step 5
 judge:
-  candidates: ["qwen3:4b", "phi4-mini", "gemma3:4b"]   # tested against human labels in src/embedding.ipynb, step 3
-  model: qwen3:4b                                    # replace with the best judge from step 3 (not Llama, the answer model, D9)
+  jury: ["qwen3:4b", "phi4-mini", "gemma3:4b"]       # three families, majority vote (Verga et al. 2024); not Llama (answer model, D9)
   url: http://localhost:11434/api/chat               # Ollama
 retrieval:
   mode: hybrid                                       # dense (E1 baseline) or hybrid (E2), D12
