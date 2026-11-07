@@ -11,9 +11,9 @@
 
 ## Map
 
-![User Story Map v1: requirement, features and epics at the top, user stories in release rows](../../docs/images/user-story-map-v1.png)
+![User Story Map v1: requirement, features and epics at the top, user stories in release rows](https://raw.githubusercontent.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/main/docs/images/user-story-map-v1.png)
 
-To read the cards at any zoom, open the [PDF version of the map](../../docs/images/user-story-map-v1.pdf). The same content is in the table and the full hierarchy below.
+To read the cards at any zoom, open the [PDF version of the map](https://github.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/blob/main/docs/images/user-story-map-v1.pdf). The same content is in the table and the full hierarchy below.
 
 ## The map as a table
 
