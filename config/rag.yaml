@@ -10,7 +10,7 @@ chunking:
 # Sprint 2: embedding, vector store and search (KAN-97), decisions D10-D12 in the design document.
 embedding:
   model: BAAI/bge-small-en-v1.5                      # D10 chose bge-base in Sprint 1; bge-small had the better Recall@5 inside hybrid search (src/evaluation.ipynb step 6)
-  candidates: ["sentence-transformers/all-MiniLM-L6-v2", "BAAI/bge-small-en-v1.5", "BAAI/bge-base-en-v1.5"]   # the D10 options
+  candidates: ["sentence-transformers/all-MiniLM-L6-v2", "BAAI/bge-small-en-v1.5", "BAAI/bge-base-en-v1.5", "BAAI/bge-large-en-v1.5", "mixedbread-ai/mxbai-embed-large-v1"]   # the D10 options and two larger models
   query_instruction: "Represent this sentence for searching relevant passages: "   # from the model card, questions only
 vector_store:
   path: ../data/vector-store                         # D11, Chroma on disk with cosine distance (not committed; rebuilt by src/embedding.ipynb)
@@ -18,7 +18,7 @@ bm25:
   remove: jury                                       # chosen in src/embedding.ipynb step 5 (default was none, Dickinson 2026)
   jury_words: [a, and, for, in, of, shall, that, the, this, to, with]   # majority of the LLM jury, step 4
 judge:
-  jury: ["qwen3:4b", "phi4-mini", "gemma3:4b"]       # three families, majority vote (Verga et al. 2024); not Llama (answer model, D9)
+  jury: ["qwen3:14b", "phi4:14b", "gemma3:12b"]      # three families, majority vote (Verga et al. 2024); not Llama (answer model, D9); 4B versions did not tell words apart
   url: http://localhost:11434/api/chat               # Ollama
   temperature: 0                                     # same answer every run
   num_predict: 2000                                  # room to finish thinking if Ollama cannot switch it off
