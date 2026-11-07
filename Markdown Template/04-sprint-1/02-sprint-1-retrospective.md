@@ -20,7 +20,7 @@ The table below is very basic, but feel free to follow a template from Miro. For
 
 We also looked at Sprint 1 with the Hot Air Balloon retrospective on our [Miro board](https://miro.com/app/board/uXjVEWMJhwo=/?share_link_id=854607532110): sunny skies are the positive things ahead, hot air is what pushes us along, storm clouds are the problems coming up, and sandbags are what slows us down.
 
-![Sprint 1 Hot Air Balloon Retrospective](hot-air-balloon-retro-sprint-1.png)
+![Sprint 1 Hot Air Balloon Retrospective](https://raw.githubusercontent.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/main/Markdown%20Template/04-sprint-1/hot-air-balloon-retro-sprint-1.png)
 
 *Note added on 26/10/2026:* the storm cloud "Cloud budget or credit not ready" was written before the hosted cloud deployment was removed from the plan on 25/10/2026. The cloud budget risk was then removed, and the risk about the pilot computer is now R-09 "The system does not install on the pilot computer" (see [Risks](../03-project-canvas/11-risks.md)).
 
