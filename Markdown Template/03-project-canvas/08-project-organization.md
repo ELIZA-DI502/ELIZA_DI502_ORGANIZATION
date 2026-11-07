@@ -43,6 +43,10 @@ flowchart TB
     PART -- "open-source language and embedding model files" --> TEAM
 ```
 
+![Project organization: the ELIZA Scrum Team and its stakeholders](https://raw.githubusercontent.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/main/docs/images/project-organization-v1.png)
+
+The same chart as an image, for viewers that do not draw Mermaid (for example Confluence). Source: the Mermaid block above.
+
 Team chart (as a list):
 
 - Project Review Committee: Tuğba Taşkaya Temizel (course instructor) and Volga Sezen (teaching assistant). Peer review groups at Sprints 2, 3 and 4.
