@@ -14,7 +14,18 @@ How the repository maps onto Confluence
 * Pages are matched by title inside the space: an existing page with the same
   title is updated (and moved under the right parent); otherwise a new page is
   created. Nothing is ever deleted.
-* Relative links between Markdown files become Confluence page links.
+* Relative links between Markdown files (and to folders) become Confluence
+  page links.
+* Relative links to any other file in the repository (for example a CSV, a
+  PDF or a Markdown file outside the docs directory) become links to that file
+  on GitHub, because Confluence does not have the file.
+* Images with a relative path are shown from the repository (raw file on
+  GitHub), and every image is shown at page width.
+* Links to a heading on the same page (``#heading``) jump to that heading:
+  every heading gets a Confluence anchor with the name GitHub gives it.
+* A ``mermaid`` code block is put in a collapsed "Diagram source (Mermaid)"
+  section, because Confluence does not draw Mermaid. Add the diagram as an
+  image next to the block so that Confluence readers see it.
 
 Usage
 -----
@@ -31,6 +42,10 @@ Environment
     CONFLUENCE_PARENT_ID   optional: page id to put top-level pages under
     DOCS_DIR               optional: folder holding the Markdown (default ".")
     CONFLUENCE_IGNORE      optional: comma-separated globs to skip
+    GITHUB_REPOSITORY      set by GitHub Actions (owner/repo); taken from the
+                           git remote "origin" when not set
+    GITHUB_REF_NAME        set by GitHub Actions; the branch the file links use
+                           (default "main")
 """
 from __future__ import annotations
 
@@ -39,11 +54,12 @@ import fnmatch
 import html
 import os
 import re
+import struct
 import subprocess
 import sys
 import time
 from pathlib import Path, PurePosixPath
-from urllib.parse import unquote, urlsplit
+from urllib.parse import quote, unquote, urlsplit
 
 import markdown
 import requests
@@ -82,6 +98,7 @@ class Docs:
             for anc in self.ancestors(node):
                 self.nodes.setdefault(anc, None)
         self._titles: dict[PurePosixPath, str] = {}
+        self.repo = Repo(self.root)
 
     @staticmethod
     def node_of(rel: str) -> PurePosixPath:
@@ -108,15 +125,18 @@ class Docs:
         return self._titles[node]
 
     def resolve_link(self, src: Path, href: str) -> PurePosixPath | None:
+        """The page a relative link to a Markdown file or a folder points to."""
         parts = urlsplit(href)
-        if parts.scheme or parts.netloc or not parts.path.lower().endswith(".md"):
+        if parts.scheme or parts.netloc or not parts.path:
             return None
         target = (src.parent / unquote(parts.path)).resolve()
+        if not (parts.path.lower().endswith(".md") or target.is_dir()):
+            return None
         try:
             rel = target.relative_to(self.root).as_posix()
         except ValueError:
             return None
-        node = self.node_of(rel)
+        node = self.node_of(rel) if rel.lower().endswith(".md") else PurePosixPath(rel)
         return node if node in self.nodes else None
 
     def check_titles(self) -> None:
@@ -127,6 +147,91 @@ class Docs:
                 sys.exit(f"ERROR: '{seen[t]}' and '{node}' both have the title '{t}'. "
                          "Confluence needs unique page titles in a space; rename one heading.")
             seen[t] = node
+
+
+# --------------------------------------------------------------------------- links to files on GitHub
+class Repo:
+    """Where the repository's files can be opened on GitHub."""
+
+    def __init__(self, docs_root: Path):
+        out = subprocess.run(["git", "rev-parse", "--show-toplevel"], cwd=docs_root,
+                             capture_output=True, text=True)
+        self.root = Path(out.stdout.strip()).resolve() if out.returncode == 0 else docs_root
+        self.server = os.environ.get("GITHUB_SERVER_URL", "https://github.com").rstrip("/")
+        self.ref = os.environ.get("GITHUB_REF_NAME") or "main"
+        self.name = os.environ.get("GITHUB_REPOSITORY") or self._from_remote()
+
+    def _from_remote(self) -> str | None:
+        out = subprocess.run(["git", "remote", "get-url", "origin"], cwd=self.root,
+                             capture_output=True, text=True)
+        m = re.search(r"github\.com[:/]+([^/]+/[^/]+?)(?:\.git)?/?$", out.stdout.strip())
+        return m.group(1) if m else None
+
+    def rel(self, path: Path) -> str | None:
+        try:
+            return path.resolve().relative_to(self.root).as_posix()
+        except ValueError:
+            return None
+
+    def page_url(self, path: Path) -> str | None:
+        """The GitHub page of a file or folder in the repository."""
+        rel = self.rel(path)
+        if not self.name or rel is None or not path.exists():
+            return None
+        kind = "tree" if path.is_dir() else "blob"
+        return f"{self.server}/{self.name}/{kind}/{quote(self.ref)}/{quote(rel)}"
+
+    def raw_url(self, path: Path) -> str | None:
+        """The raw file of an image in the repository, which Confluence can show."""
+        rel = self.rel(path)
+        if not self.name or rel is None or not path.is_file() or self.server != "https://github.com":
+            return None
+        return f"https://raw.githubusercontent.com/{self.name}/{quote(self.ref)}/{quote(rel)}"
+
+    def local_file(self, url: str) -> Path | None:
+        """The repository file behind a raw.githubusercontent.com URL of this repository."""
+        prefix = f"https://raw.githubusercontent.com/{self.name}/{self.ref}/"
+        if not self.name or not url.startswith(prefix):
+            return None
+        path = self.root / unquote(url[len(prefix):])
+        return path if path.is_file() else None
+
+
+def png_size(path: Path | None) -> tuple[int, int] | None:
+    """Width and height of a PNG file, or None."""
+    if path is None or path.suffix.lower() != ".png":
+        return None
+    with path.open("rb") as f:
+        head = f.read(24)
+    if len(head) < 24 or head[:8] != b"\x89PNG\r\n\x1a\n":
+        return None
+    return struct.unpack(">II", head[16:24])
+
+
+def github_slug(text: str, seen: dict[str, int]) -> str:
+    """The anchor GitHub gives a heading, so that '#...' links keep working."""
+    slug = re.sub(r"[^\w\- ]", "", text.strip().lower()).replace(" ", "-")
+    n = seen.get(slug, 0)
+    seen[slug] = n + 1
+    return slug if n == 0 else f"{slug}-{n}"
+
+
+def cdata(text: str) -> str:
+    return "<![CDATA[" + text.replace("]]>", "]]]]><![CDATA[>") + "]]>"
+
+
+def swap(el, token: str) -> None:
+    """Replace an element with a text token, keeping the text that follows it."""
+    parent, prev = el.getparent(), el.getprevious()
+    filler = token + (el.tail or "")
+    if prev is not None:
+        prev.tail = (prev.tail or "") + filler
+    else:
+        parent.text = (parent.text or "") + filler
+    parent.remove(el)
+
+
+PAGE_WIDTH = 760  # width of a Confluence page in the default (fixed-width) layout
 
 
 # --------------------------------------------------------------------------- Markdown -> storage format
@@ -154,24 +259,78 @@ def to_storage(docs: Docs, node: PurePosixPath) -> str:
             tbody.insert(i, row)
         table.remove(thead)
 
-    # relative .md links -> Confluence page links (swapped in after serialising)
+    # Confluence markup is swapped in for these tokens after serialising
     links: dict[str, str] = {}
-    for a in list(tree.iter("a")):
-        node_t = docs.resolve_link(src, a.get("href", ""))
-        if node_t is None:
-            continue
+
+    def token_for(value: str) -> str:
         token = f"@@CFLINK{len(links)}@@"
-        label = a.text_content().replace("]]>", "]] >")
-        links[token] = (
-            f'<ac:link><ri:page ri:content-title="{html.escape(docs.title(node_t), quote=True)}" />'
-            f"<ac:plain-text-link-body><![CDATA[{label}]]></ac:plain-text-link-body></ac:link>")
-        parent, prev = a.getparent(), a.getprevious()
-        filler = token + (a.tail or "")
-        if prev is not None:
-            prev.tail = (prev.tail or "") + filler
+        links[token] = value
+        return token
+
+    repo = docs.repo
+
+    # mermaid blocks -> collapsed "Diagram source" section (Confluence cannot draw them)
+    for code in list(tree.iter("code")):
+        pre = code.getparent()
+        if pre is None or pre.tag != "pre" or "language-mermaid" not in (code.get("class") or ""):
+            continue
+        swap(pre, token_for(
+            '<ac:structured-macro ac:name="expand">'
+            '<ac:parameter ac:name="title">Diagram source (Mermaid)</ac:parameter>'
+            '<ac:rich-text-body><ac:structured-macro ac:name="code">'
+            f"<ac:plain-text-body>{cdata(code.text_content())}</ac:plain-text-body>"
+            "</ac:structured-macro></ac:rich-text-body></ac:structured-macro>"))
+
+    # every heading gets an anchor with the name GitHub gives it
+    seen: dict[str, int] = {}
+    for h in tree.iter("h1", "h2", "h3", "h4", "h5", "h6"):
+        slug = github_slug(h.text_content(), seen)
+        h.text = token_for(
+            '<ac:structured-macro ac:name="anchor">'
+            f'<ac:parameter ac:name="">{html.escape(slug)}</ac:parameter>'
+            "</ac:structured-macro>") + (h.text or "")
+
+    # images: shown from the repository when the path is relative, at page width
+    for img in list(tree.iter("img")):
+        url = img.get("src", "")
+        parts = urlsplit(url)
+        if not parts.scheme and not parts.netloc and parts.path:
+            local = (src.parent / unquote(parts.path)).resolve()
+            url = repo.raw_url(local) or url
+            if url == img.get("src"):
+                log(f"  warning: {src.relative_to(docs.root)}: image not found: {img.get('src')}")
         else:
-            parent.text = (parent.text or "") + filler
-        parent.remove(a)
+            local = repo.local_file(url)
+        size = png_size(local) if local else None
+        width = PAGE_WIDTH if size is None else min(PAGE_WIDTH, size[0])
+        alt = html.escape(img.get("alt") or "", quote=True)
+        swap(img, token_for(
+            f'<ac:image ac:align="center" ac:layout="center" ac:width="{width}" ac:alt="{alt}">'
+            f'<ri:url ri:value="{html.escape(url, quote=True)}" /></ac:image>'))
+
+    # links
+    for a in list(tree.iter("a")):
+        href = a.get("href", "")
+        parts = urlsplit(href)
+        if parts.scheme or parts.netloc or not href:
+            continue
+        label = cdata(a.text_content())
+        if not parts.path and parts.fragment:  # a heading on the same page
+            swap(a, token_for(
+                f'<ac:link ac:anchor="{html.escape(unquote(parts.fragment), quote=True)}">'
+                f"<ac:plain-text-link-body>{label}</ac:plain-text-link-body></ac:link>"))
+            continue
+        node_t = docs.resolve_link(src, href)
+        if node_t is not None:  # another page in Confluence
+            swap(a, token_for(
+                f'<ac:link><ri:page ri:content-title="{html.escape(docs.title(node_t), quote=True)}" />'
+                f"<ac:plain-text-link-body>{label}</ac:plain-text-link-body></ac:link>"))
+            continue
+        url = repo.page_url(src.parent / unquote(parts.path))  # any other file: open it on GitHub
+        if url:
+            a.set("href", url + (f"#{parts.fragment}" if parts.fragment else ""))
+        else:
+            log(f"  warning: {src.relative_to(docs.root)}: link target not found: {href}")
 
     # keep empty cells as <td></td> rather than <td/>
     for el in tree.iter():
