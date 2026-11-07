@@ -9,7 +9,7 @@ chunking:
 
 # Sprint 2: embedding, vector store and search (KAN-97), decisions D10-D12 in the design document.
 embedding:
-  model: BAAI/bge-base-en-v1.5                       # D10 (Sprint 1); checked in src/embedding.ipynb step 2: no model better on both Recall@5 and MRR
+  model: BAAI/bge-small-en-v1.5                      # D10 chose bge-base in Sprint 1; bge-small had the better Recall@5 inside hybrid search (src/evaluation.ipynb step 6)
   candidates: ["sentence-transformers/all-MiniLM-L6-v2", "BAAI/bge-small-en-v1.5", "BAAI/bge-base-en-v1.5"]   # the D10 options
   query_instruction: "Represent this sentence for searching relevant passages: "   # from the model card, questions only
 vector_store:
