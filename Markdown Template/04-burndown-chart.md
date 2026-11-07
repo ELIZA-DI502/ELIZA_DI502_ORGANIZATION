@@ -6,7 +6,7 @@ Please present the burndown chart for each sprint.
 
 From Jira (board "KAN", sprint "KAN Sprint 1", estimation: story points), taken on 27/10/2026 at the upload.
 
-![Sprint 1 burndown chart from Jira: the line stays at 0 until 26/10/2026, then shows the remaining story points of the open stories until 27/10/2026](../docs/images/burndown-sprint-1.png)
+![Sprint 1 burndown chart from Jira: the line stays at 0 until 26/10/2026, then shows the remaining story points of the open stories until 27/10/2026](https://raw.githubusercontent.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/main/docs/images/burndown-sprint-1.png)
 
 **How to read it.** The seven Sprint 1 stories (55 story points) were estimated with planning poker at the team meeting on 26/10/2026, near the end of the sprint. Before that the stories had no points, so the line stays at 0 from 14/10 to 26/10 and Jira draws no guideline. When the points were entered, three stories were already done (KAN-67, KAN-70, KAN-79), so the line starts at the 29 points of the four open stories:
 

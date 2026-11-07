@@ -127,6 +127,10 @@ flowchart LR
     style ollama fill:#efefef,stroke:#999999
 ```
 
+![System architecture v1: the AI user, the web, db, rag and ollama containers on a team computer (CPU only), the offline data pipeline and the evaluation](https://raw.githubusercontent.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/main/docs/images/system-architecture-v1.png)
+
+The same diagram as an image, for viewers that do not draw Mermaid (for example Confluence). Source: the Mermaid block above.
+
 ## 4. Components
 
 <!-- One row per box in the diagram. -->
@@ -171,9 +175,9 @@ We did these tests to understand how the text is split and how each model answer
 
 **NLP pipeline** (v1, 2026-10-25; decisions D7–D12):
 
-![NLP pipeline v1](../docs/images/nlp-pipeline-v1.png)
+![NLP pipeline v1](https://raw.githubusercontent.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/main/docs/images/nlp-pipeline-v1.png)
 
-Diagram source: [nlp-pipeline-v1.svg](../docs/images/nlp-pipeline-v1.svg)
+Diagram source: [nlp-pipeline-v1.svg](https://github.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/blob/main/docs/images/nlp-pipeline-v1.svg)
 
 How to read the diagram:
 
