@@ -14,6 +14,20 @@ D2 criterion 13 asks for at least 5 questions taken or adapted from published wo
 
 Item numbers below are the position of the item in the `data` list of each file, counted from 0.
 
+## How the benchmark authors made the items
+
+Checked against the paper (arXiv:2603.09435v1, 10/03/2026) on 08/11/2026. Section numbers are the paper's.
+
+| | What the paper says |
+|---|---|
+| Scenarios (`scenarios.json`) | Generated with **gpt-oss-120b** (Apache 2.0 licence), run on one GPU with llama.cpp after MXFP4 quantisation, at temperature **0.15** to reduce variance (Section 3.2). The authors first read Article 5 and Article 6 with Annex III by hand and drew flowcharts of the classification steps. They then wrote four prompt templates, one per risk tier (prohibited, high-risk, limited, minimal). Each template gives the model a legal-analyst role and the text of the relevant articles, and asks for a batch of scenarios in JSON, each with the role in the AI value chain (provider or deployer), intended use, system type, input data and domain, with constraints for variety (Sections 3.2, 4.1, Table 1). Result: 339 scenarios (70 prohibited, 86 high-risk, 84 limited, 99 minimal). |
+| Risk labels | Risk levels were specified through category-specific generation templates. The authors report a "qualitative human validation of the entries generated" done "to the best of our resources", without its size, but do not document an independent, scenario-by-scenario legal validation of the labels; they state that validation by legal experts is still needed (Sections 4.2, 6). They also note that generating for variety produced edge cases, most often between the prohibited and high-risk tiers. |
+| Question-answer pairs (`qa_pairs.json`) | The paper describes their fields (question, answer, relevant article) and gives one example, but does not say how they were made, by which model, or how many there are (Section 4.1). The count of 137 is from the repository file. |
+| AI Act text | Cited as Regulation (EU) 2024/1689 (2024), without a version date or a statement that a consolidated text was used (Section 3.1). |
+| Licence | The paper states no licence for the dataset; it names only the Apache 2.0 licence of gpt-oss-120b (Section 3.2). The CC BY 4.0 licence of the data files is from the repository README, checked on 04/11/2026. |
+
+These points help explain the two findings below: the benchmark predates Regulation (EU) 2026/1744, and its risk labels were generated through category-specific prompts without documented independent legal validation of every scenario. For this reason, benchmark answers and labels are not used as gold.
+
 ## How the items were selected
 
 1. **Education only.** Scenarios in the education domains or about students, exams or admission (31 scenarios), and question-answer pairs whose article is in our provision list ([`data/provision-list.csv`](../../data/provision-list.csv); 26 pairs).
@@ -99,7 +113,7 @@ Seven items are selected, two more than the minimum, so that the set still has a
 - **Why:** the set needs application-date questions (objective O2 (d)). The benchmark answer is out of date; the gold answer is taken from Article 113 in the consolidated text of 27/07/2026.
 - **Question:** "From when do the high-risk rules apply to an AI system that decides student admissions?"
 - **Answer (gold, from the consolidated text of 27/07/2026):** Chapter III, Sections 1, 2 and 3 (with the exception of Article 6(5)) apply from 2 December 2027 as regards AI systems classified as high-risk pursuant to Article 6(2) and Annex III, which includes admission systems under Annex III, point 3(a) (Article 113, third paragraph, point (c)(i), as amended by Regulation (EU) 2026/1744). The general application date of 2 August 2026 does not apply to these rules.
-- **Gold source:** Article 113, third paragraph, point (c)(i); Annex III, point 3(a)
+- **Gold source:** Article 113, third paragraph, point (c)(i); Annex III, point 3(a); Article 113, second paragraph (added on 08/11/2026, because the last sentence of the answer rests on it)
 
 ## How the questions were written
 
@@ -107,7 +121,8 @@ Seven items are selected, two more than the minimum, so that the set still has a
 - **Gold answers and gold sources:** written from the consolidated text of 27/07/2026 ([`data/CELEX_02024R1689-20260727_EN.pdf`](../../data/CELEX_02024R1689-20260727_EN.pdf)), quoting the provision where possible; gold sources use the names in `data/provision-list.csv` (decision Q-08). The benchmark answers, labels and article lists were not used as gold.
 - **LLM use (D2 criterion 6):** the selection, the questions and the gold answers were drafted with claude-opus-5-5 (Claude Opus 5.5) in an interactive chat on 04/11/2026. The prompt asked the model to find education items in the benchmark files, compare them with the provision list, and draft one question per selected item with a gold answer taken only from the consolidated text. Yeşim chose the items, edited the questions and checked every gold answer against the PDF.
 - **Origin column:** `Adapted from AI Act Evaluation Benchmark (Davvetas et al., 2026, arXiv:2603.09435), <file> #<item>, CC BY 4.0`.
-- **Next:** each question is checked by a team member other than its author (KAN-52); the suggested reviewer is in the table above. The questions count towards their use case (D2 criterion 2), so each use case owner writes fewer questions of their own. The other questions of each use case are added to the same file by 11/11/2026.
+- **Labels (08/11/2026):** the questions carry the labels of the [question-writing method](question-writing-method.md) (`user`, `premise`, `hops`, `challenge`, `gold_ids`); BM-01, BM-02 and BM-07 were labelled with the other Case A questions.
+- **Next:** each question is checked by a team member other than its author (KAN-52), recorded in the `reviewer` column; the suggested reviewer is in the table above. The questions count towards their use case (D2 criterion 2), so each use case owner writes fewer questions of their own. The other questions of each use case are added to the same file by 11/11/2026.
 
 ## Items not selected
 
