@@ -1,4 +1,4 @@
-# How Gözde Nur wrote her evaluation questions with an LLM
+# How the B questions were written
 
 **Author:** Gözde Nur Özdemir (questions `B-01`–`B-07`, `B-S1`–`B-S3`, use case (b) learning-outcome assessment, and this record) · [KAN-46](https://yarengursoy.atlassian.net/browse/KAN-46)
 
