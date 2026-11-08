@@ -343,9 +343,9 @@ Copy the block below for each decision.
 
 **Evidence:** Team discussion of the Spike 01 technology options, 19/10/2026; KAN-21, KAN-26
 
-**Owner and date:** Architecture part, 2026-10-20
+**Owner and date:** Architecture part, 2026-10-20; accepted 2026-11-08 as the user interface technology for Sprint 2 (KAN-103, course halfway check of 11/11/2026)
 
-**Status:** proposed
+**Status:** accepted
 
 ### D2: RAG as a separate, stateless Python service
 
@@ -638,6 +638,7 @@ Web and deployment part:
 | v1      | 2026-10-26 | Deliverable numbers in the Evaluation section updated to the charter (pilot D10, release candidate D11); "deployment CPU" replaced by "pilot computer"| —            |
 | v1      | 2026-10-27 | Options considered of D1–D6 and D10–D12 written as Option / Pros / Cons tables, as in the template; evidence of D1 and D3 updated | —            |
 | v1      | 2026-10-27 | NLP part: in-scope provision list matched to the charter; D9 answer-time dates and licences; D12 evidence corrected | —            |
+| v1      | 2026-11-08 | D1 accepted: React + Node.js/Express is the chosen user interface technology (KAN-103) | —            |
 
 ## Checklist before submitting
 
