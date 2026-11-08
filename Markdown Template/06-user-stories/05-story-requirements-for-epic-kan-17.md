@@ -19,12 +19,12 @@ For more info you can visit: https://www.atlassian.com/agile/product-management/
 
 ### User stories
 
-| # | User story title | User story description | Priority | Points | Owner | Sprint | Notes | Jira |
-|---|---|---|---|---|---|---|---|---|
-| S1 | [Read the cited source text behind an answer](#s1--read-the-cited-source-text-behind-an-answer) | As a compliance officer in an EdTech provider's legal team, I want to read the source text of each provision cited in an answer, so that I can verify the explanation before advising the development team. | High | – | – | Sprint 4 | Release: Release candidate 1.0; Feature: F6; Status: To do; Depends on [KAN-8](https://yarengursoy.atlassian.net/browse/KAN-8) (the cited provisions must be found first). Needed in the pilot version by 16/12/2026. | [KAN-22](https://yarengursoy.atlassian.net/browse/KAN-22) |
-| S2 | [Rely on cited provisions confirmed on unseen questions](#s2--rely-on-cited-provisions-confirmed-on-unseen-questions) | As a compliance officer in an EdTech provider's legal team, I want the assistant's citations to be confirmed on questions it has not seen before, so that I can trust that developers receive the right Article or Annex with the correct version date. | High | – | Yaren | Sprint 4 | Release: Release candidate 1.0; Feature: F6; Status: To do. | [KAN-77](https://yarengursoy.atlassian.net/browse/KAN-77) |
+| # | User story title | User story description | Role (ISO/IEC 5339) | Priority | Points | Owner | Sprint | Notes | Jira |
+|---|---|---|---|---|---|---|---|---|---|
+| S1 | [Read the cited source text behind an answer](#s1--read-the-cited-source-text-behind-an-answer) | As a compliance officer in an EdTech provider's legal team, I want to read the source text of each provision cited in an answer, so that I can verify the explanation before advising the development team. | AI customer | High | – | – | Sprint 4 | Release: Release candidate 1.0; Feature: F6; Status: To do; Depends on [KAN-8](https://yarengursoy.atlassian.net/browse/KAN-8) (the cited provisions must be found first). Needed in the pilot version by 16/12/2026. | [KAN-22](https://yarengursoy.atlassian.net/browse/KAN-22) |
+| S2 | [Rely on cited provisions confirmed on unseen questions](#s2--rely-on-cited-provisions-confirmed-on-unseen-questions) | As a compliance officer in an EdTech provider's legal team, I want the assistant's citations to be confirmed on questions it has not seen before, so that I can trust that developers receive the right Article or Annex with the correct version date. | AI customer | High | – | Yaren | Sprint 4 | Release: Release candidate 1.0; Feature: F6; Status: To do. | [KAN-77](https://yarengursoy.atlassian.net/browse/KAN-77) |
 
-Priority, points, owner and sprint are as in Jira on 08/11/2026. Points are given with planning poker at each sprint planning; a dash means not estimated yet. Every current user story has test cases, written in Sprint 2 ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)); they are planned tests to run when the story is built, not results.
+Priority, points, owner and sprint are as in Jira on 08/11/2026. Points are given with planning poker at each sprint planning; a dash means not estimated yet. The roles are the ISO/IEC 5339 stakeholder roles from the [User Story Map v2](02-user-story-map-v2.md) ([KAN-116](https://yarengursoy.atlassian.net/browse/KAN-116)). Every current user story has test cases, written in Sprint 2 ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)); they are planned tests to run when the story is built, not results.
 
 ## S1 · Read the cited source text behind an answer
 
@@ -113,3 +113,4 @@ Major Activities: rows 24, 27
 
 - [KAN-22](https://yarengursoy.atlassian.net/browse/KAN-22) Read the cited source text behind an answer: test cases TC-22.1 to TC-22.4 added on 08/11/2026 ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)).
 - [KAN-77](https://yarengursoy.atlassian.net/browse/KAN-77) Rely on cited provisions confirmed on unseen questions: test cases TC-77.1 to TC-77.5 added on 08/11/2026 ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)).
+- - [KAN-116](https://yarengursoy.atlassian.net/browse/KAN-116) Check the story roles against ISO/IEC 5339: role column added to the user stories table on 08/11/2026.
