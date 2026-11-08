@@ -19,7 +19,7 @@ For more info you can visit: https://www.atlassian.com/agile/product-management/
 
 ### Sprint 1 stories (historical, completed)
 
-These stories were written, built and closed in Sprint 1, before the Sprint 1 review. They are kept as they were written, because they are part of the Sprint 1 record (burndown and backlog export). Since that review (comment 3), work of this kind is a task, not a user story, so they are not part of the current product backlog. They are retained solely as historical sprint records and are excluded from the Sprint 2 test-case preparation ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)); their original Jira records remain unchanged.
+These stories were written, built and closed in Sprint 1, before the Sprint 1 review. They are kept as they were written, because they are part of the Sprint 1 record (burndown and backlog export). Since that review (comment 3), work of this kind is a task, not a user story, so they are not part of the current product backlog. They are retained solely as historical sprint records and are excluded from the Sprint 2 test-case preparation ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)); their original Jira records remain unchanged. The roles Data Scientist (team role) and Project Review Committee (course instructors) are not ISO/IEC 5339 stakeholder categories and are therefore not mapped.
 
 | # | Story title | Points | Owner | Status | Jira |
 |---|---|---|---|---|---|
@@ -106,3 +106,4 @@ Assumptions / constraints / risks: A-01, A-05; C-01, C-09; R-01, R-11
 ## Changes since v1 (27/10/2026)
 
 - [KAN-86](https://yarengursoy.atlassian.net/browse/KAN-86) Index every in-scope provision with its reference and version date: changed from a user story to a task on 01/11/2026 (Sprint 1 review, comment 3).
+- - [KAN-116](https://yarengursoy.atlassian.net/browse/KAN-116) Check the story roles against ISO/IEC 5339: note added that the roles of the Sprint 1 records are not mapped, on 08/11/2026.
