@@ -52,7 +52,7 @@ EUR-Lex content is reused under Commission Decision 2011/833/EU, with source ack
 | boundary | Boundary cases | Article 5(1), first subparagraph, point (f); Article 50(1) | 2 |
 | if-time | If time (not committed) | Article 4(1) … Article 4a(2) | 5 |
 
-**Columns of `provision-list.csv`:** `provision_id` (stable ID used in the evaluation set and the chunks), `reference` (as it is cited in answers), `title` (Article title or defined term), `priority`, `area`, `amended_by_2026_1744` (filled when the provision is marked ▼M1 in the stored text), `reason_for_inclusion` (one line) and `d2_questions` (filled on 11/11/2026).
+**Columns of `provision-list.csv`:** `provision_id` (stable ID used in the evaluation set and the chunks), `reference` (as it is cited in answers), `title` (Article title or defined term), `priority`, `area`, `amended_by_2026_1744` (filled when the provision is marked ▼M1 in the stored text), `reason_for_inclusion` (one line) and `d2_questions` (the IDs of the D2 questions whose `gold_ids` include the provision, separated by `;`; for a question without `gold_ids`, its `gold_source` is used; filled on 08/11/2026, checked again on 11/11/2026).
 
 **Notes on the stored version**
 
@@ -75,7 +75,7 @@ EUR-Lex content is reused under Commission Decision 2011/833/EU, with source ack
 |---|---|---|
 | 1 | Every document has all five manifest fields (URL, CELEX, version date, reuse basis, SHA-256 hash) | Yes (1 document) |
 | 2 | The reuse basis cites Commission Decision 2011/833/EU and notes that only the Official Journal text is legally binding | Yes |
-| 3 | 100% of the D2 gold sources appear in the provision list | Checked on 11/11/2026, when D2 is complete (KAN-84) |
-| 4 | Every provision is needed by at least one D2 question or has a one-line reason | Every provision has a reason now; the question mapping is checked on 11/11/2026 (KAN-84) |
+| 3 | 100% of the D2 gold sources appear in the provision list | Checked on 11/11/2026, when D2 is complete (KAN-84). Pre-check on 08/11/2026: the gold sources of all 46 questions in `eval-set-v1.csv` are in the list |
+| 4 | Every provision is needed by at least one D2 question or has a one-line reason | Every provision has a reason now; the question mapping is checked on 11/11/2026 (KAN-84). Pre-check on 08/11/2026: 48 provisions are used by at least one question (`d2_questions`) |
 | 5 | Each provision is marked core, supporting, boundary or if-time | Yes |
 | 6 | The hash in the manifest matches the stored file | Yes |
