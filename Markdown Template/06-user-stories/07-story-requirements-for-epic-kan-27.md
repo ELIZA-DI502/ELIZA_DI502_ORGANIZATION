@@ -19,7 +19,7 @@ For more info you can visit: https://www.atlassian.com/agile/product-management/
 
 ### Sprint 1 stories (historical, completed)
 
-These stories were written, built and closed in Sprint 1, before the Sprint 1 review. They are kept as they were written, because they are part of the Sprint 1 record (burndown and backlog export). Since that review (comment 3), work of this kind is a task, not a user story, so they are not part of the current product backlog. They are retained solely as historical sprint records and are excluded from the Sprint 2 test-case preparation ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)); their original Jira records remain unchanged.
+These stories were written, built and closed in Sprint 1, before the Sprint 1 review. They are kept as they were written, because they are part of the Sprint 1 record (burndown and backlog export). Since that review (comment 3), work of this kind is a task, not a user story, so they are not part of the current product backlog. They are retained solely as historical sprint records and are excluded from the Sprint 2 test-case preparation ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)); their original Jira records remain unchanged. The roles Data Scientist (team role) and Project Review Committee (course instructors) are not ISO/IEC 5339 stakeholder categories and are therefore not mapped.
 
 | # | Story title | Points | Owner | Status | Jira |
 |---|---|---|---|---|---|
@@ -347,3 +347,4 @@ Pages: User Story Map v1, story requirements, Definition of Ready and Done, Spri
 - [KAN-91](https://yarengursoy.atlassian.net/browse/KAN-91) Run the Sprint 2 reporting: welcome page, burndown, retrospective and review: changed from a user story to a task on 01/11/2026 (Sprint 1 review, comment 3); renamed from "Follow Sprint 2 from one welcome page".
 - [KAN-171](https://yarengursoy.atlassian.net/browse/KAN-171) Follow Sprint 3 from one welcome page: changed from a user story to a task on 07/11/2026 (Sprint 1 review, comment 3).
 - [KAN-204](https://yarengursoy.atlassian.net/browse/KAN-204) Follow Sprint 4 from one welcome page: changed from a user story to a task on 07/11/2026 (Sprint 1 review, comment 3).
+- - [KAN-116](https://yarengursoy.atlassian.net/browse/KAN-116) Check the story roles against ISO/IEC 5339: note added that the roles of the Sprint 1 records are not mapped, on 08/11/2026.
