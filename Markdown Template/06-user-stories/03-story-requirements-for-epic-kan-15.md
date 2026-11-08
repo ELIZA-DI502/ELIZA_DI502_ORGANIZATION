@@ -151,3 +151,4 @@ Constraint: C-08 Information, not legal advice
 - [KAN-19](https://yarengursoy.atlassian.net/browse/KAN-19) Ask about my product in my own words: test cases TC-19.1 to TC-19.4 added on 08/11/2026 ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)).
 - [KAN-20](https://yarengursoy.atlassian.net/browse/KAN-20) Start from example questions or my use case: test cases TC-20.1 to TC-20.6 added on 08/11/2026 ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)).
 - [KAN-21](https://yarengursoy.atlassian.net/browse/KAN-21) Use the assistant in my browser: test cases TC-21.1 to TC-21.5 added on 08/11/2026 ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)).
+- [KAN-116](https://yarengursoy.atlassian.net/browse/KAN-116) Check the story roles against ISO/IEC 5339: role column added to the user stories table on 08/11/2026.
