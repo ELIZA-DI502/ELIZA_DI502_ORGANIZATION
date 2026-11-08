@@ -33,31 +33,34 @@ Sprint 1 (14/10–28/10/2026) was a discovery sprint without production code (C-
 
 | Column | Definition of Ready |
 |---|---|
-| Sprint | The actions agreed in the Sprint 1 retrospective have been carried out by their owners (course minimum). |
-| Sprint | The team has agreed on this Definition of Ready and Done and on the one-sentence sprint goal above (course minimum). |
-| Sprint | Every Sprint 2 story is in the Sprint 2 sprint in Jira; each story has a story point estimate agreed with planning poker at the Sprint 2 planning (28/10/2026) and an owner, and each sub-task has an owner and an hour estimate (course minimum; assigned at the start of the sprint, not during it). |
-| Sprint | Every team member has access to the course template pages, the stored source text in `data/`, Jira, GitHub and Weights & Biases (the W&B account and its free-tier limits are checked before the first experiment, [Facilities & Resources](03-project-canvas/09-facilities-and-resources.md) row 12). |
+| Sprint | The actions agreed in the Sprint 1 retrospective have been carried out by their owners; the team has agreed on this Definition of Ready and Done and on the sprint goal above (course minimum). |
+| Sprint | Every Sprint 2 story is in the Sprint 2 sprint in Jira with an owner and a story point estimate agreed with planning poker; points are on the stories, not on the sub-tasks; the backlog is ordered by priority; each sub-task has an owner and an hour estimate. |
+| Sprint | Every team member has access to the course template pages, the stored source text in `data/`, Jira, GitHub and Weights & Biases (the W&B account and its free-tier limits are checked before the first experiment). |
 | Sprint | The Sprint 1 review comments are recorded for Charter v2 (KAN-89), the risk register and the assumption checks are reviewed, and EUR-Lex is checked for a version newer than 27/07/2026 (KAN-117, KAN-157). |
-| Story | The story says who it is for and how it serves that role ("As a …, I want …, so that …"), with the role taken from the ISO/IEC 5339 categories in the [Project Executive Summary](03-project-canvas/01-project-executive-summary.md). |
-| Story | Its acceptance criteria are testable (a measured value, or a yes/no check), and the story names its objective or feature, deliverable and milestone. |
+| Sprint | The halfway checks are planned: the user interface technology is chosen and the metrics with their targets are drafted by 11/11/2026. |
+| Story | The story says who it is for ("As a …, I want …, so that …"), with the role from the ISO/IEC 5339 categories; its acceptance criteria are testable (a measured value or a yes/no check), and it names its objective or feature, deliverable and milestone. |
 | Story | It can be finished in this sprint, and each of its sub-tasks has a "Done when" condition and one owner. |
-| Story | What it needs first is done or planned before it in this sprint: the stored source text and its hash (D3) for parsing; the D2 questions and the indexed text (D5) for the baseline measurement (KAN-87); the model and embedding choices in the design document for the baseline. |
-| Story | Its test case (input or steps, and the expected result) is written, or a sub-task to write it is in the sprint (KAN-90). |
+| Story | What it needs first is done or planned before it: the source text and its hash (D3) for parsing; the D2 questions and the indexed text (D5) for the baseline (KAN-87); the ADRs for model, embedding, vector store and user interface before the baseline is built. |
+| Story | An evaluation question is only taken into D2 if its gold source is in the D3 provision list. |
+| Story | Its test case (steps and expected result) is written, or a sub-task to write it is in the sprint; this applies to the 17 current product stories (the seven Sprint 1 stories stay unchanged as records) (KAN-90, KAN-114). |
 
 | Column | Definition of Done |
 |---|---|
-| Story | Every acceptance criterion is met and checked by a team member other than the owner; all sub-tasks are done; the evidence (commit, file or W&B run) is linked in a Jira comment. |
-| Story | Its test case is in the story requirements page next to the story, and its result is recorded. |
+| Story | Every acceptance criterion is met and checked by a team member other than the owner; all sub-tasks are done; the evidence (commit, file or W&B run) is linked in a Jira comment; the test case is in the story requirements page with its result. |
 | Code / Git | The work is on a branch named with its Jira key; a teammate has read and run the change; it is merged into `main` with `git merge --no-ff`; commit messages and the pull request have the Jira key. |
-| Code | An answer shown by the assistant has its question, the answer, the cited provisions with their Article or Annex reference and version date, and any notice in the same conversation view. |
-| Code / Git | It runs from `README.md` on a team member's computer: pinned `requirements.txt`, parameters in `config/rag.yaml`, prompts (if any) in `prompts/`, random seeds set; no API keys, debug prints or large generated files in the commit. |
-| Experiment | Every experiment has an experiment card in `Markdown Template/12-experiment-cards/` with its parameters, the measured numbers and a link to its public W&B run, and is compared with something concrete (the charter target or an earlier run). |
-| Experiment | Evaluation uses the `val` split only; the `test` split, frozen on 11/11/2026, is not used for any tuning. |
-| Data | The source file hash matches `data/manifest.csv` before parsing; every chunk has its Article or Annex identifier and the version date; the D2 questions are in `docs/eval/eval-set-v1.csv` with their data card; no personal data is stored (C-10). |
-| Documents | The design document has a decision record for every decision taken this sprint, and the SBOM lists every model tried with its version, licence and use. |
-| Documents | Every charter page that changed passes its own checklist, and IDs and dates match on all pages and in Jira (Sprint 1 retrospective action). |
-| Sprint | Every Sprint 2 deliverable of the course is uploaded to ODTUClass by 14/11/2026 23:59, and the welcome page links to it: Charter v2, story map v2, story requirements with test cases, baseline, Q&A dataset v1 with its data card, corpus datasheet, technical summary with the baseline experiment card, design document, UI mockup, burndown chart, Jira export, retrospective and spike notes. |
-| Sprint | The demo (10 minutes or less) is ready for the review on 18/11/2026. |
+| Code | It runs from `README.md` on a team member's computer: `requirements.txt` with 0 unpinned packages, parameters in `config/rag.yaml`, prompts in `prompts/`, random seeds set; no API keys, debug prints or large generated files in the commit. |
+| Code | An answer shown by the assistant has its question, the answer, the cited provisions with Article or Annex reference and version date, and any notice in the same conversation view. |
+| Experiment | Every experiment has a card in `Markdown Template/12-experiment-cards/` with its parameters, the corpus version from `data/manifest.csv`, the numbers and a link to its public W&B run, compared with the charter target or an earlier run; evaluation uses the `val` split only, and the `test` split (frozen 11/11/2026) is never used for tuning. |
+| Experiment | Recall@5 and the answers without and with retrieval are logged in W&B for every `val` question; the known failures are listed; the alpha has no pass level, so results are reported as analysis. |
+| Data (D5) | The source hash matches `data/manifest.csv` before parsing; 100% of the D3 provisions are indexed; 0 chunks lack their Article or Annex identifier; every chunk has the version date; chunking parameters are in `config/rag.yaml`; 20 random chunks are compared word for word with the source and the share corrected by hand is 5% or less (A-05). |
+| Data (D2) | Every question is in `docs/eval/eval-set-v1.csv`, checked by a reviewer other than its author, with 0 flags left; every gold source is in the D3 list (a missing provision is added only by a recorded decision on 11/11/2026); `test` is frozen and committed on 11/11/2026; the data card has every section, names the model for each LLM-assisted question and has a decision log written when each decision was made; no personal data is stored (C-10). |
+| Documents | The design document has a decision record for every decision this sprint, each RAG stage with its parameters, and the user interface technology (chosen by 11/11/2026); the UI mockup shows the question box, the answer with citations and version date, and the permanent notice; the SBOM lists every model tried with version, licence and use; every spike has its note in `docs/spikes/`. |
+| Documents | The technical summary gives the chosen metrics and why, the baseline score, the charter target and the known failures on `val`, and links the baseline experiment card. |
+| Documents | Story map v2 shows every story in its release row (Alpha 0.1, Beta 0.5, RC 1.0); every epic has a story requirements page; every product story has a test case. |
+| Documents | Charter v2: every Sprint 1 review comment is in the response table (accepted with the change, or not accepted with a reason); the O1 and O3 targets are reviewed once with the alpha results; the feedback on O2 and O4 levels is recorded; Risks has an entry for each Sprint 2 problem and all risks are re-scored after the baseline; every changed page states what is new compared with v1, passes its own checklist, and IDs and dates match on all pages and in Jira. |
+| Sprint | Every Sprint 2 deliverable is uploaded to ODTUClass by 14/11/2026 23:59 and linked from the welcome page: Charter v2, story map v2, story requirements with test cases, baseline, Q&A dataset v1 with data card, corpus datasheet, technical summary with baseline experiment card, design document, UI mockup, burndown chart, Jira export, retrospective, spike notes. |
+| Sprint | The burndown chart (from Jira) is in the sprint folder, the Jira backlog export is in `docs/backlog/`, and the retrospective has an action and an owner for every "what went bad" row. |
+| Sprint | The demo (10 minutes or less) is ready for the review on 18/11/2026; the assigned team's Sprint 2 deliverables are reviewed between 15/11 and 18/11 and the completed review page is copied into the sprint folder. |
 
 ## Sprint 3:
 
