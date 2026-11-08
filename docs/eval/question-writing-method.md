@@ -1,6 +1,6 @@
 # How we write the evaluation questions
 
-**Jira:** [KAN-85](https://yarengursoy.atlassian.net/browse/KAN-85) · **Owner:** Yeşim (Product Owner) · **Date:** 07/11/2026 · **Status:** adopted on 08/11/2026 (shared with the team on 07/11/2026; no objections) · **For:** D2 Q&A Generation-Dataset v1 ([`eval-set-v1.csv`](eval-set-v1.csv)) and its [data card](../../Markdown%20Template/11-datasheets/03-qa-data-report.md)
+**Jira:** [KAN-85](https://yarengursoy.atlassian.net/browse/KAN-85) · **Owner:** Yeşim (Product Owner) · **Date:** 07/11/2026 · **Status:** adopted on 08/11/2026 (shared with the team on 07/11/2026; no objections); revised on 08/11/2026: gold answers may be drafted with an LLM from the gold provision texts only, with the checks in Step 6 · **For:** D2 Q&A Generation-Dataset v1 ([`eval-set-v1.csv`](eval-set-v1.csv)) and its [data card](../../Markdown%20Template/11-datasheets/03-qa-data-report.md)
 
 This page says how every question in the evaluation set is written. It follows the six-step workflow of the lecture *Building test datasets for RAG* (T. Taskaya Temizel, 04/11/2026), applied to ELIZA. Every team member uses it when writing questions. It does not replace the D2 acceptance criteria in [Deliverables](../../Markdown%20Template/03-project-canvas/05-deliverables.md); it says how we meet them.
 
@@ -15,6 +15,8 @@ The lecture describes five method families, which can be combined: A is the base
 | C · Multi-hop | Questions where the answer of one step is needed for the next | Yes | The links in Step 1 give the chains (Step 4) |
 | D · Schema-based | Synthetic documents are generated, then questions about them | No | Our evaluation measures whether the assistant finds the right evidence in one real, versioned legal text. Synthetic documents would not test that. Whether the model answers from memory is a separate question, measured in a separate experiment (without and with retrieval, D6) |
 | E · Hard cases | Unanswerable, false-premise and other hard questions | Yes | The safety questions of objective O4, and false-premise and time-sensitive questions (Step 5) |
+
+**Tools.** The RAGAS and DeepEval test-set generators shown in the lecture are not used in this workflow. They support automated and configurable test generation; we chose a manual, profile-controlled process instead, with each question's profile and gold provisions fixed first (Step 2), LLM drafting limited to the gold provision texts, and a sentence-level check of every gold answer against the official text. RAGAS evaluation metrics, such as faithfulness, may be added in Sprint 3 as a second check next to the human review.
 
 ## Step 0 · The source
 
@@ -99,7 +101,7 @@ For every question:
 1. Take an open slot from the target counts: one row from Step 1 (two chained rows for a multi-hop question) and one value on each axis.
 2. Ask the LLM for a draft with the prompt below. Record the exact model in `model` and this page in `prompt_file`.
 3. Edit the question until it sounds like the chosen user.
-4. Write the gold answer and the gold source yourself from the consolidated text of 27/07/2026, not from the LLM's answer. Put the IDs of the gold provisions in `gold_ids` (Step 0).
+4. Write the gold answer and the gold source from the consolidated text of 27/07/2026. The gold answer may be drafted with an LLM from the gold provision texts only, never by letting the LLM answer the question freely; the author checks every sentence against the consolidated text and records this in `answer_origin`. Put the IDs of the gold provisions in `gold_ids` (Step 0).
 5. Fill every column, including the new labels.
 
 ### Step 3 · Single-hop
@@ -161,19 +163,19 @@ The existing columns of `eval-set-v1.csv` stay as they are. Five columns are add
 
 `gold_ids` replaces matching on the text of `gold_source`, which depends on how the reference is written (for example "Article 113" and "Article 113, third paragraph, point (c)(i)"). It is filled together with the mapping of the provision list to the D2 questions ([KAN-84](https://yarengursoy.atlassian.net/browse/KAN-84)).
 
-**How `gold_ids` is written** (suggested by Gözde Nur, 08/11/2026). Each provision is listed on its own, separated by `;`: a range such as "Articles 8–15" is written out provision by provision, never as a range or with "and". List every paragraph or point that the gold answer relies on, checked in the text; do not default to the first paragraph of an article. `gold_source` and `gold_answer` stay in plain words for the reader. A question with no gold source (empty `gold_ids`) is left out of Recall@k and MRR; it is scored with the rubric ([KAN-50](https://yarengursoy.atlassian.net/browse/KAN-50)).
+**How `gold_ids` is written** (suggested by Gözde Nur, 08/11/2026). Each provision is listed on its own, separated by `;`: a range such as "Articles 8–15" is written out provision by provision, never as a range or with "and". List every paragraph or point that the gold answer relies on, checked in the text; do not default to the first paragraph of an article. `gold_source` and `gold_answer` stay in plain words for the reader. A question with no gold source (empty `gold_ids`) is left out of Recall@k and MRR; it is scored with the rubric ([KAN-50](https://yarengursoy.atlassian.net/browse/KAN-50)). Gold provisions are chosen by the evidence the answer needs, not to improve retrieval scores; if a needed provision is not in the indexed text, the question or the provision list is reviewed (as in decision Q-20), instead of leaving the provision out. A safety question has gold provisions when its expected behaviour includes explaining provisions (for example, a legal-decision question is redirected to the relevant provisions); an out-of-scope or adversarial question usually has none.
 
 ## Step 6 · Checking and reporting
 
 | Check | How |
 |---|---|
-| 1 · Is it correct? | The gold answer is stated in the gold sources, the gold IDs match the gold sources, every label uses the values on this page (for example, `type` is one of the five D2 question types or a safety category), and the question is clear without the document. Every question is checked against the official text by a team member other than its author (D2 criterion 7; [KAN-51](https://yarengursoy.atlassian.net/browse/KAN-51), [KAN-52](https://yarengursoy.atlassian.net/browse/KAN-52)). |
+| 1 · Is it correct? | The gold answer is stated in the gold sources, the gold IDs match the gold sources, every label uses the values on this page (for example, `type` is one of the five D2 question types or a safety category), and the question is clear without the document. Every question is checked against the official text by a team member other than its author (D2 criterion 7; [KAN-51](https://yarengursoy.atlassian.net/browse/KAN-51), [KAN-52](https://yarengursoy.atlassian.net/browse/KAN-52)). An LLM-drafted gold answer stays a draft until the author has checked every statement against the consolidated text; `answer_origin` describes the check actually done, not a planned one. The independent review is a separate step. |
 | 2 · Is it really multi-hop? | Each `multi` question is tried with each of its gold sources alone. If any one gold source alone is enough to answer it, it is relabelled `single`. This check removes questions that are not multi-hop, but it cannot prove that a question is: a model may know part of the Act from training and answer without the evidence. It is also tried with no source, to see whether the model answers from memory. |
 | 3 · Is it diverse and balanced? | The counts on every axis are compared with the target counts; the table goes into the data card. The questions are also checked for variety of wording and sentence structure: no repeated openings, a mix of short and long questions. |
 | Hard cases | Each hard-case question has its expected behaviour, judged with the rubric (KAN-50). |
 | No leakage | At least one third of the questions are in `test` and are not used while tuning prompts, retrieval or rules (D2 criterion 8; [KAN-53](https://yarengursoy.atlassian.net/browse/KAN-53)); questions seen while choosing the model or prompt stay in `val` (decision Q-22). |
 
-**Reporting per slice.** The baseline and later evaluation runs report their scores for the whole `val` split and separately for each value of the axes above (for example, Recall@5 on the multi-hop questions), with the number of questions in each slice ([KAN-99](https://yarengursoy.atlassian.net/browse/KAN-99), [KAN-101](https://yarengursoy.atlassian.net/browse/KAN-101)). A slice with only a few questions gives an unstable score; the report says so, and such a score is not used for a decision on its own.
+**Reporting per slice.** The baseline and later evaluation runs report their scores for the whole `val` split and separately for each value of the axes above (for example, Recall@5 on the multi-hop questions), with the number of questions in each slice ([KAN-99](https://yarengursoy.atlassian.net/browse/KAN-99), [KAN-101](https://yarengursoy.atlassian.net/browse/KAN-101)). Retrieval metrics use only the questions with non-empty `gold_ids`, and each slice shows how many of its questions count; questions without gold evidence are scored with the rubric and reported separately. A slice with only a few questions gives an unstable score; the report says so, and such a score is not used for a decision on its own.
 
 ## Allocation: who writes what
 
