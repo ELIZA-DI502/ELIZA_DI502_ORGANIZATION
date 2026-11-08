@@ -28,4 +28,4 @@
 | ART113-1 | Article 113, first paragraph | 24 | Discrepancy | A space before the final full stop ("European Union ."), caused by the italic tag in the HTML source. No word, number or reference differs. |
 
 **Result:** 20 chunks compared; 19 identical to the source, 1 discrepancy (formatting only: a space before a full stop). The same pattern was searched in all 105 chunks and found only in ART113-1.
-**Share of chunks corrected by hand:** [X]% (A-05 holds at 5% or less).
+
