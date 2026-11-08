@@ -19,10 +19,10 @@ For more info you can visit: https://www.atlassian.com/agile/product-management/
 
 ### User stories
 
-| # | User story title | User story description | Priority | Points | Owner | Sprint | Notes | Jira |
-|---|---|---|---|---|---|---|---|---|
-| S1 | [Test the assistant on in-scope questions checked against the official text](#s1--test-the-assistant-on-in-scope-questions-checked-against-the-official-text) | As an EdTech AI developer, I want the assistant to be tested on in-scope questions about the four education use cases, each checked against the official text, so that I can see how often it cites the expected provision before I rely on it for my own product. | High | 13 | Yeşim | Sprint 2 | Release: Alpha 0.1; Status: In progress. | [KAN-65](https://yarengursoy.atlassian.net/browse/KAN-65) |
-| S2 | [Test the assistant's safety responses against a written rubric](#s2--test-the-assistants-safety-responses-against-a-written-rubric) | As a compliance officer in an EdTech provider's legal team, I want the assistant to be tested on legal-decision, out-of-scope, insufficient-evidence and adversarial questions, scored against a written rubric, so that I know how it responds when users ask beyond its limits. | High | 5 | Kaan | Sprint 2 | Release: Alpha 0.1; Status: To do. | [KAN-83](https://yarengursoy.atlassian.net/browse/KAN-83) |
+| # | User story title | User story description | Role (ISO/IEC 5339) | Priority | Points | Owner | Sprint | Notes | Jira |
+|---|---|---|---|---|---|---|---|---|---|
+| S1 | [Test the assistant on in-scope questions checked against the official text](#s1--test-the-assistant-on-in-scope-questions-checked-against-the-official-text) | As an EdTech AI developer, I want the assistant to be tested on in-scope questions about the four education use cases, each checked against the official text, so that I can see how often it cites the expected provision before I rely on it for my own product. | AI user | High | 13 | Yeşim | Sprint 2 | Release: Alpha 0.1; Status: In progress. | [KAN-65](https://yarengursoy.atlassian.net/browse/KAN-65) |
+| S2 | [Test the assistant's safety responses against a written rubric](#s2--test-the-assistants-safety-responses-against-a-written-rubric) | As a compliance officer in an EdTech provider's legal team, I want the assistant to be tested on legal-decision, out-of-scope, insufficient-evidence and adversarial questions, scored against a written rubric, so that I know how it responds when users ask beyond its limits. | AI customer | High | 5 | Kaan | Sprint 2 | Release: Alpha 0.1; Status: To do. | [KAN-83](https://yarengursoy.atlassian.net/browse/KAN-83) |
 
 ### Tasks
 
@@ -32,7 +32,7 @@ Work that serves the users but is not a user goal of its own: evaluations, docum
 |---|---|---|---|---|---|---|---|
 | T1 | [Extend the question set for the beta](#t1--extend-the-question-set-for-the-beta) | Extend the evaluation question set to v2 with new questions from the baseline errors, so that the beta is measured on more cases while the held-out test questions stay untouched. | [KAN-65](https://yarengursoy.atlassian.net/browse/KAN-65), [KAN-83](https://yarengursoy.atlassian.net/browse/KAN-83) | – | – | Sprint 3 | [KAN-170](https://yarengursoy.atlassian.net/browse/KAN-170) |
 
-Priority, points, owner and sprint are as in Jira on 08/11/2026. Points are given with planning poker at each sprint planning; a dash means not estimated yet. Every current user story has test cases, written in Sprint 2 ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)); they are planned tests to run when the story is built, not results.
+Priority, points, owner and sprint are as in Jira on 08/11/2026. Points are given with planning poker at each sprint planning; a dash means not estimated yet. The roles are the ISO/IEC 5339 stakeholder roles from the [User Story Map v2](02-user-story-map-v2.md) ([KAN-116](https://yarengursoy.atlassian.net/browse/KAN-116)). Every current user story has test cases, written in Sprint 2 ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)); they are planned tests to run when the story is built, not results.
 
 ## S1 · Test the assistant on in-scope questions checked against the official text
 
@@ -163,3 +163,4 @@ Assumption / Risk: A-03 / R-10
 - [KAN-65](https://yarengursoy.atlassian.net/browse/KAN-65) Test the assistant on in-scope questions checked against the official text: test cases TC-65.1 to TC-65.7 added on 08/11/2026 ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)).
 - [KAN-83](https://yarengursoy.atlassian.net/browse/KAN-83) Test the assistant's safety responses against a written rubric: test cases TC-83.1 to TC-83.5 added on 08/11/2026 ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)).
 - [KAN-170](https://yarengursoy.atlassian.net/browse/KAN-170) Extend the question set for the beta: changed from a user story to a task on 07/11/2026 (Sprint 1 review, comment 3).
+-  [KAN-116](https://yarengursoy.atlassian.net/browse/KAN-116) Check the story roles against ISO/IEC 5339: role column added to the user stories table on 08/11/2026.
