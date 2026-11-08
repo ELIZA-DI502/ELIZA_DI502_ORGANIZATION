@@ -1,6 +1,6 @@
 # Story Requirements for Epic KAN-30: System design and delivery
 
-Version v1, end of Sprint 1 (27/10/2026). Source: Jira project KAN. Back to the [User Story Map v1](01-user-story-map-v1.md) · [all story requirements pages](README.md).
+Version v2, Sprint 2 (08/11/2026). Source: Jira project KAN on 08/11/2026. Version v1 (27/10/2026) is in the Git history; what changed since then is listed at the end of this page. Back to the [User Story Map v2](02-user-story-map-v2.md) · [all story requirements pages](README.md).
 
 | Epic | System design and delivery |
 |---|---|
@@ -8,7 +8,7 @@ Version v1, end of Sprint 1 (27/10/2026). Source: Jira project KAN. Back to the 
 | Features | Design document and spikes (D4), alpha, beta, release candidate (D6, D9, D11) |
 | Document Owner | Yeşim (Product Owner) |
 | Designer | Gözde Nur (design decisions, KAN-58) and Kaan (design document, KAN-59) |
-| Developers | Gözde Nur, Kaan, Yaren, Yeşim (Sprint 1); later stories are assigned at each sprint planning |
+| Developers | Gözde Nur, Kaan, Yaren, Yeşim so far; later work is assigned at each sprint planning |
 | Release Target (Sprint) | Sprint 1 (Pre-alpha); Sprint 2 (Alpha 0.1); Sprint 3 (Beta 0.5); Sprint 4 (Release candidate 1.0) |
 | Traceability | Constraints: C-03, C-05. Major Activities rows 5–7, 9, 16. |
 | Jira | [KAN-30](https://yarengursoy.atlassian.net/browse/KAN-30) |
@@ -17,84 +17,80 @@ Version v1, end of Sprint 1 (27/10/2026). Source: Jira project KAN. Back to the 
 
 For more info you can visit: https://www.atlassian.com/agile/product-management/requirements.
 
+### User stories
+
 | # | User story title | User story description | Priority | Points | Owner | Sprint | Notes | Jira |
 |---|---|---|---|---|---|---|---|---|
-| S1 | [Agree on the technologies for the baseline](#s1--agree-on-the-technologies-for-the-baseline) | As a Data Scientist, I want the architecture, the chosen technologies and the reasons behind them recorded before Sprint 2, so that I can start building the baseline on agreed technologies. | High | 13 | Gözde Nur | Sprint 1 | Release: Pre-alpha; Status: Done (27/10/2026). | [KAN-81](https://yarengursoy.atlassian.net/browse/KAN-81) |
-| S2 | [Close my gaps in the Sprint 1 fundamentals](#s2--close-my-gaps-in-the-sprint-1-fundamentals) | As a Data Scientist, I want to close my gaps in the Sprint 1 fundamentals with a learning spike, so that I can work on the RAG pipeline from Sprint 2. | Medium | 3 | Yaren | Sprint 1 | Release: Pre-alpha; Status: Done (27/10/2026). | [KAN-82](https://yarengursoy.atlassian.net/browse/KAN-82) |
-| S3 | [Measure how well the baseline retrieval finds the expected provisions](#s3--measure-how-well-the-baseline-retrieval-finds-the-expected-provisions) | As a Project Review Committee member, I want to see how often the most basic retrieval finds the expected provision, compared with the target in the charter, so that I can judge whether the project starts from a measured baseline. | High | – | – | Sprint 2 | Release: Alpha 0.1; Depends on [KAN-65](https://yarengursoy.atlassian.net/browse/KAN-65) (question set v1) and [KAN-86](https://yarengursoy.atlassian.net/browse/KAN-86) (indexed source text). | [KAN-87](https://yarengursoy.atlassian.net/browse/KAN-87) |
-| S4 | [Review the system design, the models used and the interface plan](#s4--review-the-system-design-the-models-used-and-the-interface-plan) | As a Project Review Committee member, I want the design document, the software bill of materials and the interface mockup to match the system as it is built in Sprint 2, so that I can review every decision and every model the team used. | High | – | – | Sprint 2 | Release: Alpha 0.1. | [KAN-88](https://yarengursoy.atlassian.net/browse/KAN-88) |
-| S5 | [Run the whole pipeline from one README](#s5--run-the-whole-pipeline-from-one-readme) | As a Project Review Committee member, I want to install and run the whole assistant, user interface included, from one README, so that I can check that the pipeline works end to end. | High | – | – | Sprint 3 | Release: Beta 0.5. | [KAN-168](https://yarengursoy.atlassian.net/browse/KAN-168) |
-| S6 | [Measure the beta against the baseline and the charter targets](#s6--measure-the-beta-against-the-baseline-and-the-charter-targets) | As a Project Review Committee member, I want every experiment compared with the Sprint 2 baseline and the beta measured against the charter targets on the same questions, so that I can see which configuration is best and whether the beta is ready for the pilot. | High | – | – | Sprint 3 | Release: Beta 0.5; Depends on [KAN-170](https://yarengursoy.atlassian.net/browse/KAN-170) (question set v2). | [KAN-169](https://yarengursoy.atlassian.net/browse/KAN-169) |
-| S7 | [Use a release candidate with the pilot problems fixed](#s7--use-a-release-candidate-with-the-pilot-problems-fixed) | As an EdTech AI developer, I want to use a release candidate in which the problems found in the pilot are fixed, so that the system shown in the final demo is the one I can actually rely on. | High | – | – | Sprint 4 | Release: Release candidate 1.0; Depends on [KAN-202](https://yarengursoy.atlassian.net/browse/KAN-202) and [KAN-72](https://yarengursoy.atlassian.net/browse/KAN-72) (problems found in the pilot). | [KAN-203](https://yarengursoy.atlassian.net/browse/KAN-203) |
+| S1 | [Use a release candidate with the pilot problems fixed](#s1--use-a-release-candidate-with-the-pilot-problems-fixed) | As an EdTech AI developer, I want to use a release candidate in which the problems found in the pilot are fixed, so that the system shown in the final demo is the one I can actually rely on. | High | – | – | Sprint 4 | Release: Release candidate 1.0; Status: To do; Depends on [KAN-202](https://yarengursoy.atlassian.net/browse/KAN-202) and [KAN-72](https://yarengursoy.atlassian.net/browse/KAN-72) (problems found in the pilot). | [KAN-203](https://yarengursoy.atlassian.net/browse/KAN-203) |
 
-Priority, points, owner and sprint are as in Jira on 27/10/2026. Sprint 1 stories were estimated with planning poker; the other stories are estimated and assigned at their sprint planning, starting with Sprint 2 on 28/10/2026. A dash means not decided yet.
+### Sprint 1 stories (historical, completed)
 
-Test cases: KAN-8, KAN-2 and KAN-3 already have test cases; a test for every story (the input or steps and the expected result) is added next to it in Sprint 2 ([KAN-90](https://yarengursoy.atlassian.net/browse/KAN-90)).
+These stories were written, built and closed in Sprint 1, before the Sprint 1 review. They are kept as they were written, because they are part of the Sprint 1 record (burndown and backlog export). Since that review (comment 3), work of this kind is a task, not a user story, so they are not part of the current product backlog. They are retained solely as historical sprint records and are excluded from the Sprint 2 test-case preparation ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)); their original Jira records remain unchanged.
 
-## S1 · Agree on the technologies for the baseline
+| # | Story title | Points | Owner | Status | Jira |
+|---|---|---|---|---|---|
+| H1 | [Agree on the technologies for the baseline](#h1--agree-on-the-technologies-for-the-baseline) | 13 | Gözde Nur | Done | [KAN-81](https://yarengursoy.atlassian.net/browse/KAN-81) |
+| H2 | [Close my gaps in the Sprint 1 fundamentals](#h2--close-my-gaps-in-the-sprint-1-fundamentals) | 3 | Yaren | Done | [KAN-82](https://yarengursoy.atlassian.net/browse/KAN-82) |
 
-[KAN-81](https://yarengursoy.atlassian.net/browse/KAN-81) · Sprint 1 (Pre-alpha) · Priority High · Points 13 · Owner Gözde Nur
+### Tasks
 
-**Story:** As a Data Scientist, I want the architecture, the chosen technologies and the reasons behind them recorded before Sprint 2, so that I can start building the baseline on agreed technologies.
+Work that serves the users but is not a user goal of its own: evaluations, documents and delivery work. Since the Sprint 1 review (comment 3), such work is a Jira task, linked to the user stories it serves where there is one.
+
+| # | Task | Purpose | Related user stories | Points | Owner | Sprint | Jira |
+|---|---|---|---|---|---|---|---|
+| T1 | [Build and measure the baseline retrieval](#t1--build-and-measure-the-baseline-retrieval) | Build the most basic retrieval over the indexed provisions and measure how often it finds the expected provision, compared with the charter target. | [KAN-8](https://yarengursoy.atlassian.net/browse/KAN-8) | 13 | Gözde Nur | Sprint 2 | [KAN-87](https://yarengursoy.atlassian.net/browse/KAN-87) |
+| T2 | [Update the Sprint 2 architecture design and technical documentation](#t2--update-the-sprint-2-architecture-design-and-technical-documentation) | Keep the design document, the software bill of materials and the user interface plan in line with the system as it is built in Sprint 2. | [KAN-21](https://yarengursoy.atlassian.net/browse/KAN-21), [KAN-22](https://yarengursoy.atlassian.net/browse/KAN-22) | 8 | Kaan | Sprint 2 | [KAN-88](https://yarengursoy.atlassian.net/browse/KAN-88) |
+| T3 | [Run the whole pipeline from one README](#t3--run-the-whole-pipeline-from-one-readme) | Connect the interface to the full pipeline and make the whole assistant installable and runnable from one README, as the course Sprint 3 deliverable requires. | [KAN-21](https://yarengursoy.atlassian.net/browse/KAN-21) | – | – | Sprint 3 | [KAN-168](https://yarengursoy.atlassian.net/browse/KAN-168) |
+| T4 | [Measure the beta against the baseline and the charter targets](#t4--measure-the-beta-against-the-baseline-and-the-charter-targets) | Compare every Sprint 3 experiment with the Sprint 2 baseline and measure the beta against the charter targets on the same questions, to choose the product configuration and decide whether the beta is ready for the pilot. | [KAN-2](https://yarengursoy.atlassian.net/browse/KAN-2), [KAN-8](https://yarengursoy.atlassian.net/browse/KAN-8) | – | – | Sprint 3 | [KAN-169](https://yarengursoy.atlassian.net/browse/KAN-169) |
+
+Priority, points, owner and sprint are as in Jira on 08/11/2026. Points are given with planning poker at each sprint planning; a dash means not estimated yet. Every current user story has test cases, written in Sprint 2 ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)); they are planned tests to run when the story is built, not results.
+
+## S1 · Use a release candidate with the pilot problems fixed
+
+[KAN-203](https://yarengursoy.atlassian.net/browse/KAN-203) · User story · Sprint 4 (Release candidate 1.0) · Status To do · Priority High · Points – · Owner –
+
+**Story:** As an EdTech AI developer, I want to use a release candidate in which the problems found in the pilot are fixed, so that the system shown in the final demo is the one I can actually rely on.
 
 **Acceptance criteria**
 
-1. The design document fills every section of the current course template and contains the architecture diagram with every component (ingestion, chunking, embedding, vector store, retriever, LLM, input and output checks, user interface).
-2. Each component names its chosen technology and has an ADR, or is marked open and links to a spike note.
-3. Spike notes exist for source parsing and for running an open-source quantized LLM on CPU, and the chosen models' licences are recorded.
-4. The model spike note records the answer time of each candidate model on CPU, so that the chosen model can run on a team member's computer without a paid cloud instance (R-12; D4 criterion 5).
-5. The design document records an answer-time limit (R-12) and describes the out-of-scope notice in its Interfaces section (C-04).
+1. Every problem seen during the pilot is logged without asking participants for personal data (C-10).
+2. The logged pilot errors are prioritised: every critical error (a wrong citation, a legal verdict, a stored personal-data item or a crash) is fixed, and every error that is not fixed is listed as a known limitation in the Sprint 4 technical summary; no new features are added after the pilot.
+3. The README, SBOM, design document and data cards describe the release candidate shown in the final demo.
+4. The Sprint 4 code follows the course Git rules, and the release is uploaded to ODTUClass as a zip.
+
+**Test cases**
+
+Planned tests for the release candidate, not results; recorded in the Sprint 4 technical summary.
+
+* **TC-203.1** (criterion 1) Steps: read the pilot log and the Jira bugs from the pilot. Expected: every problem seen is logged; no participant's personal data is asked for or stored (C-10).
+* **TC-203.2** (criterion 2) Steps: for every logged critical error (a wrong citation, a legal verdict, a stored personal-data item or a crash), repeat the steps that caused it on the release candidate. Expected: none happens again.
+* **TC-203.3** (criterion 2) Steps: compare the list of logged errors with the fixed ones and with the known limitations in the Sprint 4 technical summary; compare the features before and after the pilot. Expected: every critical error is fixed (TC-203.2); every other error is either fixed or listed as a known limitation; no critical error appears among the known limitations; no feature was added after the pilot.
+* **TC-203.4** (criterion 3) Steps: compare the README, SBOM, design document and data cards with the release candidate shown in the final demo. Expected: they describe that system.
+* **TC-203.5** (criterion 4) Steps: check the Sprint 4 branches, pull requests and tag against the course Git rules; check ODTUClass for the zip. Expected: the rules are followed and the zip is uploaded.
 
 **Sub-tasks**
 
-| Sub-task | Done when | Owner | Estimate | Status | Jira |
-|---|---|---|---|---|---|
-| Spike: parse and chunk the EUR-Lex HTML | A spike note in docs/spikes/ shows whether Articles, paragraphs and Annex points can be extracted with their identifiers, and proposes a first chunking rule (one chunk per Article paragraph or Annex point). Throw-away notebook, no production code. | Gözde Nur | – | Done | [KAN-56](https://yarengursoy.atlassian.net/browse/KAN-56) |
-| Spike: run open-source quantized models on CPU, check their licences and record the answer time | At least two open-source quantized models run on CPU only (Colab CPU runtime or a team member's computer) on a few sample questions. The answer time and the licence of each are recorded in a spike note. Throw-away notebook, no production code. | Gözde Nur | – | Done | [KAN-57](https://yarengursoy.atlassian.net/browse/KAN-57) |
-| Write the ADRs for the model, embedding, vector store and user interface choices | Every technology marked as chosen in the design document has a decision record in section 6 of the design document. Every open choice links to a spike note. The chosen LLM is open-source and runs on CPU on a team member's computer, without a paid cloud instance. | Gözde Nur | – | Done | [KAN-58](https://yarengursoy.atlassian.net/browse/KAN-58) |
-| Write the System Architecture Design Document v1 with the architecture diagram | The design document fills every section of the course template (Markdown Template/11-system-architecture-design-document.md): summary, goals and non-goals, diagram, components, design details, decisions, open design areas, change log. The diagram shows every component: ingestion, chunking, embedding, vector store, retriever, LLM, input and output checks, user interface. Each component names its chosen technology or is marked "open" with a link to a spike note. The document states the session and privacy boundaries (C-04, C-10). | Kaan | – | Done | [KAN-59](https://yarengursoy.atlassian.net/browse/KAN-59) |
-
-The story carries the points and its sub-tasks are not estimated separately (Model A of the course's [Jira sync guide](../../docs/JIRA_SYNC_SETUP.md)).
+| Sub-task | Done when | Owner | Status | Jira |
+|---|---|---|---|---|
+| Log the problems seen during the pilot | Every problem seen during the pilot is logged as a Jira bug or in the pilot log, without asking participants for personal data. | – | To do | [KAN-209](https://yarengursoy.atlassian.net/browse/KAN-209) |
+| Fix the pilot errors without adding features | Every critical pilot error (a wrong citation, a legal verdict, a stored personal-data item or a crash) is fixed, every error that is not fixed is listed as a known limitation in the Sprint 4 technical summary, no new feature is added after the pilot, and the story tests still pass. | – | To do | [KAN-210](https://yarengursoy.atlassian.net/browse/KAN-210) |
+| Update the final documents to describe the demo system | The README, SBOM, design document and data cards describe the release candidate shown in the final demo. | – | To do | [KAN-211](https://yarengursoy.atlassian.net/browse/KAN-211) |
+| Follow the Git rules for Sprint 4 and upload the zip | The Sprint 4 code follows the course Git rules (branches, pull requests, tag) and the release is uploaded to ODTUClass as a zip. | – | To do | [KAN-212](https://yarengursoy.atlassian.net/browse/KAN-212) |
 
 **Traceability**
 
-Deliverable: D4 System Design v1 (due 27/10/2026)      
-Milestone: M2 Sources and first design ready; M3 Checkpoint: Sprint 1 reviewed, development starts (28/10/2026)      
-Assumptions / constraints / risks: A-09; C-03, C-04, C-05; R-12
+Objective: O1–O4 (system used in the final evaluation)  
+Deliverable: D11 Release Candidate and Final Evaluation (due 30/12/2026)  
+Milestone: M10 (30/12/2026)  
+Constraint: C-10
 
-## S2 · Close my gaps in the Sprint 1 fundamentals
+## T1 · Build and measure the baseline retrieval
 
-[KAN-82](https://yarengursoy.atlassian.net/browse/KAN-82) · Sprint 1 (Pre-alpha) · Priority Medium · Points 3 · Owner Yaren
+[KAN-87](https://yarengursoy.atlassian.net/browse/KAN-87) · Task · Sprint 2 (Alpha 0.1) · Status To do · Priority High · Points 13 · Owner Gözde Nur
 
-**Story:** As a Data Scientist, I want to close my gaps in the Sprint 1 fundamentals with a learning spike, so that I can work on the RAG pipeline from Sprint 2.
+**Purpose:** Build the most basic retrieval over the indexed provisions and measure how often it finds the expected provision, compared with the charter target.
 
-**Acceptance criteria**
-
-1. Each team member has one learning spike note in `docs/spikes/` on topics from the course's Sprint 1 fundamentals.
-2. Each note states the member's starting level, the sources used, the expected output and a Definition of Done.
-3. The Sprint 1 page links all four notes.
-
-**Sub-tasks**
-
-| Sub-task | Done when | Owner | Estimate | Status | Jira |
-|---|---|---|---|---|---|
-| Learning spike: RAG indexing and query phases | A learning spike note of at most one page is in docs/spikes/. It explains the indexing and query phases of a RAG pipeline and why RAG reduces hallucination. The member can explain the topic at the Sprint 1 review. Timeboxed; the member may choose another topic from the course's Sprint 1 fundamentals. | Yeşim | – | Done | [KAN-60](https://yarengursoy.atlassian.net/browse/KAN-60) |
-| Learning spike: LLM basics and prompt engineering | A learning spike note of at most one page is in docs/spikes/. It covers tokens, context window, temperature and why LLMs hallucinate, and gives a prompt that answers only from the given passages and says when it does not know. The member can explain the topic at the Sprint 1 review. Timeboxed; the member may choose another topic from the course's Sprint 1 fundamentals. | Yaren | – | Done | [KAN-61](https://yarengursoy.atlassian.net/browse/KAN-61) |
-| Learning spike: Scrum, Git and prompt engineering | A learning spike note of at most one page is in docs/spikes/ (`learning-gozde-nur.md`). It covers Scrum, Git and prompt engineering from the course's Sprint 1 fundamentals and states what the member learned for each topic; throw-away code only. The member can explain the topics at the Sprint 1 review. Timeboxed. | Gözde Nur | – | Done | [KAN-62](https://yarengursoy.atlassian.net/browse/KAN-62) |
-| Learning spike: evaluation basics and Recall@5 | A learning spike note of at most one page is in docs/spikes/. It explains what an evaluation set is, why it must be fixed before experiments, and what Recall@5 measures. The member can explain the topic at the Sprint 1 review. Timeboxed; the member may choose another topic from the course's Sprint 1 fundamentals. | Kaan | – | Done | [KAN-63](https://yarengursoy.atlassian.net/browse/KAN-63) |
-
-The story carries the points and its sub-tasks are not estimated separately (Model A of the course's [Jira sync guide](../../docs/JIRA_SYNC_SETUP.md)).
-
-**Traceability**
-
-Deliverable: D4 System Design v1, acceptance criterion 7 (due 27/10/2026)    
-Milestone: M2 Sources and first design ready (28/10/2026)
-
-## S3 · Measure how well the baseline retrieval finds the expected provisions
-
-[KAN-87](https://yarengursoy.atlassian.net/browse/KAN-87) · Sprint 2 (Alpha 0.1) · Priority High · Points – · Owner –
-
-**Story:** As a Project Review Committee member, I want to see how often the most basic retrieval finds the expected provision, compared with the target in the charter, so that I can judge whether the project starts from a measured baseline.
+**Related user stories:** [KAN-8](https://yarengursoy.atlassian.net/browse/KAN-8)
 
 **Acceptance criteria**
 
@@ -106,30 +102,31 @@ Milestone: M2 Sources and first design ready (28/10/2026)
 
 **Sub-tasks**
 
-| Sub-task | Done when | Owner | Estimate | Status | Jira |
-|---|---|---|---|---|---|
-| Build the vector index and the retriever | The embedding model and vector store chosen in the design document index every D5 chunk, and the retriever returns the top 5 passages for a question; retrieval parameters are in `config/rag.yaml`. By 11/11/2026 retrieval returns passages for a handful of test questions (course halfway check). | – | – | To do | [KAN-97](https://yarengursoy.atlassian.net/browse/KAN-97) |
-| Set up the README, pinned requirements and prompts folder | `README.md` explains setup and running; `requirements.txt` has 0 unpinned packages; prompts are in `prompts/`. A team member who did not build it runs it once from the README. | – | – | To do | [KAN-98](https://yarengursoy.atlassian.net/browse/KAN-98) |
-| Run Recall@5 and the comparison without and with retrieval on the val split | Recall@5 and the answers without and with retrieval are logged in Weights & Biases for every D2 `val` question. | – | – | To do | [KAN-99](https://yarengursoy.atlassian.net/browse/KAN-99) |
-| Write the baseline experiment card | `Markdown Template/12-experiment-cards/E1-baseline.md` records the baseline parameters, the corpus version from `data/manifest.csv`, the prompt templates, the `config/rag.yaml` version and the results. | – | – | To do | [KAN-100](https://yarengursoy.atlassian.net/browse/KAN-100) |
-| Write the Sprint 2 technical summary | `Markdown Template/05-sprint-2/01-review-committee-technical-summary.md` gives the chosen metrics and why, the baseline score, the target from the charter and the known failures on the `val` split, and links the baseline experiment card. The metrics and their targets are drafted by 11/11/2026 (course halfway check). | – | – | To do | [KAN-101](https://yarengursoy.atlassian.net/browse/KAN-101) |
-
-Sub-task owners are assigned at the sprint planning.
+| Sub-task | Done when | Owner | Status | Jira |
+|---|---|---|---|---|
+| Build the vector index and the retriever | The embedding model and vector store chosen in the design document index every D5 chunk, and the retriever returns the top 5 passages for a question; retrieval parameters are in `config/rag.yaml`. By 11/11/2026 retrieval returns passages for a handful of test questions (course halfway check). | Gözde Nur | Done | [KAN-97](https://yarengursoy.atlassian.net/browse/KAN-97) |
+| Set up the README, pinned requirements and prompts folder | `README.md` explains setup and running; `requirements.txt` has 0 unpinned packages; prompts are in `prompts/`. A team member who did not build it runs it once from the README. | Gözde Nur | To do | [KAN-98](https://yarengursoy.atlassian.net/browse/KAN-98) |
+| Run Recall@5 and the comparison without and with retrieval on the val split | Recall@5 and the answers without and with retrieval are logged in Weights & Biases for every D2 `val` question. | Gözde Nur | To do | [KAN-99](https://yarengursoy.atlassian.net/browse/KAN-99) |
+| Write the baseline experiment card | `Markdown Template/12-experiment-cards/E1-baseline.md` records the baseline parameters, the corpus version from `data/manifest.csv`, the prompt templates, the `config/rag.yaml` version and the results. | Kaan | To do | [KAN-100](https://yarengursoy.atlassian.net/browse/KAN-100) |
+| Write the Sprint 2 technical summary | `Markdown Template/05-sprint-2/01-review-committee-technical-summary.md` gives the chosen metrics and why, the baseline score, the target from the charter and the known failures on the `val` split, and links the baseline experiment card. The metrics and their targets are drafted by 11/11/2026 (course halfway check). | Kaan | To do | [KAN-101](https://yarengursoy.atlassian.net/browse/KAN-101) |
+| Label the frequent words with an LLM jury and test word removal for BM25 | * The 20 words with the lowest BM25 weight (IDF) are listed with the share of chunks and questions that contain them. • A jury of three LLMs from different families (qwen3:4b, phi4-mini, gemma3:4b; not Llama, the answer model, D9) labels each word KEEP or IGNORE with a reason, and the majority vote is recorded (Verga et al. 2024, _Replacing Judges with Juries_). • BM25 with no removal, with the jury's words removed and with stopwords removed (keeping "not", "no", "nor") is compared with Recall@5 and MRR on B-01 to B-06. A version replaces "no removal" only if it is better on Recall@5 or MRR and worse on neither (Dickinson 2026, _Stop Removing Stopwords_: the burden of proof is on removal). • The chosen version is written in `config/rag.yaml` (`bm25: remove`) and the comparison is repeated on the `val` split in [KAN-99](https://yarengursoy.atlassian.net/browse/KAN-99). | Gözde Nur | Done | [KAN-221](https://yarengursoy.atlassian.net/browse/KAN-221) |
 
 **Traceability**
 
-Deliverable: D6 Alpha Release (due 14/11/2026; criteria 1, 5, 8, 9)      
-Milestone: M4 Baseline (alpha) runs on the full validation question set (18/11/2026)      
-Objective: O2 Evidence (a)      
-Major Activities: rows 9, 23, 28      
-Dependencies: rows 6, 7      
+Deliverable: D6 Alpha Release (due 14/11/2026; criteria 1, 5, 8, 9)  
+Milestone: M4 Baseline (alpha) runs on the full validation question set (18/11/2026)  
+Objective: O2 Evidence (a)  
+Major Activities: rows 9, 23, 28  
+Dependencies: rows 6, 7  
 Constraints: C-03 RAG chatbot with an open-source quantized model; C-05 CPU only
 
-## S4 · Review the system design, the models used and the interface plan
+## T2 · Update the Sprint 2 architecture design and technical documentation
 
-[KAN-88](https://yarengursoy.atlassian.net/browse/KAN-88) · Sprint 2 (Alpha 0.1) · Priority High · Points – · Owner –
+[KAN-88](https://yarengursoy.atlassian.net/browse/KAN-88) · Task · Sprint 2 (Alpha 0.1) · Status To do · Priority High · Points 8 · Owner Kaan
 
-**Story:** As a Project Review Committee member, I want the design document, the software bill of materials and the interface mockup to match the system as it is built in Sprint 2, so that I can review every decision and every model the team used.
+**Purpose:** Keep the design document, the software bill of materials and the user interface plan in line with the system as it is built in Sprint 2.
+
+**Related user stories:** [KAN-21](https://yarengursoy.atlassian.net/browse/KAN-21), [KAN-22](https://yarengursoy.atlassian.net/browse/KAN-22)
 
 **Acceptance criteria**
 
@@ -141,28 +138,28 @@ Constraints: C-03 RAG chatbot with an open-source quantized model; C-05 CPU only
 
 **Sub-tasks**
 
-| Sub-task | Done when | Owner | Estimate | Status | Jira |
-|---|---|---|---|---|---|
-| Update the design document for Sprint 2 | `11-system-architecture-design-document.md` describes each RAG pipeline stage with its parameters, has a decision record for every decision taken in Sprint 2, and shows the diagram as the system is at the upload date. | – | – | To do | [KAN-102](https://yarengursoy.atlassian.net/browse/KAN-102) |
-| Choose the user interface technology | The user interface technology (for example Gradio or Streamlit) and the reason for the choice are recorded in the design document by 11/11/2026 (course halfway check). | – | – | To do | [KAN-103](https://yarengursoy.atlassian.net/browse/KAN-103) |
-| Draw the user interface mockup | An image of the user interface shows the question box, an answer with Article/Annex citations and the version date, and the permanent "not legal advice" notice. It does not have to be connected to the system. | – | – | To do | [KAN-104](https://yarengursoy.atlassian.net/browse/KAN-104) |
-| Write the Software Bill of Materials | `10-software-bill-of-materials.md` lists every model tried, with its exact version, provider, licence, link to its source model card, accesser and access date, method of interaction, whether it is used and why, and its experiment card; tools and services not in `requirements.txt` are also listed. | – | – | To do | [KAN-105](https://yarengursoy.atlassian.net/browse/KAN-105) |
-
-Sub-task owners are assigned at the sprint planning.
+| Sub-task | Done when | Owner | Status | Jira |
+|---|---|---|---|---|
+| Update the design document for Sprint 2 | `11-system-architecture-design-document.md` describes each RAG pipeline stage with its parameters, has a decision record for every decision taken in Sprint 2, and shows the diagram as the system is at the upload date. | Kaan | To do | [KAN-102](https://yarengursoy.atlassian.net/browse/KAN-102) |
+| Choose the user interface technology | The user interface technology (for example Gradio or Streamlit) and the reason for the choice are recorded in the design document by 11/11/2026 (course halfway check). | Kaan | To do | [KAN-103](https://yarengursoy.atlassian.net/browse/KAN-103) |
+| Draw the user interface mockup | An image of the user interface shows the question box, an answer with Article/Annex citations and the version date, and the permanent "not legal advice" notice. It does not have to be connected to the system. | Kaan | To do | [KAN-104](https://yarengursoy.atlassian.net/browse/KAN-104) |
+| Write the Software Bill of Materials | `10-software-bill-of-materials.md` lists every model tried, with its exact version, provider, licence, link to its source model card, accesser and access date, method of interaction, whether it is used and why, and its experiment card; tools and services not in `requirements.txt` are also listed. | Kaan | To do | [KAN-105](https://yarengursoy.atlassian.net/browse/KAN-105) |
 
 **Traceability**
 
-Deliverable: D6 Alpha Release (due 14/11/2026; criteria 6, 9)      
-Milestone: M4 Baseline (alpha) runs on the full validation question set (18/11/2026)      
-Major Activities: rows 5, 14, 16      
-Constraints: C-03 RAG chatbot with an open-source quantized model; C-08 Information, not legal advice      
+Deliverable: D6 Alpha Release (due 14/11/2026; criteria 6, 9)  
+Milestone: M4 Baseline (alpha) runs on the full validation question set (18/11/2026)  
+Major Activities: rows 5, 14, 16  
+Constraints: C-03 RAG chatbot with an open-source quantized model; C-08 Information, not legal advice  
 Assumption / Risk: A-09 / R-06 The model or a library becomes unavailable
 
-## S5 · Run the whole pipeline from one README
+## T3 · Run the whole pipeline from one README
 
-[KAN-168](https://yarengursoy.atlassian.net/browse/KAN-168) · Sprint 3 (Beta 0.5) · Priority High · Points – · Owner –
+[KAN-168](https://yarengursoy.atlassian.net/browse/KAN-168) · Task · Sprint 3 (Beta 0.5) · Status To do · Priority High · Points – · Owner –
 
-**Story:** As a Project Review Committee member, I want to install and run the whole assistant, user interface included, from one README, so that I can check that the pipeline works end to end.
+**Purpose:** Connect the interface to the full pipeline and make the whole assistant installable and runnable from one README, as the course Sprint 3 deliverable requires.
+
+**Related user stories:** [KAN-21](https://yarengursoy.atlassian.net/browse/KAN-21)
 
 **Acceptance criteria**
 
@@ -174,28 +171,28 @@ Assumption / Risk: A-09 / R-06 The model or a library becomes unavailable
 
 **Sub-tasks**
 
-| Sub-task | Done when | Owner | Estimate | Status | Jira |
-|---|---|---|---|---|---|
-| Connect the interface to the full pipeline | The interface calls retrieval, answer generation and the input and output checks as one pipeline; by 02/12/2026 it works even if some parts are still stubs (course halfway check). | – | – | To do | [KAN-172](https://yarengursoy.atlassian.net/browse/KAN-172) |
-| Update the README for the full pipeline | `README.md` explains how to install and run the whole pipeline with its interface, and a team member who did not build it runs it once from the README. | – | – | To do | [KAN-173](https://yarengursoy.atlassian.net/browse/KAN-173) |
-| Add a screenshot of the interface answering a question | A screenshot of the interface answering a question is in the Sprint 3 folder and linked from the welcome page. | – | – | To do | [KAN-174](https://yarengursoy.atlassian.net/browse/KAN-174) |
-| Update the design document, spike notes and SBOM for Sprint 3 | The design document has a record for every Sprint 3 decision and shows the diagram and RAG parameters as the system is at the upload; every Sprint 3 spike has its note; the SBOM lists every model tried and the tools not in `requirements.txt`. | – | – | To do | [KAN-175](https://yarengursoy.atlassian.net/browse/KAN-175) |
-| Follow the Git rules for Sprint 3 and upload the zip | Every branch name and commit message in Sprint 3 has a Jira key, branches are merged with `git merge --no-ff`, the repository follows the course structure, and the `.zip` is uploaded to ODTUClass by 05/12/2026. | – | – | To do | [KAN-176](https://yarengursoy.atlassian.net/browse/KAN-176) |
-
-Sub-task owners are assigned at the sprint planning.
+| Sub-task | Done when | Owner | Status | Jira |
+|---|---|---|---|---|
+| Connect the interface to the full pipeline | The interface calls retrieval, answer generation and the input and output checks as one pipeline; by 02/12/2026 it works even if some parts are still stubs (course halfway check). | – | To do | [KAN-172](https://yarengursoy.atlassian.net/browse/KAN-172) |
+| Update the README for the full pipeline | `README.md` explains how to install and run the whole pipeline with its interface, and a team member who did not build it runs it once from the README. | – | To do | [KAN-173](https://yarengursoy.atlassian.net/browse/KAN-173) |
+| Add a screenshot of the interface answering a question | A screenshot of the interface answering a question is in the Sprint 3 folder and linked from the welcome page. | – | To do | [KAN-174](https://yarengursoy.atlassian.net/browse/KAN-174) |
+| Update the design document, spike notes and SBOM for Sprint 3 | The design document has a record for every Sprint 3 decision and shows the diagram and RAG parameters as the system is at the upload; every Sprint 3 spike has its note; the SBOM lists every model tried and the tools not in `requirements.txt`. | – | To do | [KAN-175](https://yarengursoy.atlassian.net/browse/KAN-175) |
+| Follow the Git rules for Sprint 3 and upload the zip | Every branch name and commit message in Sprint 3 has a Jira key, branches are merged with `git merge --no-ff`, the repository follows the course structure, and the `.zip` is uploaded to ODTUClass by 05/12/2026. | – | To do | [KAN-176](https://yarengursoy.atlassian.net/browse/KAN-176) |
 
 **Traceability**
 
-Deliverable: D9 Beta Release (due 05/12/2026)      
-Milestone: M7 (09/12/2026)      
-Major Activities: rows 5, 14, 16      
+Deliverable: D9 Beta Release (due 05/12/2026)  
+Milestone: M7 (09/12/2026)  
+Major Activities: rows 5, 14, 16  
 Constraints: C-03, C-05
 
-## S6 · Measure the beta against the baseline and the charter targets
+## T4 · Measure the beta against the baseline and the charter targets
 
-[KAN-169](https://yarengursoy.atlassian.net/browse/KAN-169) · Sprint 3 (Beta 0.5) · Priority High · Points – · Owner –
+[KAN-169](https://yarengursoy.atlassian.net/browse/KAN-169) · Task · Sprint 3 (Beta 0.5) · Status To do · Priority High · Points – · Owner –
 
-**Story:** As a Project Review Committee member, I want every experiment compared with the Sprint 2 baseline and the beta measured against the charter targets on the same questions, so that I can see which configuration is best and whether the beta is ready for the pilot.
+**Purpose:** Compare every Sprint 3 experiment with the Sprint 2 baseline and measure the beta against the charter targets on the same questions, to choose the product configuration and decide whether the beta is ready for the pilot.
+
+**Related user stories:** [KAN-2](https://yarengursoy.atlassian.net/browse/KAN-2), [KAN-8](https://yarengursoy.atlassian.net/browse/KAN-8)
 
 **Acceptance criteria**
 
@@ -207,51 +204,86 @@ Constraints: C-03, C-05
 
 **Sub-tasks**
 
-| Sub-task | Done when | Owner | Estimate | Status | Jira |
-|---|---|---|---|---|---|
-| Plan the experiments and their parameter space | Each planned experiment has its own card in `Markdown Template/12-experiment-cards/` with its question, what it is compared against (the baseline), the parameter space and the search method. | – | – | To do | [KAN-177](https://yarengursoy.atlassian.net/browse/KAN-177) |
-| Run the experiments in Weights & Biases | Every experiment run is tracked in W&B, and at least one improvement over the baseline is measured by 02/12/2026, with a link to its W&B run (course halfway check). | – | – | To do | [KAN-178](https://yarengursoy.atlassian.net/browse/KAN-178) |
-| Re-run the best configurations with at least 3 seeds | The best combination from each experiment is re-run with at least 3 seeds and reported as mean ± std; the best configuration is named and `config/rag.yaml` holds only that product configuration. | – | – | To do | [KAN-179](https://yarengursoy.atlassian.net/browse/KAN-179) |
-| Report O2 and O4 on the frozen D8 val split | On the D8 `val` split frozen on 01/12/2026, O2 (a)–(d) and O4 per safety category (correct responses / questions evaluated and %) are reported against the charter targets; 0 answers contain a classification or compliance verdict; any unmet level is recorded as a known limitation or a Sprint 4 fix. | – | – | To do | [KAN-180](https://yarengursoy.atlassian.net/browse/KAN-180) |
-| Review the in-scope val answers against the rubric | One reviewer checks every in-scope `val` answer against the rubric's "fully supported" definition (O2 (b)); a second reviewer checks a sample of the answers; disagreements are resolved against the rubric and logged. | – | – | To do | [KAN-181](https://yarengursoy.atlassian.net/browse/KAN-181) |
-| Write the Sprint 3 technical summary | `Markdown Template/05-sprint-3/01-review-committee-technical-summary.md` compares the best configuration with the baseline on the same evaluation set, reports pass or fail for the test of every story built so far, and marks each feature as implemented or deferred. | – | – | To do | [KAN-182](https://yarengursoy.atlassian.net/browse/KAN-182) |
-
-Sub-task owners are assigned at the sprint planning.
+| Sub-task | Done when | Owner | Status | Jira |
+|---|---|---|---|---|
+| Plan the experiments and their parameter space | Each planned experiment has its own card in `Markdown Template/12-experiment-cards/` with its question, what it is compared against (the baseline), the parameter space and the search method. | – | To do | [KAN-177](https://yarengursoy.atlassian.net/browse/KAN-177) |
+| Run the experiments in Weights & Biases | Every experiment run is tracked in W&B, and at least one improvement over the baseline is measured by 02/12/2026, with a link to its W&B run (course halfway check). | – | To do | [KAN-178](https://yarengursoy.atlassian.net/browse/KAN-178) |
+| Re-run the best configurations with at least 3 seeds | The best combination from each experiment is re-run with at least 3 seeds and reported as mean ± std; the best configuration is named and `config/rag.yaml` holds only that product configuration. | – | To do | [KAN-179](https://yarengursoy.atlassian.net/browse/KAN-179) |
+| Report O2 and O4 on the frozen D8 val split | On the D8 `val` split frozen on 01/12/2026, O2 (a)–(d) and O4 per safety category (correct responses / questions evaluated and %) are reported against the charter targets; 0 answers contain a classification or compliance verdict; any unmet level is recorded as a known limitation or a Sprint 4 fix. | – | To do | [KAN-180](https://yarengursoy.atlassian.net/browse/KAN-180) |
+| Review the in-scope val answers against the rubric | One reviewer checks every in-scope `val` answer against the rubric's "fully supported" definition (O2 (b)); a second reviewer checks a sample of the answers; disagreements are resolved against the rubric and logged. | – | To do | [KAN-181](https://yarengursoy.atlassian.net/browse/KAN-181) |
+| Write the Sprint 3 technical summary | `Markdown Template/05-sprint-3/01-review-committee-technical-summary.md` compares the best configuration with the baseline on the same evaluation set, reports pass or fail for the test of every story built so far, and marks each feature as implemented or deferred. | – | To do | [KAN-182](https://yarengursoy.atlassian.net/browse/KAN-182) |
 
 **Traceability**
 
-Deliverable: D9 Beta Release (due 05/12/2026)    
-Milestone: M7 (09/12/2026)    
-Objectives: O2 Evidence; O4 Safety    
+Deliverable: D9 Beta Release (due 05/12/2026)  
+Milestone: M7 (09/12/2026)  
+Objectives: O2 Evidence; O4 Safety  
 Major Activities: rows 23, 24, 40
 
-## S7 · Use a release candidate with the pilot problems fixed
+## H1 · Agree on the technologies for the baseline
 
-[KAN-203](https://yarengursoy.atlassian.net/browse/KAN-203) · Sprint 4 (Release candidate 1.0) · Priority High · Points – · Owner –
+[KAN-81](https://yarengursoy.atlassian.net/browse/KAN-81) · User story · Sprint 1 (Pre-alpha) · Status Done · Priority High · Points 13 · Owner Gözde Nur
 
-**Story:** As an EdTech AI developer, I want to use a release candidate in which the problems found in the pilot are fixed, so that the system shown in the final demo is the one I can actually rely on.
+**Story:** As a Data Scientist, I want the architecture, the chosen technologies and the reasons behind them recorded before Sprint 2, so that I can start building the baseline on agreed technologies.
+
+*Sprint 1 story (historical, completed): kept as written in Sprint 1.*
 
 **Acceptance criteria**
 
-1. Every problem seen during the pilot is logged without asking participants for personal data (C-10).
-2. The logged pilot errors are prioritised: every critical error (a wrong citation, a legal verdict, a stored personal-data item or a crash) is fixed, and every error that is not fixed is listed as a known limitation in the Sprint 4 technical summary; no new features are added after the pilot.
-3. The README, SBOM, design document and data cards describe the release candidate shown in the final demo.
-4. The Sprint 4 code follows the course Git rules, and the release is uploaded to ODTUClass as a zip.
+1. The design document fills every section of the current course template and contains the architecture diagram with every component (ingestion, chunking, embedding, vector store, retriever, LLM, input and output checks, user interface).
+2. Each component names its chosen technology and has an ADR, or is marked open and links to a spike note.
+3. Spike notes exist for source parsing and for running an open-source quantized LLM on CPU, and the chosen models' licences are recorded.
+4. The model spike note records the answer time of each candidate model on CPU, so that the chosen model can run on a team member's computer without a paid cloud instance (R-12; D4 criterion 5).
+5. The design document records an answer-time limit (R-12) and describes the out-of-scope notice in its Interfaces section (C-04).
 
 **Sub-tasks**
 
-| Sub-task | Done when | Owner | Estimate | Status | Jira |
-|---|---|---|---|---|---|
-| Log the problems seen during the pilot | Every problem seen during the pilot is logged as a Jira bug or in the pilot log, without asking participants for personal data. | – | – | To do | [KAN-209](https://yarengursoy.atlassian.net/browse/KAN-209) |
-| Fix the pilot errors without adding features | Every critical pilot error (a wrong citation, a legal verdict, a stored personal-data item or a crash) is fixed, every error that is not fixed is listed as a known limitation in the Sprint 4 technical summary, no new feature is added after the pilot, and the story tests still pass. | – | – | To do | [KAN-210](https://yarengursoy.atlassian.net/browse/KAN-210) |
-| Update the final documents to describe the demo system | The README, SBOM, design document and data cards describe the release candidate shown in the final demo. | – | – | To do | [KAN-211](https://yarengursoy.atlassian.net/browse/KAN-211) |
-| Follow the Git rules for Sprint 4 and upload the zip | The Sprint 4 code follows the course Git rules (branches, pull requests, tag) and the release is uploaded to ODTUClass as a zip. | – | – | To do | [KAN-212](https://yarengursoy.atlassian.net/browse/KAN-212) |
-
-Sub-task owners are assigned at the sprint planning.
+| Sub-task | Done when | Owner | Status | Jira |
+|---|---|---|---|---|
+| Spike: parse and chunk the EUR-Lex HTML | A spike note in docs/spikes/ shows whether Articles, paragraphs and Annex points can be extracted with their identifiers, and proposes a first chunking rule (one chunk per Article paragraph or Annex point). Throw-away notebook, no production code. | Gözde Nur | Done | [KAN-56](https://yarengursoy.atlassian.net/browse/KAN-56) |
+| Spike: run open-source quantized models on CPU, check their licences and record the answer time | At least two open-source quantized models run on CPU only (Colab CPU runtime or a team member's computer) on a few sample questions. The answer time and the licence of each are recorded in a spike note. Throw-away notebook, no production code. | Gözde Nur | Done | [KAN-57](https://yarengursoy.atlassian.net/browse/KAN-57) |
+| Write the ADRs for the model, embedding, vector store and user interface choices | Every technology marked as chosen in the design document has a decision record in section 6 of the design document. Every open choice links to a spike note. The chosen LLM is open-source and runs on CPU on a team member's computer, without a paid cloud instance. | Gözde Nur | Done | [KAN-58](https://yarengursoy.atlassian.net/browse/KAN-58) |
+| Write the System Architecture Design Document v1 with the architecture diagram | The design document fills every section of the course template (Markdown Template/11-system-architecture-design-document.md): summary, goals and non-goals, diagram, components, design details, decisions, open design areas, change log. The diagram shows every component: ingestion, chunking, embedding, vector store, retriever, LLM, input and output checks, user interface. Each component names its chosen technology or is marked "open" with a link to a spike note. The document states the session and privacy boundaries (C-04, C-10). | Kaan | Done | [KAN-59](https://yarengursoy.atlassian.net/browse/KAN-59) |
 
 **Traceability**
 
-Objective: O1–O4 (system used in the final evaluation)        
-Deliverable: D11 Release Candidate and Final Evaluation (due 30/12/2026)        
-Milestone: M10 (30/12/2026)        
-Constraint: C-10
+Deliverable: D4 System Design v1 (due 27/10/2026)  
+Milestone: M2 Sources and first design ready; M3 Checkpoint: Sprint 1 reviewed, development starts (28/10/2026)  
+Assumptions / constraints / risks: A-09; C-03, C-04, C-05; R-12
+
+## H2 · Close my gaps in the Sprint 1 fundamentals
+
+[KAN-82](https://yarengursoy.atlassian.net/browse/KAN-82) · User story · Sprint 1 (Pre-alpha) · Status Done · Priority Medium · Points 3 · Owner Yaren
+
+**Story:** As a Data Scientist, I want to close my gaps in the Sprint 1 fundamentals with a learning spike, so that I can work on the RAG pipeline from Sprint 2.
+
+*Sprint 1 story (historical, completed): kept as written in Sprint 1.*
+
+**Acceptance criteria**
+
+1. Each team member has one learning spike note in `docs/spikes/` on topics from the course's Sprint 1 fundamentals.
+2. Each note states the member's starting level, the sources used, the expected output and a Definition of Done.
+3. The Sprint 1 page links all four notes.
+
+**Sub-tasks**
+
+| Sub-task | Done when | Owner | Status | Jira |
+|---|---|---|---|---|
+| Learning spike: RAG indexing and query phases | A learning spike note of at most one page is in docs/spikes/. It explains the indexing and query phases of a RAG pipeline and why RAG reduces hallucination. The member can explain the topic at the Sprint 1 review. Timeboxed; the member may choose another topic from the course's Sprint 1 fundamentals. | Yeşim | Done | [KAN-60](https://yarengursoy.atlassian.net/browse/KAN-60) |
+| Learning spike: LLM basics and prompt engineering | A learning spike note of at most one page is in docs/spikes/. It covers tokens, context window, temperature and why LLMs hallucinate, and gives a prompt that answers only from the given passages and says when it does not know. The member can explain the topic at the Sprint 1 review. Timeboxed; the member may choose another topic from the course's Sprint 1 fundamentals. | Yaren | Done | [KAN-61](https://yarengursoy.atlassian.net/browse/KAN-61) |
+| Learning spike: Scrum, Git and prompt engineering | A learning spike note of at most one page is in docs/spikes/ (`learning-gozde-nur.md`). It covers Scrum, Git and prompt engineering from the course's Sprint 1 fundamentals and states what the member learned for each topic; throw-away code only. The member can explain the topics at the Sprint 1 review. Timeboxed. | Gözde Nur | Done | [KAN-62](https://yarengursoy.atlassian.net/browse/KAN-62) |
+| Learning spike: evaluation basics and Recall@5 | A learning spike note of at most one page is in docs/spikes/. It explains what an evaluation set is, why it must be fixed before experiments, and what Recall@5 measures. The member can explain the topic at the Sprint 1 review. Timeboxed; the member may choose another topic from the course's Sprint 1 fundamentals. | Kaan | Done | [KAN-63](https://yarengursoy.atlassian.net/browse/KAN-63) |
+
+**Traceability**
+
+Deliverable: D4 System Design v1, acceptance criterion 7 (due 27/10/2026)  
+Milestone: M2 Sources and first design ready (28/10/2026)
+
+## Changes since v1 (27/10/2026)
+
+- [KAN-87](https://yarengursoy.atlassian.net/browse/KAN-87) Build and measure the baseline retrieval: changed from a user story to a task on 01/11/2026 (Sprint 1 review, comment 3); renamed from "Measure how well the baseline retrieval finds the expected provisions".
+- [KAN-88](https://yarengursoy.atlassian.net/browse/KAN-88) Update the Sprint 2 architecture design and technical documentation: changed from a user story to a task on 01/11/2026 (Sprint 1 review, comment 3); renamed from "Review the system design, the models used and the interface plan".
+- [KAN-168](https://yarengursoy.atlassian.net/browse/KAN-168) Run the whole pipeline from one README: changed from a user story to a task on 07/11/2026 (Sprint 1 review, comment 3).
+- [KAN-169](https://yarengursoy.atlassian.net/browse/KAN-169) Measure the beta against the baseline and the charter targets: changed from a user story to a task on 07/11/2026 (Sprint 1 review, comment 3).
+- [KAN-203](https://yarengursoy.atlassian.net/browse/KAN-203) Use a release candidate with the pilot problems fixed: test cases TC-203.1 to TC-203.5 added on 08/11/2026 ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)).
+- [KAN-221](https://yarengursoy.atlassian.net/browse/KAN-221) Label the frequent words with an LLM jury and test word removal for BM25: new sub-task of [KAN-87](https://yarengursoy.atlassian.net/browse/KAN-87).
