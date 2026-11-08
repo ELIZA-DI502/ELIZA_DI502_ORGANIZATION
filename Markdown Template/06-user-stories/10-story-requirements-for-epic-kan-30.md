@@ -19,13 +19,13 @@ For more info you can visit: https://www.atlassian.com/agile/product-management/
 
 ### User stories
 
-| # | User story title | User story description | Priority | Points | Owner | Sprint | Notes | Jira |
-|---|---|---|---|---|---|---|---|---|
-| S1 | [Use a release candidate with the pilot problems fixed](#s1--use-a-release-candidate-with-the-pilot-problems-fixed) | As an EdTech AI developer, I want to use a release candidate in which the problems found in the pilot are fixed, so that the system shown in the final demo is the one I can actually rely on. | High | – | – | Sprint 4 | Release: Release candidate 1.0; Status: To do; Depends on [KAN-202](https://yarengursoy.atlassian.net/browse/KAN-202) and [KAN-72](https://yarengursoy.atlassian.net/browse/KAN-72) (problems found in the pilot). | [KAN-203](https://yarengursoy.atlassian.net/browse/KAN-203) |
+| # | User story title | User story description | Role (ISO/IEC 5339) | Priority | Points | Owner | Sprint | Notes | Jira |
+|---|---|---|---|---|---|---|---|---|---|
+| S1 | [Use a release candidate with the pilot problems fixed](#s1--use-a-release-candidate-with-the-pilot-problems-fixed) | As an EdTech AI developer, I want to use a release candidate in which the problems found in the pilot are fixed, so that the system shown in the final demo is the one I can actually rely on. | AI user | High | – | – | Sprint 4 | Release: Release candidate 1.0; Status: To do; Depends on [KAN-202](https://yarengursoy.atlassian.net/browse/KAN-202) and [KAN-72](https://yarengursoy.atlassian.net/browse/KAN-72) (problems found in the pilot). | [KAN-203](https://yarengursoy.atlassian.net/browse/KAN-203) |
 
 ### Sprint 1 stories (historical, completed)
 
-These stories were written, built and closed in Sprint 1, before the Sprint 1 review. They are kept as they were written, because they are part of the Sprint 1 record (burndown and backlog export). Since that review (comment 3), work of this kind is a task, not a user story, so they are not part of the current product backlog. They are retained solely as historical sprint records and are excluded from the Sprint 2 test-case preparation ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)); their original Jira records remain unchanged.
+These stories were written, built and closed in Sprint 1, before the Sprint 1 review. They are kept as they were written, because they are part of the Sprint 1 record (burndown and backlog export). Since that review (comment 3), work of this kind is a task, not a user story, so they are not part of the current product backlog. They are retained solely as historical sprint records and are excluded from the Sprint 2 test-case preparation ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)); their original Jira records remain unchanged. The roles Data Scientist (team role) and Project Review Committee (course instructors) are not ISO/IEC 5339 stakeholder categories and are therefore not mapped.
 
 | # | Story title | Points | Owner | Status | Jira |
 |---|---|---|---|---|---|
@@ -43,7 +43,7 @@ Work that serves the users but is not a user goal of its own: evaluations, docum
 | T3 | [Run the whole pipeline from one README](#t3--run-the-whole-pipeline-from-one-readme) | Connect the interface to the full pipeline and make the whole assistant installable and runnable from one README, as the course Sprint 3 deliverable requires. | [KAN-21](https://yarengursoy.atlassian.net/browse/KAN-21) | – | – | Sprint 3 | [KAN-168](https://yarengursoy.atlassian.net/browse/KAN-168) |
 | T4 | [Measure the beta against the baseline and the charter targets](#t4--measure-the-beta-against-the-baseline-and-the-charter-targets) | Compare every Sprint 3 experiment with the Sprint 2 baseline and measure the beta against the charter targets on the same questions, to choose the product configuration and decide whether the beta is ready for the pilot. | [KAN-2](https://yarengursoy.atlassian.net/browse/KAN-2), [KAN-8](https://yarengursoy.atlassian.net/browse/KAN-8) | – | – | Sprint 3 | [KAN-169](https://yarengursoy.atlassian.net/browse/KAN-169) |
 
-Priority, points, owner and sprint are as in Jira on 08/11/2026. Points are given with planning poker at each sprint planning; a dash means not estimated yet. Every current user story has test cases, written in Sprint 2 ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)); they are planned tests to run when the story is built, not results.
+Priority, points, owner and sprint are as in Jira on 08/11/2026. Points are given with planning poker at each sprint planning; a dash means not estimated yet. The roles are the ISO/IEC 5339 stakeholder roles from the [User Story Map v2](02-user-story-map-v2.md) ([KAN-116](https://yarengursoy.atlassian.net/browse/KAN-116)). Every current user story has test cases, written in Sprint 2 ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)); they are planned tests to run when the story is built, not results.
 
 ## S1 · Use a release candidate with the pilot problems fixed
 
@@ -287,3 +287,4 @@ Milestone: M2 Sources and first design ready (28/10/2026)
 - [KAN-169](https://yarengursoy.atlassian.net/browse/KAN-169) Measure the beta against the baseline and the charter targets: changed from a user story to a task on 07/11/2026 (Sprint 1 review, comment 3).
 - [KAN-203](https://yarengursoy.atlassian.net/browse/KAN-203) Use a release candidate with the pilot problems fixed: test cases TC-203.1 to TC-203.5 added on 08/11/2026 ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)).
 - [KAN-221](https://yarengursoy.atlassian.net/browse/KAN-221) Label the frequent words with an LLM jury and test word removal for BM25: new sub-task of [KAN-87](https://yarengursoy.atlassian.net/browse/KAN-87).
+-  [KAN-116](https://yarengursoy.atlassian.net/browse/KAN-116) Check the story roles against ISO/IEC 5339: role column added to the user stories table and note added that the roles of the Sprint 1 records are not mapped, on 08/11/2026.
