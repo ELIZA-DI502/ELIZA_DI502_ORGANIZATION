@@ -5,3 +5,14 @@ Markdown Template/05-sprint-2/.DS_Store
 
 # Chroma vector store, rebuilt by src/embedding.ipynb (KAN-97)
 data/vector-store/
+
+# Secrets and local environments (README: Keys and settings)
+.env
+.venv/
+venv/
+__pycache__/
+.ipynb_checkpoints/
+
+# Local files of Weights & Biases runs (the results are on wandb.ai)
+wandb/
+src/wandb/
