@@ -295,6 +295,16 @@ O1 (search time) and O3 (understanding) are measured with pilot users in Sprint 
 | Ingestion and chunking | Embedding model        | Provision-level chunks with Article/Annex identifier and version date                                          | Python objects in the same process                         |
 | Embedding model        | Vector store           | Vectors, chunk texts and metadata                                                                              | Vector store client, files in data/vector-store/           |
 
+**User interface mockup (KAN-104):** the one-page interface of D1, drawn as an image; it is not connected to the system yet.
+
+![User interface mockup v1: question box with the personal-data reminder, an answer with a summary and the conditions and exceptions, the cited provisions with their reference and version date, one provision opened with its EUR-Lex source, and the permanent not-legal-advice notice](https://raw.githubusercontent.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/main/docs/images/ui-mockup-v1.png)
+
+The same page while an answer is being prepared, and when the system cannot answer (KAN-21, criteria 2 and 3):
+
+![User interface mockup v1, waiting and error states: a message while the answer is being prepared, and an error message without technical details that keeps the question in the box](https://raw.githubusercontent.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/main/docs/images/ui-mockup-v1-states.png)
+
+Mockup sources: [ui-mockup-v1.html](https://github.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/blob/main/docs/images/ui-mockup-v1.html), [ui-mockup-v1-states.html](https://github.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/blob/main/docs/images/ui-mockup-v1-states.html)
+
 ### Deployment
 
 <!-- Where each component runs (e.g. a laptop, a university server, a cloud service) at which stage (internal testing versus MVP) and how users reach the system. List the resources themselves in Facilities & Resources. ISO/IEC 5338: 6.4.12 Transition process. -->
@@ -639,6 +649,7 @@ Web and deployment part:
 | v1      | 2026-10-27 | Options considered of D1–D6 and D10–D12 written as Option / Pros / Cons tables, as in the template; evidence of D1 and D3 updated | —            |
 | v1      | 2026-10-27 | NLP part: in-scope provision list matched to the charter; D9 answer-time dates and licences; D12 evidence corrected | —            |
 | v1      | 2026-11-08 | D1 accepted: React + Node.js/Express is the chosen user interface technology (KAN-103) | —            |
+| v1      | 2026-11-09 | User interface mockup v1 added under Interfaces, with the waiting and error states (KAN-104) | —            |
 
 ## Checklist before submitting
 
