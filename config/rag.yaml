@@ -10,20 +10,20 @@ chunking:
 
 # Decisions D10-D12, chosen on the val questions in src/embedding.ipynb, Part 1.
 embedding:
-  model: BAAI/bge-m3                                 # step 6: best Recall@5 of five models (D10 had chosen bge-base on paper)
+  model: BAAI/bge-large-en-v1.5                      # step 6: best Recall@5 of five models, tied with bge-m3 (0.48); higher MRR (D10 had chosen bge-base on paper)
   remove_before_embedding: none                      # step 6b: removing jury words, frequent words or stopwords made the search worse
-  query_instruction: "Represent this sentence for searching relevant passages: "   # only for the bge v1.5 models; bge-m3 uses none
+  query_instruction: "Represent this sentence for searching relevant passages: "   # used: the chosen model is a bge v1.5 model
 vector_store:
   path: ../data/vector-store                         # D11, Chroma on disk with cosine distance (not committed; rebuilt by src/embedding.ipynb)
 bm25:
-  remove: stopwords                                  # step 5, scikit-learn list without "not", "no", "nor"; used only if dense_weight < 1.0
+  remove: stopwords                                  # step 5: scikit-learn list without "not", "no", "nor"; used, because dense_weight < 1.0
 judge:
   url: http://localhost:11434/api/chat               # Ollama, for the LLM jury of step 4
   temperature: 0                                     # same answer every run
   num_predict: 2000                                  # room to finish thinking if Ollama cannot switch it off
 retrieval:
-  mode: dense                                        # step 6: dense alone beat every weighted hybrid (E1 baseline), D12
-  dense_weight: 1.0                                  # weight of the dense list in weighted RRF; 1.0 = dense only
+  mode: hybrid                                       # step 6: embedding search with a little BM25 (weighted RRF) was the best (E1 baseline), D12
+  dense_weight: 0.9                                  # weight of the dense list in weighted RRF; BM25 gets 0.1; 1.0 = dense only
   top_k: 8                                           # step 7: highest Recall@k of 3, 5, 8 (D12)
   candidates: 20                                     # how many chunks each list gives to the fusion
   rrf_k: 60                                          # Reciprocal Rank Fusion constant
