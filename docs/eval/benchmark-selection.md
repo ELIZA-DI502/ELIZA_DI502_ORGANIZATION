@@ -46,17 +46,19 @@ Seven items are selected, two more than the minimum, so that the set still has a
 
 ## Selected items
 
-| ID | Benchmark item | Use case | Question type | Gold source (from the consolidated text) | Suggested reviewer (KAN-52) |
-|---|---|---|---|---|---|
-| BM-01 | `scenarios.json` #73 | (a) admission | direct lookup | Annex III, point 3(a); Article 6(2); Article 6(3), third subparagraph | Kaan |
-| BM-02 | `qa_pairs.json` #11 | (a) admission | condition / exception | Article 6(3), first subparagraph; second subparagraph, point (d); third subparagraph | Gözde Nur |
-| BM-03 | `scenarios.json` #103 | (b) learning-outcome assessment | direct lookup | Annex III, point 3(b); Article 6(2) | Gözde Nur |
-| BM-04 | `scenarios.json` #94 | (c) level placement | direct lookup | Annex III, point 3(c); Article 6(2) | Kaan |
-| BM-05 | `scenarios.json` #84 | (d) exam monitoring | direct lookup | Annex III, point 3(d); Article 6(2) | Yaren |
-| BM-06 | `scenarios.json` #139 | (d) exam monitoring | boundary case | Article 5(1), first subparagraph, point (f); Annex III, point 3(d) | Yaren |
-| BM-07 | `qa_pairs.json` #88 | (a) admission (the date applies to all four) | direct lookup (application date) | Article 113, third paragraph, point (c)(i); Annex III, point 3(a) | Kaan |
+On 09/11/2026 every question in `eval-set-v1.csv` took the ID of its use case (team meeting). The benchmark questions were `BM-01`–`BM-07` until then; the old ID is given in brackets below, and the benchmark origin stays in the `origin` column.
 
-### BM-01 · Scenario #73
+| ID (until 09/11/2026) | Benchmark item | Use case | Question type | Gold source (from the consolidated text) | Reviewer (team meeting, 09/11/2026) |
+|---|---|---|---|---|---|
+| A-05 (BM-01) | `scenarios.json` #73 | (a) admission | direct lookup | Annex III, point 3(a); Article 6(2); Article 6(3), third subparagraph | Yaren |
+| A-06 (BM-02) | `qa_pairs.json` #11 | (a) admission | condition / exception | Article 6(3), first subparagraph; second subparagraph, point (d); third subparagraph | Yaren |
+| B-08 (BM-03) | `scenarios.json` #103 | (b) learning-outcome assessment | direct lookup | Annex III, point 3(b); Article 6(2) | Gözde Nur |
+| C-07 (BM-04) | `scenarios.json` #94 | (c) level placement | direct lookup | Annex III, point 3(c); Article 6(2) | Gözde Nur |
+| D-11 (BM-05) | `scenarios.json` #84 | (d) exam monitoring | direct lookup | Annex III, point 3(d); Article 6(2) | Kaan |
+| D-12 (BM-06) | `scenarios.json` #139 | (d) exam monitoring | boundary case | Article 5(1), first subparagraph, point (f); Annex III, point 3(d) | Kaan |
+| A-07 (BM-07) | `qa_pairs.json` #88 | (a) admission (the date applies to all four) | direct lookup (application date) | Article 113, third paragraph, point (c)(i); Annex III, point 3(a) | Yaren |
+
+### A-05 (BM-01) · Scenario #73
 
 - **Original:** "AI platform that determines admission to university programmes based on academic records and socio‑economic background" (role: Deployer; system type: Admission decision AI; input data: Academic transcripts, standardized test scores, demographic data; benchmark label: high-risk)
 - **Why:** a direct example of use case (a).
@@ -64,7 +66,7 @@ Seven items are selected, two more than the minimum, so that the set still has a
 - **Answer (gold, from the consolidated text of 27/07/2026):** Annex III, point 3(a) lists AI systems intended to be used to determine access or admission or to assign natural persons to educational and vocational training institutions at all levels, and Article 6(2) makes the AI systems referred to in Annex III high-risk. If the system performs profiling of natural persons, the Article 6(3) exception can never apply (Article 6(3), third subparagraph).
 - **Gold source:** Annex III, point 3(a); Article 6(2); Article 6(3), third subparagraph
 
-### BM-02 · Question-answer pair #11
+### A-06 (BM-02) · Question-answer pair #11
 
 - **Original question:** "Can a provider consider an Annex III AI system as not high‑risk?"
 - **Original answer:** "Yes, if it meets certain conditions such as performing a narrow procedural task, improving a prior human activity, or detecting decision‑making patterns without replacing human assessment, and documents this assessment." (article: 6)
@@ -74,7 +76,7 @@ Seven items are selected, two more than the minimum, so that the set still has a
 - **Gold source:** Article 6(3), first subparagraph; Article 6(3), second subparagraph, point (d); Article 6(3), third subparagraph
 - **Note:** Article 6(4) (the provider documents its assessment) also concerns this question, but it is not in `data/provision-list.csv`, so it is left out of the gold answer until the open decision Q-12 in the data report is made.
 
-### BM-03 · Scenario #103
+### B-08 (BM-03) · Scenario #103
 
 - **Original:** "AI that evaluates student learning outcomes and automatically adjusts curriculum pathways" (role: Deployer; system type: Adaptive learning outcome AI; input data: Assessment scores, interaction logs, learning analytics; benchmark label: high-risk)
 - **Why:** matches the wording of Annex III, point 3(b), including "to steer the learning process".
@@ -82,7 +84,7 @@ Seven items are selected, two more than the minimum, so that the set still has a
 - **Answer (gold, from the consolidated text of 27/07/2026):** Annex III, point 3(b) lists AI systems intended to be used to evaluate learning outcomes, including when those outcomes are used to steer the learning process of natural persons in educational and vocational training institutions at all levels. Under Article 6(2), the AI systems referred to in Annex III are considered high-risk.
 - **Gold source:** Annex III, point 3(b); Article 6(2)
 
-### BM-04 · Scenario #94
+### C-07 (BM-04) · Scenario #94
 
 - **Original:** "AI that determines the appropriate level of education for students based on prior achievement and aptitude tests" (role: Provider; system type: Education placement AI; input data: Test scores, learning analytics, socio‑demographic data; benchmark label: high-risk)
 - **Why:** a direct example of use case (c).
@@ -90,7 +92,7 @@ Seven items are selected, two more than the minimum, so that the set still has a
 - **Answer (gold, from the consolidated text of 27/07/2026):** Annex III, point 3(c) lists AI systems intended to be used for assessing the appropriate level of education that an individual will receive or will be able to access, in the context of or within educational and vocational training institutions at all levels. Under Article 6(2), the AI systems referred to in Annex III are considered high-risk.
 - **Gold source:** Annex III, point 3(c); Article 6(2)
 
-### BM-05 · Scenario #84
+### D-11 (BM-05) · Scenario #84
 
 - **Original:** "AI platform that evaluates student exam submissions for plagiarism and cheating in real time" (role: Provider; system type: Exam monitoring AI; input data: Student code submissions, text similarity databases, webcam feeds; benchmark label: high-risk)
 - **Why:** a direct example of use case (d).
@@ -98,7 +100,7 @@ Seven items are selected, two more than the minimum, so that the set still has a
 - **Answer (gold, from the consolidated text of 27/07/2026):** Annex III, point 3(d) lists AI systems intended to be used for monitoring and detecting prohibited behaviour of students during tests in the context of or within educational and vocational training institutions at all levels. Under Article 6(2), the AI systems referred to in Annex III are considered high-risk.
 - **Gold source:** Annex III, point 3(d); Article 6(2)
 
-### BM-06 · Scenario #139
+### D-12 (BM-06) · Scenario #139
 
 - **Original:** "Emotion recognition AI used in online examinations to detect stress and possible cheating behaviour" (role: Deployer; system type: Exam stress detection AI; input data: Webcam video, voice analysis, keystroke dynamics; benchmark label: high-risk)
 - **Why:** a boundary case between exam monitoring (Annex III, point 3(d)) and the prohibition in Article 5(1)(f). The benchmark label `high-risk` does not match the text; the gold answer follows Article 5(1)(f).
@@ -106,7 +108,7 @@ Seven items are selected, two more than the minimum, so that the set still has a
 - **Answer (gold, from the consolidated text of 27/07/2026):** Article 5(1)(f) prohibits placing on the market, putting into service for this specific purpose, or using AI systems to infer emotions of a natural person in the areas of workplace and education institutions, except where the use of the AI system is intended to be put in place or into the market for medical or safety reasons. Monitoring and detecting prohibited behaviour of students during tests is an Annex III use case (point 3(d)), but being listed in Annex III does not lift the prohibition on inferring emotions.
 - **Gold source:** Article 5(1), first subparagraph, point (f); Annex III, point 3(d)
 
-### BM-07 · Question-answer pair #88
+### A-07 (BM-07) · Question-answer pair #88
 
 - **Original question:** "When does the AI Regulation become applicable to high‑risk AI systems listed in Annex III?"
 - **Original answer:** "From 2 August 2026, with certain provisions applying earlier for specific sections." (article: 113)
@@ -121,8 +123,8 @@ Seven items are selected, two more than the minimum, so that the set still has a
 - **Gold answers and gold sources:** written from the consolidated text of 27/07/2026 ([`data/CELEX_02024R1689-20260727_EN.pdf`](../../data/CELEX_02024R1689-20260727_EN.pdf)), quoting the provision where possible; gold sources use the names in `data/provision-list.csv` (decision Q-08). The benchmark answers, labels and article lists were not used as gold.
 - **LLM use (D2 criterion 6):** the selection, the questions and the gold answers were drafted with claude-opus-5-5 (Claude Opus 5.5) in an interactive chat on 04/11/2026. The prompt asked the model to find education items in the benchmark files, compare them with the provision list, and draft one question per selected item with a gold answer taken only from the consolidated text. Yeşim chose the items, edited the questions and checked every gold answer against the PDF.
 - **Origin column:** `Adapted from AI Act Evaluation Benchmark (Davvetas et al., 2026, arXiv:2603.09435), <file> #<item>, CC BY 4.0`.
-- **Labels (08/11/2026):** the questions carry the labels of the [question-writing method](question-writing-method.md) (`user`, `premise`, `hops`, `challenge`, `gold_ids`); BM-01, BM-02 and BM-07 were labelled with the other Case A questions.
-- **Next:** each question is checked by a team member other than its author (KAN-52), recorded in the `reviewer` column; the suggested reviewer is in the table above. The questions count towards their use case (D2 criterion 2), so each use case owner writes fewer questions of their own. The other questions of each use case are added to the same file by 11/11/2026.
+- **Labels (08/11/2026):** the questions carry the labels of the [question-writing method](question-writing-method.md) (`user`, `premise`, `hops`, `challenge`, `gold_ids`); A-05, A-06 and A-07 were labelled with the other Case A questions; B-08, C-07, D-11 and D-12 were labelled on 09/11/2026.
+- **Next:** each question is checked by a team member other than its author (KAN-52), recorded in the `reviewer` column. The reviewers were agreed in the team meeting of 09/11/2026: Yaren reviews (a), Yeşim (b), Gözde Nur (c) and Kaan (d). B-08 is a (b) question written by Yeşim, so Gözde Nur reviews it. The questions count towards their use case (D2 criterion 2), so each use case owner writes fewer questions of their own. The other questions of each use case are added to the same file by 11/11/2026.
 
 ## Items not selected
 

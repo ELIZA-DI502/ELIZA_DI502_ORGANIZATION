@@ -1,6 +1,6 @@
 # How we write the evaluation questions
 
-**Jira:** [KAN-85](https://yarengursoy.atlassian.net/browse/KAN-85) · **Owner:** Yeşim (Product Owner) · **Date:** 07/11/2026 · **Status:** adopted on 08/11/2026 (shared with the team on 07/11/2026; no objections); revised on 08/11/2026: gold answers may be drafted with an LLM from the gold provision texts only, with the checks in Step 6 · **For:** D2 Q&A Generation-Dataset v1 ([`eval-set-v1.csv`](eval-set-v1.csv)) and its [data card](../../Markdown%20Template/11-datasheets/03-qa-data-report.md)
+**Jira:** [KAN-85](https://yarengursoy.atlassian.net/browse/KAN-85) · **Owner:** Yeşim (Product Owner) · **Date:** 07/11/2026 · **Status:** adopted on 08/11/2026 (shared with the team on 07/11/2026; no objections); revised on 08/11/2026: gold answers may be drafted with an LLM from the gold provision texts only, with the checks in Step 6; revised on 09/11/2026: 46 questions, and every question has the ID of its use case · **For:** D2 Q&A Generation-Dataset v1 ([`eval-set-v1.csv`](eval-set-v1.csv)) and its [data card](../../Markdown%20Template/11-datasheets/03-qa-data-report.md)
 
 This page says how every question in the evaluation set is written. It follows the six-step workflow of the lecture *Building test datasets for RAG* (T. Taskaya Temizel, 04/11/2026), applied to ELIZA. Every team member uses it when writing questions. It does not replace the D2 acceptance criteria in [Deliverables](../../Markdown%20Template/03-project-canvas/05-deliverables.md); it says how we meet them.
 
@@ -66,10 +66,10 @@ Before writing, we fix who asks and how. Every question gets one value on each a
 
 ### Target counts
 
-We set counts, not percentages: with 40 questions, a percentage of a small category is often not a whole question. The counts are set in this order:
+We set counts, not percentages: with 46 questions, a percentage of a small category is often not a whole question. The counts are set in this order:
 
 1. **The fixed minimums of the D2 acceptance criteria** (below).
-2. **The total number of questions.** 40, agreed on 08/11/2026 (see "Allocation: who writes what").
+2. **The total number of questions.** 46, agreed on 09/11/2026 (see "Allocation: who writes what").
 3. **The counts on the other axes**, using the shares below.
 4. **The questions we already have** are labelled and placed in this table, including the 7 adapted from the AI Act Evaluation Benchmark.
 5. **The gaps** are filled with new questions.
@@ -179,16 +179,18 @@ The existing columns of `eval-set-v1.csv` stay as they are. Five columns are add
 
 ## Allocation: who writes what
 
-**Total: 40 questions, 10 for each use case, at least 3 of them safety questions.** This needs D2 criterion 1 to change from 20–30 to 20–40 questions in Charter v2 (KAN-89); D8 (v2, Sprint 3) asks for at least 40 questions anyway. *Agreed on 08/11/2026: no objections from the team, and the instructor allowed up to about 40 questions.*
+**Total: 46 questions, at least 10 for each use case, at least 3 of them safety questions.** The plan of 08/11/2026 was 40 questions, 10 for each use case. On 09/11/2026 the team kept all 46 questions that were written, because written questions are not deleted and the extra questions add safety and follow-up questions. The use cases are not of equal size, so scores are reported for each use case as well as overall (see "Reporting per slice"). This needs D2 criterion 1 to change from 20–30 to 20–50 questions in Charter v2 (KAN-89); D8 (v2, Sprint 3) asks for at least 40 questions anyway. *Agreed on 08/11/2026 (40 questions): no objections from the team, and the instructor allowed up to about 40 questions. Changed to 46 in the team meeting of 09/11/2026.*
 
 | Use case | Responsible | Questions | Safety categories |
 |---|---|---|---|
-| (a) admission | Yeşim | 10, at least 3 safety | legal decision, adversarial, out of scope |
-| (b) learning-outcome assessment | Gözde Nur | 10, at least 3 safety | out of scope, insufficient evidence, legal decision, adversarial |
-| (c) level placement | Kaan | 10, at least 3 safety | insufficient evidence, adversarial, adversarial |
-| (d) exam monitoring | Yaren | 10, at least 3 safety | adversarial, adversarial, out of scope |
+| (a) admission | Yeşim | 10, 3 safety | legal decision, adversarial, out of scope |
+| (b) learning-outcome assessment | Gözde Nur | 11, 4 safety | out of scope, insufficient evidence, legal decision, adversarial |
+| (c) level placement | Kaan | 10, 3 safety | insufficient evidence, adversarial, adversarial |
+| (d) exam monitoring | Yaren | 15, 3 safety | adversarial, adversarial, out of scope |
 
-The 7 questions adapted from the AI Act Evaluation Benchmark (`BM-01`–`BM-07`) count towards their use case: (a) 3, (b) 1, (c) 1, (d) 2.
+The 7 questions adapted from the AI Act Evaluation Benchmark count towards their use case: (a) 3 (`A-05`–`A-07`), (b) 1 (`B-08`), (c) 1 (`C-07`), (d) 2 (`D-11`, `D-12`). Until 09/11/2026 they were `BM-01`–`BM-07`.
+
+**IDs.** Every question has the letter of its use case and a number: `A-01`, `A-02`, … for (a), and `B-`, `C-`, `D-` for (b), (c) and (d); safety questions have `-S`: `A-S1`, `B-S1`, … (team meeting, 09/11/2026).
 
 In each use case:
 
@@ -198,4 +200,4 @@ In each use case:
 
 With these, every minimum of the D2 acceptance criteria is met: 3 questions per use case, 2 per question type, 2 out of scope, 2 insufficient evidence, 2 legal decision and 5 adversarial questions, and 5 adapted from published work. The false-premise, time-sensitive and "why" questions of Step 2 are placed by the authors and checked in Step 6.
 
-Questions written beyond the 10 of a use case are not deleted: they move, with all their columns, to `docs/eval/v2-candidates.csv`, to be used in v2.
+On 09/11/2026 the team kept all 46 written questions in v1. Questions written after v1 is frozen are not deleted: they go, with all their columns, to `docs/eval/v2-candidates.csv`, to be used in v2.
