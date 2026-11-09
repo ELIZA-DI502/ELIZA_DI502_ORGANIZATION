@@ -27,7 +27,7 @@ Drafted on 08/11/2026 for the halfway check (KAN-101). The targets are the succe
 
 | Metric | Why it fits | Target |
 |---|---|---|
-| **Recall@5** (provision level, against `gold_ids`) | The LLM sees only the top 5 passages, so a provision missing there cannot be cited. Computed from the gold IDs, without an LLM judge, overall and per slice of the [question-writing method](../../docs/eval/question-writing-method.md) (for example multi-hop) | No pass level (analysis, D6 criterion 5); read against O2 (a) |
+| **Recall@5 and Recall@8** (provision level, against `gold_ids`) | The LLM sees only the top 8 passages (D14), so a provision missing there cannot be cited; Recall@5 is the measure D6 names, Recall@8 the one for the chosen top-k. Computed from the gold IDs, without an LLM judge, overall and per slice of the [question-writing method](../../docs/eval/question-writing-method.md) (for example multi-hop) | No pass level (analysis, D6 criterion 5); read against O2 (a) |
 | **MRR** (provision level) | Shows whether the first gold provision is near the top of the list; used to compare ranking settings in Sprint 3 (D12) | No pass level (analysis) |
 | **Expected provision cited** (O2 (a)) | The user's need is to find the provision that applies to their use case | ≥ 80% of in-scope questions |
 | **Fully supported answers** (O2 (b)), with faithfulness behind it | An answer can cite the right provision and still add claims that are not in it; checked by a reviewer with the rubric | ≥ 75% of in-scope answers; faithfulness: no target |
