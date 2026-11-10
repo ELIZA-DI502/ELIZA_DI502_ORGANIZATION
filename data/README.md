@@ -38,7 +38,7 @@ EUR-Lex content is reused under Commission Decision 2011/833/EU, with source ack
 
 ## Provision list
 
-103 provisions: 68 core, 28 supporting, 2 boundary and 5 if-time. They follow the provision priority in the Scope Definition. Article 6(4) and Article 49(2) were added on 05/11/2026 because the D2 questions `B-02` and `B-03` need them (D3 criterion 3); the Scope Definition is updated with the final list in KAN-107.
+103 provisions: 68 core, 28 supporting, 2 boundary and 5 if-time. They follow the provision priority in the Scope Definition. Article 6(4) and Article 49(2) were added on 05/11/2026 because the D2 questions `B-S4` and `B-03` need them (D3 criterion 3); the Scope Definition is updated with the final list in KAN-107.
 
 | Priority | Area | Provisions | Count |
 |---|---|---|---|
