@@ -48,7 +48,7 @@ Priority, points, owner and sprint are as in Jira on 08/11/2026. Points are give
 1. When the assistant answers an in-scope question, the assistant shall show each provision it uses with its Article or Annex reference (down to the paragraph or point) and the version date of the consolidated text (27 July 2026).
 2. When an answer uses more than one provision (for example Annex III point 3(b) together with Article 6(3)), the assistant shall show them in the same answer and state how they relate where the source text supports it (for example "condition" or "exception").
 3. The assistant shall cite only provisions that are among the retrieved chunks and that support the information it gives; a citation that does not match a retrieved chunk shall not be shown.
-4. For every substantive answer to an in-scope question in the D2 `val` split, the assistant shall show at least one Article or Annex reference with the version date (O2(c)). The share of questions whose expected provision is cited (O2(a)) and the retrieval Recall@5 shall be reported separately in the Sprint 2 technical summary (D6).
+4. For every substantive answer to an in-scope question in the D2 `val` split, the assistant shall show at least one Article or Annex reference with the version date (O2(c)). The share of questions whose expected provision is cited (O2(a)) and the retrieval Recall@8 (Recall@5 also reported) shall be reported separately in the Sprint 2 technical summary (D6).
 
 **Test cases**
 
@@ -67,7 +67,7 @@ Adapted from the use-case stories [KAN-10](https://yarengursoy.atlassian.net/bro
 | Show each cited provision with its reference and version date | Every substantive answer lists each provision it uses, down to the paragraph or point, with the version date of the consolidated text (27/07/2026). | Yeşim | To do | [KAN-126](https://yarengursoy.atlassian.net/browse/KAN-126) |
 | Show how several provisions relate | When an answer uses more than one provision, they are shown in the same answer, with "condition" or "exception" where the source text supports it. | Yeşim | To do | [KAN-127](https://yarengursoy.atlassian.net/browse/KAN-127) |
 | Check every citation against the retrieved chunk IDs | A citation that does not match a retrieved chunk is removed before the answer is shown, and 100% of the shown citations match the IDs of the retrieved chunks. | Yaren | To do | [KAN-128](https://yarengursoy.atlassian.net/browse/KAN-128) |
-| Report citation coverage and the expected-provision rate on the val split | O2 (c), the share of substantive answers with at least one Article/Annex reference and the version date, and O2 (a), the share of questions whose expected provision is cited, are logged with Recall@5 for the D2 `val` split. | Yaren | To do | [KAN-129](https://yarengursoy.atlassian.net/browse/KAN-129) |
+| Report citation coverage and the expected-provision rate on the val split | O2 (c), the share of substantive answers with at least one Article/Annex reference and the version date, and O2 (a), the share of questions whose expected provision is cited, are logged with Recall@8 (Recall@5 also reported) for the D2 `val` split. | Yaren | To do | [KAN-129](https://yarengursoy.atlassian.net/browse/KAN-129) |
 
 **Traceability**
 

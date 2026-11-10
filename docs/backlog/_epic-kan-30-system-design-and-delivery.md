@@ -98,8 +98,8 @@ Milestone: M2 Sources and first design ready (28/10/2026)
 
 **Acceptance criteria**
 
-1. The vector index covers every chunk from D5, and the retriever returns the top 5 passages for each D2 `val` question (course halfway check: by 11/11/2026 for a handful of test questions).
-2. Recall@5 and the comparison of answers without and with retrieval on the `val` split are logged in Weights & Biases and recorded in `Markdown Template/12-experiment-cards/E1-baseline.md` (D6 criterion 5).
+1. The vector index covers every chunk from D5, and the retriever returns the top 8 passages for each D2 `val` question (course halfway check: by 11/11/2026 for a handful of test questions).
+2. Recall@8 (Recall@5 also reported) and the comparison of answers without and with retrieval on the `val` split are logged in Weights & Biases and recorded in `Markdown Template/12-experiment-cards/E1-baseline.md` (D6 criterion 5).
 3. The baseline experiment card records the corpus version from `data/manifest.csv`, the prompt templates and the `config/rag.yaml` version (D6 criterion 9).
 4. A team member who did not build it can install and run the baseline from `README.md`; `requirements.txt` has 0 unpinned packages; prompts are in `prompts/` (D6 criteria 1, 9).
 5. The Sprint 2 technical summary names the chosen metrics and why, the baseline score, the target from the charter, and the known failures on the `val` split (D6 criteria 5, 8).
@@ -108,9 +108,9 @@ Milestone: M2 Sources and first design ready (28/10/2026)
 
 | Sub-task | Done when | Owner | Estimate | Status | Jira |
 |---|---|---|---|---|---|
-| Build the vector index and the retriever | The embedding model and vector store chosen in the design document index every D5 chunk, and the retriever returns the top 5 passages for a question; retrieval parameters are in `config/rag.yaml`. By 11/11/2026 retrieval returns passages for a handful of test questions (course halfway check). | – | – | To do | [KAN-97](https://yarengursoy.atlassian.net/browse/KAN-97) |
+| Build the vector index and the retriever | The embedding model and vector store chosen in the design document index every D5 chunk, and the retriever returns the top 8 passages for a question; retrieval parameters are in `config/rag.yaml`. By 11/11/2026 retrieval returns passages for a handful of test questions (course halfway check). | – | – | To do | [KAN-97](https://yarengursoy.atlassian.net/browse/KAN-97) |
 | Set up the README, pinned requirements and prompts folder | `README.md` explains setup and running; `requirements.txt` has 0 unpinned packages; prompts are in `prompts/`. A team member who did not build it runs it once from the README. | – | – | To do | [KAN-98](https://yarengursoy.atlassian.net/browse/KAN-98) |
-| Run Recall@5 and the comparison without and with retrieval on the val split | Recall@5 and the answers without and with retrieval are logged in Weights & Biases for every D2 `val` question. | – | – | To do | [KAN-99](https://yarengursoy.atlassian.net/browse/KAN-99) |
+| Run Recall@8 and the comparison without and with retrieval on the val split | Recall@8 (Recall@5 also reported) and the answers without and with retrieval are logged in Weights & Biases for every D2 `val` question. | – | – | To do | [KAN-99](https://yarengursoy.atlassian.net/browse/KAN-99) |
 | Write the baseline experiment card | `Markdown Template/12-experiment-cards/E1-baseline.md` records the baseline parameters, the corpus version from `data/manifest.csv`, the prompt templates, the `config/rag.yaml` version and the results. | – | – | To do | [KAN-100](https://yarengursoy.atlassian.net/browse/KAN-100) |
 | Write the Sprint 2 technical summary | `Markdown Template/05-sprint-2/01-review-committee-technical-summary.md` gives the chosen metrics and why, the baseline score, the target from the charter and the known failures on the `val` split, and links the baseline experiment card. The metrics and their targets are drafted by 11/11/2026 (course halfway check). | – | – | To do | [KAN-101](https://yarengursoy.atlassian.net/browse/KAN-101) |
 
