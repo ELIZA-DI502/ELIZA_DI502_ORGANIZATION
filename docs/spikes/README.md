@@ -2,6 +2,8 @@
 
 Spike notes: short, timeboxed learning or research, one note per spike (course repository structure: `docs/spikes/`). The design decisions they support are recorded in the [System Architecture Design Document](../../Markdown%20Template/11-system-architecture-design-document.md).
 
+From Sprint 2, every learning spike states what it changes in the product, and experiment setups are written in an experiment card in [`Markdown Template/12-experiment-cards/`](../../Markdown%20Template/12-experiment-cards/), not in the spike note (Sprint 1 review, comment 9).
+
 ## Sprint 1
 
 | Note | What it is | Jira |
