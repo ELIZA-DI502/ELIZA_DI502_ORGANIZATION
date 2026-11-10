@@ -19,9 +19,9 @@
 
 - Evaluation set: [`docs/eval/eval-set-v1-val.csv`](../../docs/eval/eval-set-v1-val.csv), 30 questions, 27 with `gold_ids` (commit `842c692`, KAN-53)
 - Corpus: SRC-02 in [`data/manifest.csv`](../../data/manifest.csv), consolidated text of 27/07/2026 (SHA-256 starting `e7184c2b0a8037fb`)
-- Configuration: [`config/rag.yaml`](../../config/rag.yaml) at commit `5e39936` (KAN-99)
-- Prompt files:
-- W&B: retrieval settings and scores in [run `oyrsrqwf`](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/oyrsrqwf)
+- Configuration: [`config/rag.yaml`](../../config/rag.yaml) at commit `a7d9180` (KAN-99)
+- Prompt files: [`prompts/answer.yaml`](../../prompts/answer.yaml)
+- W&B: retrieval settings and scores in [run `v7g5hhxh`](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/v7g5hhxh)
 <!--
 Links only:
 - The public W&B sweep or project. W&B records every combination you tested, including the fixed parameters.
@@ -36,9 +36,9 @@ Links only:
 |---|---|---|
 | Source text | SRC-02 HTML, CELEX 02024R1689-20260727 (D8) | – |
 | Chunking | one chunk per Article paragraph or Annex point; `max_chars` 1,500 (D7) | – |
-| Embedding model | `BAAI/bge-large-en-v1.5`, no words removed (D13) | – |
+| Embedding model | `BAAI/bge-m3`, no words removed (D13) | – |
 | Vector store | Chroma, cosine distance (D11) | – |
-| Retrieval | dense search with BM25 (weighted RRF, dense weight 0.9, stopwords removed for BM25), top-k 8 (D14) | – |
+| Retrieval | dense search with BM25 (weighted RRF, dense weight 0.8; stopwords and the LLM jury's words removed for BM25), top-k 8 (D14) | – |
 | LLM for the answers | Llama-3.1-8B-Instruct `Q4_K_M` via Ollama, temperature 0, at most 300 answer tokens (D9) | – |
 
 **Search method and runs:** none; one configuration, the baseline. Its settings were chosen on the `val` questions in [`src/embedding.ipynb`](../../src/embedding.ipynb), Part 1 (KAN-99).
