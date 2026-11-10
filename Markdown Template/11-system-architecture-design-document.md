@@ -66,7 +66,7 @@ Use one tool and delete the other option below:
   Write the diagram in a ```mermaid block.
 -->
 
-**Version:** v3 (2026-11-10): no database container, the conversation is kept in the web backend's memory (D15); embedding model bge-large-en-v1.5 (D13); dense search with a little BM25, top 8 chunks (D14). v2 (2026-11-09), v1 (2026-10-25)
+**Version:** v4 (2026-11-10): embedding model bge-m3 (D13); dense search with some BM25 (dense weight 0.8), top 8 chunks, every choice scored at 8 chunks (D14). v3 (2026-11-10): no database container, the conversation is kept in the web backend's memory (D15). v2 (2026-11-09), v1 (2026-10-25)
 
 ```mermaid
 %%{init: {"theme": "base", "themeVariables": {"background": "#ffffff", "primaryColor": "#ffffff", "primaryBorderColor": "#555555", "primaryTextColor": "#222222", "lineColor": "#555555", "clusterBkg": "#f5f5f5", "clusterBorder": "#999999", "edgeLabelBackground": "#ffffff", "fontSize": "15px"}}}%%
@@ -81,8 +81,8 @@ flowchart LR
         end
         subgraph rag["<b>rag container (FastAPI)</b>"]
             inchk["<b>Input check</b><br/>Python, rule-based"]
-            retr["<b>Retriever</b><br/>dense 0.9 + BM25 0.1, top 8 chunks"]
-            kw[("<b>Keyword index</b><br/>rank_bm25, stopwords removed")]
+            retr["<b>Retriever</b><br/>dense 0.8 + BM25 0.2, top 8 chunks"]
+            kw[("<b>Keyword index</b><br/>rank_bm25, stopwords and<br/>jury words removed")]
             vs[("<b>Vector store</b><br/>Chroma")]
             pb["<b>Prompt builder</b><br/>template in prompts/"]
             outchk["<b>Output check</b><br/>Python, rule-based"]
@@ -95,7 +95,7 @@ flowchart LR
     subgraph offline["<b>OFFLINE DATA PIPELINE (run once, outside Docker)</b>"]
         src[("<b>Source</b><br/>EUR-Lex HTML")]
         ingest["<b>Ingestion and chunking</b><br/>rag/ingest.py, parsed by structure"]
-        emb["<b>Embedding model</b><br/>bge-large-en-v1.5"]
+        emb["<b>Embedding model</b><br/>bge-m3"]
     end
 
     user -->|question / answer| ui
@@ -122,7 +122,7 @@ flowchart LR
     style ollama fill:#efefef,stroke:#999999
 ```
 
-![System architecture v3: the AI user, the web, rag and ollama containers on a team computer (CPU only), the offline data pipeline and the evaluation](https://raw.githubusercontent.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/main/docs/images/system-architecture-v3.png)
+![System architecture v4: the AI user, the web, rag and ollama containers on a team computer (CPU only), the offline data pipeline and the evaluation](https://raw.githubusercontent.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/main/docs/images/system-architecture-v4.png)
 
 The same diagram as an image, for viewers that do not draw Mermaid (for example Confluence). Source: the Mermaid block above.
 
@@ -136,7 +136,7 @@ The same diagram as an image, for viewers that do not draw Mermaid (for example 
 | Evaluation             | Sends the evaluation questions to the RAG service, computes the metrics and logs every run                                                                                                                                                                                                                 | Python scripts that call `POST /answer`; metrics and targets in section 5, Evaluation + Weights & Biases (course tool)                                                                                                                                                                             | not yet listed |
 | Source                 | Official consolidated text of Regulation (EU) 2024/1689, version 27/07/2026 (C-01, C-09)                                                                                                                                                                                                                   | EUR-Lex HTML, CELEX 02024R1689-20260727                                                                                                                                                                                            | not yet listed |
 | Ingestion and chunking | Reads the stored HTML and splits it into one chunk per Article paragraph or Annex point (a paragraph with points gives one chunk per point), with its identifier and the version date                                                                                                                      | Python script `rag/ingest.py`; parses the EUR-Lex HTML by its structure (D7, D8)                                                                                                                                                 | not yet listed |
-| Embedding model        | Turns each chunk, and each question at query time, into a vector                                                                                                                                                                                                                                           | `BAAI/bge-large-en-v1.5` via `sentence-transformers` (D13)                                                                                                                                                                      | AI SBOM        |
+| Embedding model        | Turns each chunk, and each question at query time, into a vector                                                                                                                                                                                                                                           | `BAAI/bge-m3` via `sentence-transformers` (D13)                                                                                                                                                                                 | AI SBOM        |
 | User interface         | Question box, answer with cited provisions and their text, permanent not-legal-advice notice, a reminder not to enter personal data with a statement of how questions are stored, and a warning before sending a question that contains an e-mail address or phone number (KAN-21, KAN-22, KAN-25, KAN-26) | React, built with Vite; version pinned in the SBOM                                                                                                                                                                                 | not yet listed |
 | Web backend            | Session handling with a session cookie, keeping the question-answer pairs of the current session in memory (D15), rate limiting, anonymous logs without question content, error messages, forwarding questions to the RAG service                                                                                      | Node.js + Express; version pinned in the SBOM                                                                                                                                                                                      | not yet listed |
 | Input check            | Decides whether a question is in scope, asks for help with evading the rules, or contains personal data, and returns a notice instead of an answer when needed. A legal-decision question is not blocked: it is flagged, and the answer declines the decision and shows the relevant provisions (KAN-2)                                                                                                                     | Python in the RAG service; rule-based patterns, tested in the [model selection spike](../docs/spikes/model-selection-spike.md); personal-data rules open ([KAN-49](https://yarengursoy.atlassian.net/browse/KAN-49)) | not yet listed |
@@ -167,11 +167,11 @@ We did these tests to understand how the text is split and how each model answer
 
 **Built in Sprint 2:** the chunking ([`src/chunking.ipynb`](../src/chunking.ipynb), KAN-93), the vector index and the retriever ([`src/embedding.ipynb`](../src/embedding.ipynb), KAN-97; the vector store in `data/vector-store/` is rebuilt by the notebook and not committed), the retrieval tests on the `val` questions (same notebook, KAN-221, KAN-99), [`config/rag.yaml`](../config/rag.yaml) with the values below, and [`docs/eval/preprocessing.md`](../docs/eval/preprocessing.md). `rag/ingest.py` and `requirements.txt` are still planned. The rest of this section describes the design.
 
-**NLP pipeline** (v3, 2026-11-10; decisions D7–D14; v2 of 2026-11-09 showed bge-m3 and dense search only, v1 of 2026-10-25 bge-base-en-v1.5 and hybrid search):
+**NLP pipeline** (v4, 2026-11-10; decisions D7–D14; v3 showed bge-large-en-v1.5, v2 of 2026-11-09 bge-m3 and dense search only, v1 of 2026-10-25 bge-base-en-v1.5 and hybrid search):
 
-![NLP pipeline v3](https://raw.githubusercontent.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/main/docs/images/nlp-pipeline-v3.png)
+![NLP pipeline v4](https://raw.githubusercontent.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/main/docs/images/nlp-pipeline-v4.png)
 
-Diagram source: [nlp-pipeline-v3.svg](https://github.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/blob/main/docs/images/nlp-pipeline-v3.svg)
+Diagram source: [nlp-pipeline-v4.svg](https://github.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/blob/main/docs/images/nlp-pipeline-v4.svg)
 
 How to read the diagram:
 
@@ -179,7 +179,7 @@ How to read the diagram:
 | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Chunk                        | One piece of the regulation that is stored and searched. One point (a), (b), ... is one chunk; a paragraph without points is one chunk. An Article is never one chunk. Example: Article 6(2) is one chunk; Article 6(3) gives six chunks: its first subparagraph, points (a) to (d) and its third subparagraph. |
 | Metadata                     | The Article, paragraph and point numbers and the version date stored with each chunk. The citation in the answer is built from it.                                                                                                                             |
-| Embedding (bge-large-en-v1.5) | Turns a text into a vector (a list of 1,024 numbers). Texts with a similar meaning get similar vectors.                                                                                                                                                          |
+| Embedding (bge-m3)            | Turns a text into a vector (a list of 1,024 numbers). Texts with a similar meaning get similar vectors.                                                                                                                                                          |
 | Vector store (Chroma)        | Keeps the vector, the text and the metadata of every chunk, and returns the closest chunks to a question.                                                                                                                                                      |
 | Cosine                       | The measure of how similar two vectors are (the angle between them). The bge models are trained for cosine similarity.                                                                                                                                        |
 | Dense search                 | The question is turned into a vector, and the chunks with the closest vectors are returned. Finds the same meaning in other words, for example "a tool that calculates grades".                                                                                |
@@ -222,9 +222,9 @@ Models used as-is go in the AI SBOM. Write a model card (12-model-cards/, follow
 | Stage        | Parameter                                     | Value                                                                                                                                                                                                                                                                                                                                                                                            | Decision |
 | ------------ | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
 | Chunking     | Chunk size, overlap                           | No size-based chunking: one chunk per Article paragraph (not per Article) or Annex point; a paragraph with points (a), (b), ... (for example Article 6(3)) is split into one chunk per point; a provision longer than 1,500 characters is split at its points or lines (`max_chars`); heading text in front; identifier and version date as metadata                                                                                                                                     | D7, D8   |
-| Embedding    | Model and version                             | `BAAI/bge-large-en-v1.5` (1,024 dimensions), via `sentence-transformers`, with the bge query instruction for questions; no words are removed before embedding                                                                                                                                                                                                                                                                                                                        | D13      |
+| Embedding    | Model and version                             | `BAAI/bge-m3` (1,024 dimensions), via `sentence-transformers`; no query instruction; no words are removed before embedding                                                                                                                                                                                                                                                                                                                        | D13      |
 | Vector store | Index type, distance metric                   | Chroma, saved on disk; cosine distance                                                                                                                                                                                                                                                                                                                                                           | D11      |
-| Retrieval    | Top-k, hybrid search, reranker                | E1 baseline: dense top-k. E2: BM25 (`rank_bm25`) + dense, merged with Reciprocal Rank Fusion (k = 60). Top-k chosen by Recall@k on the `val` split (candidates 3, 5, 8). No reranker. Chosen on the `val` questions: weighted RRF with dense weight 0.9 and BM25 0.1 (stopwords removed for BM25), top-k 8                                                                                                                                                                                                         | D12, D14 |
+| Retrieval    | Top-k, hybrid search, reranker                | E1 baseline: dense top-k. E2: BM25 (`rank_bm25`) + dense, merged with Reciprocal Rank Fusion (k = 60). Top-k chosen by Recall@k on the `val` split (candidates 3, 5, 8). No reranker. Chosen on the `val` questions with 8 chunks (Recall@8): weighted RRF with dense weight 0.8 and BM25 0.2 (stopwords and the LLM jury's words removed for BM25), top-k 8                                                                                                                                                                                                         | D12, D14 |
 | Generation   | LLM and version, temperature, prompt template | Llama-3.1-8B-Instruct, 4-bit `Q4_K_M` (fallback Phi-4-mini-instruct `Q4_K_M`); temperature 0; at most 300 answer tokens; context window 4,096 tokens; prompt with one example answer (tested in the [model selection spike](../docs/spikes/model-selection-spike.md)); rule-based input check before and verdict check after the model | D9       |
 
 **Conversation context:** the web backend takes the most recent question-answer pairs of the session from its memory (D15) and sends them with each question, so follow-up questions can use the product description given earlier (C-04, KAN-6). How many pairs are sent is open (section 7).
@@ -616,54 +616,55 @@ Copy the block below for each decision.
 **Status:** revised by D14 (2026-11-09): dense search and hybrid search were built and compared on the `val` questions; a little BM25 was kept
 
 
-### D13: Embedding model: bge-large-en-v1.5 (supersedes D10)
+### D13: Embedding model: bge-m3 (supersedes D10)
 
-**Context:** D10 chose bge-base-en-v1.5 in Sprint 1 without a test and said that the choice is checked with Recall@k in Sprint 2. A first check on six questions (B-01 to B-06, 07/11/2026) favoured bge-small-en-v1.5. The test was then run on the `val` split; after the new question IDs and the new split of 09/11/2026 (KAN-85, KAN-53) it was run again on the 27 `val` questions that have gold provisions, with the three D10 options and two larger models. This run replaces the earlier one on 26 questions.
+**Context:** D10 chose bge-base-en-v1.5 in Sprint 1 without a test and said that the choice is checked with Recall@k in Sprint 2. A first check on six questions (B-01 to B-06, 07/11/2026) favoured bge-small-en-v1.5. After the new question IDs and the new split of 09/11/2026 (KAN-85, KAN-53), the test was run on the 27 `val` questions that have gold provisions, with the three D10 options and two larger models. In the first run of 09/11 the model was chosen by Recall@5 and the number of chunks afterwards (8), so the model was not chosen for the setting the system uses. On 10/11, before the results were known, the rule was changed: every choice is scored at 8 chunks, the number the answer model gets (Recall@8). This run replaces the earlier ones.
 
-**Options considered** (best Recall@5 of each model on the `val` questions, over dense weights 0.5 to 1.0):
+**Options considered** (best Recall@8 of each model on the `val` questions, over dense weights 0.5 to 1.0):
 
 | Option | Pros | Cons |
 | --- | --- | --- |
-| all-MiniLM-L6-v2 (simplest option) | Very small | Recall@5 0.39, the lowest |
-| bge-small-en-v1.5 | Small (384 dimensions) | Recall@5 0.45 |
-| bge-base-en-v1.5 (D10) | Medium (768 dimensions) | Recall@5 0.45, MRR 0.51 |
-| **bge-large-en-v1.5** | Best Recall@5 (0.48, tied) and best MRR (0.69) | Large (1,024 dimensions, 1.34 GB) |
-| bge-m3 | Best Recall@5 (0.48, tied) and best capped Recall@5 (0.53); best model in a team member's earlier retrieval project | Lower MRR (0.62); the largest (2.27 GB) |
+| all-MiniLM-L6-v2 (simplest option) | Very small | Recall@8 0.45, the lowest |
+| bge-small-en-v1.5 | Small (384 dimensions) | Recall@8 0.51 |
+| bge-base-en-v1.5 (D10) | Medium (768 dimensions) | Recall@8 0.55 |
+| bge-large-en-v1.5 | Best MRR (0.69); ties with bge-m3 on Recall@5 (0.49) | Recall@8 0.56; needs a query instruction |
+| **bge-m3** | Best Recall@8 (0.59) and capped Recall@8 (0.61); best model in a team member's earlier retrieval project | Lower MRR (0.61); the largest (2.27 GB) |
 
-**Decision:** bge-large-en-v1.5 (`embedding.model` in `config/rag.yaml`), with the bge v1.5 query instruction in front of each question. No words are removed from the text before embedding.
+**Decision:** bge-m3 (`embedding.model` in `config/rag.yaml`), without a query instruction. No words are removed from the text before embedding.
 
-**Why:** The rule was written before the run: the highest Recall@5 wins, then MRR. bge-large-en-v1.5 and bge-m3 tie on Recall@5, and bge-large-en-v1.5 has the higher MRR. Removing words before embedding did not help (full text 0.48 with MRR 0.69, the LLM jury's words 0.48 with MRR 0.61, stopwords 0.38).
+**Why:** The rule was written before the run: the highest Recall@8 wins, then MRR. bge-m3 finds the most gold provisions in 8 chunks. Removing words before embedding did not help (full text 0.59, the LLM jury's words 0.53, stopwords 0.45).
 
-**Consequences:** The differences are small: one question changes Recall@5 by about 0.04, so bge-m3 remains the alternative. The model is listed in the AI SBOM; its MIT licence is the same as for bge-base (A-09).
+**Consequences:** bge-large-en-v1.5 puts the first right chunk higher (MRR 0.69 against 0.61), and with 5 chunks the two tie, so the number of chunks decides the winner; they are compared again with more questions (D8). The differences are small: one question changes Recall@8 by about 0.04. The model is listed in the AI SBOM; its MIT licence is the same as for bge-base (A-09).
 
-**Evidence:** [`src/embedding.ipynb`](../src/embedding.ipynb) steps 6 and 6b; [`docs/eval/embedding-results.pdf`](../docs/eval/embedding-results.pdf); [W&B run](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/oyrsrqwf); [KAN-99](https://yarengursoy.atlassian.net/browse/KAN-99)
+**Evidence:** [`src/embedding.ipynb`](../src/embedding.ipynb) steps 6 and 6b; [`docs/eval/embedding-results.pdf`](../docs/eval/embedding-results.pdf); [W&B run](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/v7g5hhxh); [KAN-99](https://yarengursoy.atlassian.net/browse/KAN-99)
 
-**Owner and date:** NLP part, 2026-11-09
+**Owner and date:** NLP part, 2026-11-10
 
 **Status:** implemented
 
-### D14: Retrieval: dense search with a little BM25, top 8 chunks (revises D12)
+### D14: Retrieval: dense search with some BM25, top 8 chunks (revises D12)
 
-**Context:** D12 planned a dense baseline (E1) and then hybrid search with BM25 (E2), and to choose top-k by Recall@k on the `val` split. Both were measured on the 27 `val` questions with gold provisions (the run of D13).
+**Context:** D12 planned a dense baseline (E1) and then hybrid search with BM25 (E2), and to choose top-k by Recall@k on the `val` split. Both were measured on the 27 `val` questions with gold provisions (the run of D13), every option scored at 8 chunks.
 
-**Options considered** (with bge-large-en-v1.5):
+**Options considered** (with bge-m3):
 
 | Option | Pros | Cons |
 | --- | --- | --- |
-| Dense search only (simplest option) | One index; finds the same meaning | Can miss exact terms; Recall@5 0.45 |
-| **Weighted RRF of dense and BM25, dense weight 0.9** | Also finds exact terms; Recall@5 0.48, MRR 0.69, the best | One more index, rebuilt in memory at each start |
-| Weighted RRF with more BM25 (dense weight 0.5 to 0.8) | Exact terms count more | Recall@5 0.42 |
-| Top-k 3 / 5 / **8** | Fewer chunks are more precise (Precision 0.33 / 0.24 / 0.19) | Fewer chunks find less (Recall 0.44 / 0.48 / 0.56) |
+| Dense search only (simplest option) | One index; finds the same meaning | Can miss exact terms; Recall@8 0.53 |
+| **Weighted RRF of dense and BM25, dense weight 0.8** | Also finds exact terms; Recall@8 0.59, the best (0.7 gives the same Recall@8 with a lower MRR) | One more index, rebuilt in memory at each start |
+| Weighted RRF with dense weight 0.5, 0.6 or 0.9 | Exact terms count more or less | Recall@8 0.56 to 0.58 |
+| BM25 words removed: none / stopwords / **stopwords and the LLM jury's words** | Removing words makes the rare, useful words count more | Recall@8 of BM25 alone 0.37 / 0.43 / 0.44 |
+| Top-k 3 / 5 / **8** | Fewer chunks are more precise (Precision 0.32 / 0.24 / 0.20) | Fewer chunks find less (Recall 0.38 / 0.43 / 0.59) |
 
-**Decision:** Hybrid search: weighted Reciprocal Rank Fusion (k = 60) of the dense list (weight 0.9) and the BM25 list (weight 0.1), 20 candidates from each; stopwords are removed for BM25 (scikit-learn list without "not", "no" and "nor"); top-k 8 (`retrieval` and `bm25` in `config/rag.yaml`).
+**Decision:** Hybrid search: weighted Reciprocal Rank Fusion (k = 60) of the dense list (weight 0.8) and the BM25 list (weight 0.2), 20 candidates from each; for BM25 the stopwords (scikit-learn list without "not", "no" and "nor") and the 10 words of the LLM jury are removed; top-k 8 (`retrieval` and `bm25` in `config/rag.yaml`).
 
-**Why:** The rules were written before the run: the method with the highest Recall@5 wins (then MRR), and the top-k with the highest Recall. A little BM25 raises Recall@5 from 0.45 to 0.48. Removing stopwords helps BM25 the most (Recall@5 0.32 to 0.39, MRR 0.45 to 0.52). 8 chunks find the most gold provisions (Recall@8 0.56), and at about 730 tokens they fit easily into the answer model's context.
+**Why:** The rules were written before the run: the option with the highest Recall@8 wins (then MRR), and the top-k with the highest Recall. Some BM25 raises Recall@8 from 0.53 to 0.59. Removing the stopwords helps BM25 the most (Recall@8 0.37 to 0.43, MRR 0.46 to 0.53); the jury's words add a little (0.44), because the jury also removes "shall" and "paragraph". 8 chunks find the most gold provisions, and at about 730 tokens they fit easily into the answer model's context.
 
-**Consequences:** Recall@5 is still reported (D6 criterion 5). The stopword list removes about 40% of the words, some of which matter in law ("except", "must", "only", "may"); a shorter list for legal text is tried in Sprint 3. Article 9(6) and 9(8) come back for almost every question; this is looked at in Sprint 3.
+**Consequences:** Recall@5 is still reported (D6 criterion 5): 0.43. The jury's words are kept in `config/rag.yaml` (`bm25.jury_words`), so the search does not depend on asking the jury again. The stopword list removes about 40% of the words, some of which matter in law ("system", "except", "must", "only", "may"); a shorter list for legal text is tried in Sprint 3. Article 9(6) and 9(8) come back for almost every question; this is looked at in Sprint 3.
 
-**Evidence:** [`src/embedding.ipynb`](../src/embedding.ipynb) steps 5, 6, 7 and 10; [`docs/eval/embedding-results.pdf`](../docs/eval/embedding-results.pdf); [W&B run](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/oyrsrqwf); [KAN-99](https://yarengursoy.atlassian.net/browse/KAN-99)
+**Evidence:** [`src/embedding.ipynb`](../src/embedding.ipynb) steps 4, 5, 6, 7 and 10; [`docs/eval/embedding-results.pdf`](../docs/eval/embedding-results.pdf); [W&B run](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/v7g5hhxh); [KAN-99](https://yarengursoy.atlassian.net/browse/KAN-99)
 
-**Owner and date:** NLP part, 2026-11-09
+**Owner and date:** NLP part, 2026-11-10
 
 **Status:** implemented
 
@@ -721,6 +722,7 @@ Web and deployment part:
 | v1      | 2026-11-09 | User interface mockup v1 added under Interfaces, with the waiting and error states (KAN-104) | —            |
 | v2      | 2026-11-09 | Sprint 2 update (KAN-102): bge-m3 and dense search with top 8 chunks in the diagrams, components, glossary and RAG pipeline table; new decisions D13 (supersedes D10) and D14 (revises D12); D7, D8 and D11 implemented; what was built in Sprint 2; the settled hybrid-retrieval question removed from Open design areas; architecture diagram v2 and NLP pipeline v2 | —            |
 | v3      | 2026-11-10 | D13 and D14 rewritten with the re-run on the new `val` split (27 questions with gold provisions, KAN-99): bge-large-en-v1.5, dense search with a little BM25 (weight 0.1, stopwords removed), top 8; new decision D15 (supersedes D4, Sprint 1 review comment 8): the conversation is kept in the web backend's memory, the db container, the Database component and its interface are removed; summary, components, data pipeline, RAG pipeline table, deployment and D1, D2, D6 updated to match; architecture diagram v3 and NLP pipeline v3 | —            |
+| v4      | 2026-11-10 | D13 and D14 rewritten with the run scored at 8 chunks (Recall@8), the number of chunks the answer model gets (KAN-99): bge-m3, dense search with some BM25 (dense weight 0.8; stopwords and the LLM jury's words removed for BM25), top 8; diagrams, components, glossary and RAG pipeline table updated to match; architecture diagram v4 and NLP pipeline v4 | —            |
 
 ## Checklist before submitting
 
