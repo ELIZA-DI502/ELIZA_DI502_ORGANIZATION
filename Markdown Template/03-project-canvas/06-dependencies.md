@@ -1,5 +1,8 @@
 # Dependencies
 
+> **What is new in Charter v2** (Sprint 2, compared with Charter v1, Git tag `sprint-1` of 27/10/2026):
+> - Row 7: Recall@8 and Recall@5 (design decision D14).
+
 A dependency says that **A must happen before B can start**, and **whom to contact if there is a problem with A**.
 
 "Pretrained models are needed for the chatbot" is a weak entry. It names neither the item nor the work that waits for it, and gives nobody to call. A strong entry names both sides, a date and a person: "Retrieval evaluation (Sprint 3) cannot start until the evaluation Q&A set exists. Check by: end of Sprint 2. Contact: the Data Scientist who builds the Q&A set." (illustrative only)

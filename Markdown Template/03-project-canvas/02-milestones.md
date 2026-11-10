@@ -1,5 +1,9 @@
 # Milestones
 
+> **What is new in Charter v2** (Sprint 2, compared with Charter v1, Git tag `sprint-1` of 27/10/2026):
+> - M4: 20–50 evaluation questions instead of 20–30 (all 46 written questions kept, team meeting of 09/11/2026).
+> - M4: Recall@8 is logged together with Recall@5, because the answer model gets the top 8 chunks (design decision D14, 10/11/2026).
+
 Record here the milestones of the project. A **milestone** is an event in time that shows the project is on track: a significant point or achievement, often a decision gate or a move from one phase to the next. A milestone is not a deliverable and not a task. By the end of the project, this table serves as the high-level project schedule.
 
 Write each milestone as a **state that becomes true on a date**, not as work to do. Write "Baseline RAG answers the full evaluation set (18/11/2026)", not "Model training" (examples illustrative only).

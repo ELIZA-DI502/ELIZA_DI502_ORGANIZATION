@@ -1,6 +1,9 @@
 
 # Project Organization
 
+> **What is new in Charter v2** (Sprint 2, compared with Charter v1, Git tag `sprint-1` of 27/10/2026):
+> - The organization chart is also shown as an image, for viewers that do not draw Mermaid, such as Confluence (07/11/2026).
+
 This page shows who does what in the team, and how the team relates to the people who govern, review and influence the project. Team members hold the template's project roles, with the two Scrum roles, Product Owner and Scrum Master, as defined in the Scrum Guide [1]. Stakeholders outside the team can be named with the stakeholder roles of ISO/IEC 5339 [3].
 
 "Data Scientist: develops the model" is a weak entry. It does not say which model, which work, or when. A strong entry makes the role concrete for your project and separates it from the other roles: "Data Scientist (Members 1 and 2): build the retrieval pipeline and the answer model, run and record the experiments, and test each increment against the Definition of Done." (illustrative only)

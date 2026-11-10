@@ -1,5 +1,9 @@
 # Major Activities
 
+> **What is new in Charter v2** (Sprint 2, compared with Charter v1, Git tag `sprint-1` of 27/10/2026):
+> - Row 3: D2 with 20–50 questions instead of 20–30 (09/11/2026).
+> - Row 23: Recall@8 is logged, with Recall@5 also reported (design decision D14).
+
 Expand on the scope definition by outlining the major activities required to complete the project. Structure these around the AI system life cycle stages of ISO/IEC 5338 [1], listed below.
 
 Include activities such as project management, feature engineering, model training, performance evaluation and analysis.
