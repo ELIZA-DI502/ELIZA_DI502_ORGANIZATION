@@ -11,6 +11,7 @@ ELIZA helps technical teams that build AI systems for education find the provisi
 | `src/chunking.ipynb` | Splits the AI Act into 105 chunks, one per provision in scope, with metadata (KAN-92, KAN-93) |
 | `src/split.ipynb` | Splits the evaluation questions into `val` and `test` and freezes `test` (KAN-53) |
 | `src/embedding.ipynb` | Chooses the embedding model, keyword search, word removal and top-k on `val` (scored at 8 chunks), builds the search and logs the results and charts in Weights & Biases (KAN-97, KAN-221, KAN-99) |
+| `src/wandb_results.ipynb` | Opens the W&B run of `src/embedding.ipynb`, shows its charts and downloads the PDF (CPU, about 1 minute) (KAN-99) |
 | `config/rag.yaml` | The chosen settings of the system (chunking, models, top-k, LLM settings) |
 | `prompts/` | The prompt templates, one file per template |
 | `data/` | The stored AI Act text, its manifest, the provision list and the chunks ([data/README.md](data/README.md)) |
