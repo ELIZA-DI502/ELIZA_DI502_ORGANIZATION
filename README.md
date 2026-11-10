@@ -23,7 +23,7 @@ ELIZA helps technical teams that build AI systems for education find the provisi
 ## What you need
 
 - **Python 3.12 or 3.13** and **Git**
-- **Ollama** ([ollama.com](https://ollama.com)), only for the LLM jury in step 4 of `src/embedding.ipynb` and, later, for the answers. The three jury models need about 27 GB of disk and a computer with at least 16 GB of RAM; a GPU makes them much faster.
+- **Ollama 0.40.15** ([ollama.com](https://ollama.com), [releases](https://github.com/ollama/ollama/releases/tag/v0.40.15)), only for the LLM jury in step 4 of `src/embedding.ipynb` and, later, for the answers. The three jury models need about 27 GB of disk and a computer with at least 16 GB of RAM; a GPU makes them much faster.
 - About 5 GB of disk for the Python packages and the embedding models.
 - A **Weights & Biases** account, only to log results (step 12 of `src/embedding.ipynb`).
 
@@ -43,7 +43,7 @@ pip install -r requirements.txt
 
 On Windows, use `python -m venv .venv` and `.venv\Scripts\activate` instead. On a Linux computer without an NVIDIA GPU, you can install the smaller CPU build of PyTorch first: `pip install torch==2.15.0 --index-url https://download.pytorch.org/whl/cpu`, then `pip install -r requirements.txt`.
 
-For the LLM jury, install Ollama and download the three models once:
+For the LLM jury, install Ollama 0.40.15 (on Linux: `curl -fsSL https://ollama.com/install.sh | OLLAMA_VERSION=0.40.15 sh`; check with `ollama --version`) and download the three models once:
 
 ```bash
 ollama pull qwen3:14b
