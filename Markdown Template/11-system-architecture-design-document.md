@@ -10,7 +10,7 @@ How to use this template
 
 | Team  | Sprint | Status   | Last updated | Updated by                  |
 | ----- | ------ | -------- | ------------ | --------------------------- |
-| ELIZA | 2      | revised  | 2026-11-09   | Architecture part; NLP part |
+| ELIZA | 2      | revised  | 2026-11-10   | Architecture part; NLP part |
 
 <!--
 Status [2]:
@@ -24,7 +24,7 @@ Status [2]:
 
 *This is the planned design; no code is written in Sprint 1 (C-07).*
 
-ELIZA answers questions from technical teams at EdTech providers about the EU AI Act provisions that relate to their education use case (scope: [Project Executive Summary](03-project-canvas/01-project-executive-summary.md), [C-04](03-project-canvas/03-assumptions-and-constraints.md)). A React page sends each question to a Node.js web backend, which keeps the conversation of the current session in a PostgreSQL database, deletes it when the session ends, and forwards each question with its recent history to a Python RAG service. The RAG service checks the question, retrieves the most relevant provisions, asks a quantized open-source LLM (C-03, D9) to answer only from them, and checks the answer's citations and wording before it is returned. The provisions are prepared once by an offline script that splits the consolidated text into provision-level chunks and stores their vectors in a vector store. All services, including the database, run with Docker Compose on one CPU machine. The NLP choices inside the RAG service and the offline pipeline are recorded in decisions D7–D12.
+ELIZA answers questions from technical teams at EdTech providers about the EU AI Act provisions that relate to their education use case (scope: [Project Executive Summary](03-project-canvas/01-project-executive-summary.md), [C-04](03-project-canvas/03-assumptions-and-constraints.md)). A React page sends each question to a Node.js web backend, which keeps the conversation of the current session only in its memory (lost when the session ends or the backend restarts) and forwards each question with its recent history to a Python RAG service. The RAG service checks the question, retrieves the most relevant provisions, asks a quantized open-source LLM (C-03, D9) to answer only from them, and checks the answer's citations and wording before it is returned. The provisions are prepared once by an offline script that splits the consolidated text into provision-level chunks and stores their vectors in a vector store. All services run with Docker Compose on one CPU machine. The NLP choices inside the RAG service and the offline pipeline are recorded in decisions D7–D14.
 
 <!--
 One paragraph anyone can follow: what the system does, its main parts, and how they work together [1].
@@ -66,7 +66,7 @@ Use one tool and delete the other option below:
   Write the diagram in a ```mermaid block.
 -->
 
-**Version:** v2 (2026-11-09): embedding model bge-m3 (D13); dense search only, top 8 chunks (D14). v1 (2026-10-25)
+**Version:** v3 (2026-11-10): no database container, the conversation is kept in the web backend's memory (D15); embedding model bge-large-en-v1.5 (D13); dense search with a little BM25, top 8 chunks (D14). v2 (2026-11-09), v1 (2026-10-25)
 
 ```mermaid
 %%{init: {"theme": "base", "themeVariables": {"background": "#ffffff", "primaryColor": "#ffffff", "primaryBorderColor": "#555555", "primaryTextColor": "#222222", "lineColor": "#555555", "clusterBkg": "#f5f5f5", "clusterBorder": "#999999", "edgeLabelBackground": "#ffffff", "fontSize": "15px"}}}%%
@@ -77,15 +77,12 @@ flowchart LR
     subgraph gcp["<b>TEAM COMPUTER (CPU ONLY) · DOCKER COMPOSE</b>"]
         subgraph web["<b>web container</b>"]
             ui["<b>User interface</b><br/>React + Vite"]
-            backend["<b>Web backend</b><br/>Node.js + Express"]
-        end
-        subgraph dbc["<b>db container</b>"]
-            db[("<b>Database</b><br/>PostgreSQL")]
+            backend["<b>Web backend</b><br/>Node.js + Express<br/>session history in memory"]
         end
         subgraph rag["<b>rag container (FastAPI)</b>"]
             inchk["<b>Input check</b><br/>Python, rule-based"]
-            retr["<b>Retriever</b><br/>dense search, top 8 chunks"]
-            kw[("<b>Keyword index</b><br/>rank_bm25, not used (D14)")]
+            retr["<b>Retriever</b><br/>dense 0.9 + BM25 0.1, top 8 chunks"]
+            kw[("<b>Keyword index</b><br/>rank_bm25, stopwords removed")]
             vs[("<b>Vector store</b><br/>Chroma")]
             pb["<b>Prompt builder</b><br/>template in prompts/"]
             outchk["<b>Output check</b><br/>Python, rule-based"]
@@ -98,12 +95,11 @@ flowchart LR
     subgraph offline["<b>OFFLINE DATA PIPELINE (run once, outside Docker)</b>"]
         src[("<b>Source</b><br/>EUR-Lex HTML")]
         ingest["<b>Ingestion and chunking</b><br/>rag/ingest.py, parsed by structure"]
-        emb["<b>Embedding model</b><br/>bge-m3"]
+        emb["<b>Embedding model</b><br/>bge-large-en-v1.5"]
     end
 
     user -->|question / answer| ui
     ui -->|POST /api/ask| backend
-    backend <-->|history| db
     backend -->|question + history / notice| inchk
     eval -->|evaluation questions| inchk
     inchk -->|checked question| retr
@@ -122,12 +118,11 @@ flowchart LR
     style gcp fill:#fafafa,stroke:#777777,stroke-width:2px
     style offline fill:#fafafa,stroke:#777777,stroke-width:2px
     style web fill:#efefef,stroke:#999999
-    style dbc fill:#efefef,stroke:#999999
     style rag fill:#efefef,stroke:#999999
     style ollama fill:#efefef,stroke:#999999
 ```
 
-![System architecture v2: the AI user, the web, db, rag and ollama containers on a team computer (CPU only), the offline data pipeline and the evaluation](https://raw.githubusercontent.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/main/docs/images/system-architecture-v2.png)
+![System architecture v3: the AI user, the web, rag and ollama containers on a team computer (CPU only), the offline data pipeline and the evaluation](https://raw.githubusercontent.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/main/docs/images/system-architecture-v3.png)
 
 The same diagram as an image, for viewers that do not draw Mermaid (for example Confluence). Source: the Mermaid block above.
 
@@ -141,13 +136,12 @@ The same diagram as an image, for viewers that do not draw Mermaid (for example 
 | Evaluation             | Sends the evaluation questions to the RAG service, computes the metrics and logs every run                                                                                                                                                                                                                 | Python scripts that call `POST /answer`; metrics and targets in section 5, Evaluation + Weights & Biases (course tool)                                                                                                                                                                             | not yet listed |
 | Source                 | Official consolidated text of Regulation (EU) 2024/1689, version 27/07/2026 (C-01, C-09)                                                                                                                                                                                                                   | EUR-Lex HTML, CELEX 02024R1689-20260727                                                                                                                                                                                            | not yet listed |
 | Ingestion and chunking | Reads the stored HTML and splits it into one chunk per Article paragraph or Annex point (a paragraph with points gives one chunk per point), with its identifier and the version date                                                                                                                      | Python script `rag/ingest.py`; parses the EUR-Lex HTML by its structure (D7, D8)                                                                                                                                                 | not yet listed |
-| Embedding model        | Turns each chunk, and each question at query time, into a vector                                                                                                                                                                                                                                           | `BAAI/bge-m3` via `sentence-transformers` (D13)                                                                                                                                                                      | AI SBOM        |
+| Embedding model        | Turns each chunk, and each question at query time, into a vector                                                                                                                                                                                                                                           | `BAAI/bge-large-en-v1.5` via `sentence-transformers` (D13)                                                                                                                                                                      | AI SBOM        |
 | User interface         | Question box, answer with cited provisions and their text, permanent not-legal-advice notice, a reminder not to enter personal data with a statement of how questions are stored, and a warning before sending a question that contains an e-mail address or phone number (KAN-21, KAN-22, KAN-25, KAN-26) | React, built with Vite; version pinned in the SBOM                                                                                                                                                                                 | not yet listed |
-| Web backend            | Session handling with a session cookie, reading and writing the conversation history in the database, rate limiting, anonymous logs without question content, error messages, forwarding questions to the RAG service                                                                                      | Node.js + Express; version pinned in the SBOM                                                                                                                                                                                      | not yet listed |
-| Database               | Keeps the question-answer pairs of the current session, so a conversation survives a restart of the web backend; deletes them when the session ends. The web backend reads the most recent pairs for each question (D4)                                                                                    | PostgreSQL in the db container, data in data/postgres/; version pinned in the SBOM                                                                                                                                                 | not yet listed |
+| Web backend            | Session handling with a session cookie, keeping the question-answer pairs of the current session in memory (D15), rate limiting, anonymous logs without question content, error messages, forwarding questions to the RAG service                                                                                      | Node.js + Express; version pinned in the SBOM                                                                                                                                                                                      | not yet listed |
 | Input check            | Decides whether a question is in scope, asks for help with evading the rules, or contains personal data, and returns a notice instead of an answer when needed. A legal-decision question is not blocked: it is flagged, and the answer declines the decision and shows the relevant provisions (KAN-2)                                                                                                                     | Python in the RAG service; rule-based patterns, tested in the [model selection spike](../docs/spikes/model-selection-spike.md); personal-data rules open ([KAN-49](https://yarengursoy.atlassian.net/browse/KAN-49)) | not yet listed |
-| Retriever              | Returns the most relevant chunks for a question: vector search in the baseline (E1), vector and keyword search merged by Reciprocal Rank Fusion in E2                                                                                                                                                      | Python in the RAG service; top-k chosen by Recall@k on the `val` split (D12)                                                                                                                                                     | not yet listed |
-| Keyword index          | BM25 index over the chunk texts, rebuilt from the vector store each time the RAG service starts (used from E2)                                                                                                                                                                                             | `rank_bm25`, in memory; tested on the `val` questions and not used: the search is dense only (D14)                                                                                                                                                                                                     | SBOM (packages)|
+| Retriever              | Returns the most relevant chunks for a question: vector search and keyword search merged by weighted Reciprocal Rank Fusion                                                                                                                                                               | Python in the RAG service; dense weight 0.9, BM25 0.1, top 8 chunks, chosen on the `val` split (D14)                                                                                                                                                     | not yet listed |
+| Keyword index          | BM25 index over the chunk texts, rebuilt from the vector store each time the RAG service starts                                                                                                                                                                                                           | `rank_bm25`, in memory; stopwords removed (scikit-learn list without "not", "no", "nor"); weight 0.1 in the fusion (D14)                                                                                                                                                                                                     | SBOM (packages)|
 | Prompt builder         | Fills the prompt template with the retrieved chunks and the session history                                                                                                                                                                                                                                | Prompt template file in prompts/; first version tested in the [model selection spike](../docs/spikes/model-selection-spike.md), final rules open                                                                                                                                                                                       | not yet listed |
 | LLM                    | Writes the plain-language answer from the retrieved chunks only                                                                                                                                                                                                                                            | Llama-3.1-8B-Instruct, 4-bit `Q4_K_M`, served by Ollama, temperature 0; fallback Phi-4-mini-instruct `Q4_K_M` (D9)                                                                                                             | AI SBOM        |
 | Output check           | Removes citations that are not among the retrieved chunks, blocks verdict wording and adds the version date                                                                                                                                                                                                | Python in the RAG service; rule-based verdict check tested in the [model selection spike](../docs/spikes/model-selection-spike.md) and citation-ID check                                                            | not yet listed |
@@ -173,11 +167,11 @@ We did these tests to understand how the text is split and how each model answer
 
 **Built in Sprint 2:** the chunking ([`src/chunking.ipynb`](../src/chunking.ipynb), KAN-93), the vector index and the retriever ([`src/embedding.ipynb`](../src/embedding.ipynb), KAN-97; the vector store in `data/vector-store/` is rebuilt by the notebook and not committed), the retrieval tests on the `val` questions (same notebook, KAN-221, KAN-99), [`config/rag.yaml`](../config/rag.yaml) with the values below, and [`docs/eval/preprocessing.md`](../docs/eval/preprocessing.md). `rag/ingest.py` and `requirements.txt` are still planned. The rest of this section describes the design.
 
-**NLP pipeline** (v2, 2026-11-09; decisions D7–D14; v1 of 2026-10-25 showed bge-base-en-v1.5 and hybrid search):
+**NLP pipeline** (v3, 2026-11-10; decisions D7–D14; v2 of 2026-11-09 showed bge-m3 and dense search only, v1 of 2026-10-25 bge-base-en-v1.5 and hybrid search):
 
-![NLP pipeline v2](https://raw.githubusercontent.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/main/docs/images/nlp-pipeline-v2.png)
+![NLP pipeline v3](https://raw.githubusercontent.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/main/docs/images/nlp-pipeline-v3.png)
 
-Diagram source: [nlp-pipeline-v2.svg](https://github.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/blob/main/docs/images/nlp-pipeline-v2.svg)
+Diagram source: [nlp-pipeline-v3.svg](https://github.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/blob/main/docs/images/nlp-pipeline-v3.svg)
 
 How to read the diagram:
 
@@ -185,9 +179,9 @@ How to read the diagram:
 | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Chunk                        | One piece of the regulation that is stored and searched. One point (a), (b), ... is one chunk; a paragraph without points is one chunk. An Article is never one chunk. Example: Article 6(2) is one chunk; Article 6(3) gives six chunks: its first subparagraph, points (a) to (d) and its third subparagraph. |
 | Metadata                     | The Article, paragraph and point numbers and the version date stored with each chunk. The citation in the answer is built from it.                                                                                                                             |
-| Embedding (bge-m3)            | Turns a text into a vector (a list of 1,024 numbers). Texts with a similar meaning get similar vectors.                                                                                                                                                          |
+| Embedding (bge-large-en-v1.5) | Turns a text into a vector (a list of 1,024 numbers). Texts with a similar meaning get similar vectors.                                                                                                                                                          |
 | Vector store (Chroma)        | Keeps the vector, the text and the metadata of every chunk, and returns the closest chunks to a question.                                                                                                                                                      |
-| Cosine                       | The measure of how similar two vectors are (the angle between them). bge-m3 is trained for cosine similarity.                                                                                                                                        |
+| Cosine                       | The measure of how similar two vectors are (the angle between them). The bge models are trained for cosine similarity.                                                                                                                                        |
 | Dense search                 | The question is turned into a vector, and the chunks with the closest vectors are returned. Finds the same meaning in other words, for example "a tool that calculates grades".                                                                                |
 | BM25                         | Keyword search: scores chunks by the words they share with the question. Finds exact terms, for example "Article 6(3)" or "profiling".                                                                                                                         |
 | Hybrid search                | Dense search and BM25 together, so that neither the meaning nor the exact Article numbers and terms are missed.                                                                                                                                                |
@@ -213,7 +207,7 @@ The script will be `rag/ingest.py` (Sprint 2). It will run once, embed the chunk
 
 - Storage: `data/vector-store/` is bind-mounted into the rag container, so the index survives rebuilds of the containers. The keyword index is not stored; the RAG service rebuilds it in memory from the chunk texts in the vector store when it starts (about 100 chunks).
 - Consistency: `ingest.py` and the rag container install the same `requirements.txt`, so both use the same library versions and the same embedding model.
-- No user data in the index: questions and answers never enter the pipeline or the vector index; they are kept only in the database, for the current session (D4).
+- No user data in the index: questions and answers never enter the pipeline or the vector index; they are kept only in the web backend's memory, for the current session (D15).
 
 ### RAG pipeline
 
@@ -223,17 +217,17 @@ List each stage of the pipeline and the parameters it uses. config/rag.yaml hold
 Models used as-is go in the AI SBOM. Write a model card (12-model-cards/, following Mitchell et al.) only if you train or fine-tune a model, and link it here.
 -->
 
-**Configuration:** `config/rag.yaml` is not created yet; its first version comes with the baseline in Sprint 2 (E1). Until then, the values below are the planned settings.
+**Configuration:** [`config/rag.yaml`](../config/rag.yaml) holds the chosen values of chunking, embedding and retrieval; the generation values below are the planned settings until the baseline (E1).
 
 | Stage        | Parameter                                     | Value                                                                                                                                                                                                                                                                                                                                                                                            | Decision |
 | ------------ | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
 | Chunking     | Chunk size, overlap                           | No size-based chunking: one chunk per Article paragraph (not per Article) or Annex point; a paragraph with points (a), (b), ... (for example Article 6(3)) is split into one chunk per point; a provision longer than 1,500 characters is split at its points or lines (`max_chars`); heading text in front; identifier and version date as metadata                                                                                                                                     | D7, D8   |
-| Embedding    | Model and version                             | `BAAI/bge-m3` (1,024 dimensions), via `sentence-transformers`; no words are removed before embedding                                                                                                                                                                                                                                                                                                                        | D13      |
+| Embedding    | Model and version                             | `BAAI/bge-large-en-v1.5` (1,024 dimensions), via `sentence-transformers`, with the bge query instruction for questions; no words are removed before embedding                                                                                                                                                                                                                                                                                                                        | D13      |
 | Vector store | Index type, distance metric                   | Chroma, saved on disk; cosine distance                                                                                                                                                                                                                                                                                                                                                           | D11      |
-| Retrieval    | Top-k, hybrid search, reranker                | E1 baseline: dense top-k. E2: BM25 (`rank_bm25`) + dense, merged with Reciprocal Rank Fusion (k = 60). Top-k chosen by Recall@k on the `val` split (candidates 3, 5, 8). No reranker. Chosen on the `val` questions: dense search only, top-k 8                                                                                                                                                                                                         | D12, D14 |
+| Retrieval    | Top-k, hybrid search, reranker                | E1 baseline: dense top-k. E2: BM25 (`rank_bm25`) + dense, merged with Reciprocal Rank Fusion (k = 60). Top-k chosen by Recall@k on the `val` split (candidates 3, 5, 8). No reranker. Chosen on the `val` questions: weighted RRF with dense weight 0.9 and BM25 0.1 (stopwords removed for BM25), top-k 8                                                                                                                                                                                                         | D12, D14 |
 | Generation   | LLM and version, temperature, prompt template | Llama-3.1-8B-Instruct, 4-bit `Q4_K_M` (fallback Phi-4-mini-instruct `Q4_K_M`); temperature 0; at most 300 answer tokens; context window 4,096 tokens; prompt with one example answer (tested in the [model selection spike](../docs/spikes/model-selection-spike.md)); rule-based input check before and verdict check after the model | D9       |
 
-**Conversation context:** the web backend reads the most recent question-answer pairs of the session from the database and sends them with each question, so follow-up questions can use the product description given earlier (C-04, KAN-6). How many pairs are sent is open (section 7).
+**Conversation context:** the web backend takes the most recent question-answer pairs of the session from its memory (D15) and sends them with each question, so follow-up questions can use the product description given earlier (C-04, KAN-6). How many pairs are sent is open (section 7).
 
 ### Evaluation
 
@@ -280,7 +274,6 @@ O1 (search time) and O3 (understanding) are measured with pilot users in Sprint 
 | ---------------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
 | AI user                | User interface         | Question; the answer with the text of each cited provision and the not-legal-advice notice                     | HTTP on localhost, desktop browser                         |
 | User interface         | Web backend            | Question; answer, citations and notice                                                                         | POST /api/ask, JSON; session cookie                        |
-| Web backend            | Database               | Session id; read and write the question-answer pairs of the current session, delete them when the session ends | SQL over the internal Docker network (PostgreSQL protocol) |
 | Web backend            | Input check            | Question and history; a notice instead of an answer (out_of_scope, personal_data); a verdict_request is flagged, not blocked, and gets an answer that declines the decision and shows the relevant provisions (KAN-2) | POST /answer on the internal Docker network, JSON          |
 | Evaluation             | Input check            | Evaluation questions, with history for follow-ups; responses come back the same way                            | POST /answer, JSON                                         |
 | Input check            | Retriever              | Checked question and history                                                                                   | Python function call                                       |
@@ -314,8 +307,8 @@ Mockup sources: [ui-mockup-v1.html](https://github.com/ELIZA-DI502/ELIZA_DI502_O
 | Development and alpha (deliverable D6)                        | Team members' own computers, docker compose up (C-05)                                               | localhost:3000 on the same computer                                                                            |
 | Beta (deliverable D9) and release candidate (deliverable D11) | One team computer, docker compose up from README.md; the pilot and the final demo are held in person on it (C-05) | localhost:3000 on that computer; no shared link or hosted server |
 
-- Containers: web (React build served by Node.js + Express), db (PostgreSQL), rag (FastAPI) and ollama. Only web publishes a port; db, rag and ollama are reachable only on the internal Docker network.
-- Data on the host: data/vector-store/ (bind mount into rag), data/postgres/ (bind mount into db) and the downloaded model files (Docker volume for ollama). data/postgres/ holds only the conversations of active sessions.
+- Containers: web (React build served by Node.js + Express), rag (FastAPI) and ollama. Only web publishes a port; rag and ollama are reachable only on the internal Docker network.
+- Data on the host: data/vector-store/ (bind mount into rag) and the downloaded model files (Docker volume for ollama). No conversation is written to the host (D15).
 - Preparation step: python rag/ingest.py is run once on the computer before the first start.
 - Pilot computer: the team computer used for the pilot and the final demo; the answer time of Llama-3.1-8B is measured at the baseline (18/11/2026) and on this computer by 09/12/2026 and compared with the answer-time limit in section 2 (D9, R-12). The $100 Google Cloud credit (C-06) is kept as a reserve: it is used only if the limit is still not met after reducing top-k or the answer length and switching to the fallback model (R-12).
 
@@ -345,7 +338,7 @@ Copy the block below for each decision.
 | Streamlit | Python only; quick to build pages | Limited control over the chat layout and session handling |
 | **React + Node.js/Express** | Full control over the interface (KAN-21, KAN-22, KAN-25, KAN-26); the web side is built in JavaScript without touching the RAG code | Two languages and one more service; the API contract must be agreed |
 
-**Decision:** React (built with Vite) for the interface and Node.js + Express for the web backend, in one web container. The conversation of the current session is kept in PostgreSQL (D4).
+**Decision:** React (built with Vite) for the interface and Node.js + Express for the web backend, in one web container. The conversation of the current session is kept in PostgreSQL (D4; in the web backend's memory since D15).
 
 **Why:** The team member building the web side works in JavaScript, and the interface requirements go beyond a default chat widget.
 
@@ -375,7 +368,7 @@ Copy the block below for each decision.
 
 **Consequences:** The API contract in section 5 must be agreed between the web and RAG sides.
 
-**Evidence:** Separate service: follows from D1 (the interface and web backend are in JavaScript, so the Python pipeline runs as its own service). Stateless: follows from D4 and C-10 (the web backend keeps the session history and sends it with each request). Python: the [parsing spike](../docs/spikes/parsing-spike.md) and [model selection spike](../docs/spikes/model-selection-spike.md) were run in Python. Team discussion of the Spike 01 technology options, 19/10/2026.
+**Evidence:** Separate service: follows from D1 (the interface and web backend are in JavaScript, so the Python pipeline runs as its own service). Stateless: follows from D15 (D4 before) and C-10 (the web backend keeps the session history and sends it with each request). Python: the [parsing spike](../docs/spikes/parsing-spike.md) and [model selection spike](../docs/spikes/model-selection-spike.md) were run in Python. Team discussion of the Spike 01 technology options, 19/10/2026.
 
 **Owner and date:** Architecture part, 2026-10-20
 
@@ -428,7 +421,7 @@ Copy the block below for each decision.
 
 **Owner and date:** Architecture part, 2026-10-20
 
-**Status:** proposed
+**Status:** superseded by D15 (2026-11-09)
 
 ### D5: Preparation as a one-off script outside Docker
 
@@ -465,7 +458,7 @@ Copy the block below for each decision.
 | **Team computer with Docker Compose** | No cost; follows C-05; the pilot is held in person | The answer time depends on that computer (R-12) |
 | Google Cloud CPU instance with Docker Compose, paid from the $100 credit (C-06) | Reachable from outside the team's network; the machine size can be chosen | Uses the credit and needs cloud setup; not needed for an in-person pilot (C-05) |
 
-**Decision:** Development, beta and release candidate on the team's computers with the four containers (web, db, rag, ollama); the pilot and the final demo run on one team computer.
+**Decision:** Development, beta and release candidate on the team's computers with the three containers (web, rag, ollama; the db container was removed by D15); the pilot and the final demo run on one team computer.
 
 **Why:** Follows C-05; no paid instance and no shared link are needed.
 
@@ -620,58 +613,84 @@ Copy the block below for each decision.
 
 **Owner and date:** NLP part, 2026-10-25
 
-**Status:** revised by D14 (2026-11-09): dense search and hybrid search were built and compared on the `val` questions
+**Status:** revised by D14 (2026-11-09): dense search and hybrid search were built and compared on the `val` questions; a little BM25 was kept
 
 
-### D13: Embedding model: bge-m3 (supersedes D10)
+### D13: Embedding model: bge-large-en-v1.5 (supersedes D10)
 
-**Context:** D10 chose bge-base-en-v1.5 in Sprint 1 without a test and said that the choice is checked with Recall@k in Sprint 2. A first check on six questions (B-01 to B-06, 07/11/2026) favoured bge-small-en-v1.5; the test was then repeated on the 26 `val` questions that have gold provisions, with the three D10 options and two larger models.
+**Context:** D10 chose bge-base-en-v1.5 in Sprint 1 without a test and said that the choice is checked with Recall@k in Sprint 2. A first check on six questions (B-01 to B-06, 07/11/2026) favoured bge-small-en-v1.5. The test was then run on the `val` split; after the new question IDs and the new split of 09/11/2026 (KAN-85, KAN-53) it was run again on the 27 `val` questions that have gold provisions, with the three D10 options and two larger models. This run replaces the earlier one on 26 questions.
 
-**Options considered** (Recall@5 with dense search on the `val` questions):
+**Options considered** (best Recall@5 of each model on the `val` questions, over dense weights 0.5 to 1.0):
 
 | Option | Pros | Cons |
 | --- | --- | --- |
-| all-MiniLM-L6-v2 (simplest option) | Very small | Recall@5 0.27, the lowest |
-| bge-small-en-v1.5 | Small (384 dimensions) | Recall@5 0.40 |
-| bge-base-en-v1.5 (D10) | Medium (768 dimensions) | Recall@5 0.39 |
-| bge-large-en-v1.5 | Best MRR (0.63) | Recall@5 0.41 |
-| **bge-m3** | Best Recall@5 (0.44), MRR 0.59; best model in a team member's earlier retrieval project | The largest (1,024 dimensions, 2.27 GB) |
+| all-MiniLM-L6-v2 (simplest option) | Very small | Recall@5 0.39, the lowest |
+| bge-small-en-v1.5 | Small (384 dimensions) | Recall@5 0.45 |
+| bge-base-en-v1.5 (D10) | Medium (768 dimensions) | Recall@5 0.45, MRR 0.51 |
+| **bge-large-en-v1.5** | Best Recall@5 (0.48, tied) and best MRR (0.69) | Large (1,024 dimensions, 1.34 GB) |
+| bge-m3 | Best Recall@5 (0.48, tied) and best capped Recall@5 (0.53); best model in a team member's earlier retrieval project | Lower MRR (0.62); the largest (2.27 GB) |
 
-**Decision:** bge-m3 (`embedding.model` in `config/rag.yaml`). No words are removed from the text before embedding.
+**Decision:** bge-large-en-v1.5 (`embedding.model` in `config/rag.yaml`), with the bge v1.5 query instruction in front of each question. No words are removed from the text before embedding.
 
-**Why:** The rule was written before the run: the highest Recall@5 wins, then MRR. Removing words before embedding (the LLM jury's words, stopwords or frequent words) lowered Recall@5 every time (full text 0.44, jury words 0.40, stopwords 0.31).
+**Why:** The rule was written before the run: the highest Recall@5 wins, then MRR. bge-large-en-v1.5 and bge-m3 tie on Recall@5, and bge-large-en-v1.5 has the higher MRR. Removing words before embedding did not help (full text 0.48 with MRR 0.69, the LLM jury's words 0.48 with MRR 0.61, stopwords 0.38).
 
-**Consequences:** The differences are small: one question changes Recall@5 by about 0.04. The model is listed in the AI SBOM; its MIT licence is the same as for bge-base (A-09).
+**Consequences:** The differences are small: one question changes Recall@5 by about 0.04, so bge-m3 remains the alternative. The model is listed in the AI SBOM; its MIT licence is the same as for bge-base (A-09).
 
-**Evidence:** [`src/embedding.ipynb`](../src/embedding.ipynb) steps 6 and 6b; [KAN-99](https://yarengursoy.atlassian.net/browse/KAN-99)
+**Evidence:** [`src/embedding.ipynb`](../src/embedding.ipynb) steps 6 and 6b; [`docs/eval/embedding-results.pdf`](../docs/eval/embedding-results.pdf); [W&B run](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/oyrsrqwf); [KAN-99](https://yarengursoy.atlassian.net/browse/KAN-99)
 
 **Owner and date:** NLP part, 2026-11-09
 
 **Status:** implemented
 
-### D14: Retrieval: dense search only, top 8 chunks (revises D12)
+### D14: Retrieval: dense search with a little BM25, top 8 chunks (revises D12)
 
-**Context:** D12 planned a dense baseline (E1) and then hybrid search with BM25 (E2), and to choose top-k by Recall@k on the `val` split. Both were measured on the 26 `val` questions with gold provisions.
+**Context:** D12 planned a dense baseline (E1) and then hybrid search with BM25 (E2), and to choose top-k by Recall@k on the `val` split. Both were measured on the 27 `val` questions with gold provisions (the run of D13).
+
+**Options considered** (with bge-large-en-v1.5):
+
+| Option | Pros | Cons |
+| --- | --- | --- |
+| Dense search only (simplest option) | One index; finds the same meaning | Can miss exact terms; Recall@5 0.45 |
+| **Weighted RRF of dense and BM25, dense weight 0.9** | Also finds exact terms; Recall@5 0.48, MRR 0.69, the best | One more index, rebuilt in memory at each start |
+| Weighted RRF with more BM25 (dense weight 0.5 to 0.8) | Exact terms count more | Recall@5 0.42 |
+| Top-k 3 / 5 / **8** | Fewer chunks are more precise (Precision 0.33 / 0.24 / 0.19) | Fewer chunks find less (Recall 0.44 / 0.48 / 0.56) |
+
+**Decision:** Hybrid search: weighted Reciprocal Rank Fusion (k = 60) of the dense list (weight 0.9) and the BM25 list (weight 0.1), 20 candidates from each; stopwords are removed for BM25 (scikit-learn list without "not", "no" and "nor"); top-k 8 (`retrieval` and `bm25` in `config/rag.yaml`).
+
+**Why:** The rules were written before the run: the method with the highest Recall@5 wins (then MRR), and the top-k with the highest Recall. A little BM25 raises Recall@5 from 0.45 to 0.48. Removing stopwords helps BM25 the most (Recall@5 0.32 to 0.39, MRR 0.45 to 0.52). 8 chunks find the most gold provisions (Recall@8 0.56), and at about 730 tokens they fit easily into the answer model's context.
+
+**Consequences:** Recall@5 is still reported (D6 criterion 5). The stopword list removes about 40% of the words, some of which matter in law ("except", "must", "only", "may"); a shorter list for legal text is tried in Sprint 3. Article 9(6) and 9(8) come back for almost every question; this is looked at in Sprint 3.
+
+**Evidence:** [`src/embedding.ipynb`](../src/embedding.ipynb) steps 5, 6, 7 and 10; [`docs/eval/embedding-results.pdf`](../docs/eval/embedding-results.pdf); [W&B run](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/oyrsrqwf); [KAN-99](https://yarengursoy.atlassian.net/browse/KAN-99)
+
+**Owner and date:** NLP part, 2026-11-09
+
+**Status:** implemented
+
+### D15: Conversation of the current session in the web backend's memory (supersedes D4)
+
+**Context:** D4 kept the conversation of the current session in a PostgreSQL database. The Sprint 1 review (comment 8) asked whose conversation is shown after a restart when there are no user accounts, and noted that a stored history may not be needed unless it is used for analytics. The history is used only for follow-up questions in the same session (Feature 7, KAN-6, not committed), and C-10 does not allow user questions to be logged, so it is not used for analytics.
 
 **Options considered:**
 
 | Option | Pros | Cons |
 | --- | --- | --- |
-| **Dense search only** (simplest option) | Recall@5 0.44 with bge-m3, the best | Can miss exact terms |
-| Hybrid search, weighted RRF of BM25 and dense (dense weight 0.5 to 0.9) | Also finds exact terms | Lower Recall@5 (0.35 to 0.43 with bge-m3), because BM25 alone is weaker (0.33 with stopwords removed) |
-| Top-k 3 / **5** / **8** | Fewer chunks are more precise (Precision 0.29 / 0.25 / 0.18) | Fewer chunks find less (Recall 0.38 / 0.44 / 0.49) |
+| No history (simplest option) | Nothing to store or delete | Follow-up questions cannot use the product description given earlier (C-04, KAN-6) |
+| **History in the web backend's memory, keyed by a session cookie** | No database container; the conversation is never written to disk | The active conversation is lost when the web backend restarts |
+| History kept by the interface and sent with every question | No storage on the server | Lost when the page is reloaded; the history can be changed in the browser |
+| PostgreSQL keeping only the current session (D4) | The conversation survives a restart of the web backend | One more container; without user accounts a stored conversation has no owner; the data must be deleted when the session ends (C-10) |
 
-**Decision:** Dense search only (`retrieval.mode: dense`, `dense_weight: 1.0`) and top-k 8.
+**Decision:** The web backend keeps the question-answer pairs of the active session in its memory, keyed by the session cookie, and sends the most recent pairs with each question to the RAG service, which stays stateless (D2). The pairs are not written to disk and are dropped when the session ends; if the web backend restarts, the active conversation is lost. There is no db container.
 
-**Why:** The rule was written before the run: the highest Recall wins. 8 chunks find the most gold provisions, and at about 730 tokens they fit easily into the answer model's context.
+**Why:** Without user accounts a stored conversation has no owner, and the history is needed only within one session, so losing it at a restart is acceptable.
 
-**Consequences:** The BM25 index stays in the code but is not used while `dense_weight` is 1.0. Article 9(6) and 9(8) come back for almost every question; this is looked at in Sprint 3.
+**Consequences:** C-10 was updated in Charter v2 on 09/11/2026. KAN-26 (criteria 3 and 4, TC-26.5) and KAN-6 (criterion 4, TC-6.4) refer to the backend memory instead of the session database. The system has three containers (web, rag, ollama). When a session ends (inactivity timeout) stays open (section 7).
 
-**Evidence:** [`src/embedding.ipynb`](../src/embedding.ipynb) steps 5, 6 and 7; [KAN-99](https://yarengursoy.atlassian.net/browse/KAN-99)
+**Evidence:** Sprint 1 review, comment 8 ([Sprint 1 review page](04-sprint-1/01-sprint-1-review-page.md)); team meeting, 09/11/2026; C-04, C-10, KAN-6, KAN-26
 
-**Owner and date:** NLP part, 2026-11-09
+**Owner and date:** Architecture part, 2026-11-09
 
-**Status:** implemented
+**Status:** accepted
 
 ## 7. Open design areas
 
@@ -701,6 +720,7 @@ Web and deployment part:
 | v1      | 2026-11-08 | D1 accepted: React + Node.js/Express is the chosen user interface technology (KAN-103) | —            |
 | v1      | 2026-11-09 | User interface mockup v1 added under Interfaces, with the waiting and error states (KAN-104) | —            |
 | v2      | 2026-11-09 | Sprint 2 update (KAN-102): bge-m3 and dense search with top 8 chunks in the diagrams, components, glossary and RAG pipeline table; new decisions D13 (supersedes D10) and D14 (revises D12); D7, D8 and D11 implemented; what was built in Sprint 2; the settled hybrid-retrieval question removed from Open design areas; architecture diagram v2 and NLP pipeline v2 | —            |
+| v3      | 2026-11-10 | D13 and D14 rewritten with the re-run on the new `val` split (27 questions with gold provisions, KAN-99): bge-large-en-v1.5, dense search with a little BM25 (weight 0.1, stopwords removed), top 8; new decision D15 (supersedes D4, Sprint 1 review comment 8): the conversation is kept in the web backend's memory, the db container, the Database component and its interface are removed; summary, components, data pipeline, RAG pipeline table, deployment and D1, D2, D6 updated to match; architecture diagram v3 and NLP pipeline v3 | —            |
 
 ## Checklist before submitting
 
