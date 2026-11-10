@@ -304,7 +304,7 @@ Features: Design document and spikes (D4), alpha, beta, release candidate (D6, D
 - **[KAN-87](https://yarengursoy.atlassian.net/browse/KAN-87) Build and measure the baseline retrieval** · Task · Sprint 2 · 13 points · Gözde Nur · serves [KAN-8](https://yarengursoy.atlassian.net/browse/KAN-8)
   - [KAN-97](https://yarengursoy.atlassian.net/browse/KAN-97) Build the vector index and the retriever · Gözde Nur
   - [KAN-98](https://yarengursoy.atlassian.net/browse/KAN-98) Set up the README, pinned requirements and prompts folder · Gözde Nur
-  - [KAN-99](https://yarengursoy.atlassian.net/browse/KAN-99) Run Recall@5 and the comparison without and with retrieval on the val split · Gözde Nur
+  - [KAN-99](https://yarengursoy.atlassian.net/browse/KAN-99) Run Recall@8 and the comparison without and with retrieval on the val split · Gözde Nur
   - [KAN-100](https://yarengursoy.atlassian.net/browse/KAN-100) Write the baseline experiment card · Kaan
   - [KAN-101](https://yarengursoy.atlassian.net/browse/KAN-101) Write the Sprint 2 technical summary · Kaan
   - [KAN-221](https://yarengursoy.atlassian.net/browse/KAN-221) Label the frequent words with an LLM jury and test word removal for BM25 · Gözde Nur
