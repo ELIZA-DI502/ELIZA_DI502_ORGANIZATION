@@ -17,7 +17,7 @@
 
 <!-- In 3 to 5 sentences: what you tried this sprint, the main result compared with the baseline and the target, and what you will do next. -->
 
-**Decisions this sprint:** [D1](../11-system-architecture-design-document.md#d1-web-interface-and-backend-react--nodejsexpress) (interface, accepted), [D13](../11-system-architecture-design-document.md#d13-embedding-model-bge-m3-supersedes-d10) (embedding model), [D14](../11-system-architecture-design-document.md#d14-retrieval-dense-search-only-top-8-chunks-revises-d12) (retrieval) <!-- Links to the decision records in the design document, for example D3, D4. -->
+**Decisions this sprint:** [D1](../11-system-architecture-design-document.md#d1-web-interface-and-backend-react--nodejsexpress) (interface, accepted), [D13](../11-system-architecture-design-document.md#d13-embedding-model-bge-large-en-v15-supersedes-d10) (embedding model), [D14](../11-system-architecture-design-document.md#d14-retrieval-dense-search-with-a-little-bm25-top-8-chunks-revises-d12) (retrieval), [D15](../11-system-architecture-design-document.md#d15-conversation-of-the-current-session-in-the-web-backends-memory-supersedes-d4) (conversation in memory) <!-- Links to the decision records in the design document, for example D3, D4. -->
 
 ## 2. Metrics
 
