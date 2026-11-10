@@ -10,8 +10,7 @@ ELIZA helps technical teams that build AI systems for education find the provisi
 |---|---|
 | `src/chunking.ipynb` | Splits the AI Act into 105 chunks, one per provision in scope, with metadata (KAN-92, KAN-93) |
 | `src/split.ipynb` | Splits the evaluation questions into `val` and `test` and freezes `test` (KAN-53) |
-| `src/embedding.ipynb` | Chooses the embedding model, keyword search, word removal and top-k on `val`, builds the search and logs the results in Weights & Biases (KAN-97, KAN-221, KAN-99) |
-| `src/wandb_charts.ipynb` | Adds the charts of the embedding experiment to its W&B run and saves them in `docs/eval/embedding-results.pdf` (KAN-99) |
+| `src/embedding.ipynb` | Chooses the embedding model, keyword search, word removal and top-k on `val` (scored at 8 chunks), builds the search and logs the results and charts in Weights & Biases (KAN-97, KAN-221, KAN-99) |
 | `config/rag.yaml` | The chosen settings of the system (chunking, models, top-k, LLM settings) |
 | `prompts/` | The prompt templates, one file per template |
 | `data/` | The stored AI Act text, its manifest, the provision list and the chunks ([data/README.md](data/README.md)) |
@@ -86,7 +85,7 @@ jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeou
   # expected: f68bfa569b69783ba2d0203c7ecbc2a0317c9bbf24225100f406e8f16aac9d0a
   ```
   (on macOS: `shasum -a 256 docs/eval/eval-set-v1-test.csv`)
-- The retrieval scores on `val` are in `src/embedding.ipynb`, in [Weights & Biases](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/oyrsrqwf) and, as charts, in `docs/eval/embedding-results.pdf` (made by `src/wandb_charts.ipynb`, CPU, about 1 minute).
+- The retrieval scores on `val` are in `src/embedding.ipynb`, in [Weights & Biases](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/v7g5hhxh) and, as charts, in `docs/eval/embedding-results.pdf` (written by step 12 of the notebook).
 - Automated tests and the user story tests will be in `tests/` (Sprint 3).
 
 ## Source and licence
