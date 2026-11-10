@@ -1,0 +1,6 @@
+This word appears in many EU AI Act provisions. Examples:
+{examples}
+Should a keyword search IGNORE it (common wording that does not help to find the right provision)
+or KEEP it (a question can depend on it)? If in doubt, KEEP.
+Answer in one line: IGNORE or KEEP, then a reason of at most 12 words.
+WORD: {word}

@@ -1,0 +1,25 @@
+# Python 3.12 or 3.13. Install with: pip install -r requirements.txt
+# Every package is pinned to an exact version (D6 criterion 9).
+
+# Chunking (src/chunking.ipynb) and split (src/split.ipynb)
+beautifulsoup4==4.15.0
+pandas==3.1.1
+numpy==2.5.4
+pyyaml==6.0.3
+requests==2.34.2
+
+# Embedding and search (src/embedding.ipynb)
+torch==2.15.0
+sentence-transformers==6.2.0
+transformers==5.22.2
+chromadb==1.5.9
+rank-bm25==0.2.2
+scikit-learn==1.9.1
+umap-learn==0.5.12
+matplotlib==3.11.2
+
+# Logging the results
+wandb==0.31.0
+
+# Running the notebooks
+jupyter==1.1.1
