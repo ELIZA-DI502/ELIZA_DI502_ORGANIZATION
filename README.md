@@ -64,8 +64,8 @@ jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeou
 
 | Notebook | Needs | Time | Check |
 |---|---|---|---|
-| `chunking.ipynb` | CPU | a few minutes (in Colab, with the setup) | "103 of 103 provisions found", "105 chunks" |
-| `split.ipynb` | CPU | a few minutes (in Colab, with the setup) | every rule says OK, and the SHA-256 of the test file is `f68bfa569b69…` |
+| `chunking.ipynb` | CPU | about 15 seconds to run; in Colab, plus the time to download the repository and install the libraries | "103 of 103 provisions found", "105 chunks" |
+| `split.ipynb` | CPU | a few seconds to run; in Colab, plus the time to download the repository and install the libraries | every rule says OK, and the SHA-256 of the test file is `f68bfa569b69…` |
 | `embedding.ipynb` | Ollama with the three jury models; a GPU is recommended | about 1.5 hours on a Colab T4 GPU (most of it the download and the LLM jury), longer on a CPU | the settings table at the end matches `config/rag.yaml` |
 
 `split.ipynb` gives the same split every time (seed 42), so running it again does not change the frozen `test` file. `embedding.ipynb` builds the vector store in `data/vector-store/`; it is not in Git and is rebuilt on every run.
