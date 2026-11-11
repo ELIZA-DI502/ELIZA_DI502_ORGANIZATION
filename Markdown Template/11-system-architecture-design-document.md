@@ -203,7 +203,7 @@ The text is **parsed by its own structure; there is no separate chunking step.**
 | 5. Add heading text | Prefix each chunk with its place in the text, for example `Article 6 – Classification rules for high-risk AI systems – paragraph 3:`, so that a chunk such as "(a) the AI system is intended to perform a narrow procedural task;" still makes sense on its own.                                                                                                                                               | Text that is embedded                          |
 | 6. Check            | Compare the chunks with the provision list of deliverable D3: every in-scope provision is present, and no chunk lacks an identifier (deliverable D5 acceptance criteria). Counts and the share of chunks corrected by hand go to `docs/eval/preprocessing.md`.                                                                                                                                                   | Chunk file + report                            |
 
-The script will be `rag/ingest.py` (Sprint 2). It will run once, embed the chunks (D10) and write them to the vector store in `data/vector-store/` (D11); the stored source file stays unchanged in `data/`.
+The script will be `rag/ingest.py` (Sprint 3; in Sprint 2 `src/embedding.ipynb` does this step). It will run once, embed the chunks (D13) and write them to the vector store in `data/vector-store/` (D11); the stored source file stays unchanged in `data/`.
 
 - Storage: `data/vector-store/` is bind-mounted into the rag container, so the index survives rebuilds of the containers. The keyword index is not stored; the RAG service rebuilds it in memory from the chunk texts in the vector store when it starts (about 100 chunks).
 - Consistency: `ingest.py` and the rag container install the same `requirements.txt`, so both use the same library versions and the same embedding model.
@@ -583,7 +583,7 @@ Copy the block below for each decision.
 
 **Why:** The identifier and version date come back with each result, so citations need no extra lookup. Speed is not a problem with about 100 chunks.
 
-**Consequences:** ingest.py rebuilds the index when the chunks change.
+**Consequences:** In Sprint 2, `src/embedding.ipynb` rebuilds the index from an empty store on every run, so it always matches `data/chunks.jsonl`; `data/vector-store/` is not in Git. In the pipeline (Sprint 3), `rag/ingest.py` does the same before the first start.
 
 **Evidence:** [KAN-58](https://yarengursoy.atlassian.net/browse/KAN-58)
 
