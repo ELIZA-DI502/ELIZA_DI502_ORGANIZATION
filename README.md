@@ -68,7 +68,7 @@ jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeou
 | `split.ipynb` | CPU | a few seconds to run; in Colab, plus the time to download the repository and install the libraries | every rule says OK, and the SHA-256 of the test file is `f68bfa569b69…` |
 | `embedding.ipynb` | Ollama with the three jury models; a GPU is recommended | about 1.5 hours on a Colab T4 GPU (most of it the download and the LLM jury), longer on a CPU | the settings table at the end matches `config/rag.yaml` |
 
-`split.ipynb` gives the same split every time (seed 42), so running it again does not change the frozen `test` file. `embedding.ipynb` builds the vector store in `data/vector-store/`; it is not in Git and is rebuilt on every run.
+`split.ipynb` uses seed 42, so the same questions always go to `val` and `test`. The `test` file was frozen on 09/11/2026 (SHA-256 `f68bfa569b69…`). Do not run `split.ipynb` again and commit its output: since the review of the questions (KAN-52), `eval-set-v1.csv` has changed, so running it would rewrite the `val` and `test` files and change the hash. `embedding.ipynb` builds the vector store in `data/vector-store/`; it is not in Git and is rebuilt on every run.
 
 **In Google Colab:** upload a notebook (*File → Upload notebook*) and choose *Run all*. Its first code cell downloads this repository and, for `embedding.ipynb`, installs Ollama and the jury models. For `embedding.ipynb`, choose *Runtime → Change runtime type → T4 GPU* first.
 
