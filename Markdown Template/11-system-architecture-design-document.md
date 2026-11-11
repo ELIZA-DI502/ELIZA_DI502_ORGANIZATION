@@ -583,7 +583,7 @@ Copy the block below for each decision.
 
 **Why:** The identifier and version date come back with each result, so citations need no extra lookup. Speed is not a problem with about 100 chunks.
 
-**Consequences:** ingest.py rebuilds the index when the chunks change.
+**Consequences:** In Sprint 2, `src/embedding.ipynb` rebuilds the index from an empty store on every run, so it always matches `data/chunks.jsonl`; `data/vector-store/` is not in Git. In the pipeline (Sprint 3), `rag/ingest.py` does the same before the first start.
 
 **Evidence:** [KAN-58](https://yarengursoy.atlassian.net/browse/KAN-58)
 
