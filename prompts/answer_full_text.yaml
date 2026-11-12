@@ -1,6 +1,6 @@
 # The baseline without retrieval (KAN-99), as suggested by the instructor: a general chatbot gets the whole
 # consolidated text instead of the 8 retrieved chunks. Used once in a claude.ai chat on 12/11/2026 with Claude Haiku 5.5;
-# the answers are in docs/eval/answers/val-full-text-claude-haiku-5-5.csv and are read by src/answers.ipynb.
+# the answers are in docs/eval/answers/val-full-text-claude-haiku-5-5.csv and are read by src/rag_vs_no_rag.ipynb.
 # The rules are the same as in answer.yaml, so the two sides of the comparison get the same instructions.
 
 # first_message: sent with data/CELEX_02024R1689-20260727_EN.html attached

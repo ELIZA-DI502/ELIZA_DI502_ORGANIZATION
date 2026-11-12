@@ -28,7 +28,7 @@ retrieval:
   top_k: 8                                           # the answer model gets 8 chunks; every choice above is scored at 8 (Recall@8, D14)
   candidates: 20                                     # how many chunks each list gives to the fusion
   rrf_k: 60                                          # Reciprocal Rank Fusion constant
-answer:                                              # the answer model of D9, used by src/answers.ipynb (KAN-99)
+answer:                                              # the answer model of D9, used by src/rag_vs_no_rag.ipynb (KAN-99)
   model: hf.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF:Q4_K_M   # Llama-3.1-8B-Instruct, Q4_K_M, the GGUF of the spike and the SBOM
   url: http://localhost:11434/api/chat               # Ollama 0.40.15
   prompt: ../prompts/answer.yaml
