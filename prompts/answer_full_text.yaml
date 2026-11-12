@@ -1,0 +1,21 @@
+# The baseline without retrieval (KAN-99), as suggested by the instructor: a general chatbot gets the whole
+# consolidated text instead of the 8 retrieved chunks. Used once in a claude.ai chat on 12/11/2026 with Claude Haiku 5.5;
+# the answers are in docs/eval/answers/val-full-text-claude-haiku-5-5.csv and are read by src/answers.ipynb.
+# The rules are the same as in answer.yaml, so the two sides of the comparison get the same instructions.
+
+# first_message: sent with data/CELEX_02024R1689-20260727_EN.html attached
+first_message: |-
+  I have attached the consolidated text of the EU AI Act (Regulation (EU) 2024/1689, consolidated text of 27 July 2026). I will ask you questions one by one. For every question, follow these rules:
+  - Use only the attached text. Cite every provision you use, for example Article 6(3)(a). Do not cite provisions that are not relevant to the question.
+  - When a provision has points (a), (b), ..., name the point whose wording matches the user's description.
+  - Explain what the provisions say. Never state that the user's system is or is not high-risk, compliant, prohibited or allowed: the user makes that assessment.
+  - If the text answers only part of the question, say what it says and what it does not say.
+  - If the text does not answer the question, reply only: "The provided text does not answer this question."
+  - At most 120 words.
+
+  Reply "OK" now, and answer from my next message on.
+
+# batch_message: the 30 val questions were sent in 3 messages of 10, follow-up questions right after the question
+# they follow. {part}: 1, 2 or 3; then one line per question: "[ID] question", or "[ID] (follow-up of ID) question".
+batch_message: |-
+  Here are 10 questions (part {part} of 3). Answer each one separately with the rules of my first message (only the attached text, cite the provisions, no verdict, at most 120 words each). Start each answer on a new line with its ID in square brackets, for example [A-01]. Treat each question on its own, except a question marked "follow-up of", which continues that earlier question.
