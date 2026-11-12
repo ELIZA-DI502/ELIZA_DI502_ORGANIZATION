@@ -12,6 +12,7 @@ ELIZA helps technical teams that build AI systems for education find the provisi
 | `src/split.ipynb` | Splits the evaluation questions into `val` and `test` and freezes `test` (KAN-53) |
 | `src/embedding.ipynb` | Chooses the embedding model, keyword search, word removal and top-k on `val` (scored at 8 chunks), builds the search and logs the results and charts in Weights & Biases (KAN-97, KAN-221, KAN-99) |
 | `src/answers.ipynb` | Answers the `val` questions with retrieval (Llama-3.1-8B and 8 chunks) and compares them with the answers of Claude Haiku 5.5 given the whole text without retrieval; logs both in W&B (KAN-99, KAN-125) |
+| `src/answers_charts.ipynb` | Draws the charts of `src/answers.ipynb` from the saved answers and saves them in `docs/eval/answers-results.pdf` (CPU, a few seconds) (KAN-99) |
 | `src/wandb_results.ipynb` | Opens the W&B run of `src/embedding.ipynb`, shows its charts and downloads the PDF (CPU, about 1 minute) (KAN-99) |
 | `config/rag.yaml` | The chosen settings of the system (chunking, models, top-k, LLM settings) |
 | `prompts/` | The prompt templates, one file per template |
