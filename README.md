@@ -2,7 +2,7 @@
 
 ELIZA helps technical teams that build AI systems for education find the provisions of the EU AI Act (Regulation (EU) 2024/1689, consolidated text of 27/07/2026) that relate to their system. It answers only from the official text, cites the Article or Annex for every statement, and never gives a legal decision. DI 502, METU, Fall 2026.
 
-**Status (Sprint 2, baseline):** the law is split into chunks, the evaluation questions are split into `val` and `test`, and the retrieval is built and measured on `val`. The answer generation is being added (KAN-99).
+**Status (Sprint 2, baseline):** the law is split into chunks, the evaluation questions are split into `val` and `test`, and the retrieval is built and measured on `val`, and the answers of the baseline (Llama-3.1-8B with 8 retrieved chunks) are compared with a baseline without retrieval on `val` (KAN-99).
 
 ## What is where
 
@@ -91,6 +91,7 @@ jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeou
   ```
   (on macOS: `shasum -a 256 docs/eval/eval-set-v1-test.csv`)
 - The retrieval scores on `val` are in `src/embedding.ipynb`, in [Weights & Biases](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/v7g5hhxh) and, as charts, in `docs/eval/embedding-results.pdf` (written by step 12 of the notebook).
+- The answers without and with retrieval on `val` are in `src/rag_vs_no_rag.ipynb`, in [Weights & Biases](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/lgogwegq) and, as charts with Recall@8 and Recall@5, in `docs/eval/answers-results.pdf` (made by `src/rag_vs_no_rag_charts.ipynb`). The answers themselves are in `docs/eval/answers/`.
 - Automated tests and the user story tests will be in `tests/` (Sprint 3).
 
 ## Source and licence

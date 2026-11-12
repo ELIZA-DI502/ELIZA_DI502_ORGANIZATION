@@ -541,7 +541,7 @@ Copy the block below for each decision.
 
 **Owner and date:** NLP part, 2026-10-25
 
-**Status:** proposed
+**Status:** implemented in the baseline (KAN-99, [`src/rag_vs_no_rag.ipynb`](../src/rag_vs_no_rag.ipynb)): with the 8 retrieved chunks it cites the expected provision for 70% of the `val` questions (W&B run [`lgogwegq`](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/lgogwegq)); the answer time on a CPU is still to be measured (R-12)
 
 ### D10: Embedding model: bge-base-en-v1.5
 
