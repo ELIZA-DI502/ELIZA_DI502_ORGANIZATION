@@ -1,6 +1,8 @@
 # Story Requirements for Epic KAN-18: Know the Limits
 
-Jira export of 27/10/2026, Sprint 1. The same content is on the story requirements page [`06-story-requirements-for-epic-kan-18.md`](../../Markdown%20Template/06-user-stories/06-story-requirements-for-epic-kan-18.md). Back to the [User Story Map v1](../../Markdown%20Template/06-user-stories/01-user-story-map-v1.md) · [all story requirements pages](_README.md).
+*Updated in Sprint 2 by Yaren Gürsoy.*
+
+Jira export of 12/11/2026, Sprint 2. The same content is on the story requirements page [`06-story-requirements-for-epic-kan-18.md`](../../Markdown%20Template/06-user-stories/06-story-requirements-for-epic-kan-18.md). Back to the [User Story Map v2](../../Markdown%20Template/06-user-stories/02-user-story-map-v2.md) · [all story requirements pages](_README.md).
 
 | Epic | Know the Limits |
 |---|---|
@@ -22,12 +24,12 @@ For more info you can visit: https://www.atlassian.com/agile/product-management/
 | S1 | [See the relevant articles without a legal decision](#s1--see-the-relevant-articles-without-a-legal-decision) | As a compliance officer in an EdTech provider's legal team, I want the assistant to show the relevant articles with their requirements and applicable exceptions without giving a legal decision, so that developers come to legal reviews already knowing which articles relate to their product. | High | – | Gözde Nur | Sprint 3 | Release: Beta 0.5; Feature: F4. | [KAN-2](https://yarengursoy.atlassian.net/browse/KAN-2) |
 | S2 | [Get a notice when my question is out of scope](#s2--get-a-notice-when-my-question-is-out-of-scope) | As an EdTech AI developer, I want the assistant to tell me when my question is outside its scope, so that I do not rely on an unsupported answer as regulatory information. | High | – | – | Sprint 3 | Release: Beta 0.5; Feature: F4. | [KAN-5](https://yarengursoy.atlassian.net/browse/KAN-5) |
 | S3 | [Get a notice when the provisions do not answer my question](#s3--get-a-notice-when-the-provisions-do-not-answer-my-question) | As an ML engineer at an EdTech provider, I want the assistant to say when the provisions it found do not answer my question, so that I am not misled by a guessed answer. | High | – | – | Sprint 3 | Release: Beta 0.5; Feature: F4. | [KAN-23](https://yarengursoy.atlassian.net/browse/KAN-23) |
-| S4 | [Refuse requests to get around the law](#s4--refuse-requests-to-get-around-the-law) | As a compliance officer in an EdTech provider's legal team, I want the assistant to refuse requests to evade the AI Act and to keep its rules when users try to override them, so that developers are not misled by manipulated answers or helped to work around the law. | High | – | – | Sprint 3 | Release: Beta 0.5; Feature: F4. | [KAN-24](https://yarengursoy.atlassian.net/browse/KAN-24) |
-| S5 | [See that answers are not legal advice](#s5--see-that-answers-are-not-legal-advice) | As a compliance officer in an EdTech provider's legal team, I want users to see that the assistant gives regulatory information and not legal advice, so that they do not mistake its answers for legal decisions. | High | – | – | Sprint 3 | Release: Beta 0.5; Feature: F4. | [KAN-25](https://yarengursoy.atlassian.net/browse/KAN-25) |
+| S4 | [Refuse requests to get around the law](#s4--refuse-requests-to-get-around-the-law) | As a compliance officer in an EdTech provider's legal team, I want the assistant to refuse requests to evade the AI Act and to keep its rules when users try to override them, so that developers are not misled by manipulated answers or helped to work around the law. | High | – | – | – | Feature: F4; Merged into [KAN-2](https://yarengursoy.atlassian.net/browse/KAN-2) on 07/11/2026; Status: Done (closed). | [KAN-24](https://yarengursoy.atlassian.net/browse/KAN-24) |
+| S5 | [See that answers are not legal advice](#s5--see-that-answers-are-not-legal-advice) | As a compliance officer in an EdTech provider's legal team, I want users to see that the assistant gives regulatory information and not legal advice, so that they do not mistake its answers for legal decisions. | High | – | – | – | Feature: F4; Merged into [KAN-2](https://yarengursoy.atlassian.net/browse/KAN-2) on 07/11/2026; Status: Done (closed). | [KAN-25](https://yarengursoy.atlassian.net/browse/KAN-25) |
 | S6 | [Avoid sharing personal information when asking questions](#s6--avoid-sharing-personal-information-when-asking-questions) | As a technical lead at an EdTech provider, I want the assistant to warn me about entering personal information and to tell me how my questions are handled, so that I can avoid disclosing student or staff data. | High | – | – | Sprint 3 | Release: Beta 0.5; Feature: C-10; Depends on [KAN-168](https://yarengursoy.atlassian.net/browse/KAN-168). | [KAN-26](https://yarengursoy.atlassian.net/browse/KAN-26) |
 | S7 | [Be sure the assistant never gives a legal verdict](#s7--be-sure-the-assistant-never-gives-a-legal-verdict) | As a compliance officer in an EdTech provider's legal team, I want the final safety test to show that the assistant never gives a legal verdict, so that I can allow our developers to use it without the risk of mistaking its answers for a legal decision. | High | – | Yaren | Sprint 4 | Release: Release candidate 1.0; Feature: F4. | [KAN-75](https://yarengursoy.atlassian.net/browse/KAN-75) |
 
-Priority, points, owner and sprint are as in Jira on 27/10/2026. Sprint 1 stories were estimated with planning poker; the other stories are estimated and assigned at their sprint planning, starting with Sprint 2 on 28/10/2026. A dash means not decided yet.
+Priority, points, owner, sprint and status are as in Jira on 12/11/2026. Sprint 1 and Sprint 2 stories were estimated with planning poker; the Sprint 3 and Sprint 4 stories are estimated and assigned at their sprint planning. A dash means not decided yet.
 
 Test cases: KAN-8, KAN-2 and KAN-3 already have test cases; a test for every story (the input or steps and the expected result) is added next to it in Sprint 2 ([KAN-90](https://yarengursoy.atlassian.net/browse/KAN-90)).
 
@@ -138,7 +140,7 @@ Constraints: C-01 Single source (consolidated text of 27/07/2026); C-08 Informat
 
 ## S4 · Refuse requests to get around the law
 
-[KAN-24](https://yarengursoy.atlassian.net/browse/KAN-24) · Sprint 3 (Beta 0.5) · Priority High · Points – · Owner –
+[KAN-24](https://yarengursoy.atlassian.net/browse/KAN-24) · Merged into KAN-2 (07/11/2026) · Priority High · Points – · Owner –
 
 **Story:** As a compliance officer in an EdTech provider's legal team, I want the assistant to refuse requests to evade the AI Act and to keep its rules when users try to override them, so that developers are not misled by manipulated answers or helped to work around the law.
 
@@ -171,7 +173,7 @@ Constraint: C-08 Information, not legal advice
 
 ## S5 · See that answers are not legal advice
 
-[KAN-25](https://yarengursoy.atlassian.net/browse/KAN-25) · Sprint 3 (Beta 0.5) · Priority High · Points – · Owner –
+[KAN-25](https://yarengursoy.atlassian.net/browse/KAN-25) · Merged into KAN-2 (07/11/2026) · Priority High · Points – · Owner –
 
 **Story:** As a compliance officer in an EdTech provider's legal team, I want users to see that the assistant gives regulatory information and not legal advice, so that they do not mistake its answers for legal decisions.
 

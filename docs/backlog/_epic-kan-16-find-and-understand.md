@@ -1,6 +1,8 @@
 # Story Requirements for Epic KAN-16: Find and Understand
 
-Jira export of 27/10/2026, Sprint 1. The same content is on the story requirements page [`04-story-requirements-for-epic-kan-16.md`](../../Markdown%20Template/06-user-stories/04-story-requirements-for-epic-kan-16.md). Back to the [User Story Map v1](../../Markdown%20Template/06-user-stories/01-user-story-map-v1.md) · [all story requirements pages](_README.md).
+*Updated in Sprint 2 by Yaren Gürsoy.*
+
+Jira export of 12/11/2026, Sprint 2. The same content is on the story requirements page [`04-story-requirements-for-epic-kan-16.md`](../../Markdown%20Template/06-user-stories/04-story-requirements-for-epic-kan-16.md). Back to the [User Story Map v2](../../Markdown%20Template/06-user-stories/02-user-story-map-v2.md) · [all story requirements pages](_README.md).
 
 | Epic | Find and Understand |
 |---|---|
@@ -19,20 +21,20 @@ For more info you can visit: https://www.atlassian.com/agile/product-management/
 
 | # | User story title | User story description | Priority | Points | Owner | Sprint | Notes | Jira |
 |---|---|---|---|---|---|---|---|---|
-| S1 | [See the provisions that relate to my use case, with their references](#s1--see-the-provisions-that-relate-to-my-use-case-with-their-references) | As an EdTech AI developer, I want to see which in-scope provisions relate to my use case, with their exact references and version date, so that I do not miss a requirement that may concern my product. | High | – | – | Sprint 2 | Release: Alpha 0.1; Feature: F2. | [KAN-8](https://yarengursoy.atlassian.net/browse/KAN-8) |
+| S1 | [See the provisions that relate to my use case, with their references](#s1--see-the-provisions-that-relate-to-my-use-case-with-their-references) | As an EdTech AI developer, I want to see which in-scope provisions relate to my use case, with their exact references and version date, so that I do not miss a requirement that may concern my product. | High | 8 | Yeşim | Sprint 2 | Release: Alpha 0.1; Feature: F2; Status: To do (12/11/2026). | [KAN-8](https://yarengursoy.atlassian.net/browse/KAN-8) |
 | S2 | [Understand the relevant requirements in plain language](#s2--understand-the-relevant-requirements-in-plain-language) | As an EdTech AI developer, I want the assistant to explain the relevant EU AI Act requirements in plain language, so that I can understand what they mean for my product without interpreting legal terms on my own. | High | – | – | Sprint 3 | Release: Beta 0.5; Feature: F3. | [KAN-4](https://yarengursoy.atlassian.net/browse/KAN-4) |
 | S3 | [See when the AI Act rules apply to our product](#s3--see-when-the-ai-act-rules-apply-to-our-product) | As an EdTech AI developer building an AI-based exam-grading tool, I want to see from which date each relevant EU AI Act rule applies, based on the designated consolidated text, so that my team can plan our releases around the correct application dates. | High | – | Gözde Nur | Sprint 4 | Release: Release candidate 1.0; Feature: F2; Needed in the pilot version by 16/12/2026. | [KAN-3](https://yarengursoy.atlassian.net/browse/KAN-3) |
 | S4 | [Understand the assistant's answers without legal training](#s4--understand-the-assistants-answers-without-legal-training) | As an EdTech AI developer taking part in the pilot, I want the assistant's answers to be understandable without legal training, so that I can use them for my own education product without asking a lawyer to explain them first. | High | – | Yaren | Sprint 4 | Release: Release candidate 1.0; Feature: pilot, O3; Uses Beta 0.5 with [KAN-3](https://yarengursoy.atlassian.net/browse/KAN-3) and [KAN-22](https://yarengursoy.atlassian.net/browse/KAN-22) (pilot version, 16/12/2026). | [KAN-72](https://yarengursoy.atlassian.net/browse/KAN-72) |
 | S5 | [Find the provisions faster than with manual search](#s5--find-the-provisions-faster-than-with-manual-search) | As an EdTech AI developer, I want to find the relevant AI Act provisions faster with the assistant than by searching the regulation myself, so that I can check my feature against the law without losing a working day. | High | – | – | Sprint 4 | Release: Release candidate 1.0; Feature: pilot, O1; Uses Beta 0.5 with [KAN-3](https://yarengursoy.atlassian.net/browse/KAN-3) and [KAN-22](https://yarengursoy.atlassian.net/browse/KAN-22) (pilot version, 16/12/2026). | [KAN-202](https://yarengursoy.atlassian.net/browse/KAN-202) |
 | S6 | [Ask follow-up questions about our product in the same session](#s6--ask-follow-up-questions-about-our-product-in-the-same-session) | As a technical lead at an EdTech provider, I want to describe our product once and then ask follow-up questions about it, so that I do not have to repeat the product details and receive answers relevant to the product I described. | Low | – | Kaan | Backlog | Feature: F7; Not committed (Feature 7); built only if time allows. | [KAN-6](https://yarengursoy.atlassian.net/browse/KAN-6) |
 
-Priority, points, owner and sprint are as in Jira on 27/10/2026. Sprint 1 stories were estimated with planning poker; the other stories are estimated and assigned at their sprint planning, starting with Sprint 2 on 28/10/2026. A dash means not decided yet.
+Priority, points, owner, sprint and status are as in Jira on 12/11/2026. Sprint 1 and Sprint 2 stories were estimated with planning poker; the Sprint 3 and Sprint 4 stories are estimated and assigned at their sprint planning. A dash means not decided yet.
 
 Test cases: KAN-8, KAN-2 and KAN-3 already have test cases; a test for every story (the input or steps and the expected result) is added next to it in Sprint 2 ([KAN-90](https://yarengursoy.atlassian.net/browse/KAN-90)).
 
 ## S1 · See the provisions that relate to my use case, with their references
 
-[KAN-8](https://yarengursoy.atlassian.net/browse/KAN-8) · Sprint 2 (Alpha 0.1) · Priority High · Points – · Owner –
+[KAN-8](https://yarengursoy.atlassian.net/browse/KAN-8) · Sprint 2 (Alpha 0.1) · Priority High · Points 8 · Owner Yeşim
 
 **Story:** As an EdTech AI developer, I want to see which in-scope provisions relate to my use case, with their exact references and version date, so that I do not miss a requirement that may concern my product.
 
@@ -56,11 +58,11 @@ Adapted from the use-case stories KAN-10, KAN-11, KAN-12 and KAN-13 (Gözde Nur 
 
 | Sub-task | Done when | Owner | Estimate | Status | Jira |
 |---|---|---|---|---|---|
-| Generate answers from the retrieved chunks | The retriever from KAN-87 is connected to the language model with the fixed prompt templates in `prompts/`, and every D2 `val` question gets a response. In Sprint 2 this is the baseline answer: the retrieved provisions with their references and the version date, and a short answer based only on them. The plain-language answer format (KAN-4) and the safety checks and notices (KAN-2, KAN-5, KAN-23, KAN-24) are built in Sprint 3. | – | – | To do | [KAN-125](https://yarengursoy.atlassian.net/browse/KAN-125) |
-| Show each cited provision with its reference and version date | Every substantive answer lists each provision it uses, down to the paragraph or point, with the version date of the consolidated text (27/07/2026). | – | – | To do | [KAN-126](https://yarengursoy.atlassian.net/browse/KAN-126) |
-| Show how several provisions relate | When an answer uses more than one provision, they are shown in the same answer, with "condition" or "exception" where the source text supports it. | – | – | To do | [KAN-127](https://yarengursoy.atlassian.net/browse/KAN-127) |
-| Check every citation against the retrieved chunk IDs | A citation that does not match a retrieved chunk is removed before the answer is shown, and 100% of the shown citations match the IDs of the retrieved chunks. | – | – | To do | [KAN-128](https://yarengursoy.atlassian.net/browse/KAN-128) |
-| Report citation coverage and the expected-provision rate on the val split | O2 (c), the share of substantive answers with at least one Article/Annex reference and the version date, and O2 (a), the share of questions whose expected provision is cited, are logged with Recall@5 for the D2 `val` split. | – | – | To do | [KAN-129](https://yarengursoy.atlassian.net/browse/KAN-129) |
+| Generate answers from the retrieved chunks | The retriever from KAN-87 is connected to the language model with the fixed prompt templates in `prompts/`, and every D2 `val` question gets a response. In Sprint 2 this is the baseline answer: the retrieved provisions with their references and the version date, and a short answer based only on them. The plain-language answer format (KAN-4) and the safety checks and notices (KAN-2, KAN-5, KAN-23, KAN-24) are built in Sprint 3. | Yeşim | – | To do | [KAN-125](https://yarengursoy.atlassian.net/browse/KAN-125) |
+| Show each cited provision with its reference and version date | Every substantive answer lists each provision it uses, down to the paragraph or point, with the version date of the consolidated text (27/07/2026). | Yeşim | – | To do | [KAN-126](https://yarengursoy.atlassian.net/browse/KAN-126) |
+| Show how several provisions relate | When an answer uses more than one provision, they are shown in the same answer, with "condition" or "exception" where the source text supports it. | Yeşim | – | To do | [KAN-127](https://yarengursoy.atlassian.net/browse/KAN-127) |
+| Check every citation against the retrieved chunk IDs | A citation that does not match a retrieved chunk is removed before the answer is shown, and 100% of the shown citations match the IDs of the retrieved chunks. | Yaren | – | To do | [KAN-128](https://yarengursoy.atlassian.net/browse/KAN-128) |
+| Report citation coverage and the expected-provision rate on the val split | O2 (c), the share of substantive answers with at least one Article/Annex reference and the version date, and O2 (a), the share of questions whose expected provision is cited, are logged with Recall@5 for the D2 `val` split. | Yaren | – | To do | [KAN-129](https://yarengursoy.atlassian.net/browse/KAN-129) |
 
 Sub-task owners are assigned at the sprint planning.
 

@@ -1,6 +1,8 @@
 # Story Requirements for Epic KAN-15: Ask
 
-Jira export of 27/10/2026, Sprint 1. The same content is on the story requirements page [`03-story-requirements-for-epic-kan-15.md`](../../Markdown%20Template/06-user-stories/03-story-requirements-for-epic-kan-15.md). Back to the [User Story Map v1](../../Markdown%20Template/06-user-stories/01-user-story-map-v1.md) · [all story requirements pages](_README.md).
+*Updated in Sprint 2 by Yaren Gürsoy.*
+
+Jira export of 12/11/2026, Sprint 2. The same content is on the story requirements page [`03-story-requirements-for-epic-kan-15.md`](../../Markdown%20Template/06-user-stories/03-story-requirements-for-epic-kan-15.md). Back to the [User Story Map v2](../../Markdown%20Template/06-user-stories/02-user-story-map-v2.md) · [all story requirements pages](_README.md).
 
 | Epic | Ask |
 |---|---|
@@ -23,7 +25,7 @@ For more info you can visit: https://www.atlassian.com/agile/product-management/
 | S2 | [Use the assistant in my browser](#s2--use-the-assistant-in-my-browser) | As a technical lead taking part in the pilot, I want to open the assistant in a web browser without installing anything, so that I can try it during the pilot with my own questions. | High | – | – | Sprint 3 | Release: Beta 0.5; Feature: Interface; Depends on [KAN-168](https://yarengursoy.atlassian.net/browse/KAN-168) (the whole pipeline runs from one README). | [KAN-21](https://yarengursoy.atlassian.net/browse/KAN-21) |
 | S3 | [Start from example questions or my use case](#s3--start-from-example-questions-or-my-use-case) | As an EdTech AI developer new to the AI Act, I want to start from example questions and optionally choose my education use case from a list, so that I can ask a useful first question without knowing legal terms. | Low | – | – | Backlog | Feature: F5; Not committed (Feature 5); built only if time allows. | [KAN-20](https://yarengursoy.atlassian.net/browse/KAN-20) |
 
-Priority, points, owner and sprint are as in Jira on 27/10/2026. Sprint 1 stories were estimated with planning poker; the other stories are estimated and assigned at their sprint planning, starting with Sprint 2 on 28/10/2026. A dash means not decided yet.
+Priority, points, owner, sprint and status are as in Jira on 12/11/2026. Sprint 1 and Sprint 2 stories were estimated with planning poker; the Sprint 3 and Sprint 4 stories are estimated and assigned at their sprint planning. A dash means not decided yet.
 
 Test cases: KAN-8, KAN-2 and KAN-3 already have test cases; a test for every story (the input or steps and the expected result) is added next to it in Sprint 2 ([KAN-90](https://yarengursoy.atlassian.net/browse/KAN-90)).
 

@@ -1,6 +1,8 @@
 # Story Requirements for Epic KAN-29: Source corpus
 
-Jira export of 27/10/2026, Sprint 1. The same content is on the story requirements page [`09-story-requirements-for-epic-kan-29.md`](../../Markdown%20Template/06-user-stories/09-story-requirements-for-epic-kan-29.md). Back to the [User Story Map v1](../../Markdown%20Template/06-user-stories/01-user-story-map-v1.md) · [all story requirements pages](_README.md).
+*Updated in Sprint 2 by Yaren Gürsoy.*
+
+Jira export of 12/11/2026, Sprint 2. The same content is on the story requirements page [`09-story-requirements-for-epic-kan-29.md`](../../Markdown%20Template/06-user-stories/09-story-requirements-for-epic-kan-29.md). Back to the [User Story Map v2](../../Markdown%20Template/06-user-stories/02-user-story-map-v2.md) · [all story requirements pages](_README.md).
 
 | Epic | Source corpus |
 |---|---|
@@ -20,9 +22,9 @@ For more info you can visit: https://www.atlassian.com/agile/product-management/
 | # | User story title | User story description | Priority | Points | Owner | Sprint | Notes | Jira |
 |---|---|---|---|---|---|---|---|---|
 | S1 | [Work from one verified copy of the source](#s1--work-from-one-verified-copy-of-the-source) | As a Data Scientist, I want one stored copy of the consolidated text with its manifest and a list of the in-scope provisions, so that the index and the evaluation questions are built from the same source version. | High | 5 | Yeşim | Sprint 1 | Release: Pre-alpha; Status: Done (27/10/2026). | [KAN-67](https://yarengursoy.atlassian.net/browse/KAN-67) |
-| S2 | [Index every in-scope provision with its reference and version date](#s2--index-every-in-scope-provision-with-its-reference-and-version-date) | As a Data Scientist, I want every in-scope provision stored as its own chunk with its Article or Annex reference and the version date, so that retrieval and citations can be checked against the source text. | High | – | – | Sprint 2 | Release: Alpha 0.1. | [KAN-86](https://yarengursoy.atlassian.net/browse/KAN-86) |
+| S2 | [Index every in-scope provision with its reference and version date](#s2--index-every-in-scope-provision-with-its-reference-and-version-date) | As a Data Scientist, I want every in-scope provision stored as its own chunk with its Article or Annex reference and the version date, so that retrieval and citations can be checked against the source text. | High | 8 | Gözde Nur | Sprint 2 | Release: Alpha 0.1; Status: In progress (12/11/2026). | [KAN-86](https://yarengursoy.atlassian.net/browse/KAN-86) |
 
-Priority, points, owner and sprint are as in Jira on 27/10/2026. Sprint 1 stories were estimated with planning poker; the other stories are estimated and assigned at their sprint planning, starting with Sprint 2 on 28/10/2026. A dash means not decided yet.
+Priority, points, owner, sprint and status are as in Jira on 12/11/2026. Sprint 1 and Sprint 2 stories were estimated with planning poker; the Sprint 3 and Sprint 4 stories are estimated and assigned at their sprint planning. A dash means not decided yet.
 
 Test cases: KAN-8, KAN-2 and KAN-3 already have test cases; a test for every story (the input or steps and the expected result) is added next to it in Sprint 2 ([KAN-90](https://yarengursoy.atlassian.net/browse/KAN-90)).
 
@@ -58,7 +60,7 @@ Assumptions / constraints / risks: A-01, A-05; C-01, C-09; R-01, R-11
 
 ## S2 · Index every in-scope provision with its reference and version date
 
-[KAN-86](https://yarengursoy.atlassian.net/browse/KAN-86) · Sprint 2 (Alpha 0.1) · Priority High · Points – · Owner –
+[KAN-86](https://yarengursoy.atlassian.net/browse/KAN-86) · Sprint 2 (Alpha 0.1) · Priority High · Points 8 · Owner Gözde Nur
 
 **Story:** As a Data Scientist, I want every in-scope provision stored as its own chunk with its Article or Annex reference and the version date, so that retrieval and citations can be checked against the source text.
 
@@ -76,12 +78,12 @@ Assumptions / constraints / risks: A-01, A-05; C-01, C-09; R-01, R-11
 
 | Sub-task | Done when | Owner | Estimate | Status | Jira |
 |---|---|---|---|---|---|
-| Parse the stored EUR-Lex text into provisions | Every provision in the D3 list is extracted from the stored file with its Article or Annex identifier; the file hash is checked against `data/manifest.csv` before parsing. | – | – | To do | [KAN-92](https://yarengursoy.atlassian.net/browse/KAN-92) |
-| Chunk the provisions and add their metadata | There is one chunk per Article paragraph or Annex point, each with its identifier and the version date; the chunking parameters are in `config/rag.yaml`. | – | – | To do | [KAN-93](https://yarengursoy.atlassian.net/browse/KAN-93) |
-| Check 20 random chunks against the source text | 20 randomly chosen chunks are compared word for word with the source text; the number of discrepancies and the share of chunks corrected by hand are recorded (A-05 holds at 5% or less). | – | – | To do | [KAN-94](https://yarengursoy.atlassian.net/browse/KAN-94) |
-| Write the preprocessing report | `docs/eval/preprocessing.md` describes parsing, chunking and metadata with counts, and gives the results of the 20-chunk check. | – | – | To do | [KAN-95](https://yarengursoy.atlassian.net/browse/KAN-95) |
-| Complete the corpus datasheet | The consolidated text has its entry in `Markdown Template/11-datasheets/01-third-party-dataset-register.md` (or `02-dataset-report.md`), with source, version, licence and preprocessing. | – | – | To do | [KAN-96](https://yarengursoy.atlassian.net/browse/KAN-96) |
-| Check EUR-Lex for a newer consolidated version | At the start of Sprint 2, EUR-Lex is checked for a consolidated version newer than 27/07/2026 or an amendment to an in-scope provision; the result and the check date are recorded. A change of the designated version needs Product Owner approval and an ADR. | – | – | To do | [KAN-157](https://yarengursoy.atlassian.net/browse/KAN-157) |
+| Parse the stored EUR-Lex text into provisions | Every provision in the D3 list is extracted from the stored file with its Article or Annex identifier; the file hash is checked against `data/manifest.csv` before parsing. | Gözde Nur | – | Done | [KAN-92](https://yarengursoy.atlassian.net/browse/KAN-92) |
+| Chunk the provisions and add their metadata | There is one chunk per Article paragraph or Annex point, each with its identifier and the version date; the chunking parameters are in `config/rag.yaml`. | Gözde Nur | – | Done | [KAN-93](https://yarengursoy.atlassian.net/browse/KAN-93) |
+| Check 20 random chunks against the source text | 20 randomly chosen chunks are compared word for word with the source text; the number of discrepancies and the share of chunks corrected by hand are recorded (A-05 holds at 5% or less). | Yaren | – | In progress | [KAN-94](https://yarengursoy.atlassian.net/browse/KAN-94) |
+| Write the preprocessing report | `docs/eval/preprocessing.md` describes parsing, chunking and metadata with counts, and gives the results of the 20-chunk check. | Yaren | – | To do | [KAN-95](https://yarengursoy.atlassian.net/browse/KAN-95) |
+| Complete the corpus datasheet | The consolidated text has its entry in `Markdown Template/11-datasheets/01-third-party-dataset-register.md` (or `02-dataset-report.md`), with source, version, licence and preprocessing. | Yeşim | – | To do | [KAN-96](https://yarengursoy.atlassian.net/browse/KAN-96) |
+| Check EUR-Lex for a newer consolidated version | At the start of Sprint 2, EUR-Lex is checked for a consolidated version newer than 27/07/2026 or an amendment to an in-scope provision; the result and the check date are recorded. A change of the designated version needs Product Owner approval and an ADR. | Yeşim | – | Done | [KAN-157](https://yarengursoy.atlassian.net/browse/KAN-157) |
 
 Sub-task owners are assigned at the sprint planning.
 

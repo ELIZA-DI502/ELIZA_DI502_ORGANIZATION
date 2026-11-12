@@ -1,6 +1,8 @@
 # Story Requirements for Epic KAN-17: Show the Source
 
-Jira export of 27/10/2026, Sprint 1. The same content is on the story requirements page [`05-story-requirements-for-epic-kan-17.md`](../../Markdown%20Template/06-user-stories/05-story-requirements-for-epic-kan-17.md). Back to the [User Story Map v1](../../Markdown%20Template/06-user-stories/01-user-story-map-v1.md) · [all story requirements pages](_README.md).
+*Updated in Sprint 2 by Yaren Gürsoy.*
+
+Jira export of 12/11/2026, Sprint 2. The same content is on the story requirements page [`05-story-requirements-for-epic-kan-17.md`](../../Markdown%20Template/06-user-stories/05-story-requirements-for-epic-kan-17.md). Back to the [User Story Map v2](../../Markdown%20Template/06-user-stories/02-user-story-map-v2.md) · [all story requirements pages](_README.md).
 
 | Epic | Show the Source |
 |---|---|
@@ -22,7 +24,7 @@ For more info you can visit: https://www.atlassian.com/agile/product-management/
 | S1 | [Read the cited source text behind an answer](#s1--read-the-cited-source-text-behind-an-answer) | As a compliance officer in an EdTech provider's legal team, I want to read the source text of each provision cited in an answer, so that I can verify the explanation before advising the development team. | High | – | – | Sprint 4 | Release: Release candidate 1.0; Feature: F6; Depends on [KAN-8](https://yarengursoy.atlassian.net/browse/KAN-8) (the cited provisions must be found first). Needed in the pilot version by 16/12/2026. | [KAN-22](https://yarengursoy.atlassian.net/browse/KAN-22) |
 | S2 | [Rely on cited provisions confirmed on unseen questions](#s2--rely-on-cited-provisions-confirmed-on-unseen-questions) | As a compliance officer in an EdTech provider's legal team, I want the assistant's citations to be confirmed on questions it has not seen before, so that I can trust that developers receive the right Article or Annex with the correct version date. | High | – | Yaren | Sprint 4 | Release: Release candidate 1.0; Feature: F6. | [KAN-77](https://yarengursoy.atlassian.net/browse/KAN-77) |
 
-Priority, points, owner and sprint are as in Jira on 27/10/2026. Sprint 1 stories were estimated with planning poker; the other stories are estimated and assigned at their sprint planning, starting with Sprint 2 on 28/10/2026. A dash means not decided yet.
+Priority, points, owner, sprint and status are as in Jira on 12/11/2026. Sprint 1 and Sprint 2 stories were estimated with planning poker; the Sprint 3 and Sprint 4 stories are estimated and assigned at their sprint planning. A dash means not decided yet.
 
 Test cases: KAN-8, KAN-2 and KAN-3 already have test cases; a test for every story (the input or steps and the expected result) is added next to it in Sprint 2 ([KAN-90](https://yarengursoy.atlassian.net/browse/KAN-90)).
 
