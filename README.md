@@ -11,8 +11,8 @@ ELIZA helps technical teams that build AI systems for education find the provisi
 | `src/chunking.ipynb` | Splits the AI Act into 105 chunks, one per provision in scope, with metadata (KAN-92, KAN-93) |
 | `src/split.ipynb` | Splits the evaluation questions into `val` and `test` and freezes `test` (KAN-53) |
 | `src/embedding.ipynb` | Chooses the embedding model, keyword search, word removal and top-k on `val` (scored at 8 chunks), builds the search and logs the results and charts in Weights & Biases (KAN-97, KAN-221, KAN-99) |
-| `src/answers.ipynb` | Answers the `val` questions with retrieval (Llama-3.1-8B and 8 chunks) and compares them with the answers of Claude Haiku 5.5 given the whole text without retrieval; logs both in W&B (KAN-99, KAN-125) |
-| `src/answers_charts.ipynb` | Draws the charts of `src/answers.ipynb` from the saved answers and saves them in `docs/eval/answers-results.pdf` (CPU, a few seconds) (KAN-99) |
+| `src/rag_vs_no_rag.ipynb` | Answers the `val` questions with retrieval (Llama-3.1-8B and 8 chunks) and compares them with the answers of Claude Haiku 5.5 given the whole text without retrieval; logs both in W&B (KAN-99, KAN-125) |
+| `src/rag_vs_no_rag_charts.ipynb` | Draws the charts of `src/rag_vs_no_rag.ipynb` from the saved answers and saves them in `docs/eval/answers-results.pdf` (CPU, a few seconds) (KAN-99) |
 | `src/wandb_results.ipynb` | Opens the W&B run of `src/embedding.ipynb`, shows its charts and downloads the PDF (CPU, about 1 minute) (KAN-99) |
 | `config/rag.yaml` | The chosen settings of the system (chunking, models, top-k, LLM settings) |
 | `prompts/` | The prompt templates, one file per template |
@@ -62,7 +62,7 @@ cd src
 jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=-1 chunking.ipynb
 jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=-1 split.ipynb
 jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=-1 embedding.ipynb
-jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=-1 answers.ipynb
+jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeout=-1 rag_vs_no_rag.ipynb
 ```
 
 | Notebook | Needs | Time | Check |
@@ -70,7 +70,7 @@ jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeou
 | `chunking.ipynb` | CPU | about 15 seconds to run; in Colab, plus the time to download the repository and install the libraries | "103 of 103 provisions found", "105 chunks" |
 | `split.ipynb` | CPU | a few seconds to run; in Colab, plus the time to download the repository and install the libraries | every rule says OK, and the SHA-256 of the test file is `f68bfa569b69…` |
 | `embedding.ipynb` | Ollama with the three jury models; a GPU is recommended | about 1.5 hours on a Colab T4 GPU (most of it the download and the LLM jury), longer on a CPU | the settings table at the end matches `config/rag.yaml` |
-| `answers.ipynb` | Ollama with Llama-3.1-8B; a GPU is recommended | about 15–20 minutes on a Colab T4 GPU, most of it the model download | the Recall@8 check prints 0.59, and every val question has an answer |
+| `rag_vs_no_rag.ipynb` | Ollama with Llama-3.1-8B; a GPU is recommended | about 15–20 minutes on a Colab T4 GPU, most of it the model download | the Recall@8 check prints 0.59, and every val question has an answer |
 
 `split.ipynb` uses seed 42, so the same questions always go to `val` and `test`. The `test` file was frozen on 09/11/2026 (SHA-256 `f68bfa569b69…`). Do not run `split.ipynb` again and commit its output: since the review of the questions (KAN-52), `eval-set-v1.csv` has changed, so running it would rewrite the `val` and `test` files and change the hash. `embedding.ipynb` builds the vector store in `data/vector-store/`; it is not in Git and is rebuilt on every run.
 
