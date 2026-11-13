@@ -44,8 +44,18 @@ Links only:
 **Search method and runs:** none; one configuration, the baseline. Its settings were chosen on the `val` questions in [`src/embedding.ipynb`](../../src/embedding.ipynb), Part 1 (KAN-99).
 
 **Summary of Results:**
-<!-- The main scores go in the results table of the technical summary. Put the breakdown here: scores by question type, and failures by cause. -->
+Baseline on the D2 `val` split (30 questions, 27 with `gold_ids`), answers of 12/11/2026 (`docs/eval/answers/val-with-retrieval-chunks.jsonl`), counted with `src/citations.py` (KAN-129):
 
+| Metric | Result | Charter target |
+|---|---|---|
+| Recall@8 / Recall@5 (27 questions with `gold_ids`) | 0.59 / 0.43 (W&B run `v7g5hhxh`) | no pass level |
+| O2 (a) expected provision cited | 19 of 27 = 70% | at least 80% |
+| O2 (c) substantive answers with at least one Article/Annex reference | 20 of 20 = 100% | 100% |
+| O2 (c) substantive answers with a reference **and** the version date | 0 of 20 = 0% | 100% |
+| Answers that end with a fixed sentence (no answer, refusal) | 10 of 30 | – |
+| After the citation check (KAN-128) | same results; the 4 removed citations were not gold provisions | – |
+
+The version date is not written by the answer model. Every retrieved chunk carries it (27/07/2026), so from Sprint 3 the answer template adds it to every substantive answer.
 | Failure cause | Count | % of failures |
 |---|---|---|
 |  |  |  |
