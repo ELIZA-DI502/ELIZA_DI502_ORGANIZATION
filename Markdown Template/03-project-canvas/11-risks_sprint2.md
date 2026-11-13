@@ -146,8 +146,7 @@ Spread of the risks (R-01 to R-12) after the Sprint 2 re-scoring: 1 Critical (R-
 | The course changed the question-writing method on 04/11/2026, so questions were relabelled | R-04 |
 | Planned work (KAN-125 to KAN-129) moved to Sprint 3, and Charter v2 was finished in the last two days | R-07 |
 | The 20-chunk check (KAN-94) was done after the index was built | Not a risk: retrospective action (Gözde Nur) |
-| The rubric (KAN-50) was late, so the safety story (KAN-83) did not move | Not a risk: retrospective action (Yeşim, Kaan) |
-| The documents waited for the baseline and were on one person; Jira was updated late | Not a risk: retrospective actions (Yaren, Kaan) |
+| The documents waited for the baseline ; Jira was updated late | Not a risk: retrospective actions (Yaren, Kaan) |
 | Recall@8 of the baseline is 0.59, below the O2 (a) target | Not a risk: a design question, answered with hybrid retrieval in Sprint 3 ([E1 Baseline](../12-experiment-cards/E1-baseline.md), D4) |
 | The CPU answer time of the baseline is not measured yet | Not a risk: a measurement task (Major Activities row 29); the uncertain part, the pilot computer, stays in R-12 |
 
