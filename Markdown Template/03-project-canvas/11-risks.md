@@ -1,5 +1,7 @@
 # Risks
 
+*Updated in Sprint 2 (Project Charter v2) on 14/11/2026: every risk is re-scored after the baseline evaluation, and each problem met in Sprint 2 is either linked to a risk or, when the team can solve it itself, handled as a retrospective action. See [What is new in Charter v2](#what-is-new-in-charter-v2).*
+
 Record here the strategic risks identified at the start of the project. Write each risk as an **event** that could happen, not as a general worry: "Recall@5 on the evaluation set stays below 0.60 at the end of Sprint 3", not "the model fails".
 
 ## Risks, assumptions and constraints
@@ -114,23 +116,56 @@ Where the risks come from: R-01 to R-06, R-08, R-10 and R-11 are the other side 
 | # | Layer | Risk (event) | When / where | Probability | Impact | Score | Owner | Linked to |
 |---|---|---|---|---|---|---|---|---|
 | R-01 | Data | **Source text differs from the Official Journal.** The EUR-Lex text differs from the Official Journal in an in-scope article. | Sprint 2; development | 2: the Publications Office joins the original text and its amendments by hand, and the consolidated text is not checked as a legal text; it includes the 2026 amendment (marked ▼M1), where joining errors are most likely | 4: answers would quote a text that is not the official wording (O2) | 8 (Medium) | Yeşim (Product Owner) | A-01; C-01; [Dependencies](06-dependencies.md) row 3 |
-| R-02 | Data | **The law or its official reading changes (concept drift).** An in-scope article is amended, or the European Commission adopts its final guidelines on high-risk classification (Article 6), before 30/12/2026, so some answers describe outdated rules or miss the official reading. | Sprints 2–4; development and after deployment | 3: the Commission published draft Article 6 guidelines on 19/05/2026; the consultation closed on 23/07/2026, and the final version had not been adopted when checked on 25/10/2026; the last amendment (Regulation (EU) 2026/1744) is already in the 27/07/2026 version | 3: answers on the changed article or on Article 6 become partly wrong for users, so a technical requirement is partly unmet | 9 (Medium) | Yaren (Scrum Master) | A-02; C-01; [Major Activities](04-major-activities.md) rows 18, 32 |
-| R-03 | People / process | **Too few pilot users.** Fewer than 5 people join the pilot (16/12–23/12/2026). | Sprints 3–4; validation | 3: holiday period; participation is voluntary and unpaid | 4: O1 and O3 need at least 5 users | 12 (High) | Gözde Nur (Data Scientist; pilot) | A-04; [Dependencies](06-dependencies.md) row 9 |
-| R-04 | People / process | **Targets change after review.** The Project Review Committee asks for different targets or a different scope at a sprint review. | Sprints 1–2; planning | 2: after the 21/10/2026 presentation the committee asked for several charter pages to be rewritten, but not for different target levels (Sprint 1 retrospective) | 2: questions, tests and charter pages need 2–4 weeks of changes | 4 (Low) | Yeşim (Product Owner) | A-06; [Dependencies](06-dependencies.md) row 5 |
-| R-05 | People / process | **A team member leaves.** A team member leaves the course or cannot work for 2 weeks or more. | Sprints 1–4; development | 2: all four members are enrolled and active | 3: the other three members take over a quarter of the work; later deliverables move by 1–2 months | 6 (Medium) | Yaren (Scrum Master) | A-08; C-07 |
-| R-06 | Model | **The model or a library becomes unavailable.** Access to the selected model or a library is withdrawn by its authors before the team has stored its copy: for example, access to Llama is refused for the team's region, or the files become paid or are removed. | Sprints 1–2; development | 2: the official Llama files on Hugging Face are gated, so Meta approves each download and can refuse it, and the copies on Ollama can be removed by their publishers; Phi-4-mini-instruct and bge-base-en-v1.5 are not gated | 2: another model or library must be chosen and the evaluation runs repeated; 2–4 weeks | 4 (Low) | Kaan (Data Scientist) | A-09; C-03; [Dependencies](06-dependencies.md) row 6; [Facilities & Resources](09-facilities-and-resources.md) rows 4–6 |
-| R-07 | People / process | **Work falls behind.** A task that later work depends on ([Dependencies](06-dependencies.md) rows 1, 7, 10–16) is not finished by its date, so the next release starts at least 1 week late. | Sprints 1–4; development | 3: in Sprint 1, several charter pages were rewritten the night before the 21/10/2026 presentation (Sprint 1 retrospective) | 2: a delay of 1 week in each sprint adds up to 4 weeks | 6 (Medium) | Yaren (Scrum Master) | C-07; [Release Plan](10-release-plan.md); [Dependencies](06-dependencies.md) rows 1, 7, 10–16 |
-| R-08 | People / process | **Pilot users do not match the target users.** Fewer than 3 of the pilot users have worked on an AI or education software product, so the pilot results do not represent the target users. | Sprints 2–4; validation | 2: the contacts work in software and AI, but not all of them work on education products | 3: O1 and O3 are measured, but on users outside the target group | 6 (Medium) | Gözde Nur (Data Scientist; pilot) | A-07; [Dependencies](06-dependencies.md) row 9 |
+| R-02 | Data | **The law or its official reading changes (concept drift).** An in-scope article is amended, or the European Commission adopts its final guidelines on high-risk classification (Article 6), before 30/12/2026, so some answers describe outdated rules or miss the official reading. | Sprints 2–4; development and after deployment | 4: the Commission published draft Article 6 guidelines on 19/05/2026; the consultation closed on 23/07/2026, and the final version had not been adopted when checked on 25/10/2026; the last amendment (Regulation (EU) 2026/1744) is already in the 27/07/2026 version; Sprint 2: EUR-Lex had no newer consolidated version on 04/11/2026 (KAN-157), but the Commission plans to adopt the final guidelines by the end of 2026, inside the project | 3: answers on the changed article or on Article 6 become partly wrong for users, so a technical requirement is partly unmet | 12 (High) |  Yaren | A-02; C-01; [Major Activities](04-major-activities.md) rows 18, 32 |
+| R-03 | People / process | **Too few pilot users.** Fewer than 5 people join the pilot (16/12–23/12/2026). | Sprints 3–4; validation | 4: holiday period; participation is voluntary and unpaid; Sprint 2: no pilot user was named by 04/11/2026 as planned, and KAN-158 is still open (Sprint 2 retrospective) | 4: O1 and O3 need at least 5 users | 16 (Critical) | Gözde Nur (Data Scientist; pilot) | A-04; [Dependencies](06-dependencies.md) row 9 |
+| R-04 | People / process | **Targets or methods change after review.** The Project Review Committee asks for different targets, a different scope or a different working method at a sprint review or during a sprint. | Sprints 1–4; planning | 3: after the 21/10/2026 presentation the committee asked for several charter pages to be rewritten, but not for different target levels (Sprint 1 retrospective); Sprint 2: on 04/11/2026 the course changed the question-writing method, so the questions written before it were relabelled (Sprint 2 retrospective) | 2: questions, tests and charter pages need 2–4 weeks of changes | 6 (Medium) | Yeşim (Product Owner) | A-06; [Dependencies](06-dependencies.md) row 5 |
+| R-05 | People / process | **A team member leaves.** A team member leaves the course or cannot work for 2 weeks or more. | Sprints 1–4; development | 2: all four members are enrolled and active | 3: the other three members take over a quarter of the work; later deliverables move by 1–2 months | 6 (Medium) |  Yaren | A-08; C-07 |
+| R-06 | Model | **The model or a library becomes unavailable.** Access to the selected model or a library is withdrawn by its authors before the team has stored its copy: for example, access to Llama is refused for the team's region, or the files become paid or are removed. | Sprints 1–2; development | 1: the official Llama files on Hugging Face are gated, so Meta approves each download and can refuse it, and the copies on Ollama can be removed by their publishers; Phi-4-mini-instruct and bge-base-en-v1.5 are not gated; Sprint 2: the answer model (Ollama ID `46e0c10c039e`) and the fallback are stored on the team computers, and the baseline was run with the stored copy (SBOM) | 2: another model or library must be chosen and the evaluation runs repeated; 2–4 weeks | 2 (Low) | Kaan (Data Scientist) | A-09; C-03; [Dependencies](06-dependencies.md) row 6; [Facilities & Resources](09-facilities-and-resources.md) rows 4–6 |
+| R-07 | People / process | **Work falls behind.** A task that later work depends on ([Dependencies](06-dependencies.md) rows 1, 7, 10–16) is not finished by its date, so the next release starts at least 1 week late. | Sprints 1–4; development | 4: in Sprint 1, several charter pages were rewritten the night before the 21/10/2026 presentation (Sprint 1 retrospective); Sprint 2: the generation and citation tasks (KAN-125 to KAN-129) were moved to Sprint 3, and Charter v2 was finished in the last two days (Sprint 2 retrospective) | 2: a delay of 1 week in each sprint adds up to 4 weeks | 8 (Medium) |  Yaren | C-07; [Release Plan](10-release-plan.md); [Dependencies](06-dependencies.md) rows 1, 7, 10–16 |
+| R-08 | People / process | **Pilot users do not match the target users.** Fewer than 3 of the pilot users have worked on an AI or education software product, so the pilot results do not represent the target users. | Sprints 2–4; validation | 3: the contacts work in software and AI, but not all of them work on education products; Sprint 2: no pilot user is confirmed yet (KAN-158), so their background is not known | 3: O1 and O3 are measured, but on users outside the target group | 9 (Medium) | Gözde Nur (Data Scientist; pilot) | A-07; [Dependencies](06-dependencies.md) row 9 |
 | R-09 | Integration | **The system does not install on the pilot computer.** Installing the system from `README.md` on the computer used for the pilot and the final demo fails, or gives different results than on the developers' computers, because of a different operating system, Python version or package build. | Sprints 3–4; pilot | 2: a team member who did not build the system installs it from the README each sprint, and the pilot computer is set up by 09/12/2026 | 3: the pilot (16/12–23/12/2026) has a fixed window; a late fix shortens it and can reduce the number of O1 and O3 sessions | 6 (Medium) | Kaan (Data Scientist) | C-05; [Major Activities](04-major-activities.md) rows 28, 29; [Dependencies](06-dependencies.md) row 8 |
-| R-10 | Data | **The law is unclear for some questions.** For more than 5 evaluation questions, the regulation text does not clearly say which provision applies, because the answer depends on legal interpretation. | Sprints 2–3; development | 3: the exceptions in Article 6(3) depend on interpretation, and the Commission's guidelines on them are still a draft | 2: the question set must be partly rewritten and checked again; 2–4 weeks | 6 (Medium) | Kaan (Data Scientist) | A-03; [Dependencies](06-dependencies.md) row 2 |
-| R-11 | Data | **The source format is uneven.** The EUR-Lex HTML does not mark Articles, paragraphs and Annex points in the same way throughout the text, so more than 5% of the provisions lose their numbers. | Sprints 1–2; development | 2: EUR-Lex marks articles, paragraphs and annex points with separate HTML elements, and in the Sprint 1 parsing spike all 22 chunks of Article 6 and Annex III point 3 got their correct identifier from the PDF; the HTML is checked in Sprint 2 (KAN-92) | 2: missing numbers are added by hand; 2–4 weeks | 4 (Low) | Yeşim (Product Owner) | A-05; [Dependencies](06-dependencies.md) row 4 |
-| R-12 | Infrastructure | **The answer time does not meet the limit on the pilot computer.** On the team computer used for the pilot and the final demo, the median answer time on the `val` questions is above the answer-time limit recorded in the System Design Document (D4), so the O1 time gain cannot be reached. | Sprints 2–4; development and pilot | 2: on one team computer (CPU only), the selected model answered in 15.4 s, about 38 s in the worst case, below the 60 s limit; measured on one question, outside Docker, and the pilot computer is not fixed yet ([model selection spike](https://github.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/blob/main/docs/spikes/model-selection-spike.md)) | 4: the O1 time gain is a success criterion | 8 (Medium) | Kaan (Data Scientist; model and answer time) | C-05; [Major Activities](04-major-activities.md) rows 6, 29; [Dependencies](06-dependencies.md) row 8; [Facilities & Resources](09-facilities-and-resources.md) rows 1, 3, 13 |
+| R-10 | Data | **The law is unclear for some questions.** For more than 5 evaluation questions, the regulation text does not clearly say which provision applies, because the answer depends on legal interpretation. | Sprints 2–3; development | 2: the exceptions in Article 6(3) depend on interpretation, and the Commission's guidelines on them are still a draft; Sprint 2: D2 was completed on 11/11/2026 with 46 questions and none is marked "unclear in the text"; the D8 check (01/12/2026) remains | 2: the question set must be partly rewritten and checked again; 2–4 weeks | 4 (Low) | Kaan (Data Scientist) | A-03; [Dependencies](06-dependencies.md) row 2 |
+| R-11 | Data | **The source format is uneven.** The EUR-Lex HTML does not mark Articles, paragraphs and Annex points in the same way throughout the text, so more than 5% of the provisions lose their numbers. | Sprints 1–2; development | 1: EUR-Lex marks articles, paragraphs and annex points with separate HTML elements, and in the Sprint 1 parsing spike all 22 chunks of Article 6 and Annex III point 3 got their correct identifier from the PDF; the HTML is checked in Sprint 2 (KAN-92); Sprint 2: all 105 chunks got their provision identifier from the HTML (KAN-92, `data/chunks.csv`) | 2: missing numbers are added by hand; 2–4 weeks | 2 (Low) | Yeşim (Product Owner) | A-05; [Dependencies](06-dependencies.md) row 4 |
+| R-12 | Infrastructure | **The answer time does not meet the limit on the pilot computer.** On the team computer used for the pilot and the final demo, the median answer time on the `val` questions is above the answer-time limit recorded in the System Design Document (D4), so the O1 time gain cannot be reached. | Sprints 2–4; development and pilot | 2: on one team computer (CPU only), the selected model answered in 15.4 s, about 38 s in the worst case, below the 60 s limit; measured on one question, outside Docker, and the pilot computer is not fixed yet ([model selection spike](https://github.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/blob/main/docs/spikes/model-selection-spike.md)); Sprint 2: the baseline answers on the 30 `val` questions had a median of 3.5 s, but not on a CPU-only computer, and the pilot computer is still not fixed | 4: the O1 time gain is a success criterion | 8 (Medium) | Kaan (Data Scientist; model and answer time) | C-05; [Major Activities](04-major-activities.md) rows 6, 29; [Dependencies](06-dependencies.md) row 8; [Facilities & Resources](09-facilities-and-resources.md) rows 1, 3, 13 |
 
-Spread of the risks (R-01 to R-12): 1 High (R-03), 8 Medium, 3 Low.
+Spread of the risks (R-01 to R-12) after the Sprint 2 re-scoring: 1 Critical (R-03), 1 High (R-02), 7 Medium, 3 Low. In Charter v1: 1 High, 8 Medium, 3 Low.
+
+**R-03 is Critical (16).** The system design is not affected: what is at risk is the pilot, because O1 and O3 need at least 5 users. R-03 is re-evaluated at the Sprint 2 review on 18/11/2026, its trigger date, and the early measurement is the number of pilot users who have confirmed a date (KAN-158). If there are fewer than 5, the contingency plan starts in Sprint 3: METU graduate students working on software or AI are invited, and the Project Review Committee is told at the review.
 
 **After deployment.** The assistant uses one version of the law (27/07/2026), so its answers no longer match the law in force when an in-scope article changes (R-02). This is concept drift: the question stays the same, but the correct answer changes. EUR-Lex is checked for a new version at the start of each sprint. If an in-scope article has changed, the new text is loaded, recorded in the manifest and tested again.
 
 "When / where" gives the sprint(s) and whether the risk arises during development or after deployment. "Linked to" gives the IDs of the assumption (A-xx) or constraint (C-xx) in [Assumptions & Constraints](03-assumptions-and-constraints.md), or the row number in [Dependencies](06-dependencies.md), that the risk comes from.
+
+## What is new in Charter v2
+
+**Problems met in Sprint 2.** Each problem from the [Sprint 2 retrospective](../05-sprint-2/02-sprint-2-retrospective.md) is either an uncertain event outside the team's control, linked to its risk, or a technical or team problem that the team solves itself. The second kind is not a risk: it is handled by a retrospective action with an owner, or answered in the design document (D4) and the experiment cards.
+
+| Sprint 2 problem | Where it is handled |
+|---|---|
+| The pilot users are still not named (KAN-158) | R-03, R-08 |
+| The course changed the question-writing method on 04/11/2026, so questions were relabelled | R-04 |
+| Planned work (KAN-125 to KAN-129) moved to Sprint 3, and Charter v2 was finished in the last two days | R-07 |
+| The 20-chunk check (KAN-94) was done after the index was built | Not a risk: retrospective action (Gözde Nur) |
+| The documents waited for the baseline ; Jira was updated late | Not a risk: retrospective actions (Yaren, Kaan) |
+| Recall@8 of the baseline is 0.59, below the O2 (a) target | Not a risk: a design question, answered with hybrid retrieval in Sprint 3 ([E1 Baseline](../12-experiment-cards/E1-baseline.md), D4) |
+| The CPU answer time of the baseline is not measured yet | Not a risk: a measurement task (Major Activities row 29); the uncertain part, the pilot computer, stays in R-12 |
+
+**Re-scoring after the baseline (14/11/2026).** The Sprint 1 basis of every risk is kept, and the Sprint 2 evidence is added after it.
+
+| Risk | v1 score | v2 score | Reason |
+|---|---|---|---|
+| R-01 | 8 | 8 | No change: the comparison with the Official Journal is due on 18/11/2026 |
+| R-02 | 9 | 12 | The final Article 6 guidelines are planned for the end of 2026, inside the project |
+| R-03 | 12 | 16 | No pilot user named by the planned date |
+| R-04 | 4 | 6 | The committee changed a required method during Sprint 2 |
+| R-05 | 6 | 6 | No change: all four members are active |
+| R-06 | 4 | 2 | The answer model and the fallback are stored and were used for the baseline |
+| R-07 | 6 | 8 | Planned Sprint 2 work moved to Sprint 3 |
+| R-08 | 6 | 9 | No pilot user confirmed yet, so their background is unknown |
+| R-09 | 6 | 6 | No change: checked when the pilot computer is set up (09/12/2026) |
+| R-10 | 6 | 4 | D2 is complete and no question is marked "unclear in the text" |
+| R-11 | 4 | 2 | All 105 chunks got their identifier |
+| R-12 | 8 | 8 | No change: the pilot computer is not fixed, and no CPU-only time from the baseline yet |
 
 ## Risk details
 
@@ -164,12 +199,12 @@ Copy this block for each risk.
 | **Cause** | The regulation is changed by amending acts, and the Commission explains it in guidelines; the knowledge base holds only the 27/07/2026 regulation text (C-01). |
 | **When / where** | Sprints 2–4; development and after deployment |
 | **Mitigation** | EUR-Lex and the Commission's AI Act page are checked at the start of every sprint ([Major Activities](04-major-activities.md) row 32). Every answer shows the version date and states that it is based only on the regulation text. |
-| **Probability (basis)** | 3: the Commission published draft Article 6 guidelines on 19/05/2026; the consultation closed on 23/07/2026, and the final version had not been adopted when checked on 25/10/2026; the last amendment (Regulation (EU) 2026/1744) is already in the 27/07/2026 version |
+| **Probability (basis)** | 4: the Commission published draft Article 6 guidelines on 19/05/2026; the consultation closed on 23/07/2026, and the final version had not been adopted when checked on 25/10/2026; the last amendment (Regulation (EU) 2026/1744) is already in the 27/07/2026 version; Sprint 2: EUR-Lex had no newer consolidated version on 04/11/2026 (KAN-157), but the Commission plans to adopt the final guidelines by the end of 2026, inside the project |
 | **Impact (basis)** | 3: answers on the changed article or on Article 6 become partly wrong for users, so a technical requirement is partly unmet |
-| **Score** | 9 (Medium) |
+| **Score** | 12 (High) |
 | **Trigger** | A newer consolidated version changes an in-scope article, or the final Article 6 guidelines are published, at a sprint-start check (28/10, 18/11 or 09/12/2026) |
 | **Contingency plan (B plan)** | Before 05/12/2026: a changed article is loaded, re-indexed and the `val` evaluation is run again. After 05/12/2026: answers about the changed article, or about Article 6, show a notice with the change date and a link to the new text or guidelines. Adding the guidelines as a second source is brought to the next sprint review as a scope change. |
-| **Owner** | Yaren (Scrum Master) |
+| **Owner** |  Yaren |
 | **Schedule effect** | 1–2 weeks |
 
 ### Risk R-03: Too few pilot users
@@ -181,27 +216,27 @@ Copy this block for each risk.
 | **Cause** | The pilot is at the end of December; users are volunteers from the team's contacts. |
 | **When / where** | Sprints 3–4; validation |
 | **Mitigation** | Each member names 2 candidates by 04/11/2026. Dates are fixed with 5 people by 18/11/2026. 7 people are invited in case 2 drop out. Sessions last at most 45 minutes, in person on the pilot computer ([Major Activities](04-major-activities.md) row 26). |
-| **Probability (basis)** | 3: holiday period; participation is voluntary and unpaid |
+| **Probability (basis)** | 4: holiday period; participation is voluntary and unpaid; Sprint 2: no pilot user was named by 04/11/2026 as planned, and KAN-158 is still open (Sprint 2 retrospective) |
 | **Impact (basis)** | 4: O1 and O3 need at least 5 users |
-| **Score** | 12 (High) |
+| **Score** | 16 (Critical) |
 | **Trigger** | Fewer than 5 names on 18/11/2026, or fewer than 5 finished sessions on 23/12/2026 |
 | **Contingency plan (B plan)** | The pilot is extended to 27/12/2026, and METU graduate students working on software or AI are invited. If there are still fewer than 5 users, O1 and O3 are reported with the actual number, the sample size is reported, and the Project Review Committee is informed. |
 | **Owner** | Gözde Nur (Data Scientist; pilot) |
 | **Schedule effect** | Up to 4 days |
 
-### Risk R-04: Targets change after review
+### Risk R-04: Targets or methods change after review
 
 | Field | Content |
 |---|---|
-| **Risk (event)** | The Project Review Committee asks for different targets or a different scope at a sprint review. |
+| **Risk (event)** | The Project Review Committee asks for different targets, a different scope or a different working method at a sprint review or during a sprint. |
 | **Linked to** | A-06; [Dependencies](06-dependencies.md) row 5 |
 | **Cause** | The target levels were set by the team before the first committee review. |
-| **When / where** | Sprints 1–2; planning |
+| **When / where** | Sprints 1–4; planning |
 | **Mitigation** | Feedback on the targets is asked at the Sprint 1 review and added to the charter ([Major Activities](04-major-activities.md) row 34). |
-| **Probability (basis)** | 2: after the 21/10/2026 presentation the committee asked for several charter pages to be rewritten, but not for different target levels (Sprint 1 retrospective) |
+| **Probability (basis)** | 3: after the 21/10/2026 presentation the committee asked for several charter pages to be rewritten, but not for different target levels (Sprint 1 retrospective); Sprint 2: on 04/11/2026 the course changed the question-writing method, so the questions written before it were relabelled (Sprint 2 retrospective) |
 | **Impact (basis)** | 2: questions, tests and charter pages need 2–4 weeks of changes |
-| **Score** | 4 (Low) |
-| **Trigger** | The committee asks for a change at the Sprint 1 review (28/10/2026) or the Sprint 2 review (18/11/2026) |
+| **Score** | 6 (Medium) |
+| **Trigger** | The committee asks for a change at a sprint review (28/10, 18/11 or 09/12/2026), or a lecture or course note changes a required method during a sprint |
 | **Contingency plan (B plan)** | Renegotiate the target: the Product Owner agrees with the committee which deliverables change, and the changes go into Charter v2 (D7). If time is needed, Check the source (Feature 6) is deferred first; guided start and follow-up questions (Features 5 and 7) are already planned only if time allows. |
 | **Owner** | Yeşim (Product Owner) |
 | **Schedule effect** | 2–4 weeks |
@@ -220,7 +255,7 @@ Copy this block for each risk.
 | **Score** | 6 (Medium) |
 | **Trigger** | A member misses 2 sprint events in a row, or announces leaving the course, at the check at each sprint start (28/10, 18/11 or 09/12/2026) |
 | **Contingency plan (B plan)** | Narrow the scope: the member's open work is reassigned at the next sprint planning, Check the source (Feature 6) is deferred first (Features 5 and 7 are already planned only if time allows), and the Project Review Committee is informed. |
-| **Owner** | Yaren (Scrum Master) |
+| **Owner** |  Yaren |
 | **Schedule effect** | 2–4 weeks |
 
 ### Risk R-06: The model or a library becomes unavailable
@@ -232,9 +267,9 @@ Copy this block for each risk.
 | **Cause** | The authors decide who can download their model and library files; they can refuse access for a country or a user, make the files paid or remove them, without notice. |
 | **When / where** | Sprints 1–2; development |
 | **Mitigation** | The model files are downloaded as soon as the models are confirmed (M3, 28/10/2026) and stored with their version and hash ([Major Activities](04-major-activities.md) row 16); after that, a change on the authors' side does not affect the stored copy. |
-| **Probability (basis)** | 2: the official Llama files on Hugging Face are gated, so Meta approves each download and can refuse it, and the copies on Ollama can be removed by their publishers; Phi-4-mini-instruct and bge-base-en-v1.5 are not gated |
+| **Probability (basis)** | 1: the official Llama files on Hugging Face are gated, so Meta approves each download and can refuse it, and the copies on Ollama can be removed by their publishers; Phi-4-mini-instruct and bge-base-en-v1.5 are not gated; Sprint 2: the answer model (Ollama ID `46e0c10c039e`) and the fallback are stored on the team computers, and the baseline was run with the stored copy (SBOM) |
 | **Impact (basis)** | 2: another model or library must be chosen and the evaluation runs repeated; 2–4 weeks |
-| **Score** | 4 (Low) |
+| **Score** | 2 (Low) |
 | **Trigger** | A download or access request for a selected model or library is refused or fails before its copy is stored (by 18/11/2026), or the stored copy's hash differs at an evaluation run |
 | **Contingency plan (B plan)** | The fallback model Phi-4-mini-instruct (MIT licence, not gated) is used, or for a library the previous pinned version; the change is recorded as a new decision in the System Design Document (D4), and the `val` evaluation is run again. |
 | **Owner** | Kaan (Data Scientist) |
@@ -249,12 +284,12 @@ Copy this block for each risk.
 | **Cause** | Four part-time students with other courses; every sprint has a fixed end date. |
 | **When / where** | Sprints 1–4; development |
 | **Mitigation** | Progress is checked in the middle of each sprint; unfinished work is moved to the next sprint and recorded at the review ([Major Activities](04-major-activities.md) row 37). |
-| **Probability (basis)** | 3: in Sprint 1, several charter pages were rewritten the night before the 21/10/2026 presentation (Sprint 1 retrospective) |
+| **Probability (basis)** | 4: in Sprint 1, several charter pages were rewritten the night before the 21/10/2026 presentation (Sprint 1 retrospective); Sprint 2: the generation and citation tasks (KAN-125 to KAN-129) were moved to Sprint 3, and Charter v2 was finished in the last two days (Sprint 2 retrospective) |
 | **Impact (basis)** | 2: a delay of 1 week in each sprint adds up to 4 weeks |
-| **Score** | 6 (Medium) |
+| **Score** | 8 (Medium) |
 | **Trigger** | A deliverable due in a sprint is not finished on that sprint's upload date (27/10, 14/11 or 05/12/2026) |
 | **Contingency plan (B plan)** | Narrow the scope: the Product Owner removes the lowest-priority story from the next sprint to make room for the late work, and the change is recorded on the sprint's welcome page. |
-| **Owner** | Yaren (Scrum Master) |
+| **Owner** |  Yaren |
 | **Schedule effect** | About 1 week |
 
 ### Risk R-08: Pilot users do not match the target users
@@ -266,9 +301,9 @@ Copy this block for each risk.
 | **Cause** | Pilot users are volunteers from the team's contacts; the team cannot choose who agrees to take part. |
 | **When / where** | Sprints 2–4; validation |
 | **Mitigation** | Each candidate is asked about their work background when invited; candidates who work on AI or education products are invited first ([Major Activities](04-major-activities.md) row 26). |
-| **Probability (basis)** | 2: the contacts work in software and AI, but not all of them work on education products |
+| **Probability (basis)** | 3: the contacts work in software and AI, but not all of them work on education products; Sprint 2: no pilot user is confirmed yet (KAN-158), so their background is not known |
 | **Impact (basis)** | 3: O1 and O3 are measured, but on users outside the target group |
-| **Score** | 6 (Medium) |
+| **Score** | 9 (Medium) |
 | **Trigger** | Fewer than 3 matching users among the confirmed participants on 18/11/2026 |
 | **Contingency plan (B plan)** | METU graduate students working on AI in education are invited. The pilot results are reported separately for users with and without this background in D10. |
 | **Owner** | Gözde Nur (Data Scientist; pilot) |
@@ -300,9 +335,9 @@ Copy this block for each risk.
 | **Cause** | Some education use cases sit on the border of Annex III point 3 and the Article 6(3) exceptions, and the text leaves room for interpretation. |
 | **When / where** | Sprints 2–3; development |
 | **Mitigation** | Every question is written from one use case and checked by a second member; questions marked "unclear in the text" are recorded ([Major Activities](04-major-activities.md) row 3). |
-| **Probability (basis)** | 3: the exceptions in Article 6(3) depend on interpretation, and the Commission's guidelines on them are still a draft |
+| **Probability (basis)** | 2: the exceptions in Article 6(3) depend on interpretation, and the Commission's guidelines on them are still a draft; Sprint 2: D2 was completed on 11/11/2026 with 46 questions and none is marked "unclear in the text"; the D8 check (01/12/2026) remains |
 | **Impact (basis)** | 2: the question set must be partly rewritten and checked again; 2–4 weeks |
-| **Score** | 6 (Medium) |
+| **Score** | 4 (Low) |
 | **Trigger** | More than 5 questions marked "unclear in the text" when D2 is complete (11/11/2026) or the D8 `val` split is frozen (01/12/2026) |
 | **Contingency plan (B plan)** | These questions are moved to the legal-decision category: the expected answer shows the relevant provisions without a decision. They are listed in D2 or D8. |
 | **Owner** | Kaan (Data Scientist) |
@@ -317,9 +352,9 @@ Copy this block for each risk.
 | **Cause** | The consolidated text is produced by the EU Publications Office; its HTML format is outside the team's control. |
 | **When / where** | Sprints 1–2; development |
 | **Mitigation** | The Sprint 1 parsing spike checked the identifiers on the PDF; when the HTML is stored (KAN-92), it is compared with the table of contents of the regulation before the splitting code is written ([Major Activities](04-major-activities.md) row 7). |
-| **Probability (basis)** | 2: EUR-Lex marks articles, paragraphs and annex points with separate HTML elements, and in the Sprint 1 parsing spike all 22 chunks of Article 6 and Annex III point 3 got their correct identifier from the PDF; the HTML is checked in Sprint 2 (KAN-92) |
+| **Probability (basis)** | 1: EUR-Lex marks articles, paragraphs and annex points with separate HTML elements, and in the Sprint 1 parsing spike all 22 chunks of Article 6 and Annex III point 3 got their correct identifier from the PDF; the HTML is checked in Sprint 2 (KAN-92); Sprint 2: all 105 chunks got their provision identifier from the HTML (KAN-92, `data/chunks.csv`) |
 | **Impact (basis)** | 2: missing numbers are added by hand; 2–4 weeks |
-| **Score** | 4 (Low) |
+| **Score** | 2 (Low) |
 | **Trigger** | More than 5% of the in-scope provisions without a number when the HTML is checked (KAN-92) or in the D5 check (14/11/2026) |
 | **Contingency plan (B plan)** | The missing numbers are added by hand from the Official Journal PDF, and the manual changes are recorded in the preprocessing report (D5). |
 | **Owner** | Yeşim (Product Owner) |
@@ -334,7 +369,7 @@ Copy this block for each risk.
 | **Cause** | The system runs on CPU only (C-05); a quantized language model generates text more slowly on a CPU, and longer prompts (more retrieved passages) make it slower. The computer used for the pilot is not chosen yet, and the answer time has so far been measured on one computer only. |
 | **When / where** | Sprints 2–4; development and pilot |
 | **Mitigation** | The model selection spike measured the answer time on CPU ([Major Activities](04-major-activities.md) row 6); the baseline's answer time is recorded in Sprint 2 (18/11/2026); the answer time on the pilot computer is measured on the `val` questions by 09/12/2026 (row 29). |
-| **Probability (basis)** | 2: on one team computer (CPU only), the selected model answered in 15.4 s, about 38 s in the worst case, below the 60 s limit; measured on one question, outside Docker, and the pilot computer is not fixed yet ([model selection spike](https://github.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/blob/main/docs/spikes/model-selection-spike.md)) |
+| **Probability (basis)** | 2: on one team computer (CPU only), the selected model answered in 15.4 s, about 38 s in the worst case, below the 60 s limit; measured on one question, outside Docker, and the pilot computer is not fixed yet ([model selection spike](https://github.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/blob/main/docs/spikes/model-selection-spike.md)); Sprint 2: the baseline answers on the 30 `val` questions had a median of 3.5 s, but not on a CPU-only computer, and the pilot computer is still not fixed |
 | **Impact (basis)** | 4: the O1 time gain is a success criterion |
 | **Score** | 8 (Medium) |
 | **Trigger** | Median answer time above the D4 limit at the baseline evaluation (18/11/2026) or on the pilot computer (09/12/2026) |
