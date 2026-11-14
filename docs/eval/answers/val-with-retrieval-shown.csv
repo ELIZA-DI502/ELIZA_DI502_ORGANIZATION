@@ -1,0 +1,180 @@
+id,shown_answer,sources,removed_citations
+A-01,"The AI Act requires the following for the training, validation and testing data sets and the logging of a high-risk AI system used for student admissions:
+
+For the training, validation and testing data sets:
+
+* They shall be subject to data governance and management practices (Article 10(2))
+* They shall be relevant, sufficiently representative, and free of errors (Article 10(3))
+* They shall have the appropriate statistical properties (Article 10(3))
+* They shall be examined for possible biases (Article 10(2)(f))
+* They shall have measures to detect, prevent and mitigate possible biases (Article 10(2)(g))
+* They shall identify relevant data gaps or shortcomings (Article 10(2)(h))
+
+For the logging of the high-risk AI system:
+
+* The logging capabilities shall provide the period of each use of the system (Article 12(3)(a))
+* The logging capabilities shall provide the reference database against which input data has been checked (Article 12(3)(b))
+* The logging capabilities shall provide the input data for which the search has led to a match (Article 12(3)(c))
+* The logging capabilities shall provide the identification of the natural persons involved in the verification of the results (Article 12(3)(d))
+
+The testing of the high-risk AI system shall be performed at any time throughout the development process, and prior to its being placed on the market or put into service (Article 9(8
+
+Sources (consolidated text of 27/07/2026): Article 10(2); Article 10(3); Article 10(2)(f); Article 10(2)(g); Article 10(2)(h); Article 12(3)(a); Article 12(3)(b); Article 12(3)(c); Article 12(3)(d); Article 9",Article 10(2); Article 10(3); Article 10(2)(f); Article 10(2)(g); Article 10(2)(h); Article 12(3)(a); Article 12(3)(b); Article 12(3)(c); Article 12(3)(d); Article 9,
+A-02,"Article 14(4) lists the tasks that the people who oversee the high-risk AI system must be able to do, including:
+
+* Properly understand the system's capacities and limitations (point a)
+* Remain aware of the possibility of automation bias (point b)
+* Correctly interpret the system's output (point c)
+* Decide not to use the system or disregard its output (point d)
+* Intervene in the system's operation or interrupt it (point e)
+
+These tasks are mentioned in Article 14(4), and are intended to ensure that the oversight measures are effective in preventing or minimising risks to health, safety, or fundamental rights.
+
+Sources (consolidated text of 27/07/2026): Article 14(4)",Article 14(4),
+A-05,"The provisions that relate to your platform are:
+
+* Annex III, point 3(a), which lists AI systems intended to determine access or admission to educational institutions, and your platform falls under this category.
+* Article 8(1), which requires high-risk AI systems to comply with the requirements laid down in this Section, taking into account their intended purpose and the generally acknowledged state of the art on AI.
+* Article 9, which requires a risk management system to be in place for high-risk AI systems.
+* Article 13(3), which requires the instructions for use of high-risk AI systems to contain specific information, including the characteristics, capabilities, and limitations of performance of the system.
+* Article 10(2), which requires training, validation, and testing data sets to be subject to data governance and management practices appropriate for the intended purpose of the high-risk AI system.
+
+These provisions do not address the specific data used by your platform, such as transcripts, standardised test scores, and socio-economic data.
+
+Sources (consolidated text of 27/07/2026): Annex III, point 3(a); Article 8(1); Article 9; Article 13(3); Article 10(2)","Annex III, point 3(a); Article 8(1); Article 9; Article 13(3); Article 10(2)",Article 6(2)
+A-06,"Article 6(3), first subparagraph, lists an exception for high-risk AI systems referred to in Annex III, where the system does not pose a significant risk of harm to the health, safety or fundamental rights of natural persons, including by not materially influencing the outcome of decision making. This exception might apply to your tool, but it depends on whether it materially influences the outcome of decision making.
+
+The conditions for this exception are not fully specified in this provision, so assess it against the rest of the provisions.
+
+Sources (consolidated text of 27/07/2026): Article 6(3), first subparagraph; Annex III","Article 6(3), first subparagraph; Annex III",
+B-01,"Article 6(2) says that AI systems referred to in Annex III are considered high-risk. However, it does not mention AI systems that only calculate weighted averages based on existing grades. Article 6(3) mentions profiling of natural persons, which is not relevant to your tool. 
+
+The provided text does not answer whether your tool is still a high-risk AI system.
+
+Sources (consolidated text of 27/07/2026): Article 6(2); Annex III; Article 6(3), third subparagraph","Article 6(2); Annex III; Article 6(3), third subparagraph","Annex III, point 3(a)"
+B-03,"If you decide your grade calculator is not high-risk, Article 6(4) says you must document your assessment before launching it. You will also be subject to the registration obligation in Article 49(2), which means you must register yourself and the system in the EU database.
+
+Sources (consolidated text of 27/07/2026): Article 6(4); Article 49(2)",Article 6(4); Article 49(2),
+B-04,"Article 5(1), first subparagraph, point (f) prohibits the use of AI systems to infer emotions of a natural person in education institutions, except where the use is intended for medical or safety reasons. The webcam feature detects emotions, so this provision applies. However, it does not say whether the feature is allowed or prohibited, only that it is subject to the exception. The exception is not relevant here, as there is no indication that the feature is intended for medical or safety reasons.
+
+Sources (consolidated text of 27/07/2026): Article 5(1), first subparagraph, point (f)","Article 5(1), first subparagraph, point (f)",
+B-05,"Based on the provided text, the following requirements apply to a high-risk AI system that grades students' work:
+
+* Ensure that the system performs consistently for its intended purpose (Article 9(6))
+* Ensure that the system is in compliance with the requirements set out in Section 2 (Article 16, point (a))
+* Ensure that the system complies with accessibility requirements (Article 16, point (l))
+* Ensure that the system is compliant with the requirements set out in Section 2, taking into account its intended purpose and the generally acknowledged state of the art on AI (Article 8(1))
+* Ensure that the system is tested for the purpose of identifying the most appropriate and targeted risk management measures (Article 9(6))
+* Ensure that the system is tested prior to being placed on the market or put into service (Article 9(8))
+* Ensure that the system is tested against prior defined metrics and probabilistic thresholds (Article 9(8))
+
+Sources (consolidated text of 27/07/2026): Article 9(6); Article 16, point (a); Article 16, point (l); Article 8(1); Article 9(8)","Article 9(6); Article 16, point (a); Article 16, point (l); Article 8(1); Article 9(8)","Annex III, point 3(a)"
+B-06,The provided text does not answer this question.,,
+B-07,"According to Annex III, point 3(b), an AI system intended to evaluate learning outcomes is only considered high-risk if it also steers the learning process.
+
+Sources (consolidated text of 27/07/2026): Annex III, point 3(b)","Annex III, point 3(b)",
+B-S1,The provided text does not answer this question.,,
+B-S2,The provided text does not answer this question.,,
+B-S3,"The provided text does not answer this question. Article 15(1) requires an ""appropriate level of accuracy"" for high-risk AI systems, but it does not specify a minimum percentage.
+
+Sources (consolidated text of 27/07/2026): Article 15(1)",Article 15(1),
+B-S4,The provided text does not answer this question.,,
+C-02,"Annex III, point 3(b) lists AI systems intended to evaluate learning outcomes, which includes assigning students to course levels. Article 10(1) requires high-risk AI systems to be developed on the basis of training, validation, and testing data sets that meet certain quality criteria. Article 10(2) specifies that these data sets should be subject to data governance and management practices, including examination for biases and measures to detect and mitigate them.
+
+Article 4(1) requires providers and deployers of AI systems to support the development of AI literacy of their staff, including teachers who check the levels assigned by the model. This includes considering the context in which the AI system is used and the persons or groups of persons it is used on.
+
+The provisions do not say what specific level of AI literacy is required, but rather that it should be taken into account. They also do not specify how the teachers should check the levels assigned by the model, but rather that the data sets used to train the model should meet certain quality criteria.
+
+Sources (consolidated text of 27/07/2026): Annex III, point 3(b); Article 10(1); Article 10(2); Article 4(1)","Annex III, point 3(b); Article 10(1); Article 10(2); Article 4(1)",
+C-03,"Article 6(4) says that you must document your assessment before placing the system on the market or putting it into service if you consider it is not high-risk. Article 49(2) says that you must register yourself and the system in the EU database before placing it on the market or putting it into service, if you have concluded that it is not high-risk. 
+
+The provided text does not answer what you have to write down about your training data and the teachers who check the levels it gives.
+
+Sources (consolidated text of 27/07/2026): Article 6(4); Article 49(2)",Article 6(4); Article 49(2),
+C-04,"Article 113, second paragraph, says that the Regulation applies from 2 August 2026. However, this does not necessarily mean that the high-risk rules have applied to tools like yours since then. The Regulation also says that specific requirements or obligations may be limited for high-risk AI systems, but this depends on various conditions, including the existence of equivalent or higher protection in Union harmonisation legislation. The Commission is also required to adopt delegated acts by 2 August 2027 to specify the high-risk AI systems concerned and the conditions under which limitations apply.
+
+Sources (consolidated text of 27/07/2026): Article 113, second paragraph","Article 113, second paragraph",
+C-05,"Annex III, point 3(d) lists AI systems intended to monitor and detect prohibited behaviour of students during tests, but your system is intended to detect stress, not prohibited behaviour. The provided text does not answer this question.
+
+However, Article 8(1) says that high-risk AI systems must comply with requirements taking into account their intended purpose and the state of the art on AI. Article 9(6) and (8) require testing and prior defined metrics for high-risk AI systems. Article 9(9) requires consideration of vulnerable groups, including those under 18. These provisions suggest that your system might be considered high-risk, but the text does not explicitly state this.
+
+Sources (consolidated text of 27/07/2026): Annex III, point 3(d); Article 8(1); Article 9(6); Article 9(9)","Annex III, point 3(d); Article 8(1); Article 9(6); Article 9(9)",
+C-06,"Article 2(1)(c) says that the Regulation applies to providers and deployers of AI systems that have their place of establishment or are located in a third country, where the output produced by the AI system is used in the Union. This provision does not say whether the company's level placement tool is high-risk or not.
+
+Sources (consolidated text of 27/07/2026): Article 2(1)(c)",Article 2(1)(c),
+C-S3,The provided text does not answer this question.,,
+D-01,"Annex III, point 3(d) lists AI systems intended to monitor and detect prohibited behavior of students during tests in educational institutions as high-risk.
+
+Sources (consolidated text of 27/07/2026): Annex III, point 3(d)","Annex III, point 3(d)",
+D-02,The provided text does not answer this question.,,
+D-03,The provided text does not answer this question.,,
+D-04,"Annex III, point 3(d) lists AI systems intended to monitor and detect prohibited behaviour of students during tests. Article 113, third paragraph, point (c)(i) states that the high-risk rules apply to such systems from 2 December 2027.
+
+Sources (consolidated text of 27/07/2026): Annex III, point 3(d); Article 113, third paragraph, point (c)(i)","Annex III, point 3(d); Article 113, third paragraph, point (c)(i)",
+D-05,"Annex III, point 3(d) lists AI systems intended to monitor and detect prohibited behavior of students during tests, while Annex III, point 3(b) lists AI systems intended to evaluate learning outcomes, including grading exam answers. These provisions list different types of AI systems, so they are treated differently.
+
+The provisions do not address the difference between monitoring and grading, but they do require different treatment of the two types of systems. The monitoring system is listed as high-risk, and the grading system is also listed as high-risk, as it is a type of AI system intended to evaluate learning outcomes.
+
+Sources (consolidated text of 27/07/2026): Annex III, point 3(d); Annex III, point 3(b)","Annex III, point 3(d); Annex III, point 3(b)",
+D-07,"However, it does not say whether your system meets this condition. 
+
+Article 6(4) says that a provider who considers an AI system to be not high-risk must document its assessment. This provision does not answer whether your system is high-risk or not. 
+
+ However, it does not say whether your system performs profiling. 
+
+Article 14(1) says that high-risk AI systems must be designed and developed to be overseen by natural persons. However, it does not say whether your system is high-risk. 
+
+Article 14(3) says that oversight measures must be commensurate with the risks, level of autonomy and context of use of the high-risk AI system. However, it does not say whether your system is high-risk. 
+
+The provided text does not answer this question.
+
+Sources (consolidated text of 27/07/2026): Article 6(4); Article 14(1); Article 14(3)",Article 6(4); Article 14(1); Article 14(3),Annex III; Annex III
+D-08,"Annex III, point 3(d) lists AI systems intended to monitor and detect prohibited behavior of students during tests, which seems to match your tool's purpose. 
+
+Article 50(1) requires that users be informed they are interacting with an AI system, unless it's obvious or authorized by law to detect criminal offenses. Your tool might be exempt from this, but assess it against the provision.
+
+Article 5(1)(f) prohibits inferring emotions of natural persons in education institutions, except for medical or safety reasons. Your tool might be inferring emotions, so assess it against this provision.
+
+Article 12(3) requires logging capabilities for high-risk AI systems, which your tool might be considered. The logging capabilities would need to record use periods, reference databases, input data, and identification of involved natural persons.
+
+Article 14(1) requires high-risk AI systems to be designed for human oversight, which your tool might need. Article 14(4) outlines the requirements for human oversight, including understanding system capacities, monitoring operation, and interpreting output.
+
+Article 9(2) requires a risk management system for high-risk AI systems, which your tool might need. The system should identify and analyze risks, estimate and evaluate risks, and adopt risk management measures.
+
+The provided text does not answer whether your tool is a high-risk AI system.
+
+Sources (consolidated text of 27/07/2026): Annex III, point 3(d); Article 50(1); Article 5(1), first subparagraph, point (f); Article 12(3); Article 14(1); Article 14(4); Article 9(2)","Annex III, point 3(d); Article 50(1); Article 5(1), first subparagraph, point (f); Article 12(3); Article 14(1); Article 14(4); Article 9(2)",
+D-09,"As the provider, you have to:
+
+* Document your assessment that the system is not high-risk (Article 6(4)), but since your system is high-risk, you don't need to do this.
+* Register the system in the EU database (Article 49(2)).
+* Ensure that the system undergoes the relevant conformity assessment procedure (Article 16, point (f)).
+* Affix the CE marking to the system (Article 16, point (h)).
+
+The system itself has to:
+
+* Undergo testing against prior defined metrics and probabilistic thresholds (Article 9(8)).
+* Be as resilient as possible regarding errors, faults or inconsistencies (Article 15(4)).
+* Continuously learn in a way that eliminates or reduces the risk of biased outputs influencing future operations (Article 15(4)).
+* Have a risk management system that includes the identification and analysis of risks, estimation and evaluation of risks, and adoption of risk management measures (Article 9(2)).
+* Have oversight measures that are commensurate with the risks, level of autonomy and context of use (Article 14(3)).
+
+Sources (consolidated text of 27/07/2026): Article 6(4); Article 49(2); Article 16, point (f); Article 16, point (h); Article 9(8); Article 15(4); Article 9(2); Article 14(3)","Article 6(4); Article 49(2); Article 16, point (f); Article 16, point (h); Article 9(8); Article 15(4); Article 9(2); Article 14(3)",
+D-10,"Article 50(1) requires that AI systems intended to interact directly with natural persons, such as your exam monitoring tool, are designed and developed to inform users that they are interacting with an AI system. This is meant to ensure that users are aware of the system's limitations and potential biases.
+
+However, this provision does not address the specific issue of proctors accepting every flag shown by the tool without critical evaluation. To address this, you should consider Article 16, point (l), which requires that high-risk AI systems comply with accessibility requirements, including ensuring that users can critically evaluate the system's outputs.
+
+Sources (consolidated text of 27/07/2026): Article 50(1); Article 16, point (l)","Article 50(1); Article 16, point (l)",
+D-12,"Annex III, point 3(d) lists AI systems intended to monitor and detect prohibited behavior, but your system is intended to detect stress and possible cheating, which is not explicitly mentioned. However, Article 5(1), first subparagraph, point (f) prohibits the use of AI systems to infer emotions in education institutions, except for medical or safety reasons. This provision does not answer whether your system is allowed, but it does not allow the use of AI systems to infer emotions in education institutions for other purposes.
+
+Article 50(1) requires that AI systems interacting with natural persons inform them that they are interacting with an AI system, unless it is obvious. Your system would likely be considered an AI system interacting with natural persons, so this provision would apply.
+
+Article 15(5) requires high-risk AI systems to be resilient against unauthorized attempts to alter their use, outputs, or performance. Your system would likely be considered a high-risk AI system, so this provision would apply.
+
+Article 10(2) requires high-risk AI systems to have data governance and management practices, including an assessment of possible biases and measures to detect, prevent, and mitigate them. Your system would likely be considered a high-risk AI system, so this provision would apply.
+
+Article 9(6) requires high-risk AI systems to be tested for identifying the most appropriate and targeted risk management measures. Your system would likely be considered a high-risk AI system, so this provision would apply.
+
+Annex III,
+
+Sources (consolidated text of 27/07/2026): Annex III, point 3(d); Article 5(1), first subparagraph, point (f); Article 50(1); Article 15(5); Article 10(2); Article 9(6); Annex III","Annex III, point 3(d); Article 5(1), first subparagraph, point (f); Article 50(1); Article 15(5); Article 10(2); Article 9(6); Annex III",
