@@ -328,7 +328,7 @@ Copy the block below for each decision.
 
 ### D1: Web interface and backend: React + Node.js/Express
 
-**Context:** Users need a chat page with the cited provision text, a permanent notice and a personal-data warning (KAN-21, KAN-22, KAN-25, KAN-26). Spike 01 proposed Gradio.
+**Context:** Users need a chat page in the browser (KAN-21) with the cited provision text (KAN-22), a permanent notice (KAN-2, which now holds KAN-25) and a personal-data warning (KAN-26). The first technology options, discussed by the team on 19/10/2026, proposed Gradio.
 
 **Options considered:**
 
@@ -340,11 +340,11 @@ Copy the block below for each decision.
 
 **Decision:** React (built with Vite) for the interface and Node.js + Express for the web backend, in one web container. The conversation of the current session is kept in PostgreSQL (D4; in the web backend's memory since D15).
 
-**Why:** The team member building the web side works in JavaScript, and the interface requirements go beyond a default chat widget.
+**Why:** The team member building the web side works in JavaScript, and the interface requirements go beyond a default chat widget. A default chat widget shows the answer as one text bubble; our interface also needs: (1) each cited provision listed with its Article/Annex reference and the version date (KAN-8); (2) a cited provision opened with its text and its EUR-Lex source (KAN-22); (3) the "not legal advice" notice that stays on screen for every answer (KAN-2, from KAN-25); (4) a personal-data warning in the question box before a question is sent (KAN-26); (5) a waiting state and an error message that keeps the question in the box. All five are drawn in the [user interface mockup](#interfaces) (KAN-104).
 
 **Consequences:** The RAG service exposes an HTTP API; Gradio is not used.
 
-**Evidence:** Team discussion of the Spike 01 technology options, 19/10/2026; KAN-21, KAN-26
+**Evidence:** The interface requirements of KAN-2, KAN-8, KAN-21, KAN-22 and KAN-26 (listed under Why); the [user interface mockup v1](../docs/images/ui-mockup-v1.png) and its [waiting and error states](../docs/images/ui-mockup-v1-states.png) (KAN-104); team discussion of 19/10/2026 (no spike note was written for it)
 
 **Owner and date:** Architecture part, 2026-10-20; accepted 2026-11-08 as the user interface technology for Sprint 2 (KAN-103, course halfway check of 11/11/2026)
 
@@ -368,7 +368,7 @@ Copy the block below for each decision.
 
 **Consequences:** The API contract in section 5 must be agreed between the web and RAG sides.
 
-**Evidence:** Separate service: follows from D1 (the interface and web backend are in JavaScript, so the Python pipeline runs as its own service). Stateless: follows from D15 (D4 before) and C-10 (the web backend keeps the session history and sends it with each request). Python: the [parsing spike](../docs/spikes/parsing-spike.md) and [model selection spike](../docs/spikes/model-selection-spike.md) were run in Python. Team discussion of the Spike 01 technology options, 19/10/2026.
+**Evidence:** Separate service: follows from D1 (the interface and web backend are in JavaScript, so the Python pipeline runs as its own service). Stateless: follows from D15 (D4 before) and C-10 (the web backend keeps the session history and sends it with each request). Python: the [parsing spike](../docs/spikes/parsing-spike.md) and [model selection spike](../docs/spikes/model-selection-spike.md) were run in Python. Team discussion of the technology options, 19/10/2026.
 
 **Owner and date:** Architecture part, 2026-10-20
 
@@ -392,7 +392,7 @@ Copy the block below for each decision.
 
 **Consequences:** The personal-data pattern used by the interface and by the RAG service should come from one shared definition.
 
-**Evidence:** Team discussion of the Spike 01 technology options, 19/10/2026; KAN-26
+**Evidence:** Team discussion, 19/10/2026; KAN-26; the input and output checks tested in the [model selection spike](../docs/spikes/model-selection-spike.md)
 
 **Owner and date:** Architecture part, 2026-10-20
 
@@ -537,7 +537,7 @@ Copy the block below for each decision.
 
 **Consequences:** The answer time is measured again at the baseline (18/11/2026) and on the pilot computer by 09/12/2026 (R-12); if it is above the answer-time limit (section 2), the fallback is used. Licence check (A-09, 2026-10-25): the Llama 3.1 Community License (Llama-3.1-8B-Instruct) and the MIT licence (Phi-4-mini-instruct) permit use in this academic project and publication of the generated answers. Llama 3.1 requires "Built with Llama" to be shown on the web page or in the README and use in line with its Acceptable Use Policy; the 700 million monthly user limit does not apply. The licence and model card go into the AI SBOM.
 
-**Evidence:** [Model selection spike](../docs/spikes/model-selection-spike.md) (5 runs; results in [`model-selection-results.csv`](../docs/spikes/model-selection-results.csv)), [KAN-57](https://yarengursoy.atlassian.net/browse/KAN-57)
+**Evidence:** [Model selection spike](../docs/spikes/model-selection-spike.md) (5 runs; results in [`model-selection-results.csv`](../docs/spikes/model-selection-results.csv)), [KAN-57](https://yarengursoy.atlassian.net/browse/KAN-57); [AI SBOM](10-software-bill-of-materials.md#ai-software-bill-of-materials) rows of Llama-3.1-8B-Instruct and Phi-4-mini-instruct; used as the answer model in the [E1 baseline experiment card](12-experiment-cards/E1-baseline.md)
 
 **Owner and date:** NLP part, 2026-10-25
 
@@ -552,7 +552,7 @@ Copy the block below for each decision.
 | Option | Pros | Cons |
 | --- | --- | --- |
 | all-MiniLM-L6-v2 | Very small | Weaker on retrieval |
-| bge-small-en-v1.5 | Small; proposed in Spike 01 | Weaker on retrieval than bge-base-en-v1.5 |
+| bge-small-en-v1.5 | Small; proposed in the team discussion of 19/10/2026 | Weaker on retrieval than bge-base-en-v1.5 |
 | **bge-base-en-v1.5** | Stronger on retrieval; still fast on a CPU for a small corpus; MIT licence | Larger than the other two |
 
 **Decision:** bge-base-en-v1.5; bge-small-en-v1.5 is the faster alternative.
@@ -561,7 +561,7 @@ Copy the block below for each decision.
 
 **Consequences:** Checked with Recall@k on the `val` split in the baseline experiment (E1). Licence check (A-09, 2026-10-25): the MIT licence permits use in this academic project and publication of the results, with no extra terms.
 
-**Evidence:** [KAN-58](https://yarengursoy.atlassian.net/browse/KAN-58); E1 experiment card (Sprint 2)
+**Evidence:** [KAN-58](https://yarengursoy.atlassian.net/browse/KAN-58); compared in the settings run of the [E1 baseline experiment card](12-experiment-cards/E1-baseline.md) (Sprint 2), which led to D13; [AI SBOM](10-software-bill-of-materials.md#ai-software-bill-of-materials) row of bge-base-en-v1.5
 
 **Owner and date:** NLP part, 2026-10-25
 
@@ -609,7 +609,7 @@ Copy the block below for each decision.
 
 **Consequences:** Two experiment cards in Sprint 2 (E1, E2). A reranker is tested only if Recall@k stays below the target.
 
-**Evidence:** [KAN-58](https://yarengursoy.atlassian.net/browse/KAN-58); E1 and E2 experiment cards (Sprint 2)
+**Evidence:** [KAN-58](https://yarengursoy.atlassian.net/browse/KAN-58); dense and hybrid search were both measured in the settings run of the [E1 baseline experiment card](12-experiment-cards/E1-baseline.md) (Sprint 2), so no separate E2 card was written; the result is D14
 
 **Owner and date:** NLP part, 2026-10-25
 
@@ -636,7 +636,7 @@ Copy the block below for each decision.
 
 **Consequences:** bge-large-en-v1.5 puts the first right chunk higher (MRR 0.69 against 0.61), and with 5 chunks the two tie, so the number of chunks decides the winner; they are compared again with more questions (D8). The differences are small: one question changes Recall@8 by about 0.04. The model is listed in the AI SBOM; its MIT licence is the same as for bge-base (A-09).
 
-**Evidence:** [`src/embedding.ipynb`](../src/embedding.ipynb) steps 6 and 6b; [`docs/eval/embedding-results.pdf`](../docs/eval/embedding-results.pdf); [W&B run](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/v7g5hhxh); [KAN-99](https://yarengursoy.atlassian.net/browse/KAN-99)
+**Evidence:** [E1 baseline experiment card](12-experiment-cards/E1-baseline.md); [AI SBOM](10-software-bill-of-materials.md#ai-software-bill-of-materials) rows of the five embedding models; [`src/embedding.ipynb`](../src/embedding.ipynb) steps 6 and 6b; [`docs/eval/embedding-results.pdf`](../docs/eval/embedding-results.pdf); [W&B run](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/v7g5hhxh); [KAN-99](https://yarengursoy.atlassian.net/browse/KAN-99)
 
 **Owner and date:** NLP part, 2026-11-10
 
@@ -662,7 +662,7 @@ Copy the block below for each decision.
 
 **Consequences:** Recall@5 is still reported (D6 criterion 5): 0.43. The jury's words are kept in `config/rag.yaml` (`bm25.jury_words`), so the search does not depend on asking the jury again. The stopword list removes about 40% of the words, some of which matter in law ("system", "except", "must", "only", "may"); a shorter list for legal text is tried in Sprint 3. Article 9(6) and 9(8) come back for almost every question; this is looked at in Sprint 3.
 
-**Evidence:** [`src/embedding.ipynb`](../src/embedding.ipynb) steps 4, 5, 6, 7 and 10; [`docs/eval/embedding-results.pdf`](../docs/eval/embedding-results.pdf); [W&B run](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/v7g5hhxh); [KAN-99](https://yarengursoy.atlassian.net/browse/KAN-99)
+**Evidence:** [E1 baseline experiment card](12-experiment-cards/E1-baseline.md); [`src/embedding.ipynb`](../src/embedding.ipynb) steps 4, 5, 6, 7 and 10; [`docs/eval/embedding-results.pdf`](../docs/eval/embedding-results.pdf); [W&B run](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/v7g5hhxh); [KAN-99](https://yarengursoy.atlassian.net/browse/KAN-99)
 
 **Owner and date:** NLP part, 2026-11-10
 
@@ -723,6 +723,7 @@ Web and deployment part:
 | v2      | 2026-11-09 | Sprint 2 update (KAN-102): bge-m3 and dense search with top 8 chunks in the diagrams, components, glossary and RAG pipeline table; new decisions D13 (supersedes D10) and D14 (revises D12); D7, D8 and D11 implemented; what was built in Sprint 2; the settled hybrid-retrieval question removed from Open design areas; architecture diagram v2 and NLP pipeline v2 | —            |
 | v3      | 2026-11-10 | D13 and D14 rewritten with the re-run on the new `val` split (27 questions with gold provisions, KAN-99): bge-large-en-v1.5, dense search with a little BM25 (weight 0.1, stopwords removed), top 8; new decision D15 (supersedes D4, Sprint 1 review comment 8): the conversation is kept in the web backend's memory, the db container, the Database component and its interface are removed; summary, components, data pipeline, RAG pipeline table, deployment and D1, D2, D6 updated to match; architecture diagram v3 and NLP pipeline v3 | —            |
 | v4      | 2026-11-10 | D13 and D14 rewritten with the run scored at 8 chunks (Recall@8), the number of chunks the answer model gets (KAN-99): bge-m3, dense search with some BM25 (dense weight 0.8; stopwords and the LLM jury's words removed for BM25), top 8; diagrams, components, glossary and RAG pipeline table updated to match; architecture diagram v4 and NLP pipeline v4 | —            |
+| v4      | 2026-11-14 | Sprint 1 review comments 6 and 7 (KAN-102): the experiment-based decisions D9, D10, D12, D13 and D14 link the E1 experiment card and their AI SBOM rows; D1 lists the interface requirements a default chat widget does not cover, with their stories and the mockup, and D1, D2, D3 and D10 no longer cite the unshared Spike 01 | —            |
 
 ## Checklist before submitting
 
