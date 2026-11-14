@@ -10,7 +10,7 @@ How to use this template
 
 | Team  | Sprint | Status   | Last updated | Updated by                  |
 | ----- | ------ | -------- | ------------ | --------------------------- |
-| ELIZA | 2      | revised  | 2026-11-10   | Architecture part; NLP part |
+| ELIZA | 2      | revised  | 2026-11-14   | Architecture part; NLP part |
 
 <!--
 Status [2]:
@@ -224,7 +224,7 @@ Models used as-is go in the AI SBOM. Write a model card (12-model-cards/, follow
 | Chunking     | Chunk size, overlap                           | No size-based chunking: one chunk per Article paragraph (not per Article) or Annex point; a paragraph with points (a), (b), ... (for example Article 6(3)) is split into one chunk per point; a provision longer than 1,500 characters is split at its points or lines (`max_chars`); heading text in front; identifier and version date as metadata                                                                                                                                     | D7, D8   |
 | Embedding    | Model and version                             | `BAAI/bge-m3` (1,024 dimensions), via `sentence-transformers`; no query instruction; no words are removed before embedding                                                                                                                                                                                                                                                                                                                        | D13      |
 | Vector store | Index type, distance metric                   | Chroma, saved on disk; cosine distance                                                                                                                                                                                                                                                                                                                                                           | D11      |
-| Retrieval    | Top-k, hybrid search, reranker                | E1 baseline: dense top-k. E2: BM25 (`rank_bm25`) + dense, merged with Reciprocal Rank Fusion (k = 60). Top-k chosen by Recall@k on the `val` split (candidates 3, 5, 8). No reranker. Chosen on the `val` questions with 8 chunks (Recall@8): weighted RRF with dense weight 0.8 and BM25 0.2 (stopwords and the LLM jury's words removed for BM25), top-k 8                                                                                                                                                                                                         | D12, D14 |
+| Retrieval    | Top-k, hybrid search, reranker                | Dense search plus BM25 (`rank_bm25`), merged with weighted Reciprocal Rank Fusion (k = 60; dense weight 0.8, BM25 0.2; stopwords and the LLM jury's words removed for BM25); top-k 8. Dense and hybrid search were both measured in the settings run of the [E1 baseline experiment card](12-experiment-cards/E1-baseline.md). No reranker | D14 (revises D12) |
 | Generation   | LLM and version, temperature, prompt template | Llama-3.1-8B-Instruct, 4-bit `Q4_K_M` (fallback Phi-4-mini-instruct `Q4_K_M`); temperature 0; at most 300 answer tokens; context window 4,096 tokens; prompt with one example answer (tested in the [model selection spike](../docs/spikes/model-selection-spike.md)); rule-based input check before and verdict check after the model | D9       |
 
 **Conversation context:** the web backend takes the most recent question-answer pairs of the session from its memory (D15) and sends them with each question, so follow-up questions can use the product description given earlier (C-04, KAN-6). How many pairs are sent is open (section 7).
@@ -262,7 +262,7 @@ O1 (search time) and O3 (understanding) are measured with pilot users in Sprint 
 - There is no `train` split, because no model is trained or fine-tuned (C-03); the models are used as published.
 - Every question is in either the `val` (validation) or the `test` split (column `split`); a follow-up question is in the same split as the question it follows.
 - All choices (top-k, dense or hybrid, point granularity, prompt changes) are made on `val` only.
-- **How top-k is chosen:** for k = 3, 5 and 8, compute Recall@k on `val`, for dense (E1) and hybrid (E2) search. Choose the smallest k after which Recall@k no longer rises clearly (for example 70% → 88% → 90% gives k = 5), because every extra chunk makes the prompt longer and the answer slower on the CPU.
+- **How top-k was chosen (D14):** dense and hybrid search were compared in the settings run of the [E1 baseline experiment card](12-experiment-cards/E1-baseline.md), every option scored at 8 chunks; for the chosen hybrid search, top-k 3, 5 and 8 were compared, and 8 found the most gold provisions (Recall 0.38 / 0.43 / 0.59) while still fitting the answer model's context. Recall@8 is reported for that cutoff, and Recall@5 for comparison (D6 criterion 5).
 - The `test` split is not looked at during development. It is run once for the release candidate (deliverable D11), and those are the final results.
 - The `test` split has at least one question of each safety category.
 
@@ -724,6 +724,7 @@ Web and deployment part:
 | v3      | 2026-11-10 | D13 and D14 rewritten with the re-run on the new `val` split (27 questions with gold provisions, KAN-99): bge-large-en-v1.5, dense search with a little BM25 (weight 0.1, stopwords removed), top 8; new decision D15 (supersedes D4, Sprint 1 review comment 8): the conversation is kept in the web backend's memory, the db container, the Database component and its interface are removed; summary, components, data pipeline, RAG pipeline table, deployment and D1, D2, D6 updated to match; architecture diagram v3 and NLP pipeline v3 | —            |
 | v4      | 2026-11-10 | D13 and D14 rewritten with the run scored at 8 chunks (Recall@8), the number of chunks the answer model gets (KAN-99): bge-m3, dense search with some BM25 (dense weight 0.8; stopwords and the LLM jury's words removed for BM25), top 8; diagrams, components, glossary and RAG pipeline table updated to match; architecture diagram v4 and NLP pipeline v4 | —            |
 | v4      | 2026-11-14 | Sprint 1 review comments 6 and 7 (KAN-102): the experiment-based decisions D9, D10, D12, D13 and D14 link the E1 experiment card and their AI SBOM rows; D1 lists the interface requirements a default chat widget does not cover, with their stories and the mockup, and D1, D2, D3 and D10 no longer cite the unshared Spike 01 | —            |
+| v4      | 2026-11-14 | Retrieval row of the RAG pipeline table and the top-k rule in Evaluation updated to D14: there is no separate E2 card, because dense and hybrid search were compared in the settings run of the E1 card (Sprint 1 review comment 6) | — |
 
 ## Checklist before submitting
 
