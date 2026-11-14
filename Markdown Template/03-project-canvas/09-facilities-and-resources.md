@@ -1,5 +1,9 @@
 # Facilities & Resources
 
+> **What is new in Charter v2** (Sprint 2, compared with Charter v1, Git tag `sprint-1` of 27/10/2026):
+> - Rows 5 and 6: the embedding model is bge-m3 (design decision D13) and the hybrid search gives BM25 a weight of 0.2 (design decision D14), both chosen on the `val` questions on 10/11/2026.
+> - The conversation of the current session is kept only in the web backend's memory and is not written to disk (design decision D15).
+
 This page lists the infrastructure, tools and resources the team needs to support development, who obtains each one, and where it stands.
 
 "Cloud service from the university" is a weak entry. It does not say what is needed, who requests it, or whether it is ready. A strong entry answers all three: "GPU runtime for experiments, one shared allocation under the university cloud credit. Responsible: the Data Scientist who handles infrastructure. Status: access granted on <date>." (illustrative only)

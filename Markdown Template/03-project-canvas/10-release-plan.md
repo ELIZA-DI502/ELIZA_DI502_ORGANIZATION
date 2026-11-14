@@ -1,5 +1,8 @@
 # Release Plan
 
+> **What is new in Charter v2** (Sprint 2, compared with Charter v1, Git tag `sprint-1` of 27/10/2026):
+> - Alpha 0.1: Recall@8 and Recall@5 (design decision D14).
+
 Provide a high-level release plan showing the project's deliverables mapped against a sprint timeline. For example, indicate how many sprints are planned in each release, along with the start and end dates for each sprint.
 
 A **release** is the distribution of the final version, or the newest version, of a software application. In agile development, it is a deployable software package built over several iterations [1]. Define your releases using the release stages below: alpha, beta, release candidate, and so on.

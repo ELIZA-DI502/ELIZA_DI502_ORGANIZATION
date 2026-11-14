@@ -1,5 +1,9 @@
 # Project Executive Summary
 
+> **What is new in Charter v2** (Sprint 2, compared with Charter v1, Git tag `sprint-1` of 27/10/2026):
+> - Scope Definition: Article 6(4) (the documentation of a system that uses an exception) and Article 49(2) (its registration) are added to the core provisions, with the number of provisions (103: 68 core, 28 supporting, 2 boundary, 5 if-time) and a link to `data/provision-list.csv` (KAN-107, 09/11/2026).
+> - Objectives: the O1 and O3 target levels are reviewed with the alpha results and kept; they are now fixed for the final evaluation (Yaren Gürsoy, 14/11/2026).
+
 This section briefly summarizes the entire project charter, highlighting the significant points of interest to the reader. It includes all of the information required for approval by the key stakeholders. The summary should also include some background information on the project that:
 
 - includes the reason(s) for creating the project (e.g., a business problem or opportunity, a legal requirement, etc.); and,

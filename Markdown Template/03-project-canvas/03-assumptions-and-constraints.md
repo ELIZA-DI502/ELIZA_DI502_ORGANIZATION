@@ -1,5 +1,10 @@
 # Assumptions & Constraints
 
+> **What is new in Charter v2** (Sprint 2, compared with Charter v1, Git tag `sprint-1` of 27/10/2026):
+> - A-03: 20–50 questions in v1 instead of 20–30 (09/11/2026).
+> - C-05: reviewed against the answer times measured in the baseline and on the pilot computer (Sprint 1 review, comment 2).
+> - C-10: the conversation is kept only in the web backend's memory and is not written to disk (design decision D15; Sprint 1 review, comment 8).
+
 This page records what your plan rests on. It has two parts:
 
 - An **assumption** is something you treat as true for planning, but have not proven yet. It is a documented bet that you commit to checking.

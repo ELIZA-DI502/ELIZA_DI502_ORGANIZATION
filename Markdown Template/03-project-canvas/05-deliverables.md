@@ -1,5 +1,10 @@
 # Deliverables
 
+> **What is new in Charter v2** (Sprint 2, compared with Charter v1, Git tag `sprint-1` of 27/10/2026):
+> - D2 is named "Q&A Generation-Dataset v1 and its data card", and criterion 14 points to the data card's decision log (Sprint 1 review, comment 1).
+> - D2 criterion 1: 20–50 questions instead of 20–30 (09/11/2026).
+> - D6 criteria 2 and 5: the top 8 retrieved provisions, and Recall@8 with Recall@5 also reported (design decision D14).
+
 Identify and define the high-level deliverables required to achieve the project's objectives. A **deliverable** is a tangible artifact, product or result produced as a direct output of work. It fulfils a requirement.
 
 Because this project follows Scrum, the charter itself is updated iteratively. Treat each version as a separate deliverable (e.g., "Project Charter v1" as Deliverable 1, "Project Charter v2" as Deliverable 2, and so on).
