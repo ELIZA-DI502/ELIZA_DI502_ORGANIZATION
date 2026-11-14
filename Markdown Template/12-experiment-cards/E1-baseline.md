@@ -10,7 +10,7 @@
 
 | Date | Author(s) | Status |
 |---|---|---|
-| 2026-11-09 | Kaan, Gözde Nur | in progress |
+| 2026-11-09 | Kaan, Gözde Nur | done |
 
 **Aim:** How well does the retrieval chosen on the `val` questions find the gold provisions of the `val` questions, and what does retrieval add to the answers? Measured: Recall@5, Recall@8 and MRR against `gold_ids` (only questions with `gold_ids`), overall and for each label of the question-writing method, with the number of questions; the answers of the same LLM without and with the retrieved chunks, scored with the [rubric](../../docs/eval/rubric.md). Compared with: the O2 (a) target (at least 80% of in-scope questions cite the expected provision); the alpha has no pass level.
 <!-- The question you want to answer, and what you compare against: the baseline or another configuration. -->
@@ -56,9 +56,23 @@ Baseline on the D2 `val` split (30 questions, 27 with `gold_ids`), answers of 12
 | After the citation check (KAN-128) | same results; the 4 removed citations were not gold provisions | – |
 
 The version date is not written by the answer model. Every retrieved chunk carries it (27/07/2026), so from Sprint 3 the answer template adds it to every substantive answer.
+
+Without retrieval, Claude Haiku 5.5 with the whole consolidated text attached ([`prompts/answer_full_text.yaml`](../../prompts/answer_full_text.yaml), answers of 12/11/2026 in [`val-full-text-claude-haiku-5-5.csv`](../../docs/eval/answers/val-full-text-claude-haiku-5-5.csv)) cites the expected provision for 22 of 27 questions (81%), against 19 of 27 (70%) with retrieval ([`src/rag_vs_no_rag.ipynb`](../../src/rag_vs_no_rag.ipynb), [W&B run `lgogwegq`](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/lgogwegq)). The two sides use different models, so the difference shows the model and the retrieval together, not the retrieval alone.
+
+Failure causes of the 8 `val` questions (of 27 with `gold_ids`) where the expected provision is not cited (O2 (a)):
+
 | Failure cause | Count | % of failures |
 |---|---|---|
-|  |  |  |
+| Retrieval: no gold provision among the 8 chunks (B-06, C-05, D-10) | 3 | 38% |
+| Answer model: a gold provision was retrieved, but the answer is the fixed sentence "The provided text does not answer this question" (B-S4, D-02, D-03) | 3 | 38% |
+| Answer model: a gold provision was retrieved, but the answer cites another provision or another point (C-03 cites Article 49(2) and 6(4) instead of Article 11(1); C-06 cites Article 2(1)(c) instead of Article 2(1)) | 2 | 25% |
+| **Total** | **8** | **100%** |
+
+Other known failures on `val`, not counted above: the version date is missing in 20 of 20 substantive raw answers (added by the sources line, KAN-126); A-01 and D-12 are cut off at 300 answer tokens; B-07 accepts its false premise; the refusals of B-S1 and C-S3 name no provision, and B-S4 (legal decision) shows no provision, which the [rubric](../../docs/eval/rubric.md) asks for. Some answers add a provision that is not among their chunks (for example Article 6(2) in A-05); the citation check removes these 4 citations (KAN-128).
 
 **Discussion and Conclusion:**
 <!-- What the numbers mean and what you will do next. Link the decision they led to (D?), if any. -->
+
+Retrieval is not the weak part: a gold provision is among the 8 chunks for 24 of the 27 questions, which supports keeping 8 chunks ([D14](../11-system-architecture-design-document.md#d14-retrieval-dense-search-with-some-bm25-top-8-chunks-revises-d12)) and bge-m3 ([D13](../11-system-architecture-design-document.md#d13-embedding-model-bge-m3-supersedes-d10)). Recall@8 is 0.59 because many questions have several gold provisions and the chunks often hold only some of them. The answer model is the weak part: 5 of the 8 misses had a gold provision in its chunks, and it gives the fixed "does not answer" sentence for 10 of the 30 questions (33%). With 70%, the baseline is below the O2 (a) target of 80%; the alpha has no pass level, so this is an analysis result.
+
+Next (Sprint 3), each change measured against this card on the same `val` questions: the answer step first (prompt and the fixed-sentence rule, more answer tokens, the version date and the cited provision added by the template, input and output checks for the safety questions, KAN-2), then the three retrieval misses. The answer model ([D9](../11-system-architecture-design-document.md#d9-llm-llama-31-8b-instruct-with-phi-4-mini-instruct-as-fallback)) is compared again only if these changes do not close the gap.
