@@ -19,7 +19,7 @@ Datasheets for Datasets
 - Maintenance
 - Decision log
 
-> **Status (14/11/2026):** v1 holds 46 questions (decision Q-26), and `val` / `test` membership is fixed since 09/11/2026 (decision Q-28). Every question has been reviewed by a member who did not write it (decision Q-29): use case (d) on 10/11, (a) and (c) on 11/11, (b) on 14/11/2026. All review flags were closed on 14/11/2026; none is open in the submitted v1. The review corrections continued after the planned freeze of 12/11/2026, also in rows assigned to `test`; no question moved between splits, and the submitted v1 is frozen after the final checks (decision Q-32).
+> **Status (14/11/2026):** v1 holds 46 questions (decision Q-26), and `val` / `test` membership is fixed since 09/11/2026 (decision Q-28). Every question has been reviewed by a member who did not write it (decision Q-29): use case (d) on 10/11, (a) and (c) on 11/11, (b) on 14/11/2026. All review flags were closed on 14/11/2026; none is open in the submitted v1. The review corrections continued after the planned freeze of 12/11/2026, also in rows assigned to `test`; no question moved between splits, and the submitted v1 is frozen after the final checks (decision Q-32). The checks of the question set in story KAN-65 (test cases TC-65.1 to TC-65.7) and their results are on the [story requirements page of the Evaluation epic](../06-user-stories/08-story-requirements-for-epic-kan-28.md#s1--test-the-assistant-on-in-scope-questions-checked-against-the-official-text); TC-65.4 is open because of the missing prompt files (Composition, question 6).
 
 ## Motivation
 
