@@ -21,6 +21,9 @@ ELIZA helps technical teams that build AI systems for education find the provisi
 | `docs/spikes/` | Spike notes |
 | `Markdown Template/` | Course pages: project charter, user stories, design document, SBOM, datasheets, sprint folders, experiment cards |
 | `requirements.txt` | The Python packages, with exact versions |
+| `rag/` | The RAG service (FastAPI, `POST /answer`) and `rag/ingest.py`, which builds the vector store once |
+| `web/` | The user interface (React + Vite, `web/client`) and the web backend (Node.js + Express, `web/server`) |
+| `docker-compose.yml` | The three containers: web, rag, ollama |
 
 ## What you need
 
@@ -75,6 +78,27 @@ jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeou
 `split.ipynb` uses seed 42, so the same questions always go to `val` and `test`. The `test` file was frozen on 09/11/2026 (SHA-256 `f68bfa569b69…`). Do not run `split.ipynb` again and commit its output: since the review of the questions (KAN-52), `eval-set-v1.csv` has changed, so running it would rewrite the `val` and `test` files and change the hash. `embedding.ipynb` builds the vector store in `data/vector-store/`; it is not in Git and is rebuilt on every run.
 
 **In Google Colab:** upload a notebook (*File → Upload notebook*) and choose *Run all*. Its first code cell downloads this repository and, for `embedding.ipynb`, installs Ollama and the jury models. For `embedding.ipynb`, choose *Runtime → Change runtime type → T4 GPU* first.
+
+## Run the assistant (Docker Compose)
+
+The system runs in three containers (design document, section 5, Deployment): `web` (React page and Node.js + Express backend), `rag` (FastAPI RAG service) and `ollama` (the answer model). You need Docker Desktop (or Docker Engine with Compose) and the Python environment of *Install*.
+
+1. Build the vector store once (D5). It is written to `data/vector-store/` and is not in Git (running `src/embedding.ipynb` writes the same store):
+   ```bash
+   pip install -r rag/requirements.txt
+   python rag/ingest.py
+   ```
+2. Optional: `cp .env.example .env` and change the settings. `ELIZA_MODE=no_rag` answers with the same model and prompt but without the retrieved provisions (the no-RAG baseline); the page then shows a "Baseline mode" note.
+3. Start the containers and download the answer model once (4.9 GB, kept in a Docker volume):
+   ```bash
+   docker compose up -d --build
+   docker compose exec ollama ollama pull llama3.1:8b-instruct-q4_K_M
+   ```
+4. Open http://localhost:3000. The first start of `rag` downloads bge-m3 (about 2.3 GB); until it is loaded, the `rag` mode answers "Eliza is still starting". Check with `docker compose logs -f rag`.
+
+The `ollama` container uses only the CPU, also on a Mac. While developing on a Mac you can use the Ollama app instead (it uses the GPU): set `OLLAMA_URL=http://host.docker.internal:11434` in `.env` and pull the model with the app.
+
+**API of the RAG service** (draft until the web and RAG sides agree, design document, section 7): `POST /answer` with `{"question": "...", "history": [{"question": "...", "answer": "..."}], "mode": "rag" | "no_rag"}`. The answer has `status` (`answer` or `notice`), `answer`, `notice`, `citations` (the cited provisions found among the retrieved chunks, with their text and version date), `unsupported_citations`, `retrieved` (chunk IDs, for Recall@k) and `timing_ms`. The evaluation scripts call it directly; with the containers running, the port is not published, so run them with `docker compose exec rag ...` or start the service on the host: `uvicorn rag.app.main:app --port 8000` (with `OLLAMA_URL=http://localhost:11434`).
 
 ## Keys and settings
 

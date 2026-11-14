@@ -1,0 +1,21 @@
+# Only config/, prompts/, data/chunks.jsonl, rag/ and web/ go into the images.
+.git
+.github
+.jira
+.venv
+venv
+**/__pycache__
+**/node_modules
+**/dist
+**/.DS_Store
+.env
+wandb
+src
+docs
+slides
+Markdown Template
+online-course-register
+weekly-milestones-and-deliverables
+data/vector-store
+data/*.pdf
+data/*.html

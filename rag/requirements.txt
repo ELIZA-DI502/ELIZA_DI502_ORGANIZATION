@@ -1,0 +1,7 @@
+# RAG service (rag/, D2) and the one-off preparation script (rag/ingest.py, D5).
+# D5: ingest.py and the rag image install the same packages, so this file starts from
+# the project's requirements.txt and adds only the web server packages of the service.
+-r ../requirements.txt
+
+fastapi==0.162.2
+uvicorn==0.54.0
