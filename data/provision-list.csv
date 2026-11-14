@@ -4,13 +4,13 @@ ANX3-3-b,"Annex III, point 3(b)","Evaluation of learning outcomes, including to 
 ANX3-3-c,"Annex III, point 3(c)",Assessment of the appropriate level of education,core,Education use cases,,Defines one of the four education use cases that make an AI system high-risk under Article 6(2).,C-04; C-07
 ANX3-3-d,"Annex III, point 3(d)",Monitoring and detecting prohibited behaviour of students during tests,core,Education use cases,,Defines one of the four education use cases that make an AI system high-risk under Article 6(2).,D-01; D-02; D-04; D-05; D-06; D-08; D-11; D-12
 ART6-2,Article 6(2),Classification rules for high-risk AI systems,core,High-risk classification,,Makes the Annex III use cases high-risk.,A-04; A-05; A-S1; B-01; B-07; B-08; C-04; C-07; D-01; D-04; D-05; D-08; D-11
-ART6-3-1,"Article 6(3), first subparagraph",Classification rules for high-risk AI systems,core,High-risk classification,,Exception: an Annex III system is not high-risk where it poses no significant risk of harm.,A-06; A-S1; A-S2; B-01; B-S4; C-01; D-07; D-08
+ART6-3-1,"Article 6(3), first subparagraph",Classification rules for high-risk AI systems,core,High-risk classification,,Exception: an Annex III system is not high-risk where it poses no significant risk of harm.,A-06; A-S1; A-S2; B-01; B-S1; B-S4; C-01; C-S2; D-07; D-08; D-S1
 ART6-3-a,"Article 6(3), second subparagraph, point (a)",Classification rules for high-risk AI systems,core,High-risk classification,,Condition for the exception: narrow procedural task.,B-01; C-01; D-07
 ART6-3-b,"Article 6(3), second subparagraph, point (b)",Classification rules for high-risk AI systems,core,High-risk classification,,Condition for the exception: improves the result of a completed human activity.,B-S4; C-01; D-07
 ART6-3-c,"Article 6(3), second subparagraph, point (c)",Classification rules for high-risk AI systems,core,High-risk classification,,Condition for the exception: detects decision-making patterns without replacing human assessment.,C-01; D-07
-ART6-3-d,"Article 6(3), second subparagraph, point (d)",Classification rules for high-risk AI systems,core,High-risk classification,,Condition for the exception: preparatory task to an assessment.,A-06; C-01; D-07
-ART6-3-3,"Article 6(3), third subparagraph",Classification rules for high-risk AI systems,core,High-risk classification,,An Annex III system that performs profiling is always high-risk.,A-05; A-06; A-S1; A-S2; B-01; C-01; D-07; D-08
-ART6-4,Article 6(4),Classification rules for high-risk AI systems,core,High-risk classification,,A provider that uses the Article 6(3) exception must document its assessment and register under Article 49(2).,B-03; B-S4; D-07
+ART6-3-d,"Article 6(3), second subparagraph, point (d)",Classification rules for high-risk AI systems,core,High-risk classification,,Condition for the exception: preparatory task to an assessment.,A-06; C-01; C-S2; D-07
+ART6-3-3,"Article 6(3), third subparagraph",Classification rules for high-risk AI systems,core,High-risk classification,,An Annex III system that performs profiling is always high-risk.,A-05; A-06; A-S1; A-S2; B-01; C-01; D-07; D-08; D-S1
+ART6-4,Article 6(4),Classification rules for high-risk AI systems,core,High-risk classification,,A provider that uses the Article 6(3) exception must document its assessment and register under Article 49(2).,B-03; B-S4; C-S3; D-07
 ART49-2,Article 49(2),Registration,core,High-risk classification,,Registration in the EU database for an Annex III system that the provider considers not high-risk under Article 6(3).,B-03; B-S4; D-07
 ART8-1,Article 8(1),Compliance with the requirements,core,Requirements for high-risk systems,,"Requirement for high-risk AI systems (compliance with the requirements); identified and explained, no implementation guidance.",B-05; D-05; D-08; D-09
 ART8-2,Article 8(2),Compliance with the requirements,core,Requirements for high-risk systems,,"Requirement for high-risk AI systems (compliance with the requirements); identified and explained, no implementation guidance.",
@@ -61,8 +61,8 @@ ART16-j,"Article 16, point (j)",Obligations of providers of high-risk AI systems
 ART16-k,"Article 16, point (k)",Obligations of providers of high-risk AI systems,core,Provider obligations,,Provider obligation; identified only (no implementation guidance).,D-08; D-09
 ART16-l,"Article 16, point (l)",Obligations of providers of high-risk AI systems,core,Provider obligations,,Provider obligation; identified only (no implementation guidance).,D-08; D-09
 ART113-1,"Article 113, first paragraph",Entry into force and application,core,Application dates,,Entry into force.,
-ART113-2,"Article 113, second paragraph",Entry into force and application,core,Application dates,,General application date: 2 August 2026.,A-07; C-04
-ART113-3-a,"Article 113, third paragraph, point (a)",Entry into force and application,core,Application dates,Regulation (EU) 2026/1744,Application date of Chapters I and II (including Article 5) and its exceptions.,C-05
+ART113-2,"Article 113, second paragraph",Entry into force and application,core,Application dates,,General application date: 2 August 2026.,A-07; B-06; C-04
+ART113-3-a,"Article 113, third paragraph, point (a)",Entry into force and application,core,Application dates,Regulation (EU) 2026/1744,Application date of Chapters I and II (including Article 5) and its exceptions.,C-05; D-04; D-06
 ART113-3-b,"Article 113, third paragraph, point (b)",Entry into force and application,core,Application dates,,"Application date of Chapter III Section 4, Chapters V, VII, XII and Article 78.",
 ART113-3-c-i,"Article 113, third paragraph, point (c)(i)",Entry into force and application,core,Application dates,Regulation (EU) 2026/1744,Application date of the high-risk rules for Annex III systems (2 December 2027): answers the education use cases.,A-07; B-06; C-04; D-04; D-08
 ART113-3-c-ii,"Article 113, third paragraph, point (c)(ii)",Entry into force and application,core,Application dates,Regulation (EU) 2026/1744,Application date of the high-risk rules for Annex I systems (2 August 2028); needed to contrast with point (c)(i).,
@@ -95,7 +95,7 @@ ART3-30,"Article 3, point (30)",Definition of ‘validation data’,supporting,D
 ART3-32,"Article 3, point (32)",Definition of ‘testing data’,supporting,Definitions,,Used in Article 10.,
 ART3-39,"Article 3, point (39)",Definition of ‘emotion recognition system’,supporting,Definitions,,Related to the Article 5(1)(f) boundary case.,
 ART3-52,"Article 3, point (52)",Definition of ‘profiling’,supporting,Definitions,,"Used in Article 6(3), third subparagraph.",
-ART5-1-f,"Article 5(1), first subparagraph, point (f)",Prohibited AI practices,boundary,Boundary cases,,Emotion inference in education institutions; explained with its conditions.,B-04; C-05; D-06; D-08; D-12
+ART5-1-f,"Article 5(1), first subparagraph, point (f)",Prohibited AI practices,boundary,Boundary cases,,Emotion inference in education institutions; explained with its conditions.,B-04; C-05; D-06; D-08; D-12; D-S2
 ART50-1,Article 50(1),Transparency obligations for providers and deployers of certain AI systems,boundary,Boundary cases,,Telling users they interact with an AI system (for example a tutor chatbot); explained with its conditions.,A-03
 ART4-1,Article 4(1),AI literacy,if-time,If time (not committed),Regulation (EU) 2026/1744,Not committed; added only if time allows.,
 ART4-2,Article 4(2),AI literacy,if-time,If time (not committed),Regulation (EU) 2026/1744,Not committed; added only if time allows.,
