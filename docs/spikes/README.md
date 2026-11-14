@@ -14,3 +14,7 @@ From Sprint 2, every learning spike states what it changes in the product, and e
 | [learning-yaren.md](learning-yaren.md) | Learning spike: Yaren | [KAN-61](https://yarengursoy.atlassian.net/browse/KAN-61) |
 | [learning-gozde-nur.md](learning-gozde-nur.md) | Learning spike: Gözde Nur | [KAN-62](https://yarengursoy.atlassian.net/browse/KAN-62) |
 | [learning-kaan.md](learning-kaan.md) | Learning spike: Kaan | [KAN-63](https://yarengursoy.atlassian.net/browse/KAN-63) |
+
+## Sprint 2
+
+No spikes in Sprint 2. Following the Sprint 1 review (comment 9), the technical comparisons were run as experiments, not as spikes: the embedding model, the BM25 weight and the number of retrieved chunks are in the [baseline experiment card (E1)](../../Markdown%20Template/12-experiment-cards/E1-baseline.md) and design decisions [D13 and D14](../../Markdown%20Template/11-system-architecture-design-document.md), and the choice of benchmark questions is in [`docs/eval/benchmark-selection.md`](../eval/benchmark-selection.md).
