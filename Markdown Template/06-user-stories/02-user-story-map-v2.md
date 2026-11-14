@@ -1,6 +1,6 @@
 # User Story Map v2
 
-**Version:** v2, Sprint 2 (08/11/2026, for the Sprint 2 review on 18/11/2026) · **Source:** Jira project KAN on 08/11/2026 · **Owner:** Yeşim (Product Owner) · **Previous version:** [User Story Map v1](01-user-story-map-v1.md), end of Sprint 1 (27/10/2026)
+**Version:** v2, Sprint 2 (08/11/2026, for the Sprint 2 review on 18/11/2026) · **Source:** Jira project KAN on 08/11/2026; KAN-8 updated as in Jira on 14/11/2026 · **Owner:** Yeşim (Product Owner) · **Previous version:** [User Story Map v1](01-user-story-map-v1.md), end of Sprint 1 (27/10/2026)
 
 Version 2 shows the backlog after the Sprint 1 review: work that is not a user goal of its own is now a task, two overlapping stories are merged, and every current user story now has test cases, written in Sprint 2 ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)). What changed and why is listed [below](#what-changed-since-v1).
 
@@ -20,7 +20,7 @@ To read the cards at any zoom, open the [PDF version of the map](../../docs/imag
 
 ## What changed since v1
 
-Found by comparing Jira on 27/10/2026 with Jira on 08/11/2026. The reasons are the instructor's comments on Sprint 1; the full answers are on the [Sprint 1 review page](../04-sprint-1/01-sprint-1-review-page.md#responses-to-the-project-review-committee-feedback-sprint-1).
+Found by comparing Jira on 27/10/2026 with Jira on 08/11/2026, and for KAN-8 with Jira on 14/11/2026. The reasons are the instructor's comments on Sprint 1, except for the last three rows, which come from the Sprint 2 work on KAN-8; the full answers are on the [Sprint 1 review page](../04-sprint-1/01-sprint-1-review-page.md#responses-to-the-project-review-committee-feedback-sprint-1).
 
 | Item | Change | Date | Why |
 |---|---|---|---|
@@ -40,6 +40,9 @@ Found by comparing Jira on 27/10/2026 with Jira on 08/11/2026. The reasons are t
 | [KAN-171](https://yarengursoy.atlassian.net/browse/KAN-171) Follow Sprint 3 from one welcome page | User story → task | 07/11/2026 | Sprint 1 review, comment 3: sprint reporting is course documentation for the Project Review Committee, not a user goal |
 | [KAN-202](https://yarengursoy.atlassian.net/browse/KAN-202) Evaluate search-time improvement against manual lookup (O1) | User story → task; renamed from "Find the provisions faster than with manual search" | 07/11/2026 | Sprint 1 review, comment 4: speed is an acceptance criterion, not a user goal; it is measured as the O1 pilot evaluation of [KAN-19](https://yarengursoy.atlassian.net/browse/KAN-19), [KAN-8](https://yarengursoy.atlassian.net/browse/KAN-8) and [KAN-21](https://yarengursoy.atlassian.net/browse/KAN-21) |
 | [KAN-204](https://yarengursoy.atlassian.net/browse/KAN-204) Follow Sprint 4 from one welcome page | User story → task | 07/11/2026 | Sprint 1 review, comment 3: sprint reporting is course documentation for the Project Review Committee, not a user goal |
+| [KAN-126](https://yarengursoy.atlassian.net/browse/KAN-126) Add each cited provision with its reference and the version date to the answers | Renamed from "Show each cited provision with its reference and version date"; narrowed to its Sprint 2 scope and done: the saved `val` answers list each cited provision with the version date | 14/11/2026 | Sprint 2 work: citing every provision down to the paragraph or point needs a prompt change and a new run, so it moved to [KAN-222](https://yarengursoy.atlassian.net/browse/KAN-222) |
+| [KAN-127](https://yarengursoy.atlassian.net/browse/KAN-127) Show how several provisions relate | Carry-over to Sprint 3 agreed | 14/11/2026 | Sprint 2 work: started in Sprint 2 and still in progress; the team agreed to carry it into Sprint 3, together with the rest of [KAN-8](https://yarengursoy.atlassian.net/browse/KAN-8) |
+| [KAN-222](https://yarengursoy.atlassian.net/browse/KAN-222) Cite every provision down to the paragraph or point and show the sources line in the interface | New task in Sprint 3, serves [KAN-8](https://yarengursoy.atlassian.net/browse/KAN-8) | 14/11/2026 | Sprint 2 work: the part of [KAN-126](https://yarengursoy.atlassian.net/browse/KAN-126) that was not done in Sprint 2 (story acceptance criterion 1) |
 
 Also new since v1: sub-task [KAN-221](https://yarengursoy.atlassian.net/browse/KAN-221) (frequent words for BM25, under task KAN-87), and the cards now show tasks and the stories they serve.
 
@@ -52,7 +55,7 @@ Sprints as columns and epics as rows, with links to Jira. Story points in bracke
 | *Goal* | *Charter v1, source manifest and first system design, no production code (C-07)* | *Baseline: question set v1, indexed source text, baseline retrieval measured; Charter v2* | *MVP (Features 1–4): the whole pipeline with the web page runs end to end* | *Pilot with Beta 0.5 plus Feature 6 and application dates; final evaluation and live demo* | *Not committed* |
 | **Product** | | | | | |
 | **Ask** [KAN-15](https://yarengursoy.atlassian.net/browse/KAN-15) | – | – | [KAN-19](https://yarengursoy.atlassian.net/browse/KAN-19) Ask about my product in my own words<br>[KAN-21](https://yarengursoy.atlassian.net/browse/KAN-21) Use the assistant in my browser | – | [KAN-20](https://yarengursoy.atlassian.net/browse/KAN-20) Start from example questions or my use case |
-| **Find and Understand** [KAN-16](https://yarengursoy.atlassian.net/browse/KAN-16) | – | [KAN-8](https://yarengursoy.atlassian.net/browse/KAN-8) See the provisions that relate to my use case, with their references (8) | [KAN-4](https://yarengursoy.atlassian.net/browse/KAN-4) Understand the relevant requirements in plain language | [KAN-3](https://yarengursoy.atlassian.net/browse/KAN-3) See when the AI Act rules apply to our product<br>[KAN-72](https://yarengursoy.atlassian.net/browse/KAN-72) Understand the assistant's answers without legal training<br>[KAN-202](https://yarengursoy.atlassian.net/browse/KAN-202) Evaluate search-time improvement against manual lookup (O1) *(task)* | [KAN-6](https://yarengursoy.atlassian.net/browse/KAN-6) Ask follow-up questions about our product in the same session |
+| **Find and Understand** [KAN-16](https://yarengursoy.atlassian.net/browse/KAN-16) | – | [KAN-8](https://yarengursoy.atlassian.net/browse/KAN-8) See the provisions that relate to my use case, with their references (8) | [KAN-4](https://yarengursoy.atlassian.net/browse/KAN-4) Understand the relevant requirements in plain language<br>[KAN-222](https://yarengursoy.atlassian.net/browse/KAN-222) Cite every provision down to the paragraph or point and show the sources line in the interface *(task)* | [KAN-3](https://yarengursoy.atlassian.net/browse/KAN-3) See when the AI Act rules apply to our product<br>[KAN-72](https://yarengursoy.atlassian.net/browse/KAN-72) Understand the assistant's answers without legal training<br>[KAN-202](https://yarengursoy.atlassian.net/browse/KAN-202) Evaluate search-time improvement against manual lookup (O1) *(task)* | [KAN-6](https://yarengursoy.atlassian.net/browse/KAN-6) Ask follow-up questions about our product in the same session |
 | **Show the Source** [KAN-17](https://yarengursoy.atlassian.net/browse/KAN-17) | – | – | – | [KAN-22](https://yarengursoy.atlassian.net/browse/KAN-22) Read the cited source text behind an answer<br>[KAN-77](https://yarengursoy.atlassian.net/browse/KAN-77) Rely on cited provisions confirmed on unseen questions | – |
 | **Know the Limits** [KAN-18](https://yarengursoy.atlassian.net/browse/KAN-18) | – | – | [KAN-2](https://yarengursoy.atlassian.net/browse/KAN-2) Get regulatory information, never a legal decision<br>[KAN-5](https://yarengursoy.atlassian.net/browse/KAN-5) Get a notice when my question is out of scope<br>[KAN-23](https://yarengursoy.atlassian.net/browse/KAN-23) Get a notice when the provisions do not answer my question<br>[KAN-26](https://yarengursoy.atlassian.net/browse/KAN-26) Avoid sharing personal information when asking questions | [KAN-75](https://yarengursoy.atlassian.net/browse/KAN-75) Run the final O4 safety evaluation on the held-out test split *(task)* | – |
 | **Project work** | | | | | |
@@ -60,9 +63,9 @@ Sprints as columns and epics as rows, with links to Jira. Story points in bracke
 | **Evaluation** [KAN-28](https://yarengursoy.atlassian.net/browse/KAN-28) | – | [KAN-65](https://yarengursoy.atlassian.net/browse/KAN-65) Test the assistant on in-scope questions checked against the official text (13)<br>[KAN-83](https://yarengursoy.atlassian.net/browse/KAN-83) Test the assistant's safety responses against a written rubric (5) | [KAN-170](https://yarengursoy.atlassian.net/browse/KAN-170) Extend the question set for the beta *(task)* | – | – |
 | **Source corpus** [KAN-29](https://yarengursoy.atlassian.net/browse/KAN-29) | [KAN-67](https://yarengursoy.atlassian.net/browse/KAN-67) Work from one verified copy of the source (5) *(Sprint 1 record)* | [KAN-86](https://yarengursoy.atlassian.net/browse/KAN-86) Index every in-scope provision with its reference and version date (8) *(task)* | – | – | – |
 | **System design and delivery** [KAN-30](https://yarengursoy.atlassian.net/browse/KAN-30) | [KAN-81](https://yarengursoy.atlassian.net/browse/KAN-81) Agree on the technologies for the baseline (13) *(Sprint 1 record)*<br>[KAN-82](https://yarengursoy.atlassian.net/browse/KAN-82) Close my gaps in the Sprint 1 fundamentals (3) *(Sprint 1 record)* | [KAN-87](https://yarengursoy.atlassian.net/browse/KAN-87) Build and measure the baseline retrieval (13) *(task)*<br>[KAN-88](https://yarengursoy.atlassian.net/browse/KAN-88) Update the Sprint 2 architecture design and technical documentation (8) *(task)* | [KAN-168](https://yarengursoy.atlassian.net/browse/KAN-168) Run the whole pipeline from one README *(task)*<br>[KAN-169](https://yarengursoy.atlassian.net/browse/KAN-169) Measure the beta against the baseline and the charter targets *(task)* | [KAN-203](https://yarengursoy.atlassian.net/browse/KAN-203) Use a release candidate with the pilot problems fixed | – |
-| **Total** | 7 Sprint 1 stories (55 points) | 3 user stories, 6 tasks (73 points) | 7 user stories, 4 tasks (points at planning) | 5 user stories, 3 tasks (points at planning) | 2 user stories |
+| **Total** | 7 Sprint 1 stories (55 points) | 3 user stories, 6 tasks (73 points) | 7 user stories, 5 tasks (points at planning) | 5 user stories, 3 tasks (points at planning) | 2 user stories |
 
-In total: 17 current user stories, 13 tasks and 7 Sprint 1 stories kept as a historical record. KAN-24 and KAN-25 are not counted: they are merged into KAN-2.
+In total: 17 current user stories, 14 tasks and 7 Sprint 1 stories kept as a historical record. KAN-24 and KAN-25 are not counted: they are merged into KAN-2.
 
 ## Users in the stories
 
@@ -111,8 +114,8 @@ Features: F1 Ask in their own words · F5 Guided start (backlog) · [Story requi
 Features: F2 Find the relevant provisions · F3 Plain-language answer · F7 Follow-up questions (backlog) · [Story requirements](04-story-requirements-for-epic-kan-16.md)
 
 - **[KAN-8](https://yarengursoy.atlassian.net/browse/KAN-8) See the provisions that relate to my use case, with their references** · User story · Sprint 2 · 8 points · F2 · Yeşim
-  - [KAN-125](https://yarengursoy.atlassian.net/browse/KAN-125) Generate answers from the retrieved chunks · Yeşim
-  - [KAN-126](https://yarengursoy.atlassian.net/browse/KAN-126) Show each cited provision with its reference and version date · Yeşim
+  - [KAN-125](https://yarengursoy.atlassian.net/browse/KAN-125) Generate answers from the retrieved chunks · Gözde Nur
+  - [KAN-126](https://yarengursoy.atlassian.net/browse/KAN-126) Add each cited provision with its reference and the version date to the answers · Yeşim
   - [KAN-127](https://yarengursoy.atlassian.net/browse/KAN-127) Show how several provisions relate · Yeşim
   - [KAN-128](https://yarengursoy.atlassian.net/browse/KAN-128) Check every citation against the retrieved chunk IDs · Yaren
   - [KAN-129](https://yarengursoy.atlassian.net/browse/KAN-129) Report citation coverage and the expected-provision rate on the val split · Yaren
@@ -121,6 +124,8 @@ Features: F2 Find the relevant provisions · F3 Plain-language answer · F7 Foll
   - [KAN-134](https://yarengursoy.atlassian.net/browse/KAN-134) Explain defined terms once with their Article 3 point
   - [KAN-135](https://yarengursoy.atlassian.net/browse/KAN-135) Check that answers add nothing beyond the retrieved provisions
   - [KAN-136](https://yarengursoy.atlassian.net/browse/KAN-136) Report the answer format and the conditions result on the val split
+- **[KAN-222](https://yarengursoy.atlassian.net/browse/KAN-222) Cite every provision down to the paragraph or point and show the sources line in the interface** · Task · Sprint 3 · Yeşim · serves [KAN-8](https://yarengursoy.atlassian.net/browse/KAN-8)
+  - *No sub-tasks yet: written at the sprint planning.*
 - **[KAN-3](https://yarengursoy.atlassian.net/browse/KAN-3) See when the AI Act rules apply to our product** · User story · Sprint 4 · F2 · Gözde Nur
   - [KAN-130](https://yarengursoy.atlassian.net/browse/KAN-130) Answer application-date questions with the supporting provision
   - [KAN-131](https://yarengursoy.atlassian.net/browse/KAN-131) Give an insufficient-evidence response when no date is supported
