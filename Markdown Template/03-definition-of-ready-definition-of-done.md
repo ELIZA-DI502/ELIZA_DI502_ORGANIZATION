@@ -81,66 +81,66 @@ Ticked by the team before the upload on 14/11/2026 and again before the review o
 
 **Stories**
 
-- [ ] Every acceptance criterion of every Sprint 2 story is met and checked by a team member other than the owner
-- [ ] Every sub-task is done, and the evidence (commit, file or W&B run) is linked in a Jira comment
-- [ ] Every current product story has its test case on its story requirements page
-- [ ] Every story closed in Sprint 2 has its test run and its result recorded
+- [ ] Every acceptance criterion of every Sprint 2 story is met and checked by a team member other than the owner — *open: KAN-8 (KAN-127, KAN-222), KAN-65 (TC-65.1 in part, TC-65.4) and KAN-83 stay in progress or to do; carry-over to Sprint 3 planned*
+- [ ] Every sub-task is done, and the evidence (commit, file or W&B run) is linked in a Jira comment — *open: KAN-127 (in progress) and KAN-158 (pilot users, due 18/11/2026); KAN-122–124 belong to the review period 15–18/11/2026*
+- [x] Every current product story has its test case on its story requirements page — *KAN-114*
+- [x] Every story closed in Sprint 2 has its test run and its result recorded — *no user story was closed in Sprint 2; the checks of KAN-65 are recorded on its story requirements page (S1, Test results)*
 
 **Code and Git**
 
-- [ ] Every change is on a branch named with its Jira key, and commits and pull requests have the Jira key
-- [ ] Every change was read and run by a teammate and merged into `main` with `git merge --no-ff`
-- [ ] The code runs from `README.md` on a team member's computer
-- [ ] `requirements.txt` has 0 unpinned packages, the parameters are in `config/rag.yaml`, the prompts are in `prompts/` and random seeds are set
-- [ ] No API keys, debug prints or large generated files are in the repository
-- [ ] An answer shows the question, the answer, the cited provisions with their reference and version date, and any notice in the same view
+- [ ] Every change is on a branch named with its Jira key, and commits and pull requests have the Jira key — *open: several files were uploaded directly to `main` through the GitHub web interface; to be enforced in Sprint 3*
+- [ ] Every change was read and run by a teammate and merged into `main` with `git merge --no-ff` — *open: same reason as above*
+- [ ] The code runs from `README.md` on a team member's computer — *open: the install test by a member who did not build the baseline (KAN-87, criterion 4) is not recorded*
+- [x] `requirements.txt` has 0 unpinned packages, the parameters are in `config/rag.yaml`, the prompts are in `prompts/` and random seeds are set
+- [ ] No API keys, debug prints or large generated files are in the repository — *open: a search for API keys found none and no file in the repository is larger than 5 MB; debug prints were not checked one by one*
+- [ ] An answer shows the question, the answer, the cited provisions with their reference and version date, and any notice in the same view — *open: there is no interface yet; the sources line is added to the saved answers (KAN-126), and the interface follows in KAN-222 (Sprint 3); the UI mockup shows the view*
 
 **Source text and chunks (D5)**
 
-- [ ] The source hash matches `data/manifest.csv`
-- [ ] 100% of the D3 provisions are indexed; 0 chunks lack their Article or Annex identifier; every chunk has the version date
-- [ ] The chunking parameters are in `config/rag.yaml`
-- [ ] 20 random chunks were compared word for word with the source, and the share corrected by hand is 5% or less (A-05)
-- [ ] No personal data is stored (C-10)
+- [x] The source hash matches `data/manifest.csv` — *E1 card, dataset report (KAN-96)*
+- [x] 100% of the D3 provisions are indexed; 0 chunks lack their Article or Annex identifier; every chunk has the version date — *105 chunks (KAN-95)*
+- [x] The chunking parameters are in `config/rag.yaml`
+- [x] 20 random chunks were compared word for word with the source, and the share corrected by hand is 5% or less (A-05) — *KAN-94*
+- [x] No personal data is stored (C-10)
 
 **Question set (D2)**
 
-- [ ] The question-writing method and its target counts were agreed before the new questions were written
-- [ ] `docs/eval/eval-set-v1.csv` meets the D2 acceptance criteria and the target counts of the method
-- [ ] Every row has all its columns filled as the method defines them, including `user`, `premise`, `hops`, `challenge` and `gold_ids`
-- [ ] Every gold source is in `data/provision-list.csv`
-- [ ] Every question was checked against the official text by a reviewer other than its author, with 0 flags left
-- [ ] Every multi-hop question was tried with each gold source alone and with no source
-- [ ] The model and prompt used for every LLM-drafted question are recorded
-- [ ] At least one third of the questions are in `test`, with at least one question of each safety category, and `test` was frozen and committed on 11/11/2026
-- [ ] The data card has every section, the method, the target and actual counts, how the published questions were made, and its decision log
+- [x] The question-writing method and its target counts were agreed before the new questions were written — *decision Q-23; the questions written before the method were labelled with it afterwards*
+- [ ] `docs/eval/eval-set-v1.csv` meets the D2 acceptance criteria and the target counts of the method — *open: D2 criterion 6 (model and prompt) is not met for the 13 use case (d) questions (see below); the follow-up results are not yet reported separately (KAN-65, TC-65.1) and the multi-hop check has no record (see below)*
+- [ ] Every row has all its columns filled as the method defines them, including `user`, `premise`, `hops`, `challenge` and `gold_ids` — *open: `prompt_file` is empty for the 13 use case (d) questions; the other columns are filled as the method defines them*
+- [x] Every gold source is in `data/provision-list.csv` — *KAN-84*
+- [x] Every question was checked against the official text by a reviewer other than its author, with 0 flags left — *0 flags in the frozen v1, commit `c62de1c` (KAN-52)*
+- [ ] Every multi-hop question was tried with each gold source alone and with no source — *open: no record of this check was found for the 5 multi-hop questions (A-07, B-06, C-04, C-05, D-04)*
+- [ ] The model and prompt used for every LLM-drafted question are recorded — *open: the model is recorded for all 46 questions; the prompt is missing for the 13 use case (d) questions, drafted in an interactive chat (data card, Composition 6); KAN-65, TC-65.4*
+- [x] At least one third of the questions are in `test`, with at least one question of each safety category, and `test` was frozen and committed on 11/11/2026 — *verified under Q-32: 16 of 46 questions (35%) in `test`, with every safety category; split membership fixed on 09/11/2026 (KAN-53, commit `842c692`); reviewed gold content frozen on 14/11/2026 at commit `c62de1c`*
+- [x] The data card has every section, the method, the target and actual counts, how the published questions were made, and its decision log — *KAN-85*
 
 **Baseline experiment**
 
-- [ ] The `val` split was fixed before the baseline was run
-- [ ] Recall@8 and Recall@5 (for questions with a gold source) and the answers without and with retrieval are logged in W&B for every `val` question
-- [ ] Recall@8 and Recall@5 are reported overall and for each label of the method, with the number of questions in each, only for questions with non-empty `gold_ids`
-- [ ] The result is compared with the charter target; the known failures, and any gap with its next experiment, are written down
-- [ ] The experiment card (E1) has the parameters, the corpus version, the numbers and the public W&B run
-- [ ] The W&B run and the experiment card record the commit of the evaluation set, the split used (`val` or `test`) and the commit of `config/rag.yaml`
-- [ ] `test` was not used for any choice
+- [x] The `val` split was fixed before the baseline was run — *split of 09/11/2026; settings chosen on the new `val` on 10/11/2026, answers of 12/11/2026*
+- [x] Recall@8 and Recall@5 (for questions with a gold source) and the answers without and with retrieval are logged in W&B for every `val` question — *W&B runs `v7g5hhxh` (retrieval) and `lgogwegq` (answers), logged as tables by `src/embedding.ipynb` and `src/rag_vs_no_rag.ipynb`*
+- [ ] Recall@8 and Recall@5 are reported overall and for each label of the method, with the number of questions in each, only for questions with non-empty `gold_ids` — *open: E1 reports Recall@8 and Recall@5 overall only, not for each label*
+- [x] The result is compared with the charter target; the known failures, and any gap with its next experiment, are written down — *E1 card and technical summary*
+- [x] The experiment card (E1) has the parameters, the corpus version, the numbers and the public W&B run
+- [ ] The W&B run and the experiment card record the commit of the evaluation set, the split used (`val` or `test`) and the commit of `config/rag.yaml` — *open: the E1 card records the evaluation set commit `842c692`, the `val` split and the `config/rag.yaml` commit `a7d9180`; the W&B runs were not checked for both commits*
+- [x] `test` was not used for any choice — *since the split was fixed on 09/11/2026, the held-out `test` split has not been run as an evaluation set or used for tuning; C-S1 was scored once in the earlier `val` split, and the settings were selected again on the revised `val` split*
 
 **Documents**
 
-- [ ] The design document has a decision record for every Sprint 2 decision, each RAG stage with its parameters, and the user interface technology
-- [ ] Every design-document decision based on an experiment links to its experiment card, and every other decision names its evidence
-- [ ] The UI mockup shows the question box, the answer with citations and version date, and the permanent notice
-- [ ] The SBOM lists every model tried with its version, licence and use; every spike has its note in `docs/spikes/`
-- [ ] The technical summary gives the chosen metrics and why, the baseline score, the charter target and the known failures, and links the baseline experiment card
-- [ ] Story map v2, the story requirements page of every epic and the test case of every product story are published
-- [ ] Charter v2 has the Sprint 1 review response table, the reviewed targets and re-scored risks; every changed page states what is new and passes its own checklist
+- [x] The design document has a decision record for every Sprint 2 decision, each RAG stage with its parameters, and the user interface technology — *D1, D13–D15*
+- [x] Every design-document decision based on an experiment links to its experiment card, and every other decision names its evidence — *design document of 14/11/2026 (KAN-102)*
+- [x] The UI mockup shows the question box, the answer with citations and version date, and the permanent notice — *`docs/images/ui-mockup-v1.png`*
+- [x] The SBOM lists every model tried with its version, licence and use; every spike has its note in `docs/spikes/` — *SBOM: every model tried, with version, licence and use (KAN-105); spike notes: N/A — no spikes conducted in Sprint 2 ([`docs/spikes/README.md`](../docs/spikes/README.md))*
+- [x] The technical summary gives the chosen metrics and why, the baseline score, the charter target and the known failures, and links the baseline experiment card — *KAN-101*
+- [x] Story map v2, the story requirements page of every epic and the test case of every product story are published
+- [x] Charter v2 has the Sprint 1 review response table, the reviewed targets and re-scored risks; every changed page states what is new and passes its own checklist — *KAN-106, KAN-108, KAN-110, KAN-111*
 
 **Sprint**
 
-- [ ] Every Sprint 2 deliverable is uploaded to ODTUClass by 14/11/2026 23:59 and linked from the welcome page
-- [ ] The burndown chart is in the sprint folder, the Jira export is in `docs/backlog/`, and every "what went bad" row of the retrospective has an action and an owner
-- [ ] The demo (10 minutes or less) is ready for the review on 18/11/2026
-- [ ] The assigned team's deliverables were reviewed between 15/11 and 18/11, and the completed review page is in the sprint folder
+- [ ] Every Sprint 2 deliverable is uploaded to ODTUClass by 14/11/2026 23:59 and linked from the welcome page — *pending at packaging*
+- [x] The burndown chart is in the sprint folder, the Jira export is in `docs/backlog/`, and every "what went bad" row of the retrospective has an action and an owner — *burndown in [`04-burndown-chart.md`](04-burndown-chart.md#sprint-2), where the course asks for it, linked from the Sprint 2 welcome page (KAN-118); Jira export of 14/11/2026 in `docs/backlog/` (KAN-119); every "what went bad" row of the retrospective has an action and an owner*
+- [ ] The demo (10 minutes or less) is ready for the review on 18/11/2026 — *planned for 18/11/2026 (KAN-122)*
+- [ ] The assigned team's deliverables were reviewed between 15/11 and 18/11, and the completed review page is in the sprint folder — *planned for 15–18/11/2026 (KAN-123, KAN-124)*
 
 ## Sprint 3:
 
