@@ -52,10 +52,11 @@ Baseline on the D2 `val` split (30 questions, 27 with `gold_ids`), answers of 12
 | O2 (a) expected provision cited | 19 of 27 = 70% | at least 80% |
 | O2 (c) substantive answers with at least one Article/Annex reference | 20 of 20 = 100% | 100% |
 | O2 (c) substantive answers with a reference **and** the version date | 0 of 20 = 0% | 100% |
+| O2 (c) the same answers with the sources line added (KAN-126, 14/11/2026): reference **and** the version date | 20 of 20 = 100% (`src/sources.py`, commit `72d3e5b`; [`val-with-retrieval-shown.csv`](../../docs/eval/answers/val-with-retrieval-shown.csv), commit `6860e94`) | 100% |
 | Answers that end with a fixed sentence (no answer, refusal) | 10 of 30 | – |
 | After the citation check (KAN-128) | same results; the 4 removed citations were not gold provisions | – |
 
-The version date is not written by the answer model. Every retrieved chunk carries it (27/07/2026), so from Sprint 3 the answer template adds it to every substantive answer.
+The version date is not written by the answer model. Every retrieved chunk carries it (27/07/2026), so `src/sources.py` (KAN-126) adds a sources line after the citation check: each cited provision with the version date of its chunk. On 14/11/2026 it was applied to the saved answers of this run; this is a check of the answer format on the same answers, not a new run. In 15 of the 20 answers every shown citation is at paragraph or point level; citing every provision at that level and showing the sources line in the user interface are in KAN-222 (Sprint 3).
 
 Without retrieval, Claude Haiku 5.5 with the whole consolidated text attached ([`prompts/answer_full_text.yaml`](../../prompts/answer_full_text.yaml), answers of 12/11/2026 in [`val-full-text-claude-haiku-5-5.csv`](../../docs/eval/answers/val-full-text-claude-haiku-5-5.csv)) cites the expected provision for 22 of 27 questions (81%), against 19 of 27 (70%) with retrieval ([`src/rag_vs_no_rag.ipynb`](../../src/rag_vs_no_rag.ipynb), [W&B run `lgogwegq`](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/lgogwegq)). The two sides use different models, so the difference shows the model and the retrieval together, not the retrieval alone.
 
