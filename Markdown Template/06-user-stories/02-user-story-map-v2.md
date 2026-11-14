@@ -1,6 +1,6 @@
 # User Story Map v2
 
-**Version:** v2, Sprint 2 (08/11/2026, for the Sprint 2 review on 18/11/2026) · **Source:** Jira project KAN on 08/11/2026; KAN-8 updated as in Jira on 14/11/2026 · **Owner:** Yeşim (Product Owner) · **Previous version:** [User Story Map v1](01-user-story-map-v1.md), end of Sprint 1 (27/10/2026)
+**Version:** v2, Sprint 2 (08/11/2026, for the Sprint 2 review on 18/11/2026) · **Source:** Jira project KAN on 08/11/2026; KAN-8 with its sub-tasks and KAN-222, and the owners of KAN-52 and KAN-119, updated as in Jira on 14/11/2026 · **Owner:** Yeşim (Product Owner) · **Previous version:** [User Story Map v1](01-user-story-map-v1.md), end of Sprint 1 (27/10/2026)
 
 Version 2 shows the backlog after the Sprint 1 review: work that is not a user goal of its own is now a task, two overlapping stories are merged, and every current user story now has test cases, written in Sprint 2 ([KAN-114](https://yarengursoy.atlassian.net/browse/KAN-114)). What changed and why is listed [below](#what-changed-since-v1).
 
@@ -231,7 +231,7 @@ Features: Charter v1 and v2 (D1, D7), user stories, sprint documents · [Story r
 - **[KAN-91](https://yarengursoy.atlassian.net/browse/KAN-91) Run the Sprint 2 reporting: welcome page, burndown, retrospective and review** · Task · Sprint 2 · 5 points · Yaren
   - [KAN-117](https://yarengursoy.atlassian.net/browse/KAN-117) Agree on the Sprint 2 DoR, DoD and sprint goal · Yaren
   - [KAN-118](https://yarengursoy.atlassian.net/browse/KAN-118) Add the Sprint 2 burndown chart · Yeşim
-  - [KAN-119](https://yarengursoy.atlassian.net/browse/KAN-119) Export the Jira backlog · Yaren
+  - [KAN-119](https://yarengursoy.atlassian.net/browse/KAN-119) Export the Jira backlog · Yeşim
   - [KAN-120](https://yarengursoy.atlassian.net/browse/KAN-120) Hold the Sprint 2 retrospective · Yaren
   - [KAN-121](https://yarengursoy.atlassian.net/browse/KAN-121) Write the Sprint 2 welcome page · Yeşim
   - [KAN-122](https://yarengursoy.atlassian.net/browse/KAN-122) Prepare the Sprint 2 demo · Kaan
@@ -263,7 +263,7 @@ Features: Q&A datasets (D2, D8), rubric, evaluation runs on the `val` split · [
   - [KAN-47](https://yarengursoy.atlassian.net/browse/KAN-47) Write evaluation questions for use case (c) level placement · Kaan
   - [KAN-48](https://yarengursoy.atlassian.net/browse/KAN-48) Select and adapt at least 5 questions from published work on the EU AI Act · Yeşim
   - [KAN-51](https://yarengursoy.atlassian.net/browse/KAN-51) Check the gold sources of all evaluation questions against the official text · Yeşim
-  - [KAN-52](https://yarengursoy.atlassian.net/browse/KAN-52) Cross-check the evaluation questions and resolve the flags · Yaren
+  - [KAN-52](https://yarengursoy.atlassian.net/browse/KAN-52) Cross-check the evaluation questions and resolve the flags · Yeşim
   - [KAN-53](https://yarengursoy.atlassian.net/browse/KAN-53) Split the evaluation set into val and test and freeze the test split · Gözde Nur
   - [KAN-66](https://yarengursoy.atlassian.net/browse/KAN-66) Write evaluation questions for use case (d) exam monitoring · Yaren
   - [KAN-84](https://yarengursoy.atlassian.net/browse/KAN-84) Map the provision list to the D2 questions · Kaan
