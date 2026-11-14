@@ -1,6 +1,6 @@
 # Evaluation rubric
 
-**Jira:** [KAN-50](https://yarengursoy.atlassian.net/browse/KAN-50) (story [KAN-83](https://yarengursoy.atlassian.net/browse/KAN-83)) · **Owner:** Kaan · **Date:** 08/11/2026 · **Status:** draft, for team review · **For:** D2 criterion 12 in [Deliverables](../../Markdown%20Template/03-project-canvas/05-deliverables.md); the question set [`eval-set-v1.csv`](eval-set-v1.csv) and the [question-writing method](question-writing-method.md)
+**Jira:** [KAN-50](https://yarengursoy.atlassian.net/browse/KAN-50) (story [KAN-83](https://yarengursoy.atlassian.net/browse/KAN-83)) · **Owner:** Kaan · **Date:** 08/11/2026 · **Status:** v1, used for the D2 review (KAN-52) and the E1 card (KAN-100); changes are logged below · **For:** D2 criterion 12 in [Deliverables](../../Markdown%20Template/03-project-canvas/05-deliverables.md); the question set [`eval-set-v1.csv`](eval-set-v1.csv) and the [question-writing method](question-writing-method.md)
 
 This page says how a reviewer decides whether an answer of the assistant is correct. It defines "fully supported" (objective O2 (b)) and the technical metric behind it, faithfulness, and the four expected behaviours of the `expected_behaviour` column, `answer`, `abstain`, `refuse` and `redirect` (objective O4), with examples. It is used:
 
@@ -160,3 +160,4 @@ The results are recorded with the run's experiment card.
 | 08/11/2026 | Added faithfulness as the technical metric behind O2 (b) and the agreement between reviewers | Kaan |
 | 09/11/2026 | Scripted checks replaced by a link to the design document; completeness moved to Sprint 3; agreement reported as a share; review sheet columns removed; `C-04` example corrected to what the passage `ART113-3-c-i` says | Kaan |
 | 10/11/2026 | `refuse` must point to the relevant provision where one exists ("shall", KAN-2 criterion 5); question IDs changed to the new ones (`EM-S1` is now `D-S1`) | Kaan |
+| 14/11/2026 | Status changed from draft to v1: the rubric was used for the D2 review (KAN-52) and the E1 card (KAN-100); KAN-50 closed | Yeşim |
