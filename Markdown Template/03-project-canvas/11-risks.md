@@ -147,7 +147,7 @@ Spread of the risks (R-01 to R-12) after the Sprint 2 re-scoring: 1 Critical (R-
 | Charter v2 was finished in the last two days. The team agreed to carry KAN-127 into Sprint 3 and opened KAN-222 there for the remaining citation and interface work. | R-07 |
 | The 20-chunk check (KAN-94) was done after the index was built | Not a risk: retrospective action (Gözde Nur) |
 | The documents waited for the baseline ; Jira was updated late | Not a risk: retrospective actions (Yaren, Kaan) |
-| Recall@8 of the baseline is 0.59, below the O2 (a) target | Not a risk: a design question, answered with hybrid retrieval in Sprint 3 ([E1 Baseline](../12-experiment-cards/E1-baseline.md), D4) |
+| The baseline cites the expected provision in 19 of 27 answers (70%), below the O2 (a) target of 80%; its hybrid retrieval reaches Recall@8 0.59 | Not a risk: a design question. In Sprint 3 the answer step is improved first, then the three questions where retrieval misses the gold provision are examined ([E1 Baseline](../12-experiment-cards/E1-baseline.md), D4) |
 | The CPU answer time of the baseline is not measured yet | Not a risk: a measurement task (Major Activities row 29); the uncertain part, the pilot computer, stays in R-12 |
 
 **Re-scoring after the baseline (14/11/2026).** The Sprint 1 basis of every risk is kept, and the Sprint 2 evidence is added after it.
