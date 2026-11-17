@@ -7,12 +7,12 @@ and the citation-ID check (KAN-49), and the legal-decision patterns (KAN-2).
 """
 import re
 
-from .config import PERSONAL_DATA, PROMPT_RAG
+from .config import PERSONAL_DATA, PROMPT
 
-REFUSAL = PROMPT_RAG["refusal"]
-OUT_OF_SCOPE = PROMPT_RAG["out_of_scope"]
-NOTICE = PROMPT_RAG["notice"]
-PERSONAL_DATA_NOTICE = PROMPT_RAG.get(
+REFUSAL = PROMPT["refusal"]
+OUT_OF_SCOPE = PROMPT["out_of_scope"]
+NOTICE = PROMPT["notice"]
+PERSONAL_DATA_NOTICE = PROMPT.get(
     "personal_data",
     "Your question seems to contain personal data, such as an e-mail address or a phone number. "
     "Please remove it and ask again; I do not need personal data to explain the provisions.")
@@ -134,7 +134,7 @@ def matches(citation, chunk_ref):
 
 
 def check_citations(answer, chunks):
-    """Splits the citations of the answer into those found among the retrieved chunks and those not found.
+    """Splits the citations of the answer into those found among the chunks in the prompt and those not found.
     Returns (cited chunks in order of first mention, unsupported citations as written)."""
     cited, unsupported, seen = [], [], set()
     citations = cited_keys(answer)

@@ -2,6 +2,8 @@
 
 Input check -> retriever -> prompt builder -> LLM (Ollama) -> output check, as in the system
 architecture diagram (v4). The history comes with every request; nothing is stored here.
+Mode "rag" gives the model the 8 retrieved chunks; mode "no_rag" skips the retriever and gives it all
+105 chunks, so in both modes the model answers from the consolidated text of 27/07/2026.
 The API contract is a draft until the web and RAG sides agree on it (design document, section 7).
 """
 import logging
@@ -14,7 +16,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 
 from . import checks, llm
-from .config import DEFAULT_MODE, GENERATION, SOURCE_URL, VERSION_DATE
+from .config import CHUNKS, DEFAULT_MODE, GENERATION, NUM_CTX_ALL_CHUNKS, SOURCE_URL, VERSION_DATE
 from .prompt import build_messages
 
 log = logging.getLogger("rag")
@@ -70,9 +72,10 @@ class AnswerResponse(BaseModel):
     kind: Optional[Literal["refuse", "out_of_scope", "personal_data"]] = None   # why a notice was returned
     answer: str
     notice: Optional[str] = None             # the "not a legal decision" line, when the output check adds it
-    citations: list[Citation] = []           # cited provisions found among the retrieved chunks
-    unsupported_citations: list[str] = []    # cited in the answer but not among the retrieved chunks (KAN-49)
-    retrieved: list[str] = []                # chunk IDs given to the model, best first (for Recall@k)
+    citations: list[Citation] = []           # cited provisions found among the chunks in the prompt
+    unsupported_citations: list[str] = []    # cited in the answer but not among the chunks in the prompt (KAN-49)
+    retrieved: list[str] = []                # rag mode: chunk IDs found by the retriever, best first (Recall@k)
+    chunks_in_prompt: int = 0                # 8 in rag mode, 105 in no_rag mode
     flags: dict = {}
     mode: Literal["rag", "no_rag"]
     model: Optional[str] = None
@@ -88,6 +91,7 @@ def health():
         "rag_ready": state["retriever"] is not None,
         "rag_error": state["retriever_error"],
         "model": GENERATION["model"],
+        "chunks": len(CHUNKS),
         "ollama_models": llm.available(),
     }
 
@@ -106,26 +110,27 @@ def answer(req: AnswerRequest):
         return AnswerResponse(status="notice", kind=kind, answer=notice_text, flags=flags, mode=mode,
                               timing_ms={"total": int((time.time() - started) * 1000)})
 
-    # 2. Retriever
-    chunks = []
+    # 2. Retriever (rag mode only; no_rag mode gives the model every chunk)
+    chunks, num_ctx = CHUNKS, NUM_CTX_ALL_CHUNKS
     if mode == "rag":
         retriever = state["retriever"]
         if retriever is None:
             detail = "retrieval is still loading" if state["retriever_error"] is None else "retrieval is not available"
             raise HTTPException(status_code=503, detail=detail)
         t = time.time()
-        chunks = retriever.search(question)
+        chunks, num_ctx = retriever.search(question), None
         timing["retrieval"] = int((time.time() - t) * 1000)
 
     # 3. Prompt builder and LLM
-    messages = build_messages(question, [h.model_dump() for h in req.history], chunks, mode)
+    messages = build_messages(question, [h.model_dump() for h in req.history], chunks)
     t = time.time()
     try:
-        draft = llm.chat(messages)
+        draft, tokens = llm.chat(messages, num_ctx=num_ctx)
     except llm.LLMError as error:
         log.error("mode=%s llm_error=%s", mode, error)
         raise HTTPException(status_code=502, detail="the language model did not answer")
     timing["llm"] = int((time.time() - t) * 1000)
+    flags["prompt_tokens_processed"] = tokens["prompt"]   # lower when Ollama reused the start of the prompt
 
     # 4. Output check: verdict wording, citations, version date
     text, removed = checks.remove_verdicts(draft)
@@ -140,5 +145,6 @@ def answer(req: AnswerRequest):
     log.info("mode=%s chunks=%d cited=%d unsupported=%d verdicts_removed=%d total_ms=%d",
              mode, len(chunks), len(citations), len(unsupported), removed, timing["total"])
     return AnswerResponse(status="answer", answer=text, notice=notice, citations=citations,
-                          unsupported_citations=unsupported, retrieved=[c["chunk_id"] for c in chunks],
-                          flags=flags, mode=mode, model=GENERATION["model"], timing_ms=timing)
+                          unsupported_citations=unsupported,
+                          retrieved=[c["chunk_id"] for c in chunks] if mode == "rag" else [],
+                          chunks_in_prompt=len(chunks), flags=flags, mode=mode, model=GENERATION["model"], timing_ms=timing)

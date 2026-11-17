@@ -75,8 +75,8 @@ export default function App() {
 
       {mode === "no_rag" && (
         <div className="mode" role="note">
-          <strong>Baseline mode (no retrieval).</strong> Answers come from the language model alone, without the
-          provisions of the regulation. Citations are not checked against the text and may be wrong.
+          <strong>LLM mode (no retrieval).</strong> The language model gets all 105 provisions in scope instead of
+          the 8 found by the search. Answers are slower, and citations are checked against all of them.
         </div>
       )}
 
@@ -205,7 +205,7 @@ function Answer({ response }) {
       {response.unsupported_citations?.length > 0 && (
         <p className="unsupported">
           {response.mode === "no_rag"
-            ? "Cited by the model, not checked against the text: "
+            ? "Cited but not among the provisions in scope: "
             : "Cited but not among the retrieved provisions: "}
           {response.unsupported_citations.join(", ")}
         </p>

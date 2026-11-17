@@ -1,4 +1,4 @@
-"""LLM client: the Ollama HTTP API on the internal Docker network (D9)."""
+"""LLM client: the Ollama HTTP API (D9), with the options of src/rag_vs_no_rag.ipynb."""
 import requests
 
 from .config import GENERATION, LLM_TIMEOUT_S, OLLAMA_URL
@@ -8,18 +8,13 @@ class LLMError(RuntimeError):
     pass
 
 
-def chat(messages, model=None):
-    """Sends the messages to Ollama and returns the answer text. No streaming (non-goal)."""
-    payload = {
-        "model": model or GENERATION["model"],
-        "messages": messages,
-        "stream": False,
-        "options": {
-            "temperature": GENERATION["temperature"],
-            "num_predict": GENERATION["num_predict"],
-            "num_ctx": GENERATION["num_ctx"],
-        },
-    }
+def chat(messages, num_ctx=None, model=None):
+    """Sends the messages to Ollama and returns (answer text, Ollama's token counts). No streaming (non-goal).
+    num_ctx is sent only when given (no_rag mode); the notebook does not send it."""
+    options = {k: GENERATION[k] for k in ("temperature", "num_predict", "seed")}
+    if num_ctx:
+        options["num_ctx"] = num_ctx
+    payload = {"model": model or GENERATION["model"], "messages": messages, "stream": False, "options": options}
     try:
         r = requests.post(f"{OLLAMA_URL}/api/chat", json=payload, timeout=LLM_TIMEOUT_S)
     except requests.RequestException as error:
@@ -28,7 +23,11 @@ def chat(messages, model=None):
         raise LLMError(f"model {payload['model']} is not in Ollama; run: ollama pull {payload['model']}")
     if not r.ok:
         raise LLMError(f"Ollama answered {r.status_code}")
-    return r.json()["message"]["content"].strip()
+    reply = r.json()
+    if "error" in reply:
+        raise LLMError(reply["error"])
+    tokens = {"prompt": reply.get("prompt_eval_count"), "answer": reply.get("eval_count")}
+    return reply["message"]["content"].strip(), tokens
 
 
 def available():

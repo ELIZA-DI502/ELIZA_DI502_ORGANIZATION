@@ -1,27 +1,26 @@
-"""Prompt builder: fills the template of prompts/ with the retrieved chunks and the session history.
+"""Prompt builder: prompts/answer.yaml filled as in src/rag_vs_no_rag.ipynb (cell "ask").
 
-mode "rag":    prompts/answer.yaml with the retrieved provisions.
-mode "no_rag": prompts/answer-no-rag.yaml, the same rules and example without provisions
-               (the no-RAG baseline of the design document, section 5, Evaluation).
+Both modes use the same template and rules; only the PROVISIONS differ:
+  "rag":    the 8 retrieved chunks, best first;
+  "no_rag": all 105 chunks in the order of data/chunks.jsonl (no retrieval). The provisions come before
+            the question and never change, so Ollama can reuse the processed beginning of the prompt.
 """
-from .config import PROMPT_NO_RAG, PROMPT_RAG
+from .config import PROMPT
 
 
-def _previous(template, history):
-    """The prompt has room for the earlier question of a follow-up; the last question of the history is used."""
+def _previous(history):
+    """The earlier question of a follow-up; the service uses the last question of the history."""
     if not history:
         return ""
-    return template["previous_question"].format(previous_question=history[-1]["question"])
+    return PROMPT["previous_question"].format(previous_question=history[-1]["question"])
 
 
-def build_messages(question, history, chunks=None, mode="rag"):
-    template = PROMPT_RAG if mode == "rag" else PROMPT_NO_RAG
-    fields = {"question": question, "previous": _previous(template, history)}
-    if mode == "rag":
-        fields["provisions"] = "\n\n".join(f"[{c['ref']}] {c['text']}" for c in chunks or [])
+def build_messages(question, history, chunks):
+    provisions = "\n\n".join(f"[{c['ref']}] {c['text']}" for c in chunks)
     return [
-        {"role": "system", "content": template["system"]},
-        {"role": "user", "content": template["example_user"]},
-        {"role": "assistant", "content": template["example_answer"]},
-        {"role": "user", "content": template["user"].format(**fields)},
+        {"role": "system", "content": PROMPT["system"]},
+        {"role": "user", "content": PROMPT["example_user"]},
+        {"role": "assistant", "content": PROMPT["example_answer"]},
+        {"role": "user", "content": PROMPT["user"].format(provisions=provisions, previous=_previous(history),
+                                                          question=question)},
     ]
