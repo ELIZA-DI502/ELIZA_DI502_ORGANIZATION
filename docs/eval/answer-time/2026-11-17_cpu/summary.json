@@ -1,0 +1,46 @@
+{
+  "date": "2026-11-17T00:49",
+  "device": "cpu",
+  "placement": "100% CPU",
+  "ollama": "0.40.11",
+  "model": "llama3.1:8b-instruct-q4_K_M",
+  "options": {
+    "temperature": 0,
+    "num_predict": 300,
+    "num_ctx": 4096,
+    "num_gpu": 0
+  },
+  "cold": false,
+  "questions": 30,
+  "load_s": 0.0,
+  "median_s": 13.1,
+  "mean_s": 14.4,
+  "p90_s": 24.1,
+  "min_s": 5.8,
+  "max_s": 26.4,
+  "over_60_s": [],
+  "O1_met": true,
+  "machine": {
+    "os": "macOS-26.6.2",
+    "python": "3.12.2",
+    "cpu": "Apple M3 Pro",
+    "performance_cores": "6",
+    "efficiency_cores": "6",
+    "ram_gb": 36,
+    "on_battery": true,
+    "docker_vm_cpus": 12,
+    "docker_vm_ram_gb": 8
+  },
+  "evidence": {
+    "size_vram_bytes": [
+      0,
+      0,
+      0
+    ],
+    "ollama_log": [
+      "llama_prepare_model_devices: using device MTL0 (Apple M3 Pro) (unknown id) - 28753 MiB free",
+      "load_tensors: offloading 0 repeating layers to GPU",
+      "load_tensors: offloaded 0/33 layers to GPU"
+    ]
+  }
+}
