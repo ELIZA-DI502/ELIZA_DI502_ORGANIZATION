@@ -2,7 +2,7 @@
 
 | Date | Author | Status |
 |---|---|---|
-| 17/11/2026 | Kaan | retrieval checked on Linux and on a Mac; answers not yet checked |
+| 17/11/2026 | Kaan | retrieval checked on Linux and on a Mac; answers checked on the Mac |
 
 **Aim:** The search and the prompt of [`src/rag_vs_no_rag.ipynb`](../../src/rag_vs_no_rag.ipynb) (KAN-99, KAN-125) were moved into the RAG service ([`rag/app/retrieval.py`](../../rag/app/retrieval.py), [`rag/app/prompt.py`](../../rag/app/prompt.py), [`rag/app/llm.py`](../../rag/app/llm.py)). This page records that the service gives the notebook's results, so the demo answers with the baseline that was measured.
 
@@ -48,7 +48,23 @@ The service now uses a stable sort: equal scores keep the order of `data/chunks.
 
 With the stable sort, C-03 gets the same 8 chunks with two of them in the other order (ART3-9 and ART10-3), and D-10 gets ART2-1 in place of ART3-3. Leaving the chunks with score 0 out would be a change to the retrieval design (D14), so it is left to the owner of the retrieval. If the notebook also uses `kind="stable"`, the notebook and the service give the same chunks everywhere; the saved answers of C-03 and D-10 would then have to be made again.
 
-**Not yet checked:** the answers. `python rag/verify_val.py --answers` asks Ollama with the service's prompt and options (temperature 0, `num_predict` 300, seed 42, model of `config/rag.yaml`) and compares every answer with the saved one. An answer on another computer can differ in a few words from the notebook's (Colab T4 GPU), so the same chunks and the same prompt are the main check.
+## Answers
+
+`python rag/verify_val.py --answers --out docs/eval/answers/val-service-answers.csv` asked every `val` question with the service's prompt and options (temperature 0, `num_predict` 300, seed 42) on the Mac (Apple M3 Pro, Metal; Ollama 0.40.11; model `hf.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF:Q4_K_M`, pulled on 17/11/2026), 17/11/2026. Answers: [`answers/val-service-answers.csv`](answers/val-service-answers.csv).
+
+**14 of 30 answers are word for word the notebook's.** The others start the same and then take another word, for example "tasks" / "capabilities" (A-02), "behavior" / "behaviour" (D-01), "might apply" / "is relevant" (A-06); from that word on, the answer goes on differently. With temperature 0 the model takes the most likely word at every step; the notebook ran on an NVIDIA GPU (CUDA) and the Mac computes on Metal, and the small differences in the sums decide between two words that are almost equally likely. C-03 and D-10 also got other chunks (*Ties in the BM25 ranking*). Word-for-word answers are therefore not expected across computers, and the answers are compared with the automatic checks of the notebook (cell `check`):
+
+| Check | Notebook (Colab T4 GPU) | Service (Mac) |
+|---|---|---|
+| Cites a provision | 23 of 30 | 24 of 30 |
+| Expected provision cited (strict) | 18 of 27 | 19 of 27 |
+| Expected provision cited (lenient, O2 (a) in the E1 card) | 19 of 27 | 21 of 27 |
+| Cites only the chunks in the prompt | 19 of 23 | 19 of 24 |
+| Says "The provided text does not answer this question." | 10 of 30 | 8 of 30 |
+
+The service scores as the notebook within two questions on every check, in both directions; with 27 to 30 questions this is the size of the change one different word can make, not a change of the system. The answer time on the Mac was 5.9 s (median) and at most 16.3 s per question.
+
+`python rag/verify_val.py --score docs/eval/answers/val-service-answers.csv` prints this table again from the saved answers, without Ollama.
 
 ## How to run it again
 
@@ -57,7 +73,8 @@ From the repository root, in the environment of *Install* in the [README](../../
 ```bash
 python rag/ingest.py
 python rag/verify_val.py --retrieval-out docs/eval/answers/val-service-retrieval.csv
-python rag/verify_val.py --answers        # with Ollama and the answer model on this computer
+python rag/verify_val.py --answers --out docs/eval/answers/val-service-answers.csv   # with Ollama and the answer model
+python rag/verify_val.py --score docs/eval/answers/val-service-answers.csv            # only the scores of saved answers
 ```
 
 The script prints "28 of 30", "different without a BM25 tie at rank 20: 0", "Recall@8 on 27 val questions: 0.59" and "OK". Linux and the Mac printed the same (17/11/2026); please add a line here when it is run on another computer.

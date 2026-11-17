@@ -5,6 +5,7 @@ Run from the repository root:
     python rag/verify_val.py              # retrieval only (bge-m3 on this computer, no Ollama needed)
     python rag/verify_val.py --answers    # also asks Ollama (OLLAMA_URL, default localhost:11434)
     python rag/verify_val.py --retrieval-out docs/eval/answers/val-service-retrieval.csv   # one row per question
+    python rag/verify_val.py --score docs/eval/answers/val-service-answers.csv   # score saved answers, no Ollama
 
 1. For every val question, the chunks found by rag/app/retrieval.py are compared with the chunks the notebook
    saved in docs/eval/answers/val-with-retrieval-llama-3-1-8b.csv (column "retrieved"). The service sorts the
@@ -12,9 +13,11 @@ Run from the repository root:
    processor. So a question may differ only when its BM25 scores have a tie at the edge of the 20 candidates
    (rank 20 and 21 have the same score), and Recall@8 must be the notebook's 0.59.
 2. With --answers, every val question is asked with the service's prompt builder and Ollama options, and the
-   answer is compared with the saved one. The same retrieved chunks and prompt are the check that matters:
-   the notebook ran on a Colab T4 GPU, so an answer on another computer can differ in a few words even with
-   temperature 0 and seed 42.
+   answer is compared with the saved one. Answers on another computer are rarely word for word the same (the
+   notebook ran on a Colab T4 GPU; one different word changes the rest of the answer, even with temperature 0
+   and seed 42), so both sets of answers are also scored with the automatic checks of the notebook (cell
+   "check": cites a provision, expected provision cited, cites only the chunks in the prompt, says the text
+   does not answer). --score does only this step for answers saved earlier with --out.
 """
 import argparse
 import csv
@@ -29,6 +32,46 @@ from rag.app.prompt import build_messages  # noqa: E402
 
 VAL = ROOT / "docs" / "eval" / "eval-set-v1-val.csv"
 SAVED = ROOT / "docs" / "eval" / "answers" / "val-with-retrieval-llama-3-1-8b.csv"
+PROVISIONS = ROOT / "data" / "provision-list.csv"
+
+# The automatic checks of src/rag_vs_no_rag.ipynb (cell "check"), unchanged.
+CITE = re.compile(r"(Article\s+\d+[a-z]?(?:\s*\(\d+\))?(?:,?\s*(?:first|second|third|fourth|fifth)\s+subparagraph)?(?:,?\s*point)?(?:\s*\([a-z0-9]+\))*|Annex\s+[IVX]+(?:,?\s*point\s*\d+(?:\s*\([a-z]\))?)?)", re.I)
+CHECKS = ["cites a provision", "expected provision cited (strict)", "expected provision cited (lenient)",
+          "cites only retrieved chunks", "says the text does not answer"]
+
+
+def norm(ref):
+    ref = ref.lower()
+    ref = re.sub(r"(first|second|third|fourth|fifth) subparagraph", "", ref)
+    for n, word in enumerate(["first", "second", "third", "fourth"], 1):
+        ref = ref.replace(f", {word} paragraph", f"({n})")
+    return re.sub(r"[\s,]|point|paragraph", "", ref)
+
+
+def check(q, answer, retrieved, reference, by_chunk):
+    cited = sorted({norm(c) for c in CITE.findall(answer)})
+    gold = [norm(reference[p]) for p in q["gold_ids"].split(";") if p in reference] if q["gold_ids"].strip() else []
+    out = {"cites a provision": bool(cited), "says the text does not answer": "does not answer this question" in answer}
+    if gold:
+        out["expected provision cited (strict)"] = any(c == g for c in cited for g in gold)
+        out["expected provision cited (lenient)"] = any(g.startswith(c) for c in cited for g in gold)
+    if retrieved and cited:
+        allowed = [norm(by_chunk[c]["ref"]) for c in retrieved]
+        out["cites only retrieved chunks"] = all(any(a.startswith(c) or c.startswith(a) for a in allowed) for c in cited)
+    return out
+
+
+def score_table(val, sides, reference, by_chunk):
+    """sides: {name: (answers by id, retrieved chunk IDs by id)}. Prints each check as 'n of m' per side."""
+    counts = {}
+    for name, (answers, retrieved) in sides.items():
+        rows = [check(q, answers[q["id"]], retrieved[q["id"]], reference, by_chunk) for q in val]
+        counts[name] = {c: (sum(bool(r[c]) for r in rows if c in r), sum(1 for r in rows if c in r)) for c in CHECKS}
+    width = max(len(c) for c in CHECKS)
+    print("\n" + " " * width + "".join(f"  {name:>22s}" for name in sides))
+    for c in CHECKS:
+        print(f"{c:{width}s}" + "".join(f"  {f'{k} of {n}':>22s}" for k, n in (counts[name][c] for name in sides)))
+    return counts
 
 
 def main():
@@ -36,6 +79,7 @@ def main():
     parser.add_argument("--answers", action="store_true", help="also compare the answers of Ollama")
     parser.add_argument("--out", help="with --answers: write the new answers to this CSV file")
     parser.add_argument("--retrieval-out", help="write the chunks of the notebook and of the service per question to this CSV file")
+    parser.add_argument("--score", help="score the answers in this CSV file (written by --out) against the notebook's")
     args = parser.parse_args()
 
     val = list(csv.DictReader(VAL.open(encoding="utf-8-sig")))        # test is never opened
@@ -78,6 +122,17 @@ def main():
         print("written:", args.retrieval_out)
     ok = not unexplained and f"{recall:.2f}" == "0.59"
 
+    reference = {r["provision_id"]: r["reference"] for r in csv.DictReader(PROVISIONS.open(encoding="utf-8"))}
+    notebook_side = ({i: saved[i]["answer"] for i in saved}, {i: saved[i]["retrieved"].split(";") for i in saved})
+    service_retrieved = {i: [c["chunk_id"] for c in found[i]] for i in found}
+
+    if args.score:
+        new = {r["id"]: r["answer"] for r in csv.DictReader(open(args.score, encoding="utf-8"))}
+        assert set(new) == set(by_id), "the scored file must cover exactly the val questions"
+        print(f"answers identical to the notebook: {sum(new[i] == saved[i]['answer'] for i in new)} of {len(new)}")
+        score_table(val, {"notebook (Colab GPU)": notebook_side, "service": (new, service_retrieved)},
+                    reference, retriever.by_chunk)
+
     if args.answers:
         from rag.app import llm
         rows, same = [], 0
@@ -92,6 +147,9 @@ def main():
                          "seconds": seconds})
             print(f"{n}/{len(val)} {q['id']} ({seconds} s) {'same' if rows[-1]['same_as_notebook'] else 'different'}")
         print(f"answers identical to the notebook: {same} of {len(val)}")
+        score_table(val, {"notebook (Colab GPU)": notebook_side,
+                          "service": ({r["id"]: r["answer"] for r in rows}, service_retrieved)},
+                    reference, retriever.by_chunk)
         if args.out:
             with open(args.out, "w", newline="", encoding="utf-8") as f:
                 writer = csv.DictWriter(f, fieldnames=list(rows[0]))
