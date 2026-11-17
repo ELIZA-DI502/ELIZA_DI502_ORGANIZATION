@@ -6,9 +6,11 @@ Run from the repository root:
     python rag/verify_val.py --answers    # also asks Ollama (OLLAMA_URL, default localhost:11434)
     python rag/verify_val.py --retrieval-out docs/eval/answers/val-service-retrieval.csv   # one row per question
 
-1. For every val question, the chunks found by rag/app/retrieval.py must be the chunks the notebook saved
-   in docs/eval/answers/val-with-retrieval-llama-3-1-8b.csv (column "retrieved"), in the same order, and
-   Recall@8 must be the notebook's 0.59.
+1. For every val question, the chunks found by rag/app/retrieval.py are compared with the chunks the notebook
+   saved in docs/eval/answers/val-with-retrieval-llama-3-1-8b.csv (column "retrieved"). The service sorts the
+   BM25 scores with a stable sort; the notebook's sort put equal scores in an order that depends on the
+   processor. So a question may differ only when its BM25 scores have a tie at the edge of the 20 candidates
+   (rank 20 and 21 have the same score), and Recall@8 must be the notebook's 0.59.
 2. With --answers, every val question is asked with the service's prompt builder and Ollama options, and the
    answer is compared with the saved one. The same retrieved chunks and prompt are the check that matters:
    the notebook ran on a Colab T4 GPU, so an answer on another computer can differ in a few words even with
@@ -46,15 +48,21 @@ def main():
     retriever = Retriever()
     print(f"retriever ready in {time.time() - started:.0f} s ({len(retriever.ids)} chunks)")
 
-    found, different = {}, []
+    import numpy as np
+    from rag.app.retrieval import R, words
+    found, different, tie = {}, [], {}
     for q in val:
         found[q["id"]] = retriever.search(q["question"])
+        scores = np.sort(retriever.bm25.get_scores([w for w in words(q["question"]) if w not in retriever.remove]))[::-1]
+        tie[q["id"]] = bool(scores[R["candidates"] - 1] == scores[R["candidates"]])
         ids = ";".join(c["chunk_id"] for c in found[q["id"]])
         if ids != saved[q["id"]]["retrieved"]:
             different.append((q["id"], saved[q["id"]]["retrieved"], ids))
     for qid, old, new in different:
-        print(f"  {qid}\n    notebook: {old}\n    service:  {new}")
+        print(f"  {qid} (BM25 tie at rank 20: {'yes' if tie[qid] else 'NO'})\n    notebook: {old}\n    service:  {new}")
     print(f"same chunks in the same order: {len(val) - len(different)} of {len(val)} val questions")
+    unexplained = [qid for qid, _, _ in different if not tie[qid]]
+    print(f"different without a BM25 tie at rank 20: {len(unexplained)}")
 
     scored = [q for q in val if q["gold_ids"].strip()]
     recall = sum(len(set(q["gold_ids"].split(";")) & {c["chunk_id"].split("#")[0] for c in found[q["id"]]})
@@ -63,12 +71,12 @@ def main():
     if args.retrieval_out:
         with open(args.retrieval_out, "w", newline="", encoding="utf-8") as f:
             writer = csv.writer(f)
-            writer.writerow(["id", "retrieved_notebook", "retrieved_service", "same"])
+            writer.writerow(["id", "retrieved_notebook", "retrieved_service", "same", "bm25_tie_at_rank_20"])
             for q in val:
                 new = ";".join(c["chunk_id"] for c in found[q["id"]])
-                writer.writerow([q["id"], saved[q["id"]]["retrieved"], new, new == saved[q["id"]]["retrieved"]])
+                writer.writerow([q["id"], saved[q["id"]]["retrieved"], new, new == saved[q["id"]]["retrieved"], tie[q["id"]]])
         print("written:", args.retrieval_out)
-    ok = not different and f"{recall:.2f}" == "0.59"
+    ok = not unexplained and f"{recall:.2f}" == "0.59"
 
     if args.answers:
         from rag.app import llm
@@ -91,7 +99,8 @@ def main():
                 writer.writerows(rows)
             print("written:", args.out)
 
-    print("OK: the service retrieves exactly as the notebook" if ok else "NOT THE SAME: see the lines above")
+    print("OK: the service retrieves as the notebook (differences only where BM25 has a tie at rank 20)"
+          if ok else "NOT THE SAME: see the lines above")
     sys.exit(0 if ok else 1)
 
 

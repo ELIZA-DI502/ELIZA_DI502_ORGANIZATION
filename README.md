@@ -103,7 +103,7 @@ python rag/verify_val.py             # after rag/ingest.py: the retrieved chunks
 python rag/verify_val.py --answers   # also the answers, with Ollama on this computer
 ```
 
-The first command must print "30 of 30" and Recall@8 0.59. Answers on another computer can differ in a few words from the notebook's (Colab T4 GPU), even with temperature 0 and seed 42.
+The first command must print "28 of 30", no difference without a BM25 tie, and Recall@8 0.59 ([`docs/eval/service-vs-notebook.md`](docs/eval/service-vs-notebook.md)). Answers on another computer can differ in a few words from the notebook's (Colab T4 GPU), even with temperature 0 and seed 42.
 
 The `ollama` container uses only the CPU, also on a Mac. While developing on a Mac you can use the Ollama app instead (it uses the GPU): set `OLLAMA_URL=http://host.docker.internal:11434` in `.env` and pull the model with the app.
 
@@ -125,7 +125,7 @@ The `ollama` container uses only the CPU, also on a Mac. While developing on a M
   (on macOS: `shasum -a 256 docs/eval/eval-set-v1-test.csv`)
 - The retrieval scores on `val` are in `src/embedding.ipynb`, in [Weights & Biases](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/v7g5hhxh) and, as charts, in `docs/eval/embedding-results.pdf` (written by step 12 of the notebook).
 - The answers without and with retrieval on `val` are in `src/rag_vs_no_rag.ipynb`, in [Weights & Biases](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/lgogwegq) and, as charts with Recall@8 and Recall@5, in `docs/eval/answers-results.pdf` (made by `src/rag_vs_no_rag_charts.ipynb`). The answers themselves are in `docs/eval/answers/`.
-- The RAG service retrieves the same chunks as `src/rag_vs_no_rag.ipynb` on all 30 `val` questions (Recall@8 0.59): [`docs/eval/service-vs-notebook.md`](docs/eval/service-vs-notebook.md), checked with `rag/verify_val.py`.
+- The RAG service retrieves the same chunks as `src/rag_vs_no_rag.ipynb` on 28 of 30 `val` questions; the other two differ only because the service breaks ties in the BM25 ranking the same way on every computer (Recall@8 0.59 in both): [`docs/eval/service-vs-notebook.md`](docs/eval/service-vs-notebook.md), checked with `rag/verify_val.py`.
 - Automated tests and the user story tests will be in `tests/` (Sprint 3).
 
 ## Source and licence

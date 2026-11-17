@@ -3,8 +3,11 @@
 Dense search: the question's bge-m3 vector against the Chroma store in data/vector-store/ (D11, cosine
 distance), written once by rag/ingest.py. Keyword search: BM25 on the chunks' embed_text without stopwords
 and jury words. The two lists are merged by weighted Reciprocal Rank Fusion with the settings of
-config/rag.yaml. The steps and their order follow the notebook, so the same question gets the same chunks;
-rag/verify_val.py checks this against docs/eval/answers/val-with-retrieval-llama-3-1-8b.csv.
+config/rag.yaml. The steps and their order follow the notebook, with one change: the BM25 ranking uses a
+stable sort, so chunks with the same score (often 0) keep the order of data/chunks.jsonl. The notebook's
+default sort orders such ties differently on Intel and ARM processors (Colab and a Mac), so its keyword
+list was not the same on every computer. rag/verify_val.py checks the service against
+docs/eval/answers/val-with-retrieval-llama-3-1-8b.csv (docs/eval/service-vs-notebook.md).
 """
 import os
 import re
@@ -47,8 +50,8 @@ class Retriever:
         k = k or R["top_k"]
         query = self.embedder.encode([question], normalize_embeddings=True)[0]
         dense = self.col.query(query_embeddings=[query.tolist()], n_results=R["candidates"])["ids"][0]
-        keyword = [self.chunks[n]["chunk_id"] for n in np.argsort(-self.bm25.get_scores(
-            [w for w in words(question) if w not in self.remove]))][:R["candidates"]]
+        scores = self.bm25.get_scores([w for w in words(question) if w not in self.remove])
+        keyword = [self.chunks[n]["chunk_id"] for n in np.argsort(-scores, kind="stable")][:R["candidates"]]
         fused = Counter()
         for weight, ranked in ((R["dense_weight"], dense), (1 - R["dense_weight"], keyword)):
             for rank, cid in enumerate(ranked, 1):
