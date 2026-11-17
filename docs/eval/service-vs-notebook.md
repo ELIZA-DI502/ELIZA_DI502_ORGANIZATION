@@ -2,7 +2,7 @@
 
 | Date | Author | Status |
 |---|---|---|
-| 17/11/2026 | Kaan | retrieval checked (Linux; Mac to be run again with the stable sort); answers not yet checked |
+| 17/11/2026 | Kaan | retrieval checked on Linux and on a Mac; answers not yet checked |
 
 **Aim:** The search and the prompt of [`src/rag_vs_no_rag.ipynb`](../../src/rag_vs_no_rag.ipynb) (KAN-99, KAN-125) were moved into the RAG service ([`rag/app/retrieval.py`](../../rag/app/retrieval.py), [`rag/app/prompt.py`](../../rag/app/prompt.py), [`rag/app/llm.py`](../../rag/app/llm.py)). This page records that the service gives the notebook's results, so the demo answers with the baseline that was measured.
 
@@ -14,14 +14,17 @@
 - Settings: [`config/rag.yaml`](../../config/rag.yaml): bge-m3, Chroma with cosine distance (D11), BM25 without stopwords and jury words, weighted RRF with dense weight 0.8, 20 candidates per list, `rrf_k` 60, top 8 (D13, D14)
 - One change from the notebook: the service sorts the BM25 scores with a stable sort (`np.argsort(-scores, kind="stable")`), see *Ties in the BM25 ranking* below
 - Vector store: written by [`rag/ingest.py`](../../rag/ingest.py) into `data/vector-store/`
-- Computer: Linux x86-64, CPU only (the notebook ran on a Colab T4 GPU). Python 3.13.18 with the versions of [`requirements.txt`](../../requirements.txt): torch 2.15.0 (CPU build), sentence-transformers 6.2.0, transformers 5.22.2, chromadb 1.5.9, rank-bm25 0.2.2, scikit-learn 1.9.1, numpy 2.5.4
+- Computers (the notebook ran on a Colab T4 GPU), both with the versions of [`requirements.txt`](../../requirements.txt) (torch 2.15.0, sentence-transformers 6.2.0, transformers 5.22.2, chromadb 1.5.9, rank-bm25 0.2.2, scikit-learn 1.9.1, numpy 2.5.4):
+  - Linux x86-64, CPU only, Python 3.13.18
+  - MacBook Pro, Apple M3 Pro, CPU, Python 3.13 (`.venv` of the README)
 
 ## Results
 
 | Check | Result | Expected |
 |---|---|---|
-| Same 8 chunks in the same order as the notebook | **28 of 30** val questions | the others only where BM25 has a tie at rank 20 |
-| Recall@8 on the 27 questions with `gold_ids` | **0.59** | 0.59 (notebook) |
+| Same 8 chunks in the same order as the notebook | **28 of 30** val questions on both computers (C-03 and D-10 differ) | the others only where BM25 has a tie at rank 20 |
+| Same chunks on Linux and on the Mac | **30 of 30** | 30 of 30 |
+| Recall@8 on the 27 questions with `gold_ids` | **0.59** on both computers | 0.59 (notebook) |
 | Dense top 20 from Chroma and from the notebook's in-memory search (`vectors @ query`) | same list in the same order for 30 of 30 | — |
 | Tokens of the `no_rag` prompt (all 105 chunks, `prompts/answer.yaml`, one question), Llama 3.1 tokenizer | **8,743** | below `NUM_CTX_ALL_CHUNKS` = 12,288 |
 
@@ -57,4 +60,4 @@ python rag/verify_val.py --retrieval-out docs/eval/answers/val-service-retrieval
 python rag/verify_val.py --answers        # with Ollama and the answer model on this computer
 ```
 
-The script prints "28 of 30", "different without a BM25 tie at rank 20: 0", "Recall@8 on 27 val questions: 0.59" and "OK". It should print the same on every computer; please add a line here when it was run on another one.
+The script prints "28 of 30", "different without a BM25 tie at rank 20: 0", "Recall@8 on 27 val questions: 0.59" and "OK". Linux and the Mac printed the same (17/11/2026); please add a line here when it is run on another computer.
