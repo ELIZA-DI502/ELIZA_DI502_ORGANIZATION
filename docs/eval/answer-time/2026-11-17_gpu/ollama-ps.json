@@ -1,0 +1,62 @@
+[
+  {
+    "when": "after loading",
+    "time": "2026-11-17T00:50:07",
+    "api_ps": {
+      "name": "llama3.1:8b-instruct-q4_K_M",
+      "size": 5280104447,
+      "size_vram": 5280104447,
+      "context_length": 4096,
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "llama",
+        "families": [
+          "llama"
+        ],
+        "parameter_size": "8.0B",
+        "quantization_level": "Q4_K_M"
+      }
+    }
+  },
+  {
+    "when": "in the middle of the run",
+    "time": "2026-11-17T00:51:46",
+    "api_ps": {
+      "name": "llama3.1:8b-instruct-q4_K_M",
+      "size": 5280104447,
+      "size_vram": 5280104447,
+      "context_length": 4096,
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "llama",
+        "families": [
+          "llama"
+        ],
+        "parameter_size": "8.0B",
+        "quantization_level": "Q4_K_M"
+      }
+    }
+  },
+  {
+    "when": "at the end of the run",
+    "time": "2026-11-17T00:53:33",
+    "api_ps": {
+      "name": "llama3.1:8b-instruct-q4_K_M",
+      "size": 5280104447,
+      "size_vram": 5280104447,
+      "context_length": 4096,
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "llama",
+        "families": [
+          "llama"
+        ],
+        "parameter_size": "8.0B",
+        "quantization_level": "Q4_K_M"
+      }
+    }
+  }
+]
