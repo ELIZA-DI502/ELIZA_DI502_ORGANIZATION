@@ -253,7 +253,7 @@ O2 (c) and citation match are format rules checked by code, so 100% is possible.
 
 O1 (search time) and O3 (understanding) are measured with pilot users in Sprint 4 (deliverable D10), not with these scripts.
 
-**Baseline:** the same LLM and prompt without retrieved chunks (no-RAG), run with the alpha (E1). The difference shows what retrieval adds.
+**Baseline:** a general chatbot without retrieval that gets the whole consolidated text instead of the retrieved chunks: Claude Haiku 5.5 in a claude.ai chat with [`prompts/answer_full_text.yaml`](../prompts/answer_full_text.yaml), on the 30 `val` questions (E1, [`src/rag_vs_no_rag.ipynb`](../src/rag_vs_no_rag.ipynb)). The original plan was the same LLM and prompt without chunks; we changed it on the instructor's suggestion. Because both the model and the input differ, the gap (the expected provision is cited for 70% vs 81% of the 27 questions with gold provisions) does not separate the effect of retrieval from that of the model.
 
 **Sprint 1:** no model was trained. The model selection spike only tested the models on 8 questions, without a split.
 
@@ -725,7 +725,7 @@ Web and deployment part:
 | v4      | 2026-11-10 | D13 and D14 rewritten with the run scored at 8 chunks (Recall@8), the number of chunks the answer model gets (KAN-99): bge-m3, dense search with some BM25 (dense weight 0.8; stopwords and the LLM jury's words removed for BM25), top 8; diagrams, components, glossary and RAG pipeline table updated to match; architecture diagram v4 and NLP pipeline v4 | —            |
 | v4      | 2026-11-14 | Sprint 1 review comments 6 and 7 (KAN-102): the experiment-based decisions D9, D10, D12, D13 and D14 link the E1 experiment card and their AI SBOM rows; D1 lists the interface requirements a default chat widget does not cover, with their stories and the mockup, and D1, D2, D3 and D10 no longer cite the unshared Spike 01 | —            |
 | v4      | 2026-11-14 | Retrieval row of the RAG pipeline table and the top-k rule in Evaluation updated to D14: there is no separate E2 card, because dense and hybrid search were compared in the settings run of the E1 card (Sprint 1 review comment 6) | — |
-| v4      | 2026-11-17 | Sprint 2 review comment of Reviewer 3 on O1 (KAN-223): the answer time in Goals is the CPU-only measurement of 17/11/2026 on the 30 `val` questions (median 13.1 s), with Ollama's evidence that no part of the model was in GPU memory; the D9 table and status use the same measurement (KAN-223); the BM25 weight in the Components row is corrected to 0.2, as in D14 | — |
+| v4      | 2026-11-17 | Sprint 2 review comment of Reviewer 3 on O1 (KAN-223): the answer time in Goals is the CPU-only measurement of 17/11/2026 on the 30 `val` questions (median 13.1 s), with Ollama's evidence that no part of the model was in GPU memory; the D9 table and status use the same measurement (KAN-223); the BM25 weight in the Components row is corrected to 0.2, as in D14; the baseline in the RAG pipeline section now describes the run of E1 (Claude Haiku 5.5 with the whole text) | — |
 
 ## Checklist before submitting
 
