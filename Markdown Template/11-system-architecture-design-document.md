@@ -529,7 +529,7 @@ Copy the block below for each decision.
 | Qwen3-4B (Apache-2.0)                                         | 5                          | Thinking mode turned off, so it answered directly; in the first run it helped a user avoid the rules |
 | Phi-4-mini-instruct (MIT)                                     | 5                          | Fastest; simplest licence                                                             |
 | Qwen3-8B (Apache-2.0)                                         | 2 (both from the input check; the model answered none) | A "thinking" model: its reasoning used the whole answer limit, and it was the slowest |
-| **Llama-3.1-8B-Instruct** (Llama 3.1 Community License) | 7                          | Best answers; slower than Phi-4-mini (15.4 s versus 10.2 s on a team computer's CPU)                                       |
+| **Llama-3.1-8B-Instruct** (Llama 3.1 Community License) | 7                          | Best answers; slower than Phi-4-mini (15.4 s versus 10.2 s on one question in the spike); on the 30 `val` questions with the CPU only (17/11/2026): median 13.1 s, maximum 26.4 s                                       |
 
 **Decision:** Llama-3.1-8B-Instruct `Q4_K_M`, served by Ollama, temperature 0. Phi-4-mini-instruct `Q4_K_M` is the fallback.
 
@@ -541,7 +541,7 @@ Copy the block below for each decision.
 
 **Owner and date:** NLP part, 2026-10-25
 
-**Status:** implemented in the baseline (KAN-99, [`src/rag_vs_no_rag.ipynb`](../src/rag_vs_no_rag.ipynb)): with the 8 retrieved chunks it cites the expected provision for 70% of the `val` questions (W&B run [`lgogwegq`](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/lgogwegq)); the answer time on a CPU is still to be measured (R-12)
+**Status:** implemented in the baseline (KAN-99, [`src/rag_vs_no_rag.ipynb`](../src/rag_vs_no_rag.ipynb)): with the 8 retrieved chunks it cites the expected provision for 70% of the `val` questions (W&B run [`lgogwegq`](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/lgogwegq)); the answer time with the CPU only was measured on 17/11/2026 on the 30 `val` questions: median 13.1 s, maximum 26.4 s, below the 60 s limit, and Ollama reported 0 of 33 layers on the GPU ([answer-time measurement](../docs/eval/answer-time.md)); the pilot computer is measured by 09/12/2026 (R-12)
 
 ### D10: Embedding model: bge-base-en-v1.5
 
@@ -725,7 +725,7 @@ Web and deployment part:
 | v4      | 2026-11-10 | D13 and D14 rewritten with the run scored at 8 chunks (Recall@8), the number of chunks the answer model gets (KAN-99): bge-m3, dense search with some BM25 (dense weight 0.8; stopwords and the LLM jury's words removed for BM25), top 8; diagrams, components, glossary and RAG pipeline table updated to match; architecture diagram v4 and NLP pipeline v4 | —            |
 | v4      | 2026-11-14 | Sprint 1 review comments 6 and 7 (KAN-102): the experiment-based decisions D9, D10, D12, D13 and D14 link the E1 experiment card and their AI SBOM rows; D1 lists the interface requirements a default chat widget does not cover, with their stories and the mockup, and D1, D2, D3 and D10 no longer cite the unshared Spike 01 | —            |
 | v4      | 2026-11-14 | Retrieval row of the RAG pipeline table and the top-k rule in Evaluation updated to D14: there is no separate E2 card, because dense and hybrid search were compared in the settings run of the E1 card (Sprint 1 review comment 6) | — |
-| v4      | 2026-11-17 | Sprint 2 review comment of Reviewer 3 on O1 (KAN-223): the answer time in Goals is the CPU-only measurement of 17/11/2026 on the 30 `val` questions (median 13.1 s), with Ollama's evidence that no part of the model was in GPU memory | — |
+| v4      | 2026-11-17 | Sprint 2 review comment of Reviewer 3 on O1 (KAN-223): the answer time in Goals is the CPU-only measurement of 17/11/2026 on the 30 `val` questions (median 13.1 s), with Ollama's evidence that no part of the model was in GPU memory; the D9 table and status use the same measurement (KAN-223); the BM25 weight in the Components row is corrected to 0.2, as in D14 | — |
 
 ## Checklist before submitting
 
