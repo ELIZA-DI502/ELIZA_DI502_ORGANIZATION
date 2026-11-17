@@ -10,7 +10,7 @@ How to use this template
 
 | Team  | Sprint | Status   | Last updated | Updated by                  |
 | ----- | ------ | -------- | ------------ | --------------------------- |
-| ELIZA | 2      | revised  | 2026-11-14   | Architecture part; NLP part |
+| ELIZA | 2      | revised  | 2026-11-17   | Architecture part; NLP part |
 
 <!--
 Status [2]:
@@ -37,7 +37,7 @@ Link to the charter instead of restating it.
 
 The design serves the four objectives and their success criteria in the [Project Executive Summary](03-project-canvas/01-project-executive-summary.md):
 
-- O1 Search time: answers are produced on a CPU without waiting for a hosted API; the answer time is the main design risk (R-12). **Answer-time limit:** the median answer time on the `val` questions on the pilot computer is at most 60 s (O1, R-12). Measured on one team computer: 15 s for Llama-3.1-8B, about 38 s in the worst case ([model selection spike](../docs/spikes/model-selection-spike.md), "Answer time on one team computer").
+- O1 Search time: answers are produced on a CPU without waiting for a hosted API; the answer time is the main design risk (R-12). **Answer-time limit:** the median answer time on the `val` questions on the pilot computer is at most 60 s (O1, R-12). Measured on one team computer with the CPU only (17/11/2026): median 13.1 s and maximum 26.4 s for Llama-3.1-8B on the 30 `val` questions, about 30 s in the worst case; Ollama confirmed that no part of the model was in GPU memory ([answer-time measurement](../docs/eval/answer-time.md); [model selection spike](../docs/spikes/model-selection-spike.md), "Answer time on one team computer").
 - O2 Evidence: the LLM answers only from the retrieved provisions, and the output check removes citations that are not among them.
 - O3 Understanding: the prompt asks for a short plain-language summary first, and the interface shows the text of every cited provision.
 - O4 Safety: the input check returns a notice for out-of-scope, evasion and personal-data questions. Legal-decision questions are not blocked: the input check flags them, and the answer declines the decision and shows the relevant provisions (KAN-2). The output check blocks verdict wording (C-08).
@@ -725,6 +725,7 @@ Web and deployment part:
 | v4      | 2026-11-10 | D13 and D14 rewritten with the run scored at 8 chunks (Recall@8), the number of chunks the answer model gets (KAN-99): bge-m3, dense search with some BM25 (dense weight 0.8; stopwords and the LLM jury's words removed for BM25), top 8; diagrams, components, glossary and RAG pipeline table updated to match; architecture diagram v4 and NLP pipeline v4 | —            |
 | v4      | 2026-11-14 | Sprint 1 review comments 6 and 7 (KAN-102): the experiment-based decisions D9, D10, D12, D13 and D14 link the E1 experiment card and their AI SBOM rows; D1 lists the interface requirements a default chat widget does not cover, with their stories and the mockup, and D1, D2, D3 and D10 no longer cite the unshared Spike 01 | —            |
 | v4      | 2026-11-14 | Retrieval row of the RAG pipeline table and the top-k rule in Evaluation updated to D14: there is no separate E2 card, because dense and hybrid search were compared in the settings run of the E1 card (Sprint 1 review comment 6) | — |
+| v4      | 2026-11-17 | Sprint 2 review comment of Reviewer 3 on O1 (KAN-223): the answer time in Goals is the CPU-only measurement of 17/11/2026 on the 30 `val` questions (median 13.1 s), with Ollama's evidence that no part of the model was in GPU memory | — |
 
 ## Checklist before submitting
 
