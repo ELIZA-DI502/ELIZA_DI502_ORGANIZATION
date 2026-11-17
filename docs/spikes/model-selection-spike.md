@@ -79,7 +79,7 @@ One of the team members' computers is a Mac with an Apple M3 Pro chip (12 cores:
 How we measured:
 
 - **Settings**: Ollama on macOS, `Q4_K_M`, temperature 0, context window 4,096 tokens, answer limit 300 tokens.
-- **CPU only** (`num_gpu` 0), as in C-05.
+- **CPU only requested** (`num_gpu` 0), as in C-05. Where Ollama placed the model was not recorded; this was checked on 17/11/2026 (below).
 - **One question**: B-02, the longest prompt of the spike (the same prompt as in run 5).
 - **Two runs per model.** The first run includes loading the model; the answer time below is the first run without the loading time. In the second run the prompt came from the cache, so it is not used for the answer time.
 
@@ -98,6 +98,22 @@ Loading the model took 6 s (Llama) and 9 s (Phi-4-mini), once at start.
 | Phi-4-mini-instruct | about 19 s |
 
 This is one question and one run per model. Ollama ran directly on macOS, not in the Docker container of decision D6 in the design document, which may be slower. The time is measured again at the baseline (18/11/2026) and on the pilot computer by 09/12/2026 (R-12).
+
+#### Measured again with evidence (17/11/2026)
+
+Reviewer 3 asked whether the time above came from the CPU only, because the M3 Pro shares its memory between the CPU and the GPU ([KAN-223](https://yarengursoy.atlassian.net/browse/KAN-223)). We measured again on the same computer with [`src/answer_time.py`](../../src/answer_time.py): Llama-3.1-8B (`llama3.1:8b-instruct-q4_K_M`, Ollama 0.40.11) on all 30 `val` questions, with the prompt of the RAG service and the 8 chunks the search retrieved for each question. The script asks Ollama where the model is loaded (after loading, in the middle and at the end of the run) and stops if any part of it is in GPU memory. Details: [answer-time measurement](../eval/answer-time.md).
+
+| Run | Model in GPU memory | Ollama log | Reading speed (median) | Writing speed (median) | Median answer time | p90 | Maximum |
+|---|---|---|---|---|---|---|---|
+| CPU only (`num_gpu` 0) | 0 bytes at all three checks | "offloaded 0/33 layers to GPU" | 127 tokens/s | 22 tokens/s | 13.1 s | 24.1 s | 26.4 s |
+| GPU (Metal), for comparison | 5.3 GB | "offloaded 33/33 layers to GPU" | 478 tokens/s | 26 tokens/s | 6.2 s | 12.9 s | 14.7 s |
+
+- Using only the CPU about doubles the answer time; the median stays well below the 60 s limit.
+- The reading speed of 25/10/2026 (83 tokens/s) is close to the CPU run and far from the GPU run, so that measurement was most likely on the CPU too.
+- **Worst case** with the CPU speeds above (2,000 prompt tokens, 300 answer tokens): about 30 s.
+- Both runs were on battery power. Ollama ran directly on macOS; in the Docker container of D6 it can use only the CPU, and that setup is measured on the pilot computer (R-12).
+
+Results: [`docs/eval/answer-time/2026-11-17_cpu/`](../eval/answer-time/2026-11-17_cpu/) and [`2026-11-17_gpu/`](../eval/answer-time/2026-11-17_gpu/) (`summary.json`, `ollama-ps.json`, `answers.csv`).
 
 ## Decision
 
