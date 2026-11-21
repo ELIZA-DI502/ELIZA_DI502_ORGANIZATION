@@ -144,11 +144,46 @@ Ticked by the team before the upload on 14/11/2026 and again before the review o
 
 ## Sprint 3:
 
-To be agreed at the start of Sprint 3 (18/11/2026), after the Sprint 2 retrospective and review (KAN-187).
+**Sprint 3 (18/11–09/12/2026) · Beta 0.5.** Sprint goal (Jira): *The whole pipeline, user interface included, runs from `README.md` on a team computer with paragraph-level citations, boundary notices and the personal-data reminder (D9), Q&A dataset v2 (D8) is ready with `val` frozen on 01/12/2026, and the beta is measured against the baseline and the charter targets for the Sprint 3 review on 09/12/2026.*
+
+Agreed by the team on __/11/2026 (KAN-187). **Ready** lists what is in place before Sprint 3 work starts; **Done** lists what must be true to close Sprint 3 on 09/12/2026. Rows marked **(Sprint 3)** are specific to the beta; the other rows apply to every sprint.
 
 | Column | Definition of Ready |
 |---|---|
-|   |   |
+| Sprint | The Sprint 2 retrospective actions that have a date are done by their owners, and the team has agreed on this Definition of Ready and Done and on the sprint goal above (course minimum). |
+| Sprint | The working rules from the Sprint 2 retrospective are agreed: Jira is updated on the day the work changes; changes reach `main` only through a pull request; every document has an owner and a second writer and is drafted while the work is being done. |
+| Sprint | The risk register and the assumption checks are reviewed after Sprint 2 (R-03, R-07 and R-12 first), and EUR-Lex is checked for a consolidated version newer than 27/07/2026. |
+| Sprint | Every Sprint 3 story and task, including the carry-over from Sprint 2 (KAN-8 with KAN-127 and KAN-222, KAN-65), is in Sprint 3 in Jira with an owner and story points agreed with planning poker; every sub-task has one owner, an hour estimate and a "Done when" condition. |
+| Story | The story says who it is for, with the role from the ISO/IEC 5339 categories; its acceptance criteria are testable; it names its objective or feature, deliverable and milestone; its test case is on its story requirements page. |
+| Sprint (Sprint 3) | The halfway check of the course is planned for 02/12/2026: the interface calls the pipeline, even with stubs, and at least one improvement over the baseline is measured (KAN-168, KAN-169). |
+| Sprint (Sprint 3) | The work that other Sprint 3 tasks depend on is scheduled for the first week: paragraph-level citations (KAN-222), connecting the interface to the pipeline (KAN-172) and the safety part of the shared evaluation script (KAN-226). |
+| Code (Sprint 3) | The inputs of the beta exist: the Alpha 0.1 baseline runs from `README.md`, the user interface technology and the UI mockup of Sprint 2 are agreed, and the shared evaluation script for O2 is in the repository (KAN-225). |
+| Code (Sprint 3) | The computer used for the pilot and the final demo is named, so that the answer time (R-12, KAN-163) and the privacy check (C-10, KAN-167) are measured on that computer. |
+| Safety (Sprint 3) | The evaluation rubric (KAN-50) is done, so that the safety results of the beta are scored with the same rules as the four safety categories of O4. |
+| Data (D8) (Sprint 3) | The v2 plan is agreed: the D8 target counts, at least 5 new questions from the baseline errors listed in the E1 card, the author of each new question, and the person who writes the new `test` questions apart from development (KAN-183, KAN-184, KAN-227). |
+| Experiment (Sprint 3) | Every Sprint 3 experiment is compared with the same baseline: E1 on the same `val` questions, and the charter targets. |
+| Pilot (Sprint 3) | The pilot invitations are sent (KAN-158), so that the M8 go/no-go on 09/12/2026 can name at least 5 pilot users (R-03). |
+
+| Column | Definition of Done |
+|---|---|
+| Story | Every acceptance criterion is met and checked by a team member other than the owner; all sub-tasks are done; the evidence (commit, file or W&B run) is linked in a Jira comment; the test result is on the story requirements page. |
+| Code / Git | Every change is on a branch named with its Jira key and reached `main` through a pull request that a teammate read and ran, merged with `git merge --no-ff`; no API keys, debug prints or large generated files; the `.zip` is uploaded (KAN-176). |
+| Code (Sprint 3) | A team member who did not build it installed and ran the whole pipeline, user interface included, from `README.md`, and a screenshot of the interface answering a question is in the sprint folder (KAN-173, KAN-174; D9 criterion 1). |
+| Code (Sprint 3) | The answer view shows the question, the answer in the summary-then-conditions format, every cited provision down to the paragraph or point with the version date, the "not legal advice" notice and the personal-data reminder (KAN-133, KAN-156, KAN-164, KAN-222). |
+| Code (Sprint 3) | The interface shows that the answer is being prepared and gives a plain error message on a system error (KAN-161, KAN-162). |
+| Safety (Sprint 3) | The rule-based checks are in the pipeline: the input check for evasion and prompt-injection patterns, the output check for classifications and compliance verdicts, the out-of-scope and English-only notices, and the insufficient-evidence answer; condition and exception questions do not go to the refusal path (KAN-138, KAN-140–144, KAN-148, KAN-150–152). |
+| Privacy (Sprint 3) | A marked test question sent to the system used for the pilot is not found in the application or error logs or the vector index, and it is no longer in the database after the session ends (KAN-166, KAN-167; D9 criterion 8). |
+| Experiment | Every experiment has a card, written before its run, in `Markdown Template/12-experiment-cards/`, and its runs are in W&B with the commit of the evaluation set, the split and the commit of `config/rag.yaml` (KAN-177, KAN-178). |
+| Experiment (Sprint 3) | The best configuration is re-run with at least 3 seeds and reported as mean ± std against the baseline; `config/rag.yaml` holds only the chosen configuration (KAN-179; D9 criterion 6). |
+| Experiment (Sprint 3) | On the frozen D8 `val` split, O2 (a)–(d) and O4 for each safety category are reported against the targets; every in-scope answer is reviewed against the rubric, with a second reviewer on a sample; 0 answers contain a classification or compliance verdict (KAN-180, KAN-181; D9 criteria 2–4). |
+| Experiment (Sprint 3) | The median answer time on the pilot computer is measured on the `val` questions and recorded against the limit in D4 (KAN-163; D9 criterion 7; R-12). |
+| Data (D8) (Sprint 3) | `docs/eval/eval-set-v2.csv` meets the D8 acceptance criteria; every new question records its model and `prompt_file`; `val` was frozen on 01/12/2026 and the new `test` questions were fixed by 05/12/2026 without being used for tuning; the data card change log lists every change; `eval-set-v1.csv` is unchanged (KAN-170, KAN-183–186, KAN-227). |
+| Documents (Sprint 3) | The Sprint 3 technical summary compares the best configuration with the baseline, marks Features 1–4 implemented or deferred with the Product Owner's agreement, and gives pass or fail for the test of every story built so far (KAN-182; D9 criterion 5); the design document, spike notes and SBOM describe the system at the upload (KAN-175). |
+| Sprint (Sprint 3) | The Product Owner's M8 go/no-go for the pilot and the release candidate is recorded, with the problems the release candidate will fix (M8, 09/12/2026). |
+| Sprint | Every Sprint 3 deliverable is uploaded to ODTUClass by 05/12/2026 23:59 and linked, with the submitted Git commit, from `05-sprint-3/README.md` (KAN-192). |
+| Sprint | The Sprint 2 review page has an answer for every review item and a link to the fix for every accepted item (KAN-188). |
+| Sprint | The burndown chart is in the sprint folder, the Jira backlog export is in `docs/backlog/`, and the retrospective has an action and an owner for every "what went bad" row (KAN-189–191). |
+| Sprint | The demo took 10 minutes or less on 09/12/2026, and the assigned team's Sprint 3 deliverables were reviewed between 06/12 and 09/12/2026 (KAN-193). |
 
 | Column | Definition of Done |
 |---|---|
