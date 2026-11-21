@@ -146,23 +146,20 @@ Ticked by the team before the upload on 14/11/2026 and again before the review o
 
 **Sprint 3 (18/11–09/12/2026) · Beta 0.5.** Sprint goal (Jira): *The whole pipeline, user interface included, runs from `README.md` on a team computer with paragraph-level citations, boundary notices and the personal-data reminder (D9), Q&A dataset v2 (D8) is ready with `val` frozen on 01/12/2026, and the beta is measured against the baseline and the charter targets for the Sprint 3 review on 09/12/2026.*
 
-Agreed by the team on __/11/2026 (KAN-187). **Ready** lists what is in place before Sprint 3 work starts; **Done** lists what must be true to close Sprint 3 on 09/12/2026. Rows marked **(Sprint 3)** are specific to the beta; the other rows apply to every sprint.
 
 | Column | Definition of Ready |
 |---|---|
 | Sprint | The Sprint 2 retrospective actions that have a date are done by their owners, and the team has agreed on this Definition of Ready and Done and on the sprint goal above (course minimum). |
 | Sprint | The working rules from the Sprint 2 retrospective are agreed: Jira is updated on the day the work changes; changes reach `main` only through a pull request; every document has an owner and a second writer and is drafted while the work is being done. |
 | Sprint | The risk register and the assumption checks are reviewed after Sprint 2 (R-03, R-07 and R-12 first), and EUR-Lex is checked for a consolidated version newer than 27/07/2026. |
-| Sprint | Every Sprint 3 story and task, including the carry-over from Sprint 2 (KAN-8 with KAN-127 and KAN-222, KAN-65), is in Sprint 3 in Jira with an owner and story points agreed with planning poker; every sub-task has one owner, an hour estimate and a "Done when" condition. |
+| Sprint | Every Sprint 3 story and task is in Sprint 3 in Jira with an owner and story points agreed with planning poker; every sub-task has one owner, an hour estimate and a "Done when" condition. |
 | Story | The story says who it is for, with the role from the ISO/IEC 5339 categories; its acceptance criteria are testable; it names its objective or feature, deliverable and milestone; its test case is on its story requirements page. |
-| Sprint (Sprint 3) | The halfway check of the course is planned for 02/12/2026: the interface calls the pipeline, even with stubs, and at least one improvement over the baseline is measured (KAN-168, KAN-169). |
-| Sprint (Sprint 3) | The work that other Sprint 3 tasks depend on is scheduled for the first week: paragraph-level citations (KAN-222), connecting the interface to the pipeline (KAN-172) and the safety part of the shared evaluation script (KAN-226). |
-| Code (Sprint 3) | The inputs of the beta exist: the Alpha 0.1 baseline runs from `README.md`, the user interface technology and the UI mockup of Sprint 2 are agreed, and the shared evaluation script for O2 is in the repository (KAN-225). |
-| Code (Sprint 3) | The computer used for the pilot and the final demo is named, so that the answer time (R-12, KAN-163) and the privacy check (C-10, KAN-167) are measured on that computer. |
-| Safety (Sprint 3) | The evaluation rubric (KAN-50) is done, so that the safety results of the beta are scored with the same rules as the four safety categories of O4. |
-| Data (D8) (Sprint 3) | The v2 plan is agreed: the D8 target counts, at least 5 new questions from the baseline errors listed in the E1 card, the author of each new question, and the person who writes the new `test` questions apart from development (KAN-183, KAN-184, KAN-227). |
-| Experiment (Sprint 3) | Every Sprint 3 experiment is compared with the same baseline: E1 on the same `val` questions, and the charter targets. |
-| Pilot (Sprint 3) | The pilot invitations are sent (KAN-158), so that the M8 go/no-go on 09/12/2026 can name at least 5 pilot users (R-03). |
+| Sprint | The halfway check of the course is planned for 02/12/2026: the interface calls the pipeline, even with stubs, and at least one improvement over the baseline is measured (KAN-168, KAN-169). |
+| Sprint  | The work that other Sprint 3 tasks depend on is scheduled for the first week: paragraph-level citations (KAN-222), connecting the interface to the pipeline (KAN-172) and the safety part of the shared evaluation script (KAN-226). |
+| Code  | The inputs of the beta exist: the Alpha 0.1 baseline runs from `README.md`, the user interface technology and the UI mockup of Sprint 2 are agreed, and the shared evaluation script for O2 is in the repository (KAN-225). |
+| Data (D8) | The v2 plan is agreed: the D8 target counts, at least 5 new questions from the baseline errors listed in the E1 card, the author of each new question, and the person who writes the new `test` questions apart from development (KAN-183, KAN-184, KAN-227). |
+| Experiment | Every Sprint 3 experiment is compared with the same baseline: E1 on the same `val` questions, and the charter targets. |
+| Pilot | The pilot invitations are sent (KAN-158), so that the M8 go/no-go on 09/12/2026 can name at least 5 pilot users (R-03). |
 
 | Column | Definition of Done |
 |---|---|
@@ -185,9 +182,6 @@ Agreed by the team on __/11/2026 (KAN-187). **Ready** lists what is in place bef
 | Sprint | The burndown chart is in the sprint folder, the Jira backlog export is in `docs/backlog/`, and the retrospective has an action and an owner for every "what went bad" row (KAN-189–191). |
 | Sprint | The demo took 10 minutes or less on 09/12/2026, and the assigned team's Sprint 3 deliverables were reviewed between 06/12 and 09/12/2026 (KAN-193). |
 
-| Column | Definition of Done |
-|---|---|
-|   |   |
 
 ## Sprint 4:
 
