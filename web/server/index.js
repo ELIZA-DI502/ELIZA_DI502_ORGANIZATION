@@ -123,4 +123,14 @@ app.use("/api", (_req, res) => res.status(404).json({ error: "not_found" }));
 app.use(express.static(publicDir));
 app.use((req, res, next) => (req.method === "GET" ? res.sendFile(path.join(publicDir, "index.html")) : next()));
 
+// Errors, for example a request body that is not valid JSON or is too large: Express's default handler would
+// print the error, and a JSON parse error can quote part of the request body. Log only the status and the
+// kind of error, never the content (C-10).
+app.use((err, _req, res, _next) => {
+  const status = Number.isInteger(err?.status) && err.status >= 400 && err.status < 600 ? err.status : 500;
+  logLine({ event: "error", status, type: err?.type ?? err?.name ?? "Error" });
+  if (res.headersSent) return;
+  res.status(status).json({ error: status === 500 ? "server_error" : "bad_request" });
+});
+
 app.listen(PORT, () => logLine({ event: "start", port: PORT, rag: RAG_URL, history_pairs: HISTORY_PAIRS }));

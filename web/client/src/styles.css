@@ -37,6 +37,7 @@ button:disabled { cursor: default; opacity: .55; }
 sup.c { font: 700 11px var(--sans); color: var(--blue); background: var(--blue-soft); border-radius: 4px; padding: 1px 4px; margin-left: 2px; vertical-align: 3px; }
 .decline { border-left: 3px solid var(--rule); padding: 2px 0 2px 12px; color: var(--muted); margin: 12px 0 4px; }
 .notice-answer { border: 1px solid var(--rule); border-radius: 10px; padding: 12px 16px; background: #fafbfc; }
+.a .sources { font-size: 14px; color: var(--muted); margin: 12px 0 0; }
 .unsupported { font-size: 13.5px; color: var(--muted); margin-top: 12px; }
 
 .cited { margin-top: 18px; border-top: 1px solid var(--rule); }

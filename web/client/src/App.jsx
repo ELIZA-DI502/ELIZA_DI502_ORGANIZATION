@@ -196,6 +196,7 @@ function Answer({ response }) {
         <p key={i} className={i === 0 ? "summary" : undefined}>{p}</p>
       ))}
       {response.notice && <p className="decline">{response.notice}</p>}
+      {sourcesLines(citations).map((line) => <p key={line} className="sources">{line}</p>)}
 
       {citations.length > 0 && (
         <div className="cited">
@@ -236,6 +237,19 @@ function Cite({ c }) {
       )}
     </div>
   );
+}
+
+// The sources line under the answer (KAN-224; the same form as src/sources.py, KAN-126): every cited provision
+// with the version date of its text, one line per version date, for example
+// "Sources (consolidated text of 27/07/2026): Annex III, point 3(c); Article 6(2)". No citation, no line.
+function sourcesLines(citations) {
+  const byDate = new Map(); // version date -> references, in the order they are cited
+  for (const c of citations) {
+    const refs = byDate.get(c.version_date) ?? [];
+    if (!refs.includes(c.ref)) refs.push(c.ref);
+    byDate.set(c.version_date, refs);
+  }
+  return [...byDate].map(([date, refs]) => `Sources (consolidated text of ${date}): ${refs.join("; ")}`);
 }
 
 // Splits the answer into paragraphs and puts the citation numbers after the first mention of each citation.
