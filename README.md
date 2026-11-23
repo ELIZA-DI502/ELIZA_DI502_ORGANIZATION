@@ -21,6 +21,9 @@ ELIZA helps technical teams that build AI systems for education find the provisi
 | `docs/spikes/` | Spike notes |
 | `Markdown Template/` | Course pages: project charter, user stories, design document, SBOM, datasheets, sprint folders, experiment cards |
 | `requirements.txt` | The Python packages, with exact versions |
+| `rag/` | The RAG service (FastAPI, `POST /answer`) with the search and prompt of `src/rag_vs_no_rag.ipynb`; `rag/ingest.py`, which builds the vector store once; and `rag/verify_val.py`, which checks that the service gives the notebook's results |
+| `web/` | The user interface (React + Vite, `web/client`) and the web backend (Node.js + Express, `web/server`) |
+| `docker-compose.yml` | The three containers: web, rag, ollama |
 
 ## What you need
 
@@ -76,6 +79,36 @@ jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeou
 
 **In Google Colab:** upload a notebook (*File → Upload notebook*) and choose *Run all*. Its first code cell downloads this repository and, for `embedding.ipynb`, installs Ollama and the jury models. For `embedding.ipynb`, choose *Runtime → Change runtime type → T4 GPU* first.
 
+## Run the assistant (Docker Compose)
+
+The system runs in three containers (design document, section 5, Deployment): `web` (React page and Node.js + Express backend), `rag` (FastAPI RAG service) and `ollama` (the answer model). You need Docker Desktop (or Docker Engine with Compose) and the Python environment of *Install*.
+
+1. Build the vector store once (D5, D11). It is written to `data/vector-store/` and is not in Git (running `src/embedding.ipynb` writes the same store):
+   ```bash
+   pip install -r rag/requirements.txt
+   python rag/ingest.py
+   ```
+2. Optional: `cp .env.example .env` and change the settings. `ELIZA_MODE=no_rag` turns the retrieval off: the model gets all 105 chunks (about 8,700 tokens) instead of the 8 retrieved ones, with the same prompt and rules; the page then shows an "LLM mode" note. This mode is slower, because the first question of a session makes the model read the whole prompt. It is not the "without retrieval" side of KAN-99, which was Claude Haiku 5.5 with the whole text.
+3. Start the containers and download the answer model of `config/rag.yaml` once (4.9 GB, kept in a Docker volume):
+   ```bash
+   docker compose up -d --build
+   docker compose exec ollama ollama pull hf.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF:Q4_K_M
+   ```
+4. Open http://localhost:3000. The first start of `rag` downloads bge-m3 (about 2.3 GB); until it is loaded, the `rag` mode answers "Eliza is still starting". Check with `docker compose logs -f rag`.
+
+**Same results as the notebook.** `rag/app/retrieval.py` and `rag/app/prompt.py` are the `search` and `ask` cells of `src/rag_vs_no_rag.ipynb`, with the settings of `config/rag.yaml`. To check it, run from the repository root (in the environment of *Install*):
+
+```bash
+python rag/verify_val.py             # after rag/ingest.py: the retrieved chunks of every val question and Recall@8 (no Ollama needed)
+python rag/verify_val.py --answers   # also the answers, with Ollama on this computer
+```
+
+The first command must print "28 of 30", no difference without a BM25 tie, and Recall@8 0.59 ([`docs/eval/service-vs-notebook.md`](docs/eval/service-vs-notebook.md)). Answers on another computer can differ in a few words from the notebook's (Colab T4 GPU), even with temperature 0 and seed 42.
+
+The `ollama` container uses only the CPU, also on a Mac. While developing on a Mac you can use the Ollama app instead (it uses the GPU): set `OLLAMA_URL=http://host.docker.internal:11434` in `.env` and pull the model with the app.
+
+**API of the RAG service** (draft until the web and RAG sides agree, design document, section 7): `POST /answer` with `{"question": "...", "history": [{"question": "...", "answer": "..."}], "mode": "rag" | "no_rag"}`. The answer has `status` (`answer` or `notice`), `answer`, `notice`, `citations` (the cited provisions found among the chunks in the prompt, with their text and version date), `unsupported_citations`, `retrieved` (chunk IDs found by the retrieval, for Recall@k; empty in `no_rag` mode), `chunks_in_prompt` (8 or 105) and `timing_ms`. The evaluation scripts call it directly; with the containers running, the port is not published, so run them with `docker compose exec rag ...` or start the service on the host: `uvicorn rag.app.main:app --port 8000` (with `OLLAMA_URL=http://localhost:11434`).
+
 ## Keys and settings
 
 - **Weights & Biases:** run `wandb login` once in the terminal (in Colab, the notebook asks for the key). The key is never written into a file of this repository. Put any other secret in a `.env` file; `.env` is in `.gitignore`.
@@ -92,6 +125,7 @@ jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeou
   (on macOS: `shasum -a 256 docs/eval/eval-set-v1-test.csv`)
 - The retrieval scores on `val` are in `src/embedding.ipynb`, in [Weights & Biases](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/v7g5hhxh) and, as charts, in `docs/eval/embedding-results.pdf` (written by step 12 of the notebook).
 - The answers without and with retrieval on `val` are in `src/rag_vs_no_rag.ipynb`, in [Weights & Biases](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/lgogwegq) and, as charts with Recall@8 and Recall@5, in `docs/eval/answers-results.pdf` (made by `src/rag_vs_no_rag_charts.ipynb`). The answers themselves are in `docs/eval/answers/`.
+- The RAG service retrieves the same chunks as `src/rag_vs_no_rag.ipynb` on 28 of 30 `val` questions; the other two differ only because the service breaks ties in the BM25 ranking the same way on every computer (Recall@8 0.59 in both): [`docs/eval/service-vs-notebook.md`](docs/eval/service-vs-notebook.md), checked with `rag/verify_val.py`.
 - Automated tests and the user story tests will be in `tests/` (Sprint 3).
 
 ## Source and licence

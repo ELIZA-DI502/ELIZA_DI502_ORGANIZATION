@@ -16,3 +16,7 @@ __pycache__/
 # Local files of Weights & Biases runs (the results are on wandb.ai)
 wandb/
 src/wandb/
+
+# Web container (web/): installed packages and the React build
+node_modules/
+web/client/dist/

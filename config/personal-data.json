@@ -1,0 +1,6 @@
+{
+  "_comment": "One definition of the personal-data patterns, read by the interface (warning before sending, KAN-26) and by the input check of the RAG service (D3). Draft: the final personal-data rules are open (KAN-49). Both readers use these regular expressions case-insensitively; a phone match counts only with at least phone_min_digits digits.",
+  "email": "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}",
+  "phone": "\\+?\\d[\\d\\s().-]{7,}\\d",
+  "phone_min_digits": 9
+}
