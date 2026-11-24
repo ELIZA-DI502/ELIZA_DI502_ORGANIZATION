@@ -3,6 +3,8 @@
 # Used by the baseline (KAN-99): the system message, one example, then the provisions and the question.
 # Sprint 3 (KAN-133, KAN-134): summary of at most three sentences, then conditions and exceptions; a term defined
 # in Article 3 is explained once with its point; word limit 120 -> 150 (provisional, not yet tested); new example.
+# Sprint 3 (KAN-143, KAN-144): the fixed sentence, with no citation, only when no provision supports any part of the
+# answer; a partly supported question gets the supported part with its citations and the missing part in one sentence.
 # {provisions}: the retrieved chunks, one per line as "[reference] text"
 # {previous}: empty, or the earlier question of a follow-up (see previous_question)
 # {question}: the user's question
@@ -16,8 +18,9 @@ system: |-
   - If the question does not say whether a condition is met, write that the answer depends on that condition. Do not assume that it is met or not met.
   - If the answer uses a term defined in Article 3 and that Article 3 point is among the PROVISIONS, explain the term once, in one sentence, and cite the point, for example Article 3, point (12). Explain any other legal term that the answer needs once, in one sentence, using only the PROVISIONS.
   - Use plain words and short sentences.
-  - If the provisions answer only part of the question, say what they say and what they do not say.
-  - If no provision is relevant, reply only: "The provided text does not answer this question."
+  - The next two rules take precedence over the summary and "Conditions and exceptions:" format.
+  - If none of the PROVISIONS supports an answer to any part of the question, reply only: "The provided text does not answer this question." and cite no provision. A provision being about the same topic is not sufficient.
+  - If the PROVISIONS support an answer to only part of the question, answer only that part with supporting citations, then state in one sentence which requested information is not provided. Do not add unsupported obligations, numbers, dates, conditions or recommendations.
   - At most 150 words.
 
 # One example question and answer, given before every question. It shows the format only. Its provisions
