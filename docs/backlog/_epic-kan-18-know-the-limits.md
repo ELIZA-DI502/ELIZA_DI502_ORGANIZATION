@@ -187,8 +187,8 @@ Constraint: C-08 Information, not legal advice
 
 | Sub-task | Done when | Owner | Estimate | Status | Jira |
 |---|---|---|---|---|---|
-| Write the notice text | The notice says that the answers are information, not legal advice; that legal decisions belong to the company's legal team; and that the consolidated EUR-Lex text is a documentation tool and only the Official Journal text is legally authentic. | – | – | To do | [KAN-155](https://yarengursoy.atlassian.net/browse/KAN-155) |
-| Show the notice on every screen | The notice is visible on every screen, including while an answer is displayed, without the user opening another page. | – | – | To do | [KAN-156](https://yarengursoy.atlassian.net/browse/KAN-156) |
+| Write the notice text | The notice says that the answers are information, not legal advice; that legal decisions belong to the company's legal team; and that the consolidated EUR-Lex text is a documentation tool and only the Official Journal text is legally authentic. | – | – | Done | [KAN-155](https://yarengursoy.atlassian.net/browse/KAN-155) |
+| Show the notice on every screen | The notice is visible on every screen, including while an answer is displayed, without the user opening another page. | – | – | Done | [KAN-156](https://yarengursoy.atlassian.net/browse/KAN-156) |
 
 Sub-task owners are assigned at the sprint planning.
 
