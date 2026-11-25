@@ -78,10 +78,10 @@ Constraints: C-02 English only; C-04 Education use cases only; follow-ups within
 
 | Sub-task | Done when | Owner | Estimate | Status | Jira |
 |---|---|---|---|---|---|
-| Build the one-page interface | A single page has a question box and an answer view that shows the answer with its citations and the version date (Features 1–3), and space for the permanent not-legal-advice notice (KAN-25) and the personal-data reminder (KAN-26); the interface technology is the one recorded in the design document. | – | – | To do | [KAN-154](https://yarengursoy.atlassian.net/browse/KAN-154) |
+| Build the one-page interface | A single page has a question box and an answer view that shows the answer with its citations and the version date (Features 1–3), and space for the permanent not-legal-advice notice (KAN-25) and the personal-data reminder (KAN-26); the interface technology is the one recorded in the design document. | – | – | Done | [KAN-154](https://yarengursoy.atlassian.net/browse/KAN-154) |
 | Open the assistant without installation or an account | On the computer that runs the assistant from `README.md`, its page opens the question box in a current desktop browser without asking for an installation or an account. | – | – | To do | [KAN-160](https://yarengursoy.atlassian.net/browse/KAN-160) |
-| Show that the answer is being prepared | While an answer is being prepared, the page shows that it is being prepared. | – | – | To do | [KAN-161](https://yarengursoy.atlassian.net/browse/KAN-161) |
-| Show a plain error message on a system error | If an answer cannot be produced because of a system error, the page shows an error message without technical details and lets the user submit another question. | – | – | To do | [KAN-162](https://yarengursoy.atlassian.net/browse/KAN-162) |
+| Show that the answer is being prepared | While an answer is being prepared, the page shows that it is being prepared. | – | – | Done | [KAN-161](https://yarengursoy.atlassian.net/browse/KAN-161) |
+| Show a plain error message on a system error | If an answer cannot be produced because of a system error, the page shows an error message without technical details and lets the user submit another question. | – | – | Done | [KAN-162](https://yarengursoy.atlassian.net/browse/KAN-162) |
 | Measure the answer time on the pilot computer | On the computer that will be used for the pilot, the median answer time on the frozen D8 `val` questions is measured and recorded against the answer-time limit in the design document by 09/12/2026, so that the pilot's timed tasks are not slowed by the system. | – | – | To do | [KAN-163](https://yarengursoy.atlassian.net/browse/KAN-163) |
 
 Sub-task owners are assigned at the sprint planning.
