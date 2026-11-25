@@ -173,7 +173,7 @@ Assumption / Risk: A-09 / R-06 The model or a library becomes unavailable
 
 | Sub-task | Done when | Owner | Status | Jira |
 |---|---|---|---|---|
-| Connect the interface to the full pipeline | The interface calls retrieval, answer generation and the input and output checks as one pipeline; by 02/12/2026 it works even if some parts are still stubs (course halfway check). | – | To do | [KAN-172](https://yarengursoy.atlassian.net/browse/KAN-172) |
+| Connect the interface to the full pipeline | The interface calls retrieval, answer generation and the input and output checks as one pipeline; by 02/12/2026 it works even if some parts are still stubs (course halfway check). | – | Done | [KAN-172](https://yarengursoy.atlassian.net/browse/KAN-172) |
 | Update the README for the full pipeline | `README.md` explains how to install and run the whole pipeline with its interface, and a team member who did not build it runs it once from the README. | – | To do | [KAN-173](https://yarengursoy.atlassian.net/browse/KAN-173) |
 | Add a screenshot of the interface answering a question | A screenshot of the interface answering a question is in the Sprint 3 folder and linked from the welcome page. | – | To do | [KAN-174](https://yarengursoy.atlassian.net/browse/KAN-174) |
 | Update the design document, spike notes and SBOM for Sprint 3 | The design document has a record for every Sprint 3 decision and shows the diagram and RAG parameters as the system is at the upload; every Sprint 3 spike has its note; the SBOM lists every model tried and the tools not in `requirements.txt`. | – | To do | [KAN-175](https://yarengursoy.atlassian.net/browse/KAN-175) |
