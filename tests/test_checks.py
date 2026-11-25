@@ -51,3 +51,19 @@ def test_remove_verdicts_keeps_the_other_sentences():
     text, removed = checks.remove_verdicts(answer)
     assert removed == 1
     assert text == "Annex III, point 3(c) covers level placement."
+
+
+# ---------------------------------------------------------------- personal data (KAN-165), synthetic values only
+
+def test_phone_number_is_found():
+    assert checks.has_personal_data("You can call me on +44 20 7946 0000")
+
+
+def test_references_and_dates_are_not_personal_data():
+    assert not checks.has_personal_data("Does Article 6(3) of Regulation (EU) 2024/1689 apply from 02.08.2026?")
+
+
+def test_personal_data_question_gets_the_notice_without_the_value():
+    kind, notice, _ = checks.input_check("My e-mail is test.user@example.com. Which provisions apply to our tool?")
+    assert kind == "personal_data"
+    assert "test.user@example.com" not in notice
