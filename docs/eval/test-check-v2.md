@@ -6,7 +6,7 @@ The new `test` questions of Q&A dataset v2 (D8) were drafted with Claude Opus 5.
 
 ## Method
 
-- **Model:** <ChatGPT model name and version, e.g. GPT-5.x>, used in a new chat with no earlier messages
+- **Model:** <ChatGPT model name and version, e.g. GPT-6>, used in a new chat with no earlier messages
 - **Date:** 25/11/2026
 - **Questions checked:** the 9 new `test` questions written so far: `B-11`, `B-12`, `C-10`, `C-11`, `C-S5` ([`eval-set-v2-b.csv`](eval-set-v2-b.csv), [`eval-set-v2-c.csv`](eval-set-v2-c.csv)) and `D-15`, `D-16`, `D-S4`, `D-S5` ([`eval-set-v2-d.csv`](eval-set-v2-d.csv)). The use case (a) questions (KAN-230) are checked in a second round when they are written.
 - **Input:** one prompt with all 9 questions. For each question: the question, its expected behaviour, gold source, gold answer and the full texts of its gold provisions from `data/chunks.jsonl`. The model was told to use only these texts, not its own knowledge.
