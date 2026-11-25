@@ -21,5 +21,8 @@ matplotlib==3.11.2
 # Logging the results
 wandb==0.31.0
 
+# Unit tests (tests/, KAN-234)
+pytest==9.2.0
+
 # Running the notebooks
 jupyter==1.1.1

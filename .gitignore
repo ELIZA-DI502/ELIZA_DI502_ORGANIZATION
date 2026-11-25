@@ -11,6 +11,7 @@ data/vector-store/
 .venv/
 venv/
 __pycache__/
+.pytest_cache/
 .ipynb_checkpoints/
 
 # Local files of Weights & Biases runs (the results are on wandb.ai)
