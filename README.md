@@ -2,7 +2,7 @@
 
 ELIZA helps technical teams that build AI systems for education find the provisions of the EU AI Act (Regulation (EU) 2024/1689, consolidated text of 27/07/2026) that relate to their system. It answers only from the official text, cites the Article or Annex for every statement, and never gives a legal decision. DI 502, METU, Fall 2026.
 
-**Status (Sprint 2, baseline):** the law is split into chunks, the evaluation questions are split into `val` and `test`, and the retrieval is built and measured on `val`, and the answers of the baseline (Llama-3.1-8B with 8 retrieved chunks) are compared with a baseline without retrieval on `val` (KAN-99).
+**Status (Sprint 3, beta):** the whole pipeline runs with its interface in three containers (*Run the assistant*): a question typed in the browser goes through the input check, the retrieval, the answer model and the output check, and the answer is shown with its citations and the version date. The input and output checks are rule-based; their unit tests are in `tests/`. The Sprint 2 baseline (retrieval measured on `val`, answers compared with a baseline without retrieval, KAN-99) is kept in the notebooks below.
 
 ## What is where
 
@@ -23,12 +23,14 @@ ELIZA helps technical teams that build AI systems for education find the provisi
 | `requirements.txt` | The Python packages, with exact versions |
 | `rag/` | The RAG service (FastAPI, `POST /answer`) with the search and prompt of `src/rag_vs_no_rag.ipynb`; `rag/ingest.py`, which builds the vector store once; and `rag/verify_val.py`, which checks that the service gives the notebook's results |
 | `web/` | The user interface (React + Vite, `web/client`) and the web backend (Node.js + Express, `web/server`) |
-| `docker-compose.yml` | The three containers: web, rag, ollama |
+| `docker-compose.yml`, `.env.example` | The three containers (web, rag, ollama) and their settings |
+| `tests/`, `pytest.ini` | Unit tests of the rule-based checks of the RAG service (`rag/app/checks.py`); run with `pytest` (KAN-234) |
 
 ## What you need
 
 - **Python 3.12 or 3.13** and **Git**
-- **Ollama 0.40.15** ([ollama.com](https://ollama.com), [releases](https://github.com/ollama/ollama/releases/tag/v0.40.15)), only for the LLM jury in step 4 of `src/embedding.ipynb` and, later, for the answers. The three jury models need about 27 GB of disk and a computer with at least 16 GB of RAM; a GPU makes them much faster.
+- **Docker Desktop** (or Docker Engine with Compose), to run the assistant (*Run the assistant*); its answer model runs in the `ollama` container.
+- **Ollama 0.40.15** ([ollama.com](https://ollama.com), [releases](https://github.com/ollama/ollama/releases/tag/v0.40.15)) on the computer, only for the notebooks: the LLM jury in step 4 of `src/embedding.ipynb` and the answers of `src/rag_vs_no_rag.ipynb`. The three jury models need about 27 GB of disk and a computer with at least 16 GB of RAM; a GPU makes them much faster.
 - About 5 GB of disk for the Python packages and the embedding models.
 - A **Weights & Biases** account, only to log results (step 12 of `src/embedding.ipynb`).
 
@@ -94,7 +96,7 @@ The system runs in three containers (design document, section 5, Deployment): `w
    docker compose up -d --build
    docker compose exec ollama ollama pull hf.co/bartowski/Meta-Llama-3.1-8B-Instruct-GGUF:Q4_K_M
    ```
-4. Open http://localhost:3000. The first start of `rag` downloads bge-m3 (about 2.3 GB); until it is loaded, the `rag` mode answers "Eliza is still starting". Check with `docker compose logs -f rag`.
+4. Open http://localhost:3000 (or the port set as `WEB_PORT` in `.env`, if 3000 is already in use). The first start of `rag` downloads bge-m3 (about 2.3 GB); until it is loaded, the `rag` mode answers "Eliza is still starting". Check with `docker compose logs -f rag`.
 
 **Same results as the notebook.** `rag/app/retrieval.py` and `rag/app/prompt.py` are the `search` and `ask` cells of `src/rag_vs_no_rag.ipynb`, with the settings of `config/rag.yaml`. To check it, run from the repository root (in the environment of *Install*):
 
