@@ -126,7 +126,10 @@ The `ollama` container uses only the CPU, also on a Mac. While developing on a M
 - The retrieval scores on `val` are in `src/embedding.ipynb`, in [Weights & Biases](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/v7g5hhxh) and, as charts, in `docs/eval/embedding-results.pdf` (written by step 12 of the notebook).
 - The answers without and with retrieval on `val` are in `src/rag_vs_no_rag.ipynb`, in [Weights & Biases](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/lgogwegq) and, as charts with Recall@8 and Recall@5, in `docs/eval/answers-results.pdf` (made by `src/rag_vs_no_rag_charts.ipynb`). The answers themselves are in `docs/eval/answers/`.
 - The RAG service retrieves the same chunks as `src/rag_vs_no_rag.ipynb` on 28 of 30 `val` questions; the other two differ only because the service breaks ties in the BM25 ranking the same way on every computer (Recall@8 0.59 in both): [`docs/eval/service-vs-notebook.md`](docs/eval/service-vs-notebook.md), checked with `rag/verify_val.py`.
-- Automated tests and the user story tests will be in `tests/` (Sprint 3).
+- Unit tests of the rule-based checks of the RAG service (`rag/app/checks.py`) are in `tests/`. They need no Ollama and no vector store. Run them from the repository root:
+  ```bash
+  pytest
+  ```
 
 ## Source and licence
 
