@@ -87,7 +87,7 @@ One row each for:
 
 ## Resources
 
-Categories: **Compute & hosting** rows 1–3 and 13; **APIs & third-party services** rows 4–5 (no hosted LLM or embedding API is used, so no rate limits apply; the EUR-Lex text is downloaded once, not queried through an API); **Software & licenses** rows 4–6 and 9–12; **Data access** rows 7–8; **Physical/logistical needs**: not needed (row 14).
+Categories: **Compute & hosting** rows 1–3 and 13; **APIs & third-party services** rows 4–5 and 15 (the system uses no hosted LLM or embedding API, so no rate limits apply to it; claude.ai is used only outside the system, row 15; the EUR-Lex text is downloaded once, not queried through an API); **Software & licenses** rows 4–6 and 9–12; **Data access** rows 7–8; **Physical/logistical needs**: not needed (row 14).
 
 | # | Resource | Description | Responsible Person/Team | Status |
 |---|---|---|---|---|
@@ -105,6 +105,7 @@ Categories: **Compute & hosting** rows 1–3 and 13; **APIs & third-party servic
 | 12 | Experiment tracker (Weights & Biases, free tier, as required by the course) | Cloud-based experiment tracking for the Sprint 2–4 evaluation runs (D6 criterion 5, D9, D11). The free tier is planned; account access, the applicable usage limits and the project visibility settings are checked before the first experiment. No user questions or conversation content are logged (C-10). | Yaren | Planned as of 20/10/2026; account access and free-tier limits to be verified before the first D6 experiment (by 11/11/2026) |
 | 13 | Deployment environment: the web application run locally from `README.md` on a team computer; interface technology chosen in D4 | Runs the baseline (D6), the beta (D9) and the release candidate (D11). The pilot (16/12–23/12/2026) and the final demo (30/12/2026) are held in person on this computer, so no shared link or hosted server is needed. Before the pilot, the system is installed on it from the README and its answer time is measured ([Major Activities](04-major-activities.md) row 29; R-09, R-12). No user accounts; no personal data is requested; question content is not logged; the conversation of a session is kept only in the memory of the web backend until the session ends and is not written to disk (design decision D15, C-10). On-premise, member-owned. | Gözde Nur (application); Kaan (pilot computer set-up and answer time) | Planned: baseline by 14/11/2026, whole pipeline by 05/12/2026, pilot computer set up and measured by 09/12/2026 |
 | 14 | Physical or logistical resources | Not needed: the team works on its own computers and meets online. | Yaren (Scrum Master) | Not needed, confirmed on 20/10/2026 |
+| 15 | claude.ai (Anthropic), interactive chat: Claude Haiku 5.5 | Used only outside the system: the answers without retrieval of the E1 comparison, the 30 `val` questions answered with the whole consolidated text attached (D6 criterion 5, instructor's suggestion). Cloud service (third party); the message limits of the member's claude.ai plan apply, and the 30 questions fit within them. No user questions are sent to it (C-10). Listed in the AI SBOM with the Claude models used for drafting evaluation questions. | Gözde Nur | Used on 12/11/2026 (E1 baseline) |
 
 ## Example (illustrative only)
 
