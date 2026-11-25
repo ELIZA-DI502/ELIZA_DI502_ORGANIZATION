@@ -52,5 +52,5 @@ previous_question: "Earlier in this conversation the user asked: \"{previous_que
 
 # Fixed texts of the rule-based checks (the model is not called, or a sentence is replaced).
 refusal: I can't help with avoiding or hiding from the AI Act's rules. I can explain what the relevant provisions require.
-out_of_scope: "This question is outside my scope: I cover the EU AI Act provisions on AI systems in education, not penalties, enforcement or data-protection law."
+out_of_scope: "This question is outside my scope: I cover the education use cases in Annex III, point 3, of the EU AI Act, not penalties, enforcement or data-protection law."
 notice: "Note: this is not a legal decision. Assess your system against the cited provisions."
