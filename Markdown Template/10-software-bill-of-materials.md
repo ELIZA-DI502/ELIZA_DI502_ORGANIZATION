@@ -12,13 +12,13 @@ Course template instructions:
 
 | Team  | Sprint | Last updated | Updated by | Jira |
 | ----- | ------ | ------------ | ---------- | ---- |
-| ELIZA | 2      | 2026-11-14   | Kaan       | [KAN-105](https://yarengursoy.atlassian.net/browse/KAN-105) |
+| ELIZA | 3      | 2026-11-25   | Kaan       | [KAN-175](https://yarengursoy.atlassian.net/browse/KAN-175) |
 
 Sources: the [model selection spike](../docs/spikes/model-selection-spike.md) (Sprint 1, KAN-57), [`src/embedding.ipynb`](../src/embedding.ipynb) (Sprint 2, KAN-97, KAN-221, KAN-99), [`config/rag.yaml`](../config/rag.yaml), and the `model` column of [`eval-set-v1.csv`](../docs/eval/eval-set-v1.csv). The computers are described in [Facilities and Resources](03-project-canvas/09-facilities-and-resources.md), row 1.
 
 ## Software Bill of Materials
 
-The versions are those pinned in [`requirements.txt`](../requirements.txt) (D6 criterion 9), installed with Python 3.12 or 3.13. The checksums are not recorded yet; they are filled with syft from `requirements.txt`.
+The versions are those pinned in [`requirements.txt`](../requirements.txt) (D6 criterion 9), installed with Python 3.12 or 3.13. The two web servers of the system are pinned in [`rag/requirements.txt`](../rag/requirements.txt) (RAG service), and the web interface and web backend in [`web/client/package.json`](../web/client/package.json) and [`web/server/package.json`](../web/server/package.json). The checksums are not recorded yet; they are filled with syft from `requirements.txt`.
 
 | Package Name | Version | Description | License | Supplier | Package Checksum |
 |---|---|---|---|---|---|
@@ -30,14 +30,24 @@ The versions are those pinned in [`requirements.txt`](../requirements.txt) (D6 c
 | scikit-learn | 1.9.1 | Stopword list for BM25 and scores | BSD-3-Clause | scikit-learn developers | – |
 | wandb | 0.31.0 | Logs the experiment results to Weights & Biases | MIT | Weights & Biases | – |
 | pandas 3.1.1, numpy 2.5.4, pyyaml 6.0.3, requests 2.34.2, beautifulsoup4 4.15.0, umap-learn 0.5.12, matplotlib 3.11.2, jupyter 1.1.1 | see column 1 | Data handling, configuration, parsing the EUR-Lex HTML, plots and running the notebooks | BSD-3-Clause (pandas, numpy, umap-learn, jupyter); MIT (pyyaml, beautifulsoup4); Apache-2.0 (requests); Matplotlib License (matplotlib) | Their open-source projects | – |
+| pytest | 9.2.0 | Runs the unit tests of the rule-based checks in `tests/` (KAN-234) | MIT | pytest-dev | – |
+| fastapi | 0.162.2 | Web framework of the RAG service, `POST /answer` (D2); in `rag/requirements.txt` | MIT | Sebastián Ramírez (FastAPI) | – |
+| uvicorn | 0.54.0 | Runs the RAG service; in `rag/requirements.txt` | BSD-3-Clause | Encode | – |
+| react, react-dom | 19.3.1 | The one-page user interface (D1); in `web/client/package.json` | MIT | Meta | – |
+| vite, @vitejs/plugin-react | 8.3.7, 6.3.0 | Build the React page (D1); development dependencies in `web/client/package.json` | MIT | Vite team | – |
+| express | 5.3.0 | Web backend: session, rate limiting and forwarding questions to the RAG service (D1, D15); in `web/server/package.json` | MIT | OpenJS Foundation | – |
+| express-rate-limit | 8.7.4 | Limits how many questions a session can send in a short time; in `web/server/package.json` | MIT | Nathan Friedly | – |
+| cookie-parser | 1.4.7 | Reads the session cookie in the web backend (D15); in `web/server/package.json` | MIT | Express (OpenJS Foundation) | – |
 | llama-cpp-python | not in `requirements.txt` | Ran the quantized answer models in the model selection spike (Google Colab, Sprint 1); not used by the system | MIT | Andrei Betlen | – |
 
 **Tools and services that are not in `requirements.txt`**
 
 | Tool or service | Version | Used for | License or terms | Who, where |
 |---|---|---|---|---|
-| Ollama | 0.40.11 (Kaan's computer); 0.40.13 (Gözde Nur's computer, first jury); 0.40.15 (Google Colab, last jury, 10/11/2026) | Runs the LLMs locally: the answer-time measurement of the spike (CPU only), the first LLM jury (4B models, Gözde Nur's computer) and the second jury (12–14B models, Colab T4 GPU); the system serves the answer model with it (D9) | MIT | Kaan (MacBook Pro M3 Pro, 25/10/2026); Gözde Nur (MacBook Pro M4, from 06/11/2026) |
+| Ollama | 0.40.15 (Docker image `ollama/ollama:0.40.15` in `docker-compose.yml`, used by the system); 0.40.11 (Kaan's computer); 0.40.13 (Gözde Nur's computer, first jury); 0.40.15 (Google Colab, last jury, 10/11/2026) | Runs the LLMs locally: the answer-time measurement of the spike (CPU only), the first LLM jury (4B models, Gözde Nur's computer) and the second jury (12–14B models, Colab T4 GPU); the system serves the answer model with it (D9) | MIT | Kaan (MacBook Pro M3 Pro, 25/10/2026); Gözde Nur (MacBook Pro M4, from 06/11/2026) |
 | Google Colab (free tier) | – | Ran the five answer models of the model selection spike (CPU and T4 GPU runtimes) and the 12–14B LLM jury (T4 GPU) | Google terms of service | Gözde Nur, 25/10/2026 and 08/11–10/11/2026 |
+| Node.js | 24.22.2 (Docker image `node:24.22.2-alpine`) | Builds the React page and runs the web backend in the web container (`web/Dockerfile`) | MIT | Kaan (web container) |
+| Python Docker image | `python:3.12.16-slim` | Base image of the RAG container (`rag/Dockerfile`) | Python Software Foundation License | rag container |
 | Hugging Face Hub | – | Download of the embedding models and the GGUF files | Each model's own licence (below) | Gözde Nur |
 | claude.ai | – | Drafting the D2 questions, and the answers without retrieval of the E1 comparison (see the Claude rows of the AI SBOM) | Anthropic terms of service | Gözde Nur, Yeşim, Kaan, Yaren |
 
@@ -61,6 +71,6 @@ Accesser and computer: Gözde Nur's MacBook Pro 14-inch (2024), Apple M4 (10-cor
 | [BAAI/bge-small-en-v1.5](https://huggingface.co/BAAI/bge-small-en-v1.5), 384 dimensions | BAAI | MIT | Embedding (candidate in D10) | Gözde Nur | 06/11/2026 | Local: `sentence-transformers`, `chromadb` | First check on B-01–B-06 (06–07/11/2026): the best Recall@5, so it was used from 07/11. Step 6 on `val`: Recall@8 0.51 | **Not used** since 09/11/2026: lower Recall@8 than bge-m3 (D13) |
 | [BAAI/bge-base-en-v1.5](https://huggingface.co/BAAI/bge-base-en-v1.5), 768 dimensions | BAAI | MIT | Embedding (Sprint 1 choice, D10) | Gözde Nur | 06/11/2026 | Local: `sentence-transformers`, `chromadb` | Step 6 on `val`: Recall@8 0.55 | **Not used**: lower Recall@8 than bge-m3 (D13) |
 | [sentence-transformers/all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2), 384 dimensions | sentence-transformers | Apache-2.0 | Embedding (candidate in D10) | Gözde Nur | 06/11/2026 | Local: `sentence-transformers`, `chromadb` | Step 6 on `val`: Recall@8 0.45, the lowest of five models | **Not used**: the weakest on retrieval |
-| Claude Opus 5.5 (`claude-opus-5-5`) | Anthropic | Proprietary (Anthropic terms of service) | Drafting D2 questions and gold answers, checked by their authors against the consolidated text | Gözde Nur; Yeşim; Kaan | Gözde Nur: 24/10, 05/11 and 07/11/2026 (B); Yeşim: 04/11/2026 (benchmark questions) and 08/11/2026 (A); Kaan: 08/11/2026 (C) | API-hosted, interactive chat on claude.ai | [`prompts-3b.md`](../docs/eval/prompts-3b.md), [`benchmark-selection.md`](../docs/eval/benchmark-selection.md), [`question-writing-method.md`](../docs/eval/question-writing-method.md) | **Used** for the evaluation set only; not part of the system |
+| Claude Opus 5.5 (`claude-opus-5-5`) | Anthropic | Proprietary (Anthropic terms of service) | Drafting D2 questions and gold answers, and the D8 (v2) questions of use case (c), checked by their authors against the consolidated text | Gözde Nur; Yeşim; Kaan | Gözde Nur: 24/10, 05/11 and 07/11/2026 (B); Yeşim: 04/11/2026 (benchmark questions) and 08/11/2026 (A); Kaan: 08/11/2026 (C) and 23/11/2026 (C, v2) | API-hosted, interactive chat on claude.ai | [`prompts-3b.md`](../docs/eval/prompts-3b.md), [`benchmark-selection.md`](../docs/eval/benchmark-selection.md), [`question-writing-method.md`](../docs/eval/question-writing-method.md), [`prompts-3c-v2.md`](../docs/eval/prompts-3c-v2.md) | **Used** for the evaluation set only; not part of the system |
 | Claude Sonnet 5.5 (`claude-sonnet-5-5`) | Anthropic | Proprietary (Anthropic terms of service) | Drafting D2 questions (D) | Yaren | 04/11/2026 to 08/11/2026 | API-hosted, interactive chat on claude.ai | `model` column of [`eval-set-v1.csv`](../docs/eval/eval-set-v1.csv) (D questions) | **Used** for the evaluation set only; not part of the system |
 | Claude Haiku 5.5 (`claude-haiku-5-5`) | Anthropic | Proprietary (Anthropic terms of service) | Answers without retrieval for the E1 comparison (D6 criterion 5): the 30 `val` questions answered with the whole consolidated text of 27/07/2026 attached to the chat (instructor's suggestion) | Gözde Nur | 12/11/2026 | API-hosted, interactive chat on claude.ai; prompt [`prompts/answer_full_text.yaml`](../prompts/answer_full_text.yaml); answers in [`val-full-text-claude-haiku-5-5.csv`](../docs/eval/answers/val-full-text-claude-haiku-5-5.csv) | [E1 baseline](12-experiment-cards/E1-baseline.md), [`src/rag_vs_no_rag.ipynb`](../src/rag_vs_no_rag.ipynb), [W&B run](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/lgogwegq): expected provision cited for 22 of 27 questions (81%), against 70% with retrieval | **Used** only as the comparison side of E1, without retrieval; not part of the system |
