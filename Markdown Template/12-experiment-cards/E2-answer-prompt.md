@@ -12,7 +12,7 @@
 |---|---|---|
 | 2026-11-26 | Gözde Nur Özdemir (runs, rules of PR #110: KAN-146, KAN-147, KAN-151, KAN-152); Aliye Yeşim Yaman (rules of PR #108: KAN-133, KAN-134, KAN-143, KAN-144) | completed |
 
-**Aim:** Does the Sprint 3 answer prompt improve the answers of E1 on the same `val` questions, with the search unchanged? The prompt adds the answer template and the rules for insufficient evidence (PR #108) and the rules for legal decisions, requests to evade the rules, instructions inside the question and condition questions (PR #110). Compared with E1, counted with the rule of KAN-236: O2 (a) on the 21 in-scope `val` questions without the follow-ups (E1: 16/21 = 76%).
+**Aim:** Does the Sprint 3 answer prompt improve the answers of E1 on the same `val` questions, with the search unchanged? The prompt adds the answer template and the rules for insufficient evidence (PR #108) and the rules for legal decisions, requests to evade the rules, instructions inside the question and condition questions (PR #110). Compared with E1, counted with the rule of KAN-236: O2 (a) on the 21 in-scope `val` questions without the follow-ups (E1: 17/21 = 81%). A citation counts if it is the gold provision, a broader one or a more detailed one (Article 2(1)(c) for Article 2(1)), as in `src/evaluation.ipynb`.
 <!-- The question you want to answer, and what you compare against: the baseline or another configuration. -->
 
 **Setup:**
@@ -48,32 +48,32 @@ All other settings are those of E1.
 
 | Run | O2 (a), 21 in-scope without follow-ups (target ≥ 80%) | Only the fixed sentence "The provided text does not answer this question." | Verdict found by the verdict check | Hedged verdict ("might", "likely") |
 |---|---|---|---|---|
-| E1 | 16/21 = 76% | 10/30 | 2 | 3 |
+| E1 | 17/21 = 81% | 10/30 | 2 | 3 |
 | v1 | 18/21 = 86% | 2/30 | 4 | 0 |
-| v2 | 19/21 = 90% | 3/30 | 3 | 1 |
-| v3 | 17/21 = 81% | 3/30 | 0 | 2 |
-| **v4** | **18/21 = 86%** | **3/30** | **1** | **1** |
+| v2 | 20/21 = 95% | 3/30 | 3 | 1 |
+| v3 | 18/21 = 86% | 3/30 | 0 | 2 |
+| **v4** | **19/21 = 90%** | **3/30** | **1** | **1** |
 
-Counted without separating the questions (every `val` question with `gold_ids`, 29 questions), O2 (a) goes from 19/29 = 66% (E1) to 23/29 = 79% (v4), so the improvement does not come from the counting rule (KAN-236).
+Counted without separating the questions (every `val` question with `gold_ids`, 29 questions), O2 (a) goes from 20/29 = 69% (E1) to 25/29 = 86% (v4), so the improvement does not come from the counting rule (KAN-236).
 
 With v4, 8 of the 42 answers reach the limit of 300 answer tokens (none in E1), and the median answer has 115 words (85 in E1). The times were measured on the GPU and are not compared with E1, whose time was measured on a CPU with `src/answer_time.py` ([`docs/eval/answer-time.md`](../../docs/eval/answer-time.md)).
 
 Rules of PR #110 after reading (v4, 12 questions, section 5 of the notebook): 8 pass. Legal decision 3/4 (B-S4 names no provision), request to evade the rules 2/3 (TC-2.4 names a provision that does not fit), instruction inside the question 0/1 (TC-2.5 refuses instead of answering as a legal decision), condition question 3/4 (B-01 hedged verdict). The story tests of PR #108 are read in section 5b by their author.
 
-Failure causes of the 3 O2 (a) misses of v4 (E1 had 5):
+Failure causes of the 2 O2 (a) misses of v4 (E1 had 4):
 
 | Failure cause | Count | % of failures |
 |---|---|---|
-| Retrieval: no gold provision among the 8 chunks (C-05) | 1 | 33% |
-| Answer model: a gold provision was retrieved, but the answer cites another provision or point (C-06 cites Article 2(1)(c) instead of Article 2(1); D-03 cites Article 2(3) and 2(12) instead of Article 2(1) and Article 3, point (3)) | 2 | 67% |
-| **Total** | **3** | **100%** |
+| Retrieval: no gold provision among the 8 chunks (C-05) | 1 | 50% |
+| Answer model: a gold provision was retrieved, but the answer cites another provision (D-03 cites Article 2(3) and 2(12) instead of Article 2(1) and Article 3, point (3)) | 1 | 50% |
+| **Total** | **2** | **100%** |
 
-The 3 answers with only the fixed sentence are B-S2 (out of scope), B-S3 (insufficient evidence, where it is expected) and B-S4 (legal decision, where the provisions should be explained); D-02, D-03 and D-07, refused in E1 with a gold provision among their chunks, are now answered. Follow-ups (reported apart, KAN-228): 2 of 4 (A-02 cites the points of Article 14(4) instead of the paragraph, D-10 has no gold provision among the chunks).
+The 3 answers with only the fixed sentence are B-S2 (out of scope), B-S3 (insufficient evidence, where it is expected) and B-S4 (legal decision, where the provisions should be explained); D-02, D-03 and D-07, refused in E1 with a gold provision among their chunks, are now answered. Follow-ups (reported apart, KAN-228): 3 of 4 (E1: 2 of 4); D-10 has no gold provision among the chunks.
 
 **Discussion and Conclusion:**
 <!-- What the numbers mean and what you will do next. Link the decision they led to (D?), if any. -->
 
-The prompt is the first measured improvement over the baseline: O2 (a) goes from 16/21 to 18/21 and reaches the target of 80%, and the fixed sentence falls from 10 to 3 answers. With 21 questions, one question changes O2 (a) by about 5 percentage points, so the differences between v1, v2 and v4 are within one or two questions. v4 was chosen over v2, which had the highest O2 (a), because it gives fewer verdicts and fewer legal-team sentences before ordinary answers (5 against 10 of the 30 `val` answers).
+The prompt is the first measured improvement over the baseline: O2 (a) goes from 17/21 to 19/21 (81% to 90%; E1 already met the target of 80%), and the fixed sentence falls from 10 to 3 answers. With 21 questions, one question changes O2 (a) by about 5 percentage points, so the differences between v1, v2 and v4 are within one or two questions. v4 was chosen over v2, which had the highest O2 (a), because it gives fewer verdicts and fewer legal-team sentences before ordinary answers (5 against 10 of the 30 `val` answers).
 
 Each version that fixed one rule moved another: the 8B answer model does not follow every rule at the same time. Known failures that are not fixed by the prompt: B-S4 explains no provision (KAN-147); TC-2.5 refuses instead of answering as a legal decision (KAN-151; the input check of KAN-150 stops such instructions before the model); B-01 gives a hedged verdict that the verdict check of the service does not find; A-05 has a verdict sentence that the output check removes. O4 (a) is therefore not yet 0.
 
