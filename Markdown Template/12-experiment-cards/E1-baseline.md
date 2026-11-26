@@ -132,6 +132,6 @@ The settings of this card were chosen in three Sprint 2 experiments. They were r
 
 **Search method and runs:** one run of each on the 30 `val` questions, 12/11/2026.
 
-**Results:** expected provision cited (O2 (a)): Claude Haiku 5.5 22 of 27 (81%), Llama-3.1-8B with retrieval 19 of 27 (70%). With the counting rule of Sprint 3 (21 in-scope questions without follow-ups, KAN-236): Claude Haiku 5.5 18 of 21 (86%), Llama-3.1-8B 16 of 21 (76%).
+**Results:** expected provision cited (O2 (a)): Claude Haiku 5.5 22 of 27 (81%), Llama-3.1-8B with retrieval 19 of 27 (70%). With the counting rule of Sprint 3 (21 in-scope questions without follow-ups, KAN-236): Claude Haiku 5.5 20 of 21 (95%), Llama-3.1-8B 17 of 21 (81%).
 
 **Conclusion:** the two sides use different models, so the difference shows the model and the retrieval together, not the retrieval alone. It is the reference for what a stronger answer model can reach; the answer model is compared again in Sprint 4.

@@ -41,10 +41,10 @@
 | Experiment | Best run (W&B) | Recall@8 | O2 (a) | Repeats (n) |
 |---|---|---|---|---|
 | Target (charter) | — | no pass level | ≥ 80% | — |
-| [E1 Baseline](../12-experiment-cards/E1-baseline.md) | [v7g5hhxh](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/v7g5hhxh), [lgogwegq](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/lgogwegq) | 0.59 | 16/21 = 76% | 1 |
+| [E1 Baseline](../12-experiment-cards/E1-baseline.md) | [v7g5hhxh](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/v7g5hhxh), [lgogwegq](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/lgogwegq) | 0.59 | 17/21 = 81% | 1 |
 | [E1a Embedding model and hybrid search](../12-experiment-cards/E1-baseline.md#e1a-embedding-model-and-hybrid-search-kan-97-kan-99) (Sprint 2) | [v7g5hhxh](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/v7g5hhxh) | 0.59 (bge-m3, dense weight 0.8) | null | 1 |
 | [E1b Word removal for BM25](../12-experiment-cards/E1-baseline.md#e1b-word-removal-for-bm25-with-an-llm-jury-kan-221) (Sprint 2) | [v7g5hhxh](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/v7g5hhxh) | 0.44 (BM25 alone) | null | 1 |
-| [E1c Long context without retrieval](../12-experiment-cards/E1-baseline.md#e1c-long-context-without-retrieval-kan-99) (Sprint 2) | [lgogwegq](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/lgogwegq) | null | 18/21 = 86% (Claude Haiku 5.5, whole text) | 1 |
+| [E1c Long context without retrieval](../12-experiment-cards/E1-baseline.md#e1c-long-context-without-retrieval-kan-99) (Sprint 2) | [lgogwegq](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/lgogwegq) | null | 20/21 = 95% (Claude Haiku 5.5, whole text) | 1 |
 | [E2 Experiment](E2-experiment-name.md) | link |  |  |  |
 |  |  |  |  |  |
 
