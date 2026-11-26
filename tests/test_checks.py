@@ -46,6 +46,17 @@ def test_provision_explanation_passes():
         "Annex III, point 3(b) lists AI systems intended to be used to evaluate learning outcomes.")
 
 
+def test_instruction_to_ensure_compliance_is_not_a_verdict():
+    # B-05 of the Sprint 2 answers: an instruction to the provider, not a verdict on the user's system
+    assert not checks.is_verdict("* Ensure that the system is compliant with the requirements set out in Section 2.")
+    assert not checks.is_verdict("You should make sure the system is compliant with Article 15.")
+
+
+def test_verdict_after_an_instruction_is_still_caught():
+    # D-09 of the Sprint 2 answers
+    assert checks.is_verdict("* Document your assessment that the system is not high-risk (Article 6(4)), "
+                             "but since your system is high-risk, you don't need to do this.")
+
 def test_remove_verdicts_keeps_the_other_sentences():
     answer = "Annex III, point 3(c) covers level placement. Your placement test is high-risk."
     text, removed = checks.remove_verdicts(answer)
