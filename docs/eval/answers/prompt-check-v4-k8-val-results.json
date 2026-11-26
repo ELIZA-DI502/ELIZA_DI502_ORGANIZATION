@@ -1,13 +1,13 @@
 {
-  "version": "E1 baseline (Llama-3.1-8B, 8 chunks)",
+  "version": "prompt v4 (PR #108 + PR #110), k = 8",
   "split": "val",
   "answers": "../docs/eval/answers/prompt-check-v4-k8-val.jsonl",
-  "wandb": "https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/lgogwegq",
+  "wandb": "https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/31yapteu",
   "per story test": [
     {
       "story test": "KAN-8 criterion 4 / KAN-169",
       "result": "O2 (a) expected provision cited",
-      "value": "18/21 = 86%",
+      "value": "19/21 = 90%",
       "target": "≥ 80%"
     },
     {
@@ -25,7 +25,7 @@
     {
       "story test": "TC-19.4",
       "result": "O2 (a) for questions that name no article",
-      "value": "18/21 = 86%",
+      "value": "19/21 = 90%",
       "target": "reported"
     },
     {
@@ -68,14 +68,14 @@
   "O2": {
     "without follow-ups": {
       "questions": 26,
-      "O2 (a) lenient (target ≥ 80%)": "18/21 = 86%",
+      "O2 (a) lenient (target ≥ 80%)": "19/21 = 90%",
       "O2 (a) strict": "17/21 = 81%",
       "O2 (c) reference + version date (target 100%)": "23/23 = 100%",
       "fixed sentence \"does not answer\"": "3/26 = 12%"
     },
     "all (as E1 counted)": {
       "questions": 30,
-      "O2 (a) lenient (target ≥ 80%)": "20/25 = 80%",
+      "O2 (a) lenient (target ≥ 80%)": "22/25 = 88%",
       "O2 (a) strict": "19/25 = 76%",
       "O2 (c) reference + version date (target 100%)": "27/27 = 100%",
       "fixed sentence \"does not answer\"": "3/30 = 10%"
