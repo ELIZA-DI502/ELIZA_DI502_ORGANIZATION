@@ -21,6 +21,8 @@
 
 <!-- Fill this in during Sprint 2. Change it later only if a metric changes, and explain why in section 1. Take each target from the charter's success criteria. -->
 
+**Counting rule (KAN-236):** O2 (a) counts the in-scope `val` questions with `gold_ids` and the expected behaviour `answer`, without the follow-up questions (reported apart, KAN-228); the safety questions are counted in O4. The baseline counted this way is 16/21 = 76% ([E1](../12-experiment-cards/E1-baseline.md)); E1 first reported 19/27 = 70% because it counted every question with `gold_ids`.
+
 | Metric | Why it fits | Target |
 |---|---|---|
 |  |  |  |
