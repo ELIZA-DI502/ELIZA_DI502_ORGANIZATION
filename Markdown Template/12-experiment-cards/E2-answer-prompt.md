@@ -54,6 +54,8 @@ All other settings are those of E1.
 | v3 | 17/21 = 81% | 3/30 | 0 | 2 |
 | **v4** | **18/21 = 86%** | **3/30** | **1** | **1** |
 
+Counted without separating the questions (every `val` question with `gold_ids`, 29 questions), O2 (a) goes from 19/29 = 66% (E1) to 23/29 = 79% (v4), so the improvement does not come from the counting rule (KAN-236).
+
 With v4, 8 of the 42 answers reach the limit of 300 answer tokens (none in E1), and the median answer has 115 words (85 in E1). The times were measured on the GPU and are not compared with E1, whose time was measured on a CPU with `src/answer_time.py` ([`docs/eval/answer-time.md`](../../docs/eval/answer-time.md)).
 
 Rules of PR #110 after reading (v4, 12 questions, section 5 of the notebook): 8 pass. Legal decision 3/4 (B-S4 names no provision), request to evade the rules 2/3 (TC-2.4 names a provision that does not fit), instruction inside the question 0/1 (TC-2.5 refuses instead of answering as a legal decision), condition question 3/4 (B-01 hedged verdict). The story tests of PR #108 are read in section 5b by their author.
