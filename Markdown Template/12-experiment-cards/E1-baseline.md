@@ -41,6 +41,8 @@ Links only:
 | Retrieval | dense search with BM25 (weighted RRF, dense weight 0.8; stopwords and the LLM jury's words removed for BM25), top-k 8 (D14) | – |
 | LLM for the answers | Llama-3.1-8B-Instruct `Q4_K_M` via Ollama, temperature 0, at most 300 answer tokens (D9) | – |
 
+The parameters considered in Sprint 2 to choose these values, with their results, are in [Sprint 2 experiments behind this baseline](#sprint-2-experiments-behind-this-baseline) (KAN-235).
+
 **Search method and runs:** none; one configuration, the baseline. Its settings were chosen on the `val` questions in [`src/embedding.ipynb`](../../src/embedding.ipynb), Part 1 (KAN-99).
 
 **Summary of Results:**
@@ -79,3 +81,59 @@ Other known failures on `val`, not counted above: the version date is missing in
 Retrieval is not the weak part: a gold provision is among the 8 chunks for 24 of the 27 questions, which supports keeping 8 chunks ([D14](../11-system-architecture-design-document.md#d14-retrieval-dense-search-with-some-bm25-top-8-chunks-revises-d12)) and bge-m3 ([D13](../11-system-architecture-design-document.md#d13-embedding-model-bge-m3-supersedes-d10)). Recall@8 is 0.59 because many questions have several gold provisions and the chunks often hold only some of them. The answer model is the weak part: 5 of the 8 misses had a gold provision in its chunks, and it gives the fixed "does not answer" sentence for 10 of the 30 questions (33%). With 70%, the baseline is below the O2 (a) target of 80%; the alpha has no pass level, so this is an analysis result.
 
 Next (Sprint 3), each change measured against this card on the same `val` questions: the answer step first (prompt and the fixed-sentence rule, more answer tokens, input and output checks for the safety questions, KAN-2), then the three retrieval misses. The answer model ([D9](../11-system-architecture-design-document.md#d9-llm-llama-31-8b-instruct-with-phi-4-mini-instruct-as-fallback)) is compared again only if these changes do not close the gap.
+
+## Sprint 2 experiments behind this baseline
+
+The settings of this card were chosen in three Sprint 2 experiments. They were run before the experiment cards were numbered, so they are recorded here as sections of E1 (KAN-235). Data: the `val` questions with `gold_ids` (27 at the time); `test` was never used. The rule of each experiment was written before its run.
+
+### E1a: Embedding model and hybrid search (KAN-97, KAN-99)
+
+**Question:** Which embedding model, and how much keyword search (BM25), finds the most gold provisions in the 8 chunks the answer model gets?
+
+**Setup:** [`src/embedding.ipynb`](../../src/embedding.ipynb) steps 6, 6b, 7; [`docs/eval/embedding-results.pdf`](../../docs/eval/embedding-results.pdf); W&B [run `v7g5hhxh`](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/v7g5hhxh); decisions [D13](../11-system-architecture-design-document.md#d13-embedding-model-bge-m3-supersedes-d10) and [D14](../11-system-architecture-design-document.md#d14-retrieval-dense-search-with-some-bm25-top-8-chunks-revises-d12).
+
+| Parameter | Values tested | Best value |
+|---|---|---|
+| Embedding model | all-MiniLM-L6-v2, bge-small-en-v1.5, bge-base-en-v1.5, bge-large-en-v1.5, bge-m3 | bge-m3 |
+| Dense weight in the weighted RRF (rest BM25) | 0.5, 0.6, 0.7, 0.8, 0.9, 1.0 (dense only) | 0.8 |
+| Words removed before embedding | none, the LLM jury's words, stopwords | none |
+| Top-k | 3, 5, 8 | 8 |
+
+**Search method and runs:** grid over the models and the dense weights, every option scored at 8 chunks (Recall@8, then MRR), one run.
+
+**Results:** Recall@8 at the best weight of each model: MiniLM 0.45, bge-small 0.51, bge-base 0.55, bge-large 0.56 (best MRR, 0.69), **bge-m3 0.59** (MRR 0.61). With bge-m3, dense search alone gives 0.53 and some BM25 (dense weight 0.8) 0.59; weights 0.5, 0.6 and 0.9 give 0.56 to 0.58, and 0.7 the same Recall@8 with a lower MRR. Removing words before embedding makes bge-m3 worse (0.59 → 0.53 with the jury's words, 0.45 with stopwords). Top-k 3 / 5 / 8: Recall 0.38 / 0.43 / 0.59, Precision 0.32 / 0.24 / 0.20.
+
+**Conclusion:** bge-m3 with weighted RRF (dense 0.8, BM25 0.2) and 8 chunks. One question changes Recall@8 by about 0.04, so bge-m3 and bge-large are close; with 5 chunks they tie.
+
+### E1b: Word removal for BM25 with an LLM jury (KAN-221)
+
+**Question:** Which frequent words should BM25 ignore, and does removing them help keyword search?
+
+**Setup:** [`src/embedding.ipynb`](../../src/embedding.ipynb) steps 3 to 5; the same W&B run.
+
+| Parameter | Values tested | Best value |
+|---|---|---|
+| Words removed for BM25 | none; stopwords (scikit-learn list without "not", "no", "nor"); stopwords and the LLM jury's words | stopwords and the jury's words |
+| LLM jury | qwen3:4b, phi4-mini, gemma3:4b (not Llama, the answer model), majority vote on the 20 words with the lowest IDF | 10 words: a, and, for, of, paragraph, shall, that, the, this, to |
+
+**Search method and runs:** the jury labels each word KEEP or IGNORE with a reason; the three versions of BM25 are compared on B-01 to B-06, then on the `val` questions (KAN-99). A version replaces "none" only if it is better and worse on nothing (the burden of proof is on removal).
+
+**Results:** BM25 alone, Recall@8: none 0.37, stopwords 0.43 (MRR 0.46 → 0.53), stopwords and the jury's words 0.44.
+
+**Conclusion:** both are removed for BM25 (`bm25` in `config/rag.yaml`); the text that bge-m3 embeds and the chunks the answer shows are not changed. The stopword list also removes words that matter in law ("except", "must", "only", "may"); a shorter list is checked in Sprint 3 (risk 2, [`src/missed_questions.ipynb`](../../src/missed_questions.ipynb)).
+
+### E1c: Long context without retrieval (KAN-99)
+
+**Question:** How do the answers with retrieval compare with a strong model that reads the whole consolidated text instead of 8 chunks?
+
+**Setup:** [`src/rag_vs_no_rag.ipynb`](../../src/rag_vs_no_rag.ipynb), [`prompts/answer_full_text.yaml`](../../prompts/answer_full_text.yaml); answers in [`val-full-text-claude-haiku-5-5.csv`](../../docs/eval/answers/val-full-text-claude-haiku-5-5.csv); charts in [`docs/eval/answers-results.pdf`](../../docs/eval/answers-results.pdf); W&B [run `lgogwegq`](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/lgogwegq).
+
+| Parameter | Values tested | Best value |
+|---|---|---|
+| Answer setup | Claude Haiku 5.5 with the whole consolidated text, no retrieval; Llama-3.1-8B with the 8 retrieved chunks (this card) | – (a comparison, not a choice) |
+
+**Search method and runs:** one run of each on the 30 `val` questions, 12/11/2026.
+
+**Results:** expected provision cited (O2 (a)): Claude Haiku 5.5 22 of 27 (81%), Llama-3.1-8B with retrieval 19 of 27 (70%). With the counting rule of Sprint 3 (21 in-scope questions without follow-ups, KAN-236): Claude Haiku 5.5 20 of 21 (95%), Llama-3.1-8B 17 of 21 (81%).
+
+**Conclusion:** the two sides use different models, so the difference shows the model and the retrieval together, not the retrieval alone. It is the reference for what a stronger answer model can reach; the answer model is compared again in Sprint 4.
