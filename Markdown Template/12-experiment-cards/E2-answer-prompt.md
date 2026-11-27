@@ -77,4 +77,4 @@ The prompt is the first measured improvement over the baseline: O2 (a) goes from
 
 Each version that fixed one rule moved another: the 8B answer model does not follow every rule at the same time. Known failures that are not fixed by the prompt: B-S4 explains no provision (KAN-147); TC-2.5 refuses instead of answering as a legal decision (KAN-151; the input check of KAN-150 stops such instructions before the model); B-01 gives a hedged verdict that the verdict check of the service does not find; A-05 has a verdict sentence that the output check removes. O4 (a) is therefore not yet 0.
 
-Next: prompt v4 is the prompt of the next experiment, E3 (number of chunks, 8, 10 and 12), whose reference run at 8 chunks is v4. The verdict patterns of the output check and the answer LLM (Sprint 4) are the places to remove the remaining verdicts.
+Next: prompt v4 is the prompt of the next experiment, E3 (number of chunks; see [E3](E3-number-of-chunks.md)). The verdict patterns of the output check and the answer LLM (Sprint 4) are the places to remove the remaining verdicts.
