@@ -48,6 +48,8 @@ Links only:
 | **10** | **20/21 = 95%** | **0** | **0** | 2/4 | 7.4 s | 2,802 tokens |
 | 16 | 19/21 = 90% | 4 | 0 | 3/4 | 9.0 s | 3,325 tokens |
 
+Counted strictly (the cited provision is the gold provision or a point of it), k = 8 gets 17/21 and k = 10 18/21: at k = 8, B-06 counts only because the answer cites "Annex III" as a whole, which the lenient count accepts for Annex III, point 3(b).
+
 Reading the answers that changed: k = 10 is better on A-05 (no verdict), B-06 (Article 113 comes in, the date is right) and B-S4 (the provisions are explained after the legal-team sentence), and worse on C-03 (another provision) and D-04 (an extra legal-team sentence).
 
 | Failure cause (k = 10) | Count | % of failures |
