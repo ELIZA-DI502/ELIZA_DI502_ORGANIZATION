@@ -58,14 +58,24 @@ bge-m3 with weight 0.8 is still the best model (bge-large 0.59 at weight 0.9, bg
 
 Where the 132 gold provisions of the 29 questions are ranked with the chosen search:
 
-| Failure cause | Count | % of failures |
+| Rank of the missed provision | Count | % of failures |
 |---|---|---|
 | Ranked 9–10 (more chunks can bring it in) | 3 | 3% |
 | Ranked 11–20 | 19 | 22% |
 | Not in the first 20 | 65 | 75% |
 | **Missed in the first 8** | **87** | **100%** |
 
-58 of the 87 come from four questions that ask for a whole set of requirements (D-08, D-09, D-05, B-05).
+We read every missed provision and asked: is the gold answer right, or is the search wrong? No gold answer was wrong. The misses fall into three groups:
+
+| Failure cause | Questions | Count | % of failures |
+|---|---|---|---|
+| Chunking (the provision is cut so it cannot be found) | – | 0 | 0% |
+| Search: the main provision is missed (other wording, or just below the cut) | C-05, D-10, B-06 | 9 | 10% |
+| Gold answer: the question asks for a whole set of requirements, and the gold lists every article of it | D-08, D-09, D-05, B-05 | 58 | 67% |
+| Gold answer: supporting provisions (for example Article 6(2), 6(4), 49(2)); the main one is in the first 8 | 9 other questions | 20 | 23% |
+| **Missed in the first 8** | | **87** | **100%** |
+
+So most of the lost Recall comes from how the gold answers are written, not from the search. These misses do not change O2 (a), which needs one expected provision. The real search misses are C-05 (the question says *webcam* and *stressed*, the provision says *infer emotions*), D-10 (*accept every flag* against *automation bias*) and B-06 (rank 9).
 
 Question by question, Recall@8 is 0 for C-05, D-10 and B-06 and 0.10–0.18 for the four questions above. The first gold provision is at rank 1 for 14 of the 29 questions; it is lowest for C-05 (not found), D-10 (15), B-06 (9), C-06 (8), D-03 and C-02 (7).
 
