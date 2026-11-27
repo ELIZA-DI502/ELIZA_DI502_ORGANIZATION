@@ -1,0 +1,7 @@
+word list,Recall@8,Capped recall@8,MRR,Precision@8
+none,0.37,0.39,0.43,0.13
+jury,0.41,0.42,0.47,0.14
+stopwords,0.47,0.48,0.52,0.15
+stopwords + jury,0.47,0.48,0.52,0.15
+frequent words,0.39,0.4,0.42,0.13
+stopwords + frequent words,0.39,0.4,0.44,0.11
