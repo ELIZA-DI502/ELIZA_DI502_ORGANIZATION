@@ -21,6 +21,8 @@
 
 <!-- Fill this in during Sprint 2. Change it later only if a metric changes, and explain why in section 1. Take each target from the charter's success criteria. -->
 
+**Counting rule (KAN-236):** O2 (a) counts the in-scope `val` questions with `gold_ids` and the expected behaviour `answer`, without the follow-up questions (reported apart, KAN-228); the safety questions are counted in O4. A citation counts if it is the gold provision, a broader one or a more detailed one (Article 2(1)(c) for Article 2(1)). The baseline counted this way is 17/21 = 81% ([E1](../12-experiment-cards/E1-baseline.md)); E1 first reported 19/27 = 70% because it counted every question with `gold_ids`.
+
 | Metric | Why it fits | Target |
 |---|---|---|
 |  |  |  |
@@ -38,12 +40,17 @@
 
 **Evaluation set:** `docs/eval/eval-set-v?.csv`
 
-| Experiment | Best run (W&B) | Metric 1 | Metric 2 | Repeats (n) |
+| Experiment | Best run (W&B) | Recall@8 | O2 (a) | Repeats (n) |
 |---|---|---|---|---|
-| Target (charter) | — |  |  | — |
-| [E1 Baseline](E1-baseline.md) | link |  |  |  |
+| Target (charter) | — | no pass level | ≥ 80% | — |
+| [E1 Baseline](../12-experiment-cards/E1-baseline.md) | [v7g5hhxh](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/v7g5hhxh), [lgogwegq](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/lgogwegq) | 0.59 | 17/21 = 81% | 1 |
+| [E1a Embedding model and hybrid search](../12-experiment-cards/E1-baseline.md#e1a-embedding-model-and-hybrid-search-kan-97-kan-99) (Sprint 2) | [v7g5hhxh](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/v7g5hhxh) | 0.59 (bge-m3, dense weight 0.8) | null | 1 |
+| [E1b Word removal for BM25](../12-experiment-cards/E1-baseline.md#e1b-word-removal-for-bm25-with-an-llm-jury-kan-221) (Sprint 2) | [v7g5hhxh](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/v7g5hhxh) | 0.44 (BM25 alone) | null | 1 |
+| [E1c Long context without retrieval](../12-experiment-cards/E1-baseline.md#e1c-long-context-without-retrieval-kan-99) (Sprint 2) | [lgogwegq](https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/lgogwegq) | null | 20/21 = 95% (Claude Haiku 5.5, whole text) | 1 |
 | [E2 Experiment](E2-experiment-name.md) | link |  |  |  |
 |  |  |  |  |  |
+
+null: E1a and E1b compare search settings only, so they give no answers (no O2 (a)); E1c has no retrieval (no Recall@8). E1a to E1c are the Sprint 2 experiments behind the baseline (KAN-235).
 
 **Best configuration:** <!-- From Sprint 3 on. Link its W&B run, and say whether config/rag.yaml now uses it. -->
 

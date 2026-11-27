@@ -65,7 +65,9 @@ VERDICT = [
     r"\byou are (not )?(compliant|allowed|permitted)\b",
     r"\b(complies|is compliant|are compliant) with (the )?(ai act|regulation)",
 ]
-COND_BEFORE = r"\b(if|when|where|unless|whether|says that|states that|provides that|means that|only if)\b[^,;]*$"
+# "Ensure that the system is compliant ..." is an instruction to the provider, not a verdict (B-05 in the Sprint 2
+# answers, KAN-226), so a match after "ensure that" or "make sure" is skipped like a condition.
+COND_BEFORE = r"\b(if|when|where|unless|whether|says that|states that|provides that|means that|only if|ensure that|make sure(?: that)?)\b[^,;]*$"
 COND_AFTER = r"^[^,;.]*?\b(if|unless|where|provided that)\b"
 
 
