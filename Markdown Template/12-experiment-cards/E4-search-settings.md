@@ -67,6 +67,8 @@ Where the 132 gold provisions of the 29 questions are ranked with the chosen sea
 
 58 of the 87 come from four questions that ask for a whole set of requirements (D-08, D-09, D-05, B-05).
 
+Question by question, Recall@8 is 0 for C-05, D-10 and B-06 and 0.10–0.18 for the four questions above. The first gold provision is at rank 1 for 14 of the 29 questions; it is lowest for C-05 (not found), D-10 (15), B-06 (9), C-06 (8), D-03 and C-02 (7).
+
 **Discussion and Conclusion:**
 <!-- What the numbers mean and what you will do next. Link the decision they led to (D?), if any. -->
 
