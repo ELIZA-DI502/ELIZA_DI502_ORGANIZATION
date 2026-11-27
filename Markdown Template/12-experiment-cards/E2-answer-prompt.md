@@ -35,7 +35,7 @@ Links only:
 
 | Parameter | Values or range tested | Best value |
 |---|---|---|
-| Answer prompt (`prompts/answer.yaml`) | E1 prompt; v1 (commit `07e6e39`): rules of PR #108 and the four rules of PR #110; v2 (commit `6cd96c1`): examples of legal-decision questions, a fixed legal-team sentence, a fixed form for the refusal; v3 (`prompt-check-v3-prompt.yaml`): more rules (legal-team sentence only for legal decisions, a fixed form for each condition line); v4 (commit `b5140a0`): v2 with three small fixes | v4 |
+| Answer prompt (`prompts/answer.yaml`) | E1 prompt; v1 (commit `07e6e39`): rules of PR #108 and the four rules of PR #110; v2 (commit `6cd96c1`): examples of legal-decision questions, a fixed legal-team sentence, a fixed form for the refusal; v3 (not kept as a file; its answers are in `prompt-check-v3-k8-val.jsonl`): more rules (legal-team sentence only for legal decisions, a fixed form for each condition line); v4 (commit `b5140a0`): v2 with three small fixes | v4 |
 
 All other settings are those of E1.
 
