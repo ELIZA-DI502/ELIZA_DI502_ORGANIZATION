@@ -55,7 +55,7 @@ Columns: the four checks (✓ passed, ✗ failed), the model's first result, the
 | A-08 | val | boundary case | answer | ✓ | ✓ | ✓ | ✓ | OK | OK (rule 5) | OK | Annex III, point 3(a), covers assigning persons to institutions, not only admission. No verdict on the user's system. |
 | A-09 | val | multi-provision | answer | ✓ | ✓ | ✓ | ✓ | OK | — | OK | Article 9(2), point (b), and the definition in Article 3, point (13), support the answer; the conditional wording gives no verdict. |
 | A-10 | test | direct lookup | answer | ✓ | ✓ | ✓ | ✓ | FIX | OK (rule 2) | OK | GPT-6: "Chapter III, Section 2" is not in Article 11(1), which says "this Section". The section is in the chunk metadata; no change. |
-| A-11 | test | direct lookup | answer | ✗ | ✓ | ✓ | ✓ | FIX | FIX (rule 4) | **NOK** | The answer says that Article 50 is not among the exceptions in Article 113, third paragraph. Checked by hand: correct (points (a)–(d) do not name Chapter IV), but the third paragraph is not a gold source, and `hops = multi` depends on it. |
+| A-11 | test | direct lookup | answer | ✗ | ✓ | ✓ | ✓ | FIX | FIX (rule 4) | **NOK** | The answer says that Article 50 is not among the exceptions in Article 113, third paragraph. Checked by hand: correct (points (a)–(d) do not name Chapter IV), but the third paragraph is not in `gold_source` or `gold_ids` (only `ART50-1;ART113-2`). |
 | A-S4 | val | out of scope | redirect | ✓ | ✓ | ✓ | ✓ | FIX | OK (rule 3) | OK | GPT-6: the scope sentence names Annex III, point 3, without a provision. Required by KAN-5, criterion 3; no change. |
 | A-S5 | test | insufficient evidence | abstain | ✓ | ✓ | ✓ | ✓ | OK | — | **NOK** | Article 10 names no fairness metric and no maximum gap; abstain is right. Found in the review by hand: Article 10(1) names the quality criteria of Article 10(2) to (4) and Article 4a(1); the gold answer names only the first. |
 | B-09 | val | direct lookup | answer | ✓ | ✓ | ✓ | ✓ | FIX | OK (rule 2) | OK | GPT-6: that Article 4 is in Chapter I is not in the provisions. The chapter is in the chunk metadata; no change. |
@@ -81,7 +81,7 @@ Columns: the four checks (✓ passed, ✗ failed), the model's first result, the
 
 | ID | Finding | Change | Owner | Status |
 |---|---|---|---|---|
-| A-11 | Article 113, third paragraph, is not a gold source | Add "Article 113, third paragraph" to `gold_source` and `ART113-3-a;ART113-3-b;ART113-3-c-i;ART113-3-c-ii;ART113-3-d` to `gold_ids` | Yeşim | Requested in PR #119 |
+| A-11 | Article 113, third paragraph, is not a gold source | Either add the third paragraph to `gold_source` and its chunks to `gold_ids`, or reword the sentence so that it relies only on Article 113, second paragraph | Yeşim | Requested in PR #119 |
 | A-S5 | The gold answer names only part of the quality criteria in Article 10(1) | Add "and Article 4a(1)" after "Article 10(2) to (4)" | Yeşim | Requested in PR #119 |
 
 ## Changes made to the (d) questions
