@@ -120,7 +120,7 @@ The settings of this card were chosen in three Sprint 2 experiments. They were r
 
 **Results:** BM25 alone, Recall@8: none 0.37, stopwords 0.43 (MRR 0.46 → 0.53), stopwords and the jury's words 0.44.
 
-**Conclusion:** both are removed for BM25 (`bm25` in `config/rag.yaml`); the text that bge-m3 embeds and the chunks the answer shows are not changed. The stopword list also removes words that matter in law ("except", "must", "only", "may"); a shorter list is checked in Sprint 3 (risk 2, [`src/missed_questions.ipynb`](../../src/missed_questions.ipynb)).
+**Conclusion:** both are removed for BM25 (`bm25` in `config/rag.yaml`); the text that bge-m3 embeds and the chunks the answer shows are not changed. The stopword list also removes words that matter in law ("except", "must", "only", "may"); keeping these words in BM25 was checked in Sprint 3 (risk 2, [E4](E4-search-settings.md)): it raises Recall@8 from 0.61 to 0.62, so they should be kept (`config/rag.yaml` changes after KAN-163 and KAN-179).
 
 ### E1c: Long context without retrieval (KAN-99)
 

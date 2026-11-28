@@ -1,0 +1,12 @@
+,value
+E4 · question,"Is the Sprint 2 search (bge-m3, dense weight 0.8, BM25 without stopwords + jury words) still the best on the current val questions, also at more than 8 chunks? (The search does not use the prompt.)"
+E4 · baseline,"Sprint 2 search, Recall@8 = 0.59 (E1); now 0.62 with corrected gold provisions"
+E4 · parameter space,5 embedding models x 6 dense weights; 6 BM25 word lists on BM25 alone; 11 BM25 versions inside the hybrid search (with and without the legal words); 6 versions before embedding
+E4 · search method,"grid search on the 29 val questions with gold provisions; Recall@8, then MRR (Sprint 2 rules)"
+E4 · result,"bge-m3, weight 0.8, BM25 'stopwords + jury', before embedding 'none' (same as Sprint 2: False)"
+E3 · question,"With prompt v4 and the chosen search, is 8 still the best number of chunks?"
+E3 · baseline,k = 8 with prompt v4 (E2): O2 (a) 20/21
+E3 · parameter space,"k = 5 to 20 for the ranks; answered: k = [8, 10, 16]"
+E3 · search method,ranks of the gold provisions -> every k that brings a missing one in -> answers -> reading -> four rules
+E3 · result,"rule: k = 8; team decision: k = 10; k = 8: O2 (a) 20/21, verdicts 2, median 7.55 s; k = 10: O2 (a) 20/21, verdicts 0, median 7.35 s; k = 16: O2 (a) 19/21, verdicts 4, median 9.0 s"
+W&B runs,"E4-search-settings: https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/fzohutgx, E3-step1-ranks: https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/qx2rgzus, E3-k8: https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/zxrho7cs, E3-k10: https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/ih4q72rv, E3-k16: https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/5ce22zts"

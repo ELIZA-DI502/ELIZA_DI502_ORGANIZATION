@@ -14,6 +14,10 @@ ELIZA helps technical teams that build AI systems for education find the provisi
 | `src/rag_vs_no_rag.ipynb` | Answers the `val` questions with retrieval (Llama-3.1-8B and 8 chunks) and compares them with the answers of Claude Haiku 5.5 given the whole text without retrieval; logs both in W&B (KAN-99, KAN-125) |
 | `src/rag_vs_no_rag_charts.ipynb` | Draws the charts of `src/rag_vs_no_rag.ipynb` from the saved answers and saves them in `docs/eval/answers-results.pdf` (CPU, a few seconds) (KAN-99) |
 | `src/wandb_results.ipynb` | Opens the W&B run of `src/embedding.ipynb`, shows its charts and downloads the PDF (CPU, about 1 minute) (KAN-99) |
+| `src/evaluation.ipynb` | Scores the saved answers of one system version: O2 (a), (c), (d), the citations and O4 (CPU, a few seconds) (KAN-225, KAN-226) |
+| `src/follow_up_questions.ipynb` | Scores the follow-up questions apart from O2 (CPU, a few seconds) (KAN-228) |
+| `src/prompt_check.ipynb` | Experiment E2: the answer prompt rules of PR #108 and PR #110, answered and read (KAN-146, KAN-147, KAN-151, KAN-152) |
+| `src/search_and_k.ipynb` | Experiments E4 and E3: the search settings checked again, then the number of chunks chosen with the answers (KAN-245, KAN-177) |
 | `config/rag.yaml` | The chosen settings of the system (chunking, models, top-k, LLM settings) |
 | `prompts/` | The prompt templates, one file per template |
 | `data/` | The stored AI Act text, its manifest, the provision list and the chunks ([data/README.md](data/README.md)) |
@@ -76,6 +80,9 @@ jupyter nbconvert --to notebook --execute --inplace --ExecutePreprocessor.timeou
 | `split.ipynb` | CPU | a few seconds to run; in Colab, plus the time to download the repository and install the libraries | every rule says OK, and the SHA-256 of the test file is `f68bfa569b69…` |
 | `embedding.ipynb` | Ollama with the three jury models; a GPU is recommended | about 1.5 hours on a Colab T4 GPU (most of it the download and the LLM jury), longer on a CPU | the settings table at the end matches `config/rag.yaml` |
 | `rag_vs_no_rag.ipynb` | Ollama with Llama-3.1-8B; a GPU is recommended | about 15–20 minutes on a Colab T4 GPU, most of it the model download | the Recall@8 check prints 0.59, and every val question has an answer |
+| `evaluation.ipynb` | CPU | a few seconds | O2 (a) 17/21 = 81% on the Sprint 2 answers |
+| `prompt_check.ipynb` | Ollama with Llama-3.1-8B; a Colab T4 GPU (a CPU is enough when the answers are saved) | about 15 minutes on a T4 | prompt v4: O2 (a) 19/21 |
+| `search_and_k.ipynb` | Ollama with Llama-3.1-8B and the 5 embedding models; a Colab T4 GPU | about 35 minutes on a T4 | bge-m3 with dense weight 0.8 wins; k = 8 and k = 10 both give O2 (a) 20/21 |
 
 `split.ipynb` uses seed 42, so the same questions always go to `val` and `test`. The `test` file was frozen on 09/11/2026 (SHA-256 `f68bfa569b69…`). Do not run `split.ipynb` again and commit its output: since the review of the questions (KAN-52), `eval-set-v1.csv` has changed, so running it would rewrite the `val` and `test` files and change the hash. `embedding.ipynb` builds the vector store in `data/vector-store/`; it is not in Git and is rebuilt on every run.
 
