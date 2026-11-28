@@ -55,7 +55,3 @@ Notes:
 
 - **Premise:** own product is 79% of all questions (target about 60%), because all 24 new v2 questions describe the user's own product. Every split still has more than 3 general questions.
 - **Labels:** `C-09` is labelled `time-sensitive` but has no Article 113 provision in `gold_ids`; `D-06` has `ART113-3-a` but is not labelled `time-sensitive`. The counts above use `gold_ids`.
-
-## Next step
-
-The counts are to be run again on the merged `eval-set-v2.csv` (KAN-237), after PR #119 is merged. A change to `A-11` (PR #119) does not change the counts: its `gold_ids` keep an Article 113 provision in both options.
