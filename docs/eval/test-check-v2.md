@@ -15,10 +15,10 @@ All 24 new v2 questions were checked, in four files:
 | [`eval-set-v2-a.csv`](eval-set-v2-a.csv) ([PR #119](https://github.com/ELIZA-DI502/ELIZA_DI502_ORGANIZATION/pull/119), KAN-230) | (a) admission | Yeşim | `A-08`–`A-11`, `A-S4`, `A-S5` | 3 | 3 | 5 | 1 |
 | [`eval-set-v2-b.csv`](eval-set-v2-b.csv) (KAN-231) | (b) learning-outcome assessment | Gözde Nur | `B-09`–`B-12`, `B-S5`, `B-S6` | 4 | 2 | 6 | 0 |
 | [`eval-set-v2-c.csv`](eval-set-v2-c.csv) (KAN-232) | (c) level placement | Kaan | `C-08`–`C-11`, `C-S4`, `C-S5` | 3 | 3 | 6 | 0 |
-| [`eval-set-v2-d.csv`](eval-set-v2-d.csv) (KAN-233) | (d) exam monitoring | Yaren | `D-13`–`D-16`, `D-S4`, `D-S5` | 2 | 4 | 4 | 2 |
-| **Total** | | | **24** | **12** | **12** | **21** | **3** |
+| [`eval-set-v2-d.csv`](eval-set-v2-d.csv) (KAN-233) | (d) exam monitoring | Yaren | `D-13`–`D-16`, `D-S4`, `D-S5` | 2 | 4 | 6 | 0 |
+| **Total** | | | **24** | **12** | **12** | **23** | **1** |
 
-**OK** means that no change is needed. **NOK** means that a change is needed; every NOK is listed with its fix under "Changes".
+**OK** means that no change is needed, or that the change was made after the check (marked "fixed"). **NOK** means that a change is still open; it is listed under "Open change".
 
 ## Method
 
@@ -73,19 +73,19 @@ Columns: the four checks (✓ passed, ✗ failed), the model's first result, the
 | D-13 | val | condition / exception | answer | ✓ | ✓ | ✓ | ✓ | OK | — | OK | Article 2(12) and its exceptions support the answer; whether the exclusion applies is left to the legal team. |
 | D-14 | val | multi-provision | answer | ✓ | ✓ | ✓ | ✓ | OK | — | OK | Article 15(1) and 15(5) name every attack type in the answer. |
 | D-15 | test | direct lookup | answer | ✓ | ✓ | ✓ | ✓ | OK | — | OK | Article 113, second paragraph, and third paragraph, point (c)(i), support the corrected premise (2 December 2027). |
-| D-16 | test | multi-provision | answer | ✓ | ✓ | ✓ | ✗ | FIX | FIX (rule 7) | **NOK** | Content correct (Article 13(1), 13(3)(a)–(f)). Double semicolon after "(point (d))". |
-| D-S4 | test | insufficient evidence | abstain | ✓ | ✓ | ✓ | ✗ | FIX | FIX (rule 7) | **NOK** | Abstain is right: Article 10 asks for an assessment of the quantity of data (point (e)) but gives no minimum size. Double full stop after "data set". |
+| D-16 | test | multi-provision | answer | ✓ | ✓ | ✓ | ✗ | FIX | FIX (rule 7) | OK (fixed) | Content correct (Article 13(1), 13(3)(a)–(f)). The double semicolon after "(point (d))" was removed in `1106ce8`. |
+| D-S4 | test | insufficient evidence | abstain | ✓ | ✓ | ✓ | ✗ | FIX | FIX (rule 7) | OK (fixed) | Abstain is right: Article 10 asks for an assessment of the quantity of data (point (e)) but gives no minimum size. The double full stop after "data set" was removed in `1106ce8`. |
 | D-S5 | test | legal decision | redirect | ✓ | ✓ | ✓ | ✓ | OK | — | OK | No verdict; a notice to students is not described as enough. User changed from `legal` to `developer` in the author's review (PR #118). |
 
-## Changes
+## Open change
 
 | ID | Finding | Change | Owner | Status |
 |---|---|---|---|---|
 | A-11 | Article 113, third paragraph, is not a gold source | Add "Article 113, third paragraph" to `gold_source` and `ART113-3-a;ART113-3-b;ART113-3-c-i;ART113-3-c-ii;ART113-3-d` to `gold_ids` | Yeşim | Requested in PR #119 |
-| D-16 | Double semicolon | "(point (d));;" → "(point (d));" | Yaren | Fixed in the KAN-227 pull request |
-| D-S4 | Double full stop | "data set.." → "data set." | Yaren | Fixed in the KAN-227 pull request |
 
-Earlier changes to the (d) questions, from the first check of the `test` questions (25/11/2026, GPT-6, 9 questions) and from Kaan's review (PR #118):
+## Changes made to the (d) questions
+
+From the first check of the `test` questions (25/11/2026, GPT-6, 9 questions), Kaan's review (PR #118) and this check:
 
 | ID | Change | Commit |
 |---|---|---|
@@ -93,10 +93,11 @@ Earlier changes to the (d) questions, from the first check of the `test` questio
 | D-16 | Point (d) now includes the technical measures that help deployers interpret the outputs (Kaan's flag); `gold_ids` back to provision IDs (`ART13-1;ART13-3`) | PR #118 |
 | D-S4 | Article 10(2), point (e), added to the gold source, gold IDs and gold answer | `31ae4c4`, `df8bab1` |
 | D-S5 | User changed from `legal` to `developer` (Kaan's flag) | PR #118 |
+| D-16, D-S4 | Double punctuation removed (this check, rule 7) | `1106ce8` |
 
 ## Summary
 
-- **24 of 24** new v2 questions checked: **21 OK, 3 NOK**. Every NOK has a change, and every GPT-6 finding was checked by hand.
+- **24 of 24** new v2 questions checked: **23 OK, 1 NOK** (`A-11`, open in PR #119). Every GPT-6 finding was checked by hand; the two editorial findings in (d) are fixed (`1106ce8`).
 - **No change** for `A-10`, `A-S4`, `B-09`, `C-09` and `C-S5`, under review rules 2 and 3.
 - **`test` split after the check** (v1 and v2, with the (a) questions of PR #119): 28 questions; safety questions: adversarial 4, out of scope 3, insufficient evidence 3, legal decision 2; application-date questions (Article 113 in `gold_ids`): 4 (`A-07`, `D-06`, `A-11`, `D-15`). Both minimums of KAN-227 are met (at least 2 per safety category, at least 3 application-date questions); to be counted again on the merged `eval-set-v2.csv` (KAN-184, KAN-237).
 - The new `test` questions are fixed by 05/12/2026 and are not used for tuning prompts, retrieval or rules.
