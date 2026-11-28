@@ -11,6 +11,10 @@ from .config import PERSONAL_DATA, PROMPT
 
 REFUSAL = PROMPT["refusal"]
 OUT_OF_SCOPE = PROMPT["out_of_scope"]
+OUT_OF_SCOPE_PART = PROMPT.get(
+    "out_of_scope_part",
+    "The part of your question about {topics} is outside my scope: I cover the education use cases in Annex III, "
+    "point 3, of the EU AI Act.")
 NOTICE = PROMPT["notice"]
 PERSONAL_DATA_NOTICE = PROMPT.get(
     "personal_data",
@@ -21,7 +25,39 @@ PERSONAL_DATA_NOTICE = PROMPT.get(
 
 EVADE = r"(avoid|skip|get around|circumvent|bypass|evade|escape|loophole|hide|conceal|don'?t have to (follow|comply)|do not have to (follow|comply)|look(s)? like (a|just)|keep us out of)"
 EVADE_TARGET = r"(rule|requirement|high-risk|authorit|regulat|ai act|document)"
-OOS = r"\b(fine|fines|penalt\w*|sanction\w*|enforcement|gdpr|data protection|parental consent)\b"
+# Out of scope (C-04, KAN-5): each topic the assistant does not cover, with the words that show it in a question.
+OOS_TOPICS = {
+    "penalties and enforcement": r"\b(fine|fines|penalt\w*|sanction\w*|enforcement)\b",
+    "data-protection law": r"\b(gdpr|data protection|parental consent)\b",
+    "the obligations of schools as deployers": (
+        r"\bas (?:a|the) deployers?\b|\bdeployers?'? obligations\b"
+        r"|\bobligations of (?:the |our |a )?(?:schools?|universit(?:y|ies)|deployers?)\b"
+        r"|\bwhat (?:must|should|do|does) (?:the |our |a )?(?:schools?|universit(?:y|ies)|teachers?|deployers?)\b[^?]*\b(?:do|ensure)\b"),
+    "AI systems outside education": (
+        r"\b(job applicants?|job candidates?|recruit\w*|hiring|employees?|employment|workers?"
+        r"|credit scoring|creditworthiness|loans?|insurance|patients?|medical diagnos\w*|police|law enforcement|border|migration|asylum)\b"),
+}
+# A part of a question that asks about the AI Act rules for the user's education product.
+IN_SCOPE_ASK = r"\b(provisions?|articles?|annex|rules?|requirements?|obligations?|apply|applies|ai act|regulation|high-risk)\b"
+# A question is split into its parts at "?", ";" and at "and" before a new question word.
+_PARTS = re.compile(r"\?|;|,?\s+\band\b\s+(?=(?:what|which|how|when|does|do|is|are|can|must|should|whether)\b)", re.I)
+
+
+def out_of_scope_topics(question):
+    """Returns (topics found, whether another part of the question asks an in-scope question).
+    A part is in scope when it asks about the rules and names no out-of-scope topic."""
+    topics, in_scope_part = [], False
+    for part in (p.strip() for p in _PARTS.split(question.lower()) if p and p.strip()):
+        found = [name for name, pattern in OOS_TOPICS.items() if re.search(pattern, part)]
+        topics += [name for name in found if name not in topics]
+        if not found and re.search(IN_SCOPE_ASK, part):
+            in_scope_part = True
+    return topics, in_scope_part
+
+
+def out_of_scope_part_notice(topics):
+    """The one sentence added to an answer when only part of the question is out of scope (KAN-5, criterion 2)."""
+    return OUT_OF_SCOPE_PART.format(topics=" and ".join(topics))
 # Draft (KAN-2): a question that asks for a decision about the user's own system. Flagged, not blocked.
 VERDICT_REQUEST = (
     r"\b(is|are|would|will|does|do)\s+(our|my|this|the|we|it)\b[^?.]*\b"
@@ -46,8 +82,11 @@ def input_check(question):
         return "personal_data", PERSONAL_DATA_NOTICE, flags
     if re.search(EVADE, q) and re.search(EVADE_TARGET, q):
         return "refuse", REFUSAL, flags
-    if re.search(OOS, q):
+    topics, in_scope_part = out_of_scope_topics(question)
+    if topics and not in_scope_part:          # entirely out of scope: notice only, no answer, no citation
         return "out_of_scope", OUT_OF_SCOPE, flags
+    if topics:                                # partly out of scope: the in-scope part goes on to the model
+        flags["partly_out_of_scope"] = topics
     return None, None, flags
 
 # ---------------------------------------------------------------- output check: verdicts
