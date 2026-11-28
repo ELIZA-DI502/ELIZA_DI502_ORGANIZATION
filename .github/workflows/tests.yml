@@ -1,0 +1,33 @@
+name: Tests
+
+# Runs the unit tests in tests/ (pytest.ini) on every pull request to main and on every push to main.
+# A pull request should pass these tests before it is merged (instructor feedback, Sprint 3).
+# Only pytest and PyYAML are installed: the rule-based checks under test need no model, no Ollama
+# and no vector store, so the heavy packages of requirements.txt (torch, chromadb, ...) are not needed.
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"   # as in rag/Dockerfile
+
+      - name: Install the test packages (versions as in requirements.txt)
+        run: pip install pytest==9.2.0 pyyaml==6.0.3
+
+      - name: Run the unit tests
+        run: python -m pytest -v

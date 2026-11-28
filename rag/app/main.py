@@ -140,6 +140,10 @@ def answer(req: AnswerRequest):
     citations = [Citation(n=n, chunk_id=c["chunk_id"], ref=c["ref"], cited_as=c["cited_as"], text=c["text"],
                           version_date=c.get("version_date") or VERSION_DATE, source_url=SOURCE_URL)
                  for n, c in enumerate(cited, 1)]
+    # KAN-5, criterion 2: name the out-of-scope part in one sentence. Added after the citation check, so the
+    # "Annex III, point 3" of this fixed sentence is not counted as a citation of the answer.
+    if flags.get("partly_out_of_scope"):
+        text = f"{text}\n\n{checks.out_of_scope_part_notice(flags['partly_out_of_scope'])}"
 
     timing["total"] = int((time.time() - started) * 1000)
     log.info("mode=%s chunks=%d cited=%d unsupported=%d verdicts_removed=%d total_ms=%d",
