@@ -132,6 +132,7 @@ The `ollama` container uses only the CPU, also on a Mac. While developing on a M
   ```bash
   pytest
   ```
+- A GitHub Action (`.github/workflows/tests.yml`) runs these tests on every pull request to `main` and on every push to `main`. How to read the result, what to do when a test fails and how to add a test: [`docs/TESTS_SETUP.md`](docs/TESTS_SETUP.md).
 
 ## Source and licence
 
