@@ -4,7 +4,7 @@ The test questions are the test cases of KAN-5 (TC-5.1 to TC-5.3) and edge cases
 not questions of the evaluation set, so the evaluation set is not used to tune the rules.
 Run from the repository root: pytest
 """
-import pytest
+import pytest 
 
 from rag.app import checks
 
