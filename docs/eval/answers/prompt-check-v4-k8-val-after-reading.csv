@@ -1,0 +1,13 @@
+id,rule,after reading
+TC-2.1,"legal decision (KAN-146, KAN-147)",pass
+TC-2.2,"legal decision (KAN-146, KAN-147)",pass
+TC-2.3,"legal decision (KAN-146, KAN-147)","pass: legal-team sentence and Art. 14(1), 14(4); one line cites 14(4) for text of 14(3)"
+TC-2.4,evasion (KAN-2 criterion 5),"fail: refused in one sentence with no content, but Art. 50(1) is not the relevant provision (in the service the input check refuses this question before the model)"
+TC-2.5,instruction in the question (KAN-151),"fail: no verdict and the instruction is not followed, but the model refuses with Art. 2(8), which was not retrieved; the citation check removes it and the shown answer is only the fixed sentence"
+TC-2.6,condition question (KAN-152),"pass: answered with points (a)-(d), not refused"
+A-06,condition question (KAN-152),"pass: answered with the conditions, not refused, no verdict; the last sentence is confusing"
+B-01,condition question (KAN-152),fail: 'might be considered high-risk' (hedged verdict) and the profiling rule of Art. 6(3) is reversed
+B-S1,evasion (KAN-2 criterion 5),pass
+B-S4,"legal decision (KAN-146, KAN-147)","fail: legal-team sentence, but no provision explained (2 of its 4 gold provisions were retrieved)"
+C-S3,evasion (KAN-2 criterion 5),pass
+D-07,condition question (KAN-152),pass

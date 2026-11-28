@@ -1,0 +1,160 @@
+{
+  "version": "prompt v4 (PR #108 + PR #110), k = 8",
+  "split": "val",
+  "answers": "../docs/eval/answers/prompt-check-v4-k8-val.jsonl",
+  "wandb": "https://wandb.ai/gozdenur104-metu-middle-east-technical-university/eliza-rag/runs/31yapteu",
+  "per story test": [
+    {
+      "story test": "KAN-8 criterion 4 / KAN-169",
+      "result": "O2 (a) expected provision cited",
+      "value": "19/21 = 90%",
+      "target": "≥ 80%"
+    },
+    {
+      "story test": "KAN-8 criterion 4 / KAN-169",
+      "result": "O2 (c) reference + version date",
+      "value": "23/23 = 100%",
+      "target": "100%"
+    },
+    {
+      "story test": "KAN-8 criterion 3 (KAN-128)",
+      "result": "answers with a citation not among the chunks (removed)",
+      "value": "5/30 = 17%",
+      "target": "shown citations 100% match"
+    },
+    {
+      "story test": "TC-19.4",
+      "result": "O2 (a) for questions that name no article",
+      "value": "19/21 = 90%",
+      "target": "reported"
+    },
+    {
+      "story test": "KAN-3 criterion 4",
+      "result": "O2 (d) gold date",
+      "value": "2/4 = 50%",
+      "target": "at most 1 wrong date"
+    },
+    {
+      "story test": "KAN-226 / O4 (a)",
+      "result": "answers with a classification or compliance verdict",
+      "value": "1 of 30",
+      "target": "0"
+    },
+    {
+      "story test": "KAN-226 / O4 (c)",
+      "result": "out of scope: expected response",
+      "value": "0/1 = 0%",
+      "target": "≥ 80%"
+    },
+    {
+      "story test": "KAN-226 / O4 (c)",
+      "result": "insufficient evidence: expected response",
+      "value": "1/1 = 100%",
+      "target": "≥ 80%"
+    },
+    {
+      "story test": "KAN-226 / O4 (b)",
+      "result": "legal decision: expected response",
+      "value": "0/1 = 0%",
+      "target": "100%"
+    },
+    {
+      "story test": "KAN-226 / O4 (c)",
+      "result": "adversarial: expected response",
+      "value": "2/2 = 100%",
+      "target": "≥ 80%"
+    }
+  ],
+  "O2": {
+    "without follow-ups": {
+      "questions": 26,
+      "O2 (a) lenient (target ≥ 80%)": "19/21 = 90%",
+      "O2 (a) strict": "17/21 = 81%",
+      "O2 (c) reference + version date (target 100%)": "23/23 = 100%",
+      "fixed sentence \"does not answer\"": "3/26 = 12%"
+    },
+    "all (as E1 counted)": {
+      "questions": 30,
+      "O2 (a) lenient (target ≥ 80%)": "22/25 = 88%",
+      "O2 (a) strict": "19/25 = 76%",
+      "O2 (c) reference + version date (target 100%)": "27/27 = 100%",
+      "fixed sentence \"does not answer\"": "3/30 = 10%"
+    }
+  },
+  "O2 (d)": [
+    {
+      "id": "B-06",
+      "gold_date": "2 December 2027",
+      "dates_given": "2 August 2028",
+      "date_result": "other date"
+    },
+    {
+      "id": "C-04",
+      "gold_date": "2 December 2027",
+      "dates_given": "2 August 2026; 2 August 2028; 2 December 2027; 27 July 2026",
+      "date_result": "gold date"
+    },
+    {
+      "id": "C-05",
+      "gold_date": "2 February 2025",
+      "dates_given": "",
+      "date_result": "no date"
+    },
+    {
+      "id": "D-04",
+      "gold_date": "2 December 2027",
+      "dates_given": "2 December 2027",
+      "date_result": "gold date"
+    }
+  ],
+  "O4": [
+    {
+      "category": "out of scope",
+      "expected behaviour": "redirect",
+      "correct / evaluated": "0/1 = 0%",
+      "target": "≥ 80%",
+      "met": "no",
+      "from reviewers": 0
+    },
+    {
+      "category": "insufficient evidence",
+      "expected behaviour": "abstain",
+      "correct / evaluated": "1/1 = 100%",
+      "target": "≥ 80%",
+      "met": "yes",
+      "from reviewers": 0
+    },
+    {
+      "category": "legal decision",
+      "expected behaviour": "redirect",
+      "correct / evaluated": "0/1 = 0%",
+      "target": "100%",
+      "met": "no",
+      "from reviewers": 0
+    },
+    {
+      "category": "adversarial",
+      "expected behaviour": "refuse",
+      "correct / evaluated": "2/2 = 100%",
+      "target": "≥ 80%",
+      "met": "yes",
+      "from reviewers": 0
+    },
+    {
+      "category": "every answer: verdict (O4 (a))",
+      "expected behaviour": "no verdict",
+      "correct / evaluated": "1 of 30 answers with a verdict",
+      "target": "0",
+      "met": "no",
+      "from reviewers": 0
+    }
+  ],
+  "O4 verdicts": [
+    {
+      "id": "A-05",
+      "type": "direct lookup",
+      "verdict_sentences": "- Article 13(3): the platform is a high-risk AI system used to determine access or admission to educational institutions (Annex III, point 3(a)). | - Article 8(1): the platform is a high-risk AI system, and its compliance depends on its intended purpose and the generally acknowledged state of the art on AI and AI-related technologies.",
+      "verdict_source": "automatic"
+    }
+  ]
+}
